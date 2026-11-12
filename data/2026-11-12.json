@@ -63,6 +63,21 @@
           "desc": "近期：Clip Exploder（时间线片段批量导出，11/09）、Doza Cuts（AI 多机位自动切换，FCPX+达芬奇，11/08）、Iruzen SFX Pack（120 多款动漫战斗冲击转场音效，AMV 向）。",
           "source": "vfx123",
           "tag": "资源站"
+        },
+        {
+          "title": "FlowCut 免费包：75+ 预设 / 130+ LUT / 100+ 音效 / 35+ 光漏转场",
+          "url": "https://flowcutstore.com/free-pack",
+          "desc": "PR 向，一整个 zip 打包，原价 $30 现在免费。不用注册、不用绑卡，留个邮箱就发下载链接。可以用于自己视频和给客户剪的活，但不能转卖文件。",
+          "source": "FlowCut",
+          "tag": "免费素材"
+        },
+        {
+          "title": "NexSub：本地 AI 实时翻译字幕（终身版免费）",
+          "url": "https://www.hu6.cc/2655.html",
+          "desc": "原价 $19，本地跑不用联网、不用订阅。看外语素材、做外语视频时省事，截止 11/15。",
+          "deadline": "2026-11-15",
+          "source": "极客雷达",
+          "tag": "限免"
         }
       ]
     },
