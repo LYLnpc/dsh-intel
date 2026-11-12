@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>今日情报 · 情报日报</title>
+<style>
+:root {
+  --bg: #0b0e14;
+  --panel: #151a24;
+  --panel-2: #1e2533;
+  --line: #2a3346;
+  --line-soft: #232b3a;
+  --text: #f0f4fa;
+  --text-strong: #ffffff;
+  --muted: #b8c2d4;
+  --muted-dim: #8b96a9;
+  --accent: #4da3ff;
+  --accent-2: #a06bff;
+  --ok: #3ddc97;
+  --warn: #ffb454;
+  --danger: #ff7070;
+  --radius: 14px;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #e6eaf1;
+    --panel: #ffffff;
+    --panel-2: #e8ecf3;
+    --line: #cdd5e2;
+    --line-soft: #dfe5ee;
+    --text: #131a26;
+    --text-strong: #000000;
+    --muted: #414c5c;
+    --muted-dim: #6c7787;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  padding: 0 0 72px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-size: 15px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* header */
+
+header.top {
+  padding: 48px 0 30px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 36px;
+}
+
+header.top h1 {
+  margin: 0 0 10px;
+  font-size: 30px;
+  line-height: 1.25;
+  letter-spacing: -0.5px;
+  font-weight: 750;
+  color: var(--text-strong);
+}
+
+header.top .sub {
+  color: var(--muted);
+  font-size: 14.5px;
+}
+
+header.top .meta {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  align-items: center;
+  font-size: 13px;
+}
+
+.stat {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  padding: 4px 13px;
+  border-radius: 999px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12.5px;
+}
+
+.stat b {
+  color: var(--text);
+  font-weight: 700;
+  font-size: 13.5px;
+}
+
+.pill {
+  display: inline-block;
+  padding: 4px 13px;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid var(--line);
+  font-size: 12.5px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+a.pill:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.pill.current {
+  color: var(--text-strong);
+  border-color: var(--text-strong);
+  font-weight: 650;
+}
+
+/* groups */
+
+section.group {
+  margin-bottom: 42px;
+}
+
+section.group > h2 {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 19.5px;
+  margin: 0 0 18px;
+  font-weight: 750;
+  letter-spacing: -0.2px;
+  color: var(--text-strong);
+}
+
+section.group > h2 .dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex: none;
+  box-shadow: 0 0 0 4px rgba(77, 163, 255, 0.2);
+}
+
+section.group.g2 > h2 .dot {
+  background: var(--ok);
+  box-shadow: 0 0 0 4px rgba(61, 220, 151, 0.2);
+}
+
+section.group.g3 > h2 .dot {
+  background: var(--accent-2);
+  box-shadow: 0 0 0 4px rgba(160, 107, 255, 0.2);
+}
+
+section.group.g4 > h2 .dot {
+  background: var(--warn);
+  box-shadow: 0 0 0 4px rgba(255, 180, 84, 0.2);
+}
+
+section.group > h2 .count {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--muted-dim);
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+/* items */
+
+ul.items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+ul.items > li {
+  background: var(--panel);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  padding: 19px 21px 17px;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+ul.items > li:hover {
+  border-color: var(--accent);
+  box-shadow: 0 5px 20px -10px rgba(0, 0, 0, 0.5);
+}
+
+ul.items .title {
+  font-weight: 800;
+  font-size: 17.5px;
+  line-height: 1.45;
+  margin-bottom: 9px;
+  color: var(--text-strong);
+  letter-spacing: -0.1px;
+}
+
+ul.items .title a {
+  color: var(--text-strong);
+  text-decoration: none;
+}
+
+ul.items .title a:hover {
+  color: var(--accent);
+}
+
+ul.items .desc {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+  margin-bottom: 13px;
+}
+
+ul.items .desc:last-child { margin-bottom: 0; }
+
+ul.items .foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+}
+
+.tag {
+  padding: 3px 10px;
+  border-radius: 7px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11.5px;
+  font-weight: 550;
+  letter-spacing: 0.2px;
+}
+
+.tag.deadline {
+  color: #ffffff;
+  background: #c8393f;
+  border-color: #e0555b;
+  font-weight: 700;
+}
+
+@media (prefers-color-scheme: light) {
+  .tag.deadline {
+    color: #ffffff;
+    background: #d0343a;
+    border-color: #b3242a;
+  }
+}
+
+.tag.cat {
+  color: var(--accent);
+  background: rgba(77, 163, 255, 0.13);
+  border-color: rgba(77, 163, 255, 0.38);
+  font-weight: 600;
+}
+
+.tag.src {
+  color: var(--muted-dim);
+  background: transparent;
+  border-color: var(--line-soft);
+}
+
+.empty {
+  color: var(--muted-dim);
+  font-size: 14px;
+  padding: 12px 2px;
+}
+
+/* footer */
+
+footer.end {
+  margin-top: 54px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  color: var(--muted-dim);
+  font-size: 13px;
+  line-height: 2;
+}
+
+footer.end a { color: var(--muted-dim); }
+
+nav.archive {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+@media (max-width: 520px) {
+  body { font-size: 14.5px; }
+  header.top { padding: 34px 0 22px; }
+  header.top h1 { font-size: 24px; }
+  ul.items > li { padding: 15px 16px; }
+  ul.items .title { font-size: 16px; }
+  ul.items .desc { font-size: 13.5px; }
+  section.group > h2 { font-size: 18px; }
+}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>今日情报</h1>
+    <div class="sub">PV / 手书 / 剪辑 —— 机会、工具与动态</div>
+    <div class="meta">
+      <span class="stat"><b>14</b> 条</span>
+      <a class="pill" href="archive/index.html">历史归档</a>
+    </div>
+    <nav class="archive"><span class="pill current">2026-11-12</span></nav>
+  </header>
+  <main>
+  <section class="group g1">
+    <h2><span class="dot"></span>接单与机会<span class="count">4 条</span></h2>
+    <ul class="items">
+      <li>
+        <div class="title"><a href="https://www.bilibili.com/opus/1247882918042271744" target="_blank" rel="noopener noreferrer">2026 第七届 风华回战 × bilibili MAD 创作大赛</a></div>
+        <div class="desc">征稿 9/16 至 12/31。风华回战仅与 B 站 MAD 大赛合办，投稿加话题 #MAD大赛2026# 可同时参评。不接受纯原创 OC 动画、MG PV 和同人动画，其余 MAD 类（静止系、AMV、特摄、国创）均可。金奖 5000，银奖 2000，铜奖 1000，单项奖 500。</div>
+        <div class="foot"><span class="tag deadline">截止 2026-12-31</span><span class="tag cat">MAD/AMV</span><span class="tag src">B站</span></div>
+      </li>
+      <li>
+        <div class="title"><a href="https://www.sina.cn/weibo/detail/5364166631887492.html" target="_blank" rel="noopener noreferrer">一起来看 LIVE · KPOP 年末季</a></div>
+        <div class="desc">B 站音乐区投稿，时长 ≥60s，带话题 #一起来看live#、#KPOP年末大赏# 或 #直拍星计划#。方向包括舞台混剪二创、一键换装、直拍、观演 vlog。混剪正好对口。</div>
+        <div class="foot"><span class="tag deadline">截止 2027-01-15</span><span class="tag cat">混剪</span><span class="tag src">B站音乐</span></div>
+      </li>
+      <li>
+        <div class="title"><a href="https://www.sina.cn/news/detail/5362225301689370.html" target="_blank" rel="noopener noreferrer">汪苏泷《联名2》× B站 AI MV 大赛</a></div>
+        <div class="desc">十首歌交给创作者做 AI 影像。注意规则明确禁止用真人形象生成 AI 视频/图片，这条限制比一般 AI 赛事严。</div>
+        <div class="foot"><span class="tag cat">AI MV</span><span class="tag src">B站音乐</span></div>
+      </li>
+      <li>
+        <div class="title"><a href="https://www.bilibili.com/blackboard/era/reward-activity-list-page.html" target="_blank" rel="noopener noreferrer">把兴趣玩出名堂 13.0（综合奖池 + 流量扶持）</a></div>
+        <div class="desc">B 站官方有奖活动总入口。这一期 10/18 至 12/05，另有「学习副本通关计划」到 12/31。适合顺手翻一遍找对口分赛区。</div>
+        <div class="foot"><span class="tag deadline">截止 2026-12-05</span><span class="tag cat">活动汇总</span><span class="tag src">B站官方</span></div>
+      </li>
+    </ul>
+  </section>
+  <section class="group g2">
+    <h2><span class="dot"></span>剪辑与创作<span class="count">4 条</span></h2>
+    <ul class="items">
+      <li>
+        <div class="title"><a href="https://www.vfx123.com/daily" target="_blank" rel="noopener noreferrer">后期资源吧 · 每日更新</a></div>
+        <div class="desc">本站每日更新，5967 篇存量。近期值得看的：Clip Exploder（时间线片段批量独立导出，11/09）、Doza Cuts（AI 多机位自动切换，FCPX+达芬奇，11/08）、Iruzen SFX Pack（120 多款动漫战斗冲击转场音效，AMV 向）。会员 199 终身（双11 价）。</div>
+        <div class="foot"><span class="tag cat">资源站</span><span class="tag src">vfx123</span></div>
+      </li>
+      <li>
+        <div class="title"><a href="https://zaodao.net/467585.html" target="_blank" rel="noopener noreferrer">AE 预设素材包 · Uniquevfx Editing Pack</a></div>
+        <div class="desc">油管 uniquevfx 出的动漫 AMV 剪辑向：AE 预设、叠加层、音效、文本动画、教程素材包。漫剪赛道常被引用的那套。</div>
+        <div class="foot"><span class="tag cat">AE/AMV</span><span class="tag src">造岛</span></div>
+      </li>
+      <li>
+        <div class="title"><a href="https://www.gfxcamp.com/plumepack/" target="_blank" rel="noopener noreferrer">Aescripts PlumePack V3.2.3（PR 工程打包工具）</a></div>
+        <div class="desc">PR 工程素材剪切整理打包，交付给别人或换机器时省事。带使用教程。</div>
+        <div class="foot"><span class="tag cat">PR 插件</span><span class="tag src">GFXCamp</span></div>
+      </li>
+      <li>
+        <div class="title"><a href="https://www.bilibili.com/video/av116753334015993" target="_blank" rel="noopener noreferrer">B站 · 影视飓风变速卡点对抗切片教学</a></div>
+        <div class="desc">拆解全网播放过亿的变速卡点对抗视频怎么剪，含影视飓风大师课片段。卡点类内容可参考节奏结构。</div>
+        <div class="foot"><span class="tag cat">教程</span><span class="tag src">B站</span></div>
+      </li>
+    </ul>
+  </section>
+  <section class="group g3">
+    <h2><span class="dot"></span>工具与效率<span class="count">3 条</span></h2>
+    <ul class="items">
+      <li>
+        <div class="title"><a href="https://www.vfx123.com/doza-cuts.html" target="_blank" rel="noopener noreferrer">Doza Cuts — AI 多机位自动剪辑切换</a></div>
+        <div class="desc">播客/访谈多机位素材自动切换，FCPX 和达芬奇都支持。访谈类剪辑能省大量对轨时间。</div>
+        <div class="foot"><span class="tag cat">AI 剪辑</span><span class="tag src">vfx123</span></div>
+      </li>
+      <li>
+        <div class="title"><a href="https://www.vfx123.com/clip-exploder.html" target="_blank" rel="noopener noreferrer">Clip Exploder — 时间线片段批量导出</a></div>
+        <div class="desc">把时间线上每个片段单独导出成独立文件。做素材归档、交片分段、二创切条时很好用。</div>
+        <div class="foot"><span class="tag cat">FCPX</span><span class="tag src">vfx123</span></div>
+      </li>
+      <li>
+        <div class="title"><a href="https://www.chuangjianyun.com/all" target="_blank" rel="noopener noreferrer">创剪云库 · 最新发布</a></div>
+        <div class="desc">达芬奇/PR/AE 预设与素材聚合站，更新频率不错。BroVFX ULTIMATE BRO PACK（600+ 转场文字动画音效）这类合集可以蹲。</div>
+        <div class="foot"><span class="tag cat">资源站</span><span class="tag src">创剪云库</span></div>
+      </li>
+    </ul>
+  </section>
+  <section class="group g4">
+    <h2><span class="dot"></span>行业与流量<span class="count">3 条</span></h2>
+    <ul class="items">
+      <li>
+        <div class="title"><a href="https://www.xusyun.com/article/36087" target="_blank" rel="noopener noreferrer">B站 AI 创作激励计划：320 万奖金池</a></div>
+        <div class="desc">两部分：面向已发布 AI 生成视频 UP 主的「AI 内容专项扶持」，和面向开发者/学生/独立创作者的「AI 创作大赛」。最高单项 50 万，另有流量倾斜、算力支持、联名推广。不卡学历和机构背书，看作品。</div>
+        <div class="foot"><span class="tag cat">扶持</span><span class="tag src">行业报道</span></div>
+      </li>
+      <li>
+        <div class="title"><a href="https://lmtw.com/mzw/content/detail/id/258724" target="_blank" rel="noopener noreferrer">AI 短剧/漫剧赛道平台规则密集调整</a></div>
+        <div class="desc">9 月起 B站、红果、抖音、优酷都在改 AI 短剧漫剧的规则。做 AI 向内容的话，这条赛道的政策变量要盯着，别按旧规则规划。</div>
+        <div class="foot"><span class="tag cat">规则</span><span class="tag src">流媒体网</span></div>
+      </li>
+      <li>
+        <div class="title"><a href="https://www.bilibili.com/blackboard/activity-N13czQtWTg.html" target="_blank" rel="noopener noreferrer">B站视频创作激励年度计划 Q&amp;A</a></div>
+        <div class="desc">基础激励的享有条件和查看路径：每月 1 日 12 点后在「创作激励 - 前日新增 - 收入趋势」看提示。判断自己本月有没有补贴就看这里。</div>
+        <div class="foot"><span class="tag cat">激励规则</span><span class="tag src">B站官方</span></div>
+      </li>
+    </ul>
+  </section>
+  </main>
+  <footer class="end">
+    <div>由本地 DSH 会话自动搜集与生成，仅作个人参考。</div>
+    <div>内容来自公开搜索结果，链接指向原始出处。</div>
+  </footer>
+</div>
+</body>
+</html>
