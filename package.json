@@ -1,0 +1,12 @@
+{
+  "name": "dsh-intel",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "个人情报日报静态站：数据 JSON -> HTML，推送到 Gitee",
+  "scripts": {
+    "build": "node build.js",
+    "upload": "node upload.js",
+    "publish": "node build.js && node upload.js"
+  }
+}
