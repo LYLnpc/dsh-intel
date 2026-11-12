@@ -1,0 +1,131 @@
+{
+  "date": "2026-11-12",
+  "generated": "2026-11-12T16:20:00+08:00",
+  "groups": [
+    {
+      "key": "opportunity",
+      "title": "接单与机会",
+      "items": [
+        {
+          "title": "2026 第七届 风华回战 × bilibili MAD 创作大赛",
+          "url": "https://www.bilibili.com/opus/1247882918042271744",
+          "desc": "征稿 9/16 至 12/31。风华回战仅与 B 站 MAD 大赛合办，投稿加话题 #MAD大赛2026# 可同时参评。不接受纯原创 OC 动画、MG PV 和同人动画，其余 MAD 类（静止系、AMV、特摄、国创）均可。金奖 5000，银奖 2000，铜奖 1000，单项奖 500。",
+          "deadline": "2026-12-31",
+          "source": "B站",
+          "tag": "MAD/AMV"
+        },
+        {
+          "title": "一起来看 LIVE · KPOP 年末季",
+          "url": "https://www.sina.cn/weibo/detail/5364166631887492.html",
+          "desc": "B 站音乐区投稿，时长 ≥60s，带话题 #一起来看live#、#KPOP年末大赏# 或 #直拍星计划#。方向包括舞台混剪二创、一键换装、直拍、观演 vlog。混剪正好对口。",
+          "deadline": "2027-01-15",
+          "source": "B站音乐",
+          "tag": "混剪"
+        },
+        {
+          "title": "汪苏泷《联名2》× B站 AI MV 大赛",
+          "url": "https://www.sina.cn/news/detail/5362225301689370.html",
+          "desc": "十首歌交给创作者做 AI 影像。注意规则明确禁止用真人形象生成 AI 视频/图片，这条限制比一般 AI 赛事严。",
+          "source": "B站音乐",
+          "tag": "AI MV"
+        },
+        {
+          "title": "把兴趣玩出名堂 13.0（综合奖池 + 流量扶持）",
+          "url": "https://www.bilibili.com/blackboard/era/reward-activity-list-page.html",
+          "desc": "B 站官方有奖活动总入口。这一期 10/18 至 12/05，另有「学习副本通关计划」到 12/31。适合顺手翻一遍找对口分赛区。",
+          "deadline": "2026-12-05",
+          "source": "B站官方",
+          "tag": "活动汇总"
+        }
+      ]
+    },
+    {
+      "key": "creation",
+      "title": "剪辑与创作",
+      "items": [
+        {
+          "title": "后期资源吧 · 每日更新",
+          "url": "https://www.vfx123.com/daily",
+          "desc": "本站每日更新，5967 篇存量。近期值得看的：Clip Exploder（时间线片段批量独立导出，11/09）、Doza Cuts（AI 多机位自动切换，FCPX+达芬奇，11/08）、Iruzen SFX Pack（120 多款动漫战斗冲击转场音效，AMV 向）。会员 199 终身（双11 价）。",
+          "source": "vfx123",
+          "tag": "资源站"
+        },
+        {
+          "title": "AE 预设素材包 · Uniquevfx Editing Pack",
+          "url": "https://zaodao.net/467585.html",
+          "desc": "油管 uniquevfx 出的动漫 AMV 剪辑向：AE 预设、叠加层、音效、文本动画、教程素材包。漫剪赛道常被引用的那套。",
+          "source": "造岛",
+          "tag": "AE/AMV"
+        },
+        {
+          "title": "Aescripts PlumePack V3.2.3（PR 工程打包工具）",
+          "url": "https://www.gfxcamp.com/plumepack/",
+          "desc": "PR 工程素材剪切整理打包，交付给别人或换机器时省事。带使用教程。",
+          "source": "GFXCamp",
+          "tag": "PR 插件"
+        },
+        {
+          "title": "B站 · 影视飓风变速卡点对抗切片教学",
+          "url": "https://www.bilibili.com/video/av116753334015993",
+          "desc": "拆解全网播放过亿的变速卡点对抗视频怎么剪，含影视飓风大师课片段。卡点类内容可参考节奏结构。",
+          "source": "B站",
+          "tag": "教程"
+        }
+      ]
+    },
+    {
+      "key": "tools",
+      "title": "工具与效率",
+      "items": [
+        {
+          "title": "Doza Cuts — AI 多机位自动剪辑切换",
+          "url": "https://www.vfx123.com/doza-cuts.html",
+          "desc": "播客/访谈多机位素材自动切换，FCPX 和达芬奇都支持。访谈类剪辑能省大量对轨时间。",
+          "source": "vfx123",
+          "tag": "AI 剪辑"
+        },
+        {
+          "title": "Clip Exploder — 时间线片段批量导出",
+          "url": "https://www.vfx123.com/clip-exploder.html",
+          "desc": "把时间线上每个片段单独导出成独立文件。做素材归档、交片分段、二创切条时很好用。",
+          "source": "vfx123",
+          "tag": "FCPX"
+        },
+        {
+          "title": "创剪云库 · 最新发布",
+          "url": "https://www.chuangjianyun.com/all",
+          "desc": "达芬奇/PR/AE 预设与素材聚合站，更新频率不错。BroVFX ULTIMATE BRO PACK（600+ 转场文字动画音效）这类合集可以蹲。",
+          "source": "创剪云库",
+          "tag": "资源站"
+        }
+      ]
+    },
+    {
+      "key": "industry",
+      "title": "行业与流量",
+      "items": [
+        {
+          "title": "B站 AI 创作激励计划：320 万奖金池",
+          "url": "https://www.xusyun.com/article/36087",
+          "desc": "两部分：面向已发布 AI 生成视频 UP 主的「AI 内容专项扶持」，和面向开发者/学生/独立创作者的「AI 创作大赛」。最高单项 50 万，另有流量倾斜、算力支持、联名推广。不卡学历和机构背书，看作品。",
+          "source": "行业报道",
+          "tag": "扶持"
+        },
+        {
+          "title": "AI 短剧/漫剧赛道平台规则密集调整",
+          "url": "https://lmtw.com/mzw/content/detail/id/258724",
+          "desc": "9 月起 B站、红果、抖音、优酷都在改 AI 短剧漫剧的规则。做 AI 向内容的话，这条赛道的政策变量要盯着，别按旧规则规划。",
+          "source": "流媒体网",
+          "tag": "规则"
+        },
+        {
+          "title": "B站视频创作激励年度计划 Q&A",
+          "url": "https://www.bilibili.com/blackboard/activity-N13czQtWTg.html",
+          "desc": "基础激励的享有条件和查看路径：每月 1 日 12 点后在「创作激励 - 前日新增 - 收入趋势」看提示。判断自己本月有没有补贴就看这里。",
+          "source": "B站官方",
+          "tag": "激励规则"
+        }
+      ]
+    }
+  ]
+}
