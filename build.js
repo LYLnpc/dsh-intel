@@ -23,8 +23,73 @@ const ROOT = dirname(fileURLToPath(import.meta.url));
 const DATA = join(ROOT, 'data');
 const ARCHIVE = join(ROOT, 'archive');
 
-const GROUP_ORDER = ['opportunity', 'creation', 'tools', 'industry'];
-const GROUP_CLASS = { opportunity: 'g1', creation: 'g2', tools: 'g3', industry: 'g4' };
+const GROUP_ORDER = ['opportunity', 'creation', 'tools', 'industry', 'bili'];
+const GROUP_CLASS = { opportunity: 'g1', creation: 'g2', tools: 'g3', industry: 'g4', bili: 'g2' };
+
+/** 刷B站的日报目录（bili-duty/out），可用 BILI_OUT 覆盖。 */
+const BILI_OUT = process.env.BILI_OUT || join(ROOT, '..', '..', '..', 'bili-duty', 'out');
+
+/**
+ * 2026-11-13: 把 bili-duty 的日报 md 解析成视频条目，作为「今日刷到的视频」栏目。
+ * 日报格式：`### BV号` 之后跟一行「标题 · UP · 链接 · N万播放 · **档位：值得看**」。
+ * 同一个 BV 出现多次时保留档位最高的那次。
+ */
+function readBiliVideos(date) {
+  const f = join(BILI_OUT, `${date}.md`);
+  if (!existsSync(f)) return [];
+  let text;
+  try {
+    text = readFileSync(f, 'utf8');
+  } catch {
+    return [];
+  }
+  const lines = text.split(/\r?\n/);
+  const rank = (g) => (g === '值得看' ? 2 : g === '可以看' ? 1 : 0);
+  const byBv = new Map();
+  for (let i = 0; i < lines.length; i += 1) {
+    const m = lines[i].match(/^###\s+(BV[0-9A-Za-z]{10})\s*$/);
+    if (!m) continue;
+    const bv = m[1];
+    let desc = '';
+    for (let j = i + 1; j < Math.min(i + 8, lines.length); j += 1) {
+      const t = lines[j].trim();
+      if (t === '' || t.startsWith('#')) continue;
+      if (t.startsWith('-') && !/https?:\/\//.test(t)) continue;
+      desc = t;
+      break;
+    }
+    const urlPart = desc.match(/https?:\/\/www\.bilibili\.com\/video\/BV[0-9A-Za-z]{10}/);
+    const url = urlPart ? urlPart[0] : `https://www.bilibili.com/video/${bv}`;
+    const grade = (desc.match(/\*\*档位：(.+?)\*\*/) || [])[1] || '';
+    const plays = (desc.match(/([\d.]+\s*万?)\s*播放/) || [])[1] || '';
+    const parts = desc.split(' · ').map((s) => s.trim());
+    const title = (parts[0] || bv).replace(/^-+\s*/, '');
+    const upPart = parts[1] || '';
+    const up = upPart && !/^https?:/.test(upPart) && !/播放/.test(upPart) ? upPart.replace(/^UP[：:]\s*/, '') : '';
+    const prev = byBv.get(bv);
+    if (!prev || rank(grade) > rank(prev.grade)) {
+      byBv.set(bv, { bv, title, up, url, plays, grade: grade || (prev ? prev.grade : '') });
+    }
+  }
+  return [...byBv.values()];
+}
+
+function biliGroup(date) {
+  const videos = readBiliVideos(date);
+  if (!videos.length) return null;
+  videos.sort((a, b) => (b.grade === '值得看' ? 1 : 0) - (a.grade === '值得看' ? 1 : 0));
+  return {
+    key: 'bili',
+    title: '今日刷到的视频',
+    items: videos.map((v) => ({
+      title: v.title || v.bv,
+      url: v.url,
+      desc: [v.up ? 'UP：' + v.up : '', v.plays ? v.plays + ' 播放' : ''].filter(Boolean).join(' · '),
+      tag: v.grade || '',
+      source: 'B站',
+    })),
+  };
+}
 
 const esc = (s = '') =>
   String(s)
@@ -149,6 +214,11 @@ function archiveIndex(archiveDates) {
 `;
 }
 
+const withBili = (d, groups) => {
+  const g = biliGroup(d);
+  return g === null ? groups : [...groups, g];
+};
+
 function main() {
   if (!existsSync(ARCHIVE)) {
     console.error('missing archive dir');
@@ -175,7 +245,7 @@ function main() {
     const json = payloads.get(d);
     const html = page({
       date: d,
-      groups: json.groups || [],
+      groups: withBili(d, json.groups || []),
       isLatest: false,
       archiveDates: dates,
     });
@@ -185,7 +255,7 @@ function main() {
   const latest = dates[0];
   const latestHtml = page({
     date: latest,
-    groups: payloads.get(latest).groups || [],
+    groups: withBili(latest, payloads.get(latest).groups || []),
     isLatest: true,
     archiveDates: dates,
   });
