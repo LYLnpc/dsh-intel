@@ -50,22 +50,29 @@ function readBiliVideos(date) {
     const m = lines[i].match(/^###\s+(BV[0-9A-Za-z]{10})\s*$/);
     if (!m) continue;
     const bv = m[1];
-    let desc = '';
-    for (let j = i + 1; j < Math.min(i + 8, lines.length); j += 1) {
+    // 日报有两种写法：单行「标题 · UP · 链接 · 播放 · **档位：X**」，
+    // 或者子弹列表（标题 / UP / 时长 / 播放 一行，**档位**：X 另一行，链接再一行）。
+    const cand = [];
+    for (let j = i + 1; j < Math.min(i + 9, lines.length); j += 1) {
       const t = lines[j].trim();
       if (t === '' || t.startsWith('#')) continue;
-      if (t.startsWith('-') && !/https?:\/\//.test(t)) continue;
-      desc = t;
-      break;
+      if (/^###\s/.test(t)) break;
+      cand.push(t.replace(/^[-*]\s*/, ''));
     }
-    const urlPart = desc.match(/https?:\/\/www\.bilibili\.com\/video\/BV[0-9A-Za-z]{10}/);
-    const url = urlPart ? urlPart[0] : `https://www.bilibili.com/video/${bv}`;
-    const grade = (desc.match(/\*\*档位：(.+?)\*\*/) || [])[1] || '';
-    const plays = (desc.match(/([\d.]+\s*万?)\s*播放/) || [])[1] || '';
-    const parts = desc.split(' · ').map((s) => s.trim());
-    const title = (parts[0] || bv).replace(/^-+\s*/, '');
-    const upPart = parts[1] || '';
-    const up = upPart && !/^https?:/.test(upPart) && !/播放/.test(upPart) ? upPart.replace(/^UP[：:]\s*/, '') : '';
+    const isBareUrl = (s) => /^https?:\/\/\S+$/.test(s);
+    const descLine = cand.find((t) => !isBareUrl(t) && !/^\*\*档位/.test(t)) || '';
+    const gradeLine = cand.find((t) => /\*\*档位/.test(t)) || '';
+    const urlLine = cand.find((t) => /https?:\/\//.test(t)) || '';
+    const urlMatch = urlLine.match(/https?:\/\/www\.bilibili\.com\/video\/BV[0-9A-Za-z]{10}/);
+    const url = urlMatch ? urlMatch[0] : `https://www.bilibili.com/video/${bv}`;
+    const grade = ((gradeLine.match(/\*\*档位：(.+?)\*\*/) || gradeLine.match(/\*\*档位\*\*：\s*(.+)$/) || [])[1] || '').trim();
+    const plays = ((descLine.match(/([\d.]+\s*万?)\s*播放/) || [])[1] || '').trim();
+    const parts = descLine.split(/\s+[·/]\s+/).map((s) => s.trim()).filter(Boolean);
+    const title = parts[0] || bv;
+    const upRaw = parts[1] || '';
+    const up = upRaw && !/^https?:/.test(upRaw) && !/播放/.test(upRaw) && !/^\d+:\d+$/.test(upRaw)
+      ? upRaw.replace(/^UP[：:]\s*/, '')
+      : '';
     const prev = byBv.get(bv);
     if (!prev || rank(grade) > rank(prev.grade)) {
       byBv.set(bv, { bv, title, up, url, plays, grade: grade || (prev ? prev.grade : '') });
@@ -77,11 +84,22 @@ function readBiliVideos(date) {
 function biliGroup(date) {
   const videos = readBiliVideos(date);
   if (!videos.length) return null;
-  videos.sort((a, b) => (b.grade === '值得看' ? 1 : 0) - (a.grade === '值得看' ? 1 : 0));
+  // 2026-11-13: 主人只关心跟 PV/手书/剪辑 有关的；纯科普/医疗/游戏这类过滤掉。
+  // 关键词表放在 data/bili-filter.json，随时可加，不用改代码。
+  let exclude = [];
+  try {
+    const f = join(DATA, 'bili-filter.json');
+    if (existsSync(f)) exclude = JSON.parse(readFileSync(f, 'utf8')).exclude || [];
+  } catch { /* 读不到就不过滤 */ }
+  const kept = exclude.length
+    ? videos.filter((v) => !exclude.some((k) => k && String(v.title).includes(k)))
+    : videos;
+  if (!kept.length) return null;
+  kept.sort((a, b) => (b.grade === '值得看' ? 1 : 0) - (a.grade === '值得看' ? 1 : 0));
   return {
     key: 'bili',
     title: '今日刷到的视频',
-    items: videos.map((v) => ({
+    items: kept.map((v) => ({
       title: v.title || v.bv,
       url: v.url,
       desc: [v.up ? 'UP：' + v.up : '', v.plays ? v.plays + ' 播放' : ''].filter(Boolean).join(' · '),
