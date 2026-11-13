@@ -1,6 +1,6 @@
 {
   "date": "2026-11-13",
-  "generated": "2026-11-13T16:02:00+08:00",
+  "generated": "2026-11-13T18:05:00+08:00",
   "groups": [
     {
       "key": "opportunity",
@@ -58,6 +58,13 @@
           "tag": "世界模型"
         },
         {
+          "title": "Seedance 2.5 的 4K 输出登陆 Pika、Runway、Krea、Picsart、Magnific",
+          "url": "https://www.mgeeker.com/news/2026-11-12-seedance-2-5-4k-on-creator-platforms/",
+          "desc": "11 月 11 日多家平台同日宣布可输出 4K：Pika 写明是原生 4K 且支持先打磨一版再出 4K，Picsart 可用 480p Draft Mode 低成本预览，Magnific 强调直接以 4K 生成而非放大。各平台都没公布 4K 具体价格 —— 先用草稿模式试构图，定稿再出 4K 是现在最省的路子。",
+          "source": "Pika 官方",
+          "tag": "4K 出片"
+        },
+        {
           "title": "Luma 上线 Character Swap & Insert：同镜头换人、换道具、加人、把人删掉",
           "url": "https://www.mgeeker.com/news/2026-11-12-luma-character-swap-insert/",
           "desc": "官方示例就是甲方改意见之后：在同一镜头里换演员、换车、加一只狗，或者把某个人从画面里拿掉；支持上传角色参考图。分辨率、时长、计价尚未公布。手书/PV 里角色换装、改人设的补拍场景很吃这个。",
@@ -98,6 +105,20 @@
           "desc": "Scribe v3 在 102 种语言上比 v2 少 27% 错词；Scribe v3 Live 面向实时场景，错误比上一代实时版少 43%，并首次支持区分说话人。都已上 API，支持最多 1000 个关键术语提示和自然语言格式规则。做访谈类、口播类素材要先出字幕稿的话，直接省掉大量校对。",
           "source": "ElevenLabs 官方博客",
           "tag": "转写/字幕"
+        },
+        {
+          "title": "Zyphra 开源 ZONOS3-Mini：浏览器里就能跑的本地语音合成，支持零样本声音克隆",
+          "url": "https://www.mgeeker.com/news/2026-11-11-zyphra-zonos3-mini-open-source-local-tts/",
+          "desc": "总参数 8 亿、每次只激活约 1 亿，Apache 2.0，可通过 WebGPU 在浏览器直接跑，也支持 Apple 芯片和普通 CPU/GPU；用最长 60 秒参考音频做零样本声音克隆，单次最长 10 分钟，能按词控语速和情绪。手书/drama 向配音可以先自己本地试角色声线，不花钱也不上传。",
+          "source": "MarkTechPost",
+          "tag": "本地 TTS"
+        },
+        {
+          "title": "VARCO Sound 11 月更新：Sound Agent 上线，可对话驱动 Premiere 工程",
+          "url": "https://www.mgeeker.com/news/2026-11-10-varco-sound-agent-premiere-pro-mcp/",
+          "desc": "桌面端加入带 EQ/压缩/混响的音频编辑器，Sound Agent 正式上线并支持桌面端，新增 Premiere Pro 工程导出和「Premiere Pro 模式」，还提供能接 Claude 与 ChatGPT 的 MCP。音效/配乐这块不用再在几个软件之间来回倒。",
+          "source": "VARCO Sound 官方博客",
+          "tag": "音效"
         },
         {
           "title": "MiniMax H3-Image 开源：原生 4K 约 10 秒出图，最多 16 张参考图",
