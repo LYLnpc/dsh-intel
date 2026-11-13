@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AE 免费生态全图 · 2026-11-14（最终版）</title>
+<style>
+:root{
+  --bg:#0d1117; --bg2:#10161f; --card:#141b24; --card2:#182130;
+  --line:#232c38; --txt:#dbe4ee; --dim:#8b98a9; --faint:#5c6875;
+  --acc:#4cc2ff; --acc2:#3fb950; --warn:#e3b341; --bad:#f85149; --vio:#bc8cff;
+  --mono:ui-monospace,'Cascadia Mono','SF Mono',Consolas,'Courier New',monospace;
+  --sans:system-ui,-apple-system,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:var(--sans);font-size:14px;line-height:1.65}
+a{color:var(--acc);text-decoration:none}a:hover{text-decoration:underline}
+section{scroll-margin-top:24px}
+/* ---------- sidebar ---------- */
+#sidebar{position:fixed;top:0;left:0;bottom:0;width:228px;background:var(--bg2);border-right:1px solid var(--line);padding:18px 14px;overflow-y:auto;z-index:50}
+#sidebar .logo{font-family:var(--mono);font-weight:700;font-size:15px;color:var(--acc);margin-bottom:2px}
+#sidebar .logo-sub{font-size:11px;color:var(--faint);margin-bottom:16px}
+#sidebar nav a{display:block;padding:6px 10px;margin:2px 0;border-radius:8px;color:var(--dim);font-size:12.5px;border-left:2px solid transparent}
+#sidebar nav a:hover{background:var(--card);color:var(--txt);text-decoration:none}
+#sidebar nav a .n{font-family:var(--mono);color:var(--faint);font-size:11px;margin-right:7px}
+#sidebar .side-foot{margin-top:18px;padding-top:12px;border-top:1px solid var(--line);font-size:11px;color:var(--faint);line-height:1.8}
+#topbar{display:none}
+main{margin-left:228px;padding:26px 30px 60px;max-width:1200px}
+/* ---------- hero ---------- */
+#hero{padding:8px 0 18px}
+#hero h1{font-size:30px;letter-spacing:1px;background:linear-gradient(92deg,#e6f3ff,#4cc2ff 55%,#bc8cff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
+#hero .tagline{color:var(--dim);margin-bottom:8px}
+#hero .final{display:inline-block;font-size:11px;font-family:var(--mono);color:var(--acc2);border:1px solid #2b5c3f;background:#12271b;border-radius:999px;padding:2px 12px;margin-bottom:14px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+.stat .v{font-family:var(--mono);font-size:26px;font-weight:700;color:var(--acc)}
+.stat .v.g{color:var(--acc2)}.stat .v.p{color:var(--vio)}.stat .v.w{color:var(--warn)}
+.stat .k{font-size:12px;color:var(--dim);margin-top:2px}
+.chips-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.chipstat{font-size:11.5px;font-family:var(--mono);color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:3px 11px;background:var(--card)}
+.chipstat b{color:var(--txt)}
+/* ---------- editorial section head (design-2 treatment, dark) ---------- */
+.shead{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-top:34px}
+.shead .kicker{font-size:10.5px;letter-spacing:.35em;color:var(--acc);font-weight:700;text-transform:uppercase;font-family:var(--mono)}
+.shead h2{font-size:21px;letter-spacing:.5px;margin:6px 0 4px;display:flex;align-items:center;gap:10px}
+.shead h2 .idx{font-family:var(--mono);font-size:11.5px;color:var(--acc);border:1px solid var(--line);border-radius:6px;padding:1px 8px;background:var(--card)}
+.shead p.sub{color:var(--dim);font-size:12.5px;max-width:900px}
+.shead .bigno{font-family:var(--mono);font-size:44px;font-weight:700;color:rgba(255,255,255,.06);line-height:.9;flex:none}
+.rule{height:1px;background:linear-gradient(90deg,var(--acc) 0,rgba(76,194,255,.15) 40%,var(--line) 100%);margin:12px 0 16px}
+/* ---------- cards ---------- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.combo h3{font-size:15px;color:var(--vio);margin-bottom:6px}
+.combo .flow{font-family:var(--mono);font-size:12px;color:var(--acc2);margin-bottom:8px;line-height:1.8}
+.combo .flow .arr{color:var(--acc);font-weight:700;padding:0 3px}
+.combo p{font-size:12.5px;color:var(--dim);margin-bottom:6px}
+.combo .evi{font-size:11.5px;color:var(--faint);border-top:1px dashed var(--line);padding-top:6px}
+/* ---------- clone ring + cards ---------- */
+.clone-head{display:flex;gap:26px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.ring{position:relative;width:104px;height:104px;border-radius:50%;background:conic-gradient(var(--acc2) 0 calc(var(--p)*1%),#1d2531 0);display:flex;align-items:center;justify-content:center;flex:none}
+.ring::before{content:"";position:absolute;width:78px;height:78px;border-radius:50%;background:var(--card)}
+.ring .rv{position:relative;z-index:1;text-align:center;font-family:var(--mono)}
+.ring .rv b{font-size:22px;color:var(--acc2)}
+.ring .rv span{display:block;font-size:10.5px;color:var(--dim)}
+.clone-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.clone-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.clone-card h3{font-size:15px;margin-bottom:2px}
+.clone-card .orig{font-size:11.5px;color:var(--faint);margin-bottom:8px}
+.clone-card ul{list-style:none;font-size:12.5px;margin-bottom:8px}
+.clone-card ul li{padding:1px 0}
+.clone-card .ok::before{content:"✅ "}
+.clone-card .no::before{content:"❌ "}
+.clone-card .path{display:flex;gap:8px;align-items:center;background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:5px 8px;margin-bottom:6px}
+.clone-card .path code{font-family:var(--mono);font-size:11px;color:var(--acc);flex:1;word-break:break-all}
+.copybtn{flex:none;background:var(--card2);border:1px solid var(--line);color:var(--dim);border-radius:6px;font-size:11px;padding:3px 9px;cursor:pointer}
+.copybtn:hover{color:var(--txt);border-color:var(--acc)}
+.copybtn.copied{color:#052e1c;background:var(--acc2);border-color:var(--acc2);font-weight:700}
+.clone-card .inst{font-size:11.5px;color:var(--dim)}
+.clone-card .inst b{color:var(--txt)}
+/* ---------- tables ---------- */
+.toolrow{display:flex;gap:10px;align-items:center;margin:10px 0;flex-wrap:wrap}
+.search{background:var(--card);border:1px solid var(--line);border-radius:8px;color:var(--txt);padding:7px 12px;font-size:13px;width:min(340px,60vw);outline:none}
+.search:focus{border-color:var(--acc)}
+.search::placeholder{color:var(--faint)}
+.count{font-size:11.5px;color:var(--faint);font-family:var(--mono)}
+.chip{cursor:pointer;font-size:11.5px;font-family:var(--mono);color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:4px 12px;background:var(--card);user-select:none}
+.chip:hover{color:var(--txt)}
+.chip.on{color:var(--txt);border-color:var(--acc);background:rgba(76,194,255,.12)}
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+table{width:100%;border-collapse:collapse;font-size:12.8px;background:var(--card)}
+th{position:sticky;top:0;background:var(--card2);color:var(--dim);text-align:left;font-weight:600;font-size:11.5px;letter-spacing:.4px;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap;z-index:1}
+td{padding:7px 10px;border-bottom:1px solid #1a222d;vertical-align:top}
+tbody tr:nth-child(even){background:#161e29}
+tbody tr:hover{background:#1d2a3c}
+tbody tr:last-child td{border-bottom:none}
+td.nm{font-weight:600;white-space:nowrap}
+td .mut{color:var(--dim)}
+tr.cloned{background:rgba(63,185,80,.06)!important;box-shadow:inset 3px 0 0 var(--acc2)}
+tr.cat-a{box-shadow:inset 3px 0 0 rgba(188,140,255,.45)}
+.tag{display:inline-block;font-size:10.5px;font-family:var(--mono);border-radius:6px;padding:1px 7px;border:1px solid;margin:1px 2px 1px 0;white-space:nowrap}
+.tag.a{color:var(--acc2);border-color:#2b5c3f;background:#12271b}
+.tag.b{color:var(--warn);border-color:#6b5518;background:#2a2211}
+.tag.c{color:var(--bad);border-color:#773939;background:#2b1516}
+.tag.done{color:var(--acc);border-color:#274e66;background:#0f2431}
+.tag.rec{color:var(--vio);border-color:#4b3a6b;background:#1e1830}
+.tag.free{color:var(--acc2);border-color:#2b5c3f;background:#12271b}
+.tag.paid{color:var(--bad);border-color:#773939;background:#2b1516}
+td .mini{position:relative;display:block;min-width:110px}
+td .mini i{display:block;height:8px;border-radius:4px;background:linear-gradient(90deg,#1f6feb,#4cc2ff);margin-top:3px}
+td .mini .w0 i{background:#3a4656}
+/* ---------- bar charts ---------- */
+.bars{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:0 2px 12px rgba(0,0,0,.3);margin-bottom:14px}
+.bars h3{font-size:13px;color:var(--dim);font-weight:600;margin-bottom:10px}
+.brow{display:grid;grid-template-columns:170px 1fr 92px;gap:10px;align-items:center;margin:4px 0}
+.brow .bn{font-size:12px;color:var(--txt);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brow .bt{height:12px;background:#1a2330;border-radius:6px;overflow:hidden}
+.brow .bf{height:100%;border-radius:6px;background:linear-gradient(90deg,#1f6feb,#4cc2ff);box-shadow:0 0 6px rgba(76,194,255,.35)}
+.brow .bv{font-family:var(--mono);font-size:11px;color:var(--dim);white-space:nowrap}
+/* ---------- pits ---------- */
+.pits{counter-reset:pit;list-style:none}
+.pits li{counter-increment:pit;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px 10px 46px;margin:8px 0;font-size:12.8px;color:var(--txt);position:relative;box-shadow:0 1px 8px rgba(0,0,0,.25)}
+.pits li::before{content:counter(pit);position:absolute;left:12px;top:10px;font-family:var(--mono);font-size:13px;color:var(--warn);border:1px solid #5b4a1a;background:#241d0c;border-radius:8px;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
+.pits li b{color:var(--warn)}
+.pits li code{font-family:var(--mono);font-size:11px;color:var(--acc)}
+footer{margin-top:34px;border-top:1px solid var(--line);padding-top:16px;color:var(--faint);font-size:11.8px;line-height:1.9}
+footer b{color:var(--dim)}
+.fcols{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+@media (max-width:768px){
+  #sidebar{display:none}
+  #topbar{display:flex;position:sticky;top:0;z-index:60;background:rgba(13,17,23,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);overflow-x:auto;padding:9px 12px;gap:4px}
+  #topbar a{color:var(--dim);font-size:12px;padding:4px 9px;border-radius:7px;white-space:nowrap}
+  #topbar a:hover{background:var(--card);color:var(--txt);text-decoration:none}
+  main{margin-left:0;padding:18px 14px 50px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .grid3,.clone-grid{grid-template-columns:1fr}
+  .brow{grid-template-columns:110px 1fr 76px}
+  #hero h1{font-size:23px}
+  .shead .bigno{display:none}
+  .fcols{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<aside id="sidebar">
+  <div class="logo">AE-FREE-ECO</div>
+  <div class="logo-sub">最终版 · 三稿合并 · 2026-11-14</div>
+  <nav>
+    <a href="#hero"><span class="n">00</span>总览</a>
+    <a href="#picks"><span class="n">01</span>为你推荐</a>
+    <a href="#clones"><span class="n">02</span>复刻插件库</a>
+    <a href="#bili"><span class="n">03</span>B站热度榜</a>
+    <a href="#global"><span class="n">04</span>全球免费榜</a>
+    <a href="#china"><span class="n">05</span>中文圈资源</a>
+    <a href="#paid"><span class="n">06</span>收费与复刻进度</a>
+    <a href="#alt"><span class="n">07</span>免费替代对照</a>
+    <a href="#pits"><span class="n">08</span>避坑清单</a>
+  </nav>
+  <div class="side-foot">
+    ae-mission 终稿<br>
+    仪表盘框架 + 编辑风章头<br>
+    快照 2026-11-14 07:40
+  </div>
+</aside>
+
+<header id="topbar">
+  <a href="#hero">总览</a><a href="#picks">推荐</a><a href="#clones">复刻库</a><a href="#bili">B站榜</a><a href="#global">全球榜</a><a href="#china">中文圈</a><a href="#paid">复刻进度</a><a href="#alt">替代对照</a><a href="#pits">避坑</a>
+</header>
+
+<main>
+
+<!-- ============ 00 HERO ============ -->
+<section id="hero">
+  <h1>AE 免费生态全图 · 2026-11-14</h1>
+  <span class="final">FINAL · 三稿合并终稿</span>
+  <p class="tagline">面向独立创作者（PV / 手书 / 剪辑接单）的免费生态情报 + clean-room 复刻进度仪表盘 · 主体框架取仪表盘稿，组合方案取推荐稿卡片视觉，章头取编辑稿处理</p>
+  <div class="stats">
+    <div class="stat"><div class="v">89</div><div class="k">免费榜单条目（B站 30 + 全球 39 + 中文圈 20）</div></div>
+    <div class="stat"><div class="v g">8</div><div class="k">clean-room 复刻插件（A 类 30 项中）</div></div>
+    <div class="stat"><div class="v p">15</div><div class="k">收费 → 免费替代对照组</div></div>
+    <div class="stat"><div class="v w">48</div><div class="k">收费插件评估（A 类可复刻 30 项）</div></div>
+  </div>
+  <div class="chips-row">
+    <span class="chipstat">价值推荐 <b>25</b> 项（必装 9 / 推荐 10 / 可选 6）</span>
+    <span class="chipstat">A 类复刻覆盖 <b>8 / 30</b> ≈ 27%</span>
+    <span class="chipstat">替代「全替代」级 <b>3</b> 组</span>
+    <span class="chipstat">收费 B 类 <b>4</b> · C 类 <b>14</b></span>
+  </div>
+</section>
+
+<!-- ============ 01 PICKS ============ -->
+<section id="picks">
+  <div class="shead">
+    <div>
+      <div class="kicker">Value Picks · 全页核心</div>
+      <h2><span class="idx">01</span>为你推荐</h2>
+      <p class="sub">来源 intel/value-picks.md（25 项按工作流重排，优先级 必装/推荐/可选）。排序依据 = 热度证据（Reddit 13 帖聚合 / GitHub star 实测 / B站播放收藏实测 / 编辑部榜单）× 痛点命中率，非榜单复读。</p>
+    </div>
+    <div class="bigno">01</div>
+  </div>
+  <div class="rule"></div>
+
+  <div class="grid3" style="margin-bottom:18px">
+    <div class="card combo">
+      <h3>组合 A · 手书作者套装「从分镜 PSD 到卡点成片」</h3>
+      <div class="flow">PSDImporter<span class="arr">→</span>rife-ncnn-vulkan<span class="arr">→</span>节拍打点工作流<span class="arr">→</span>Comp Setting Tool</div>
+      <p>手书接单最耗时的三段手工劳动（分层、画拍、改规格）全部免费自动化；补帧环节直接省掉 Twixtor / Flow 付费预算。</p>
+      <div class="evi">数据支撑：rife-ncnn-vulkan 1,130★ + 喵哉脚本 5,372 收藏，「免费补帧」是中文二创圈已验证的真实需求。</div>
+    </div>
+    <div class="card combo">
+      <h3>组合 B · 二创剪辑套装「素材修复 → 投稿免二压」</h3>
+      <div class="flow">TheAnimeScripter / 喵哉脚本<span class="arr">→</span>Real-ESRGAN<span class="arr">→</span>小丸工具箱</div>
+      <p>低清老素材没法用的尴尬 + 投稿被二压糊掉的挫败，两端都是二创剪辑的口碑命门。</p>
+      <div class="evi">数据支撑：Real-ESRGAN 37,490★、TheAnimeScripter 347★（二创圈爆火）+ 小丸工具箱为 B站投稿标配（cv3485 手册长期引用）。</div>
+    </div>
+    <div class="card combo">
+      <h3>组合 C · 接单交付套装「改稿快、规格不翻车」</h3>
+      <div class="flow">FX Console<span class="arr">→</span>EaseCopy<span class="arr">→</span>True Comp Duplicator<span class="arr">→</span>BHY_CompChanger<span class="arr">→</span>CrossFrame</div>
+      <p>接单利润率取决于改稿轮次成本——这套把「改一版」的时间从小时级压到分钟级。</p>
+      <div class="evi">数据支撑：包揽全球榜脚本类热度前二（EaseCopy 31 提及 / 220 赞、TCD 7/13 帖）+ 工作流第一（FX Console）+ CompChanger 926 收藏。</div>
+    </div>
+  </div>
+
+  <div class="toolrow"><input class="search" type="search" placeholder="搜索推荐项 / 工具名…" data-filter="picks-tbl"><span class="count" data-count="picks-tbl"></span></div>
+  <div class="tblwrap"><table id="picks-tbl">
+    <thead><tr><th>工作流</th><th>推荐</th><th>优先级</th><th>上手建议</th><th>获取</th></tr></thead>
+    <tbody>
+      <tr><td>PV 制作</td><td class="nm">FX Console</td><td><span class="tag a">必装</span></td><td class="mut">效果/预设按名字秒搜秒套，替代翻菜单（Reddit 公认第一必装）。</td><td><a href="https://www.videocopilot.net" target="_blank" rel="noopener">videocopilot.net</a></td></tr>
+      <tr><td>PV 制作</td><td class="nm">EaseCopy</td><td><span class="tag a">必装</span></td><td class="mut">「只贴曲线不动数值」，PV 动画手感立刻统一（Reddit 6 帖 31 提及 / 220 赞）。</td><td><a href="https://aescripts.com/easecopy/" target="_blank" rel="noopener">aescripts</a>（NYOP $0）</td></tr>
+      <tr><td>PV 制作</td><td class="nm">Animation Composer</td><td><span class="tag rec">推荐</span></td><td class="mut">入场/弹跳/过冲拖拽即用，赶工先套库再手 K（Reddit 4 帖 14 提及 + SoM 新手第一推荐）。</td><td><a href="https://misterhorse.net/animationcomposer" target="_blank" rel="noopener">misterhorse.net</a></td></tr>
+      <tr><td>PV 制作</td><td class="nm">True Comp Duplicator</td><td><span class="tag rec">推荐</span></td><td class="mut">客户改稿复制整条合成链（含子合成）再改（Reddit 7/13 帖，脚本类第一）。</td><td><a href="https://aescripts.com/true-comp-duplicator/" target="_blank" rel="noopener">aescripts</a>（NYOP $0）</td></tr>
+      <tr><td>PV 制作</td><td class="nm">BHY_Text</td><td><span class="tag rec">推荐</span></td><td class="mut">歌词批量分割/排版/改样式，别逐条打字调位置（B站「匕禾页bili」免费家族）。</td><td><a href="https://www.bilibili.com/video/BV12VtueAERP" target="_blank" rel="noopener">B站简介领取</a></td></tr>
+      <tr><td>手书</td><td class="nm">PSDImporter</td><td><span class="tag a">必装</span></td><td class="mut">分镜 PSD 按画板/图层自动裁切进 AE（bigxixi，10★ 但痛点命中率极高）。</td><td><a href="https://github.com/bigxixi" target="_blank" rel="noopener">github.com/bigxixi</a></td></tr>
+      <tr><td>手书</td><td class="nm">rife-ncnn-vulkan</td><td><span class="tag a">必装</span></td><td class="mut">8-12fps 原画扫描稿 GPU 补帧到 24/60fps，配第三方 GUI 免命令行（1,130★）。</td><td><a href="https://github.com/nihui/rife-ncnn-vulkan" target="_blank" rel="noopener">github.com/nihui</a></td></tr>
+      <tr><td>手书</td><td class="nm">节拍打点工作流</td><td><span class="tag a">必装</span></td><td class="mut">Audition 按 BPM 打标记 → AE 合成标记，按拍画分镜，不必买 BeatEdit。</td><td><a href="https://www.bilibili.com/video/BV16S4y187wF" target="_blank" rel="noopener">B站工作流演示</a></td></tr>
+      <tr><td>手书</td><td class="nm">Duik Ángela</td><td><span class="tag rec">推荐</span></td><td class="mut">角色 IK/骨骼绑定让手书人物真的动起来（开源 408★，免费三巨头之一）。</td><td><a href="https://github.com/RxLaboratory/Duik" target="_blank" rel="noopener">github.com/RxLaboratory/Duik</a></td></tr>
+      <tr><td>手书</td><td class="nm">Comp Setting Tool v2.1</td><td><span class="tag rec">推荐</span></td><td class="mut">23.976↔25↔60fps / B站 1080p 一键全工程批量改（舟午，开源，允许商用）。</td><td><a href="https://www.lookae.com/comp-setting-tool" target="_blank" rel="noopener">lookae.com</a></td></tr>
+      <tr><td>剪辑交付</td><td class="nm">小丸工具箱</td><td><span class="tag a">必装</span></td><td class="mut">B站定制参数压制免二压 + 字幕内嵌 + 音频转码，中文圈默认收官工具。</td><td><a href="https://maruko.appinn.me" target="_blank" rel="noopener">maruko.appinn.me</a></td></tr>
+      <tr><td>剪辑交付</td><td class="nm">Twixtor 批量辅助脚本</td><td><span class="tag rec">推荐</span></td><td class="mut">一键搭好多层变速合成结构（yanyiju，14★ 小而准；Twixtor 本体另付费）。</td><td><a href="https://github.com/yanyiju/twixtor-batch-operation-script" target="_blank" rel="noopener">github.com/yanyiju</a></td></tr>
+      <tr><td>剪辑交付</td><td class="nm">webp_apng_exporter_for_AE</td><td><span class="tag rec">推荐</span></td><td class="mut">交付动态宣传图直接从合成导出 WebP/APNG，别再录屏转 GIF（173★）。</td><td><a href="https://github.com/bigxixi" target="_blank" rel="noopener">github.com/bigxixi</a></td></tr>
+      <tr><td>剪辑交付</td><td class="nm">Quick Chromatic Aberration 3</td><td><span class="tag c">可选</span></td><td class="mut">音 bomb 处叠一层色散一键出镜头味（Magic Mark 榜第 8，aescripts $0）。</td><td><a href="https://aescripts.com/quick-chromatic-aberration/" target="_blank" rel="noopener">aescripts</a></td></tr>
+      <tr><td>剪辑交付</td><td class="nm">CrossFrame</td><td><span class="tag c">可选</span></td><td class="mut">一次搭建多尺寸/比例批量导出，横竖版一次出齐（Reddit 2026 新发布）。</td><td><a href="https://www.reddit.com/r/AfterEffects/comments/1rxhw8h/made_a_free_ae_script_that_lets_you_build_once" target="_blank" rel="noopener">Reddit 帖内领取</a></td></tr>
+      <tr><td>效率工具</td><td class="nm">BHY_CompChanger</td><td><span class="tag a">必装</span></td><td class="mut">超强穿透 + 解预合成 + 批量改尺寸/时长/帧率，接手合作工程先跑它（13,907 播放 / 926 收藏）。</td><td><a href="https://www.bilibili.com/video/BV12VtueAERP" target="_blank" rel="noopener">B站简介领取</a></td></tr>
+      <tr><td>效率工具</td><td class="nm">mograph.life 32 件套</td><td><span class="tag rec">推荐</span></td><td class="mut">MIT 开源 32 个实用小脚本 + 打包工具条，已适配 AE 25/26。</td><td><a href="https://mograph.life" target="_blank" rel="noopener">mograph.life</a></td></tr>
+      <tr><td>效率工具</td><td class="nm">MoBar 免费版</td><td><span class="tag c">可选</span></td><td class="mut">对齐/替换/清理小工具箱；免费版有限次使用（Reddit 5 帖 8 提及）。</td><td><a href="https://aescripts.com/mobar/" target="_blank" rel="noopener">aescripts</a></td></tr>
+      <tr><td>效率工具</td><td class="nm">kyletmartinez 脚本合集</td><td><span class="tag c">可选</span></td><td class="mut">要什么装什么，配 Kbar 按钮化最顺（290★）。</td><td><a href="https://github.com/kyletmartinez/after-effects-scripts" target="_blank" rel="noopener">GitHub</a></td></tr>
+      <tr><td>效率工具</td><td class="nm">after-effects-mcp</td><td><span class="tag c">可选</span></td><td class="mut">让 AI 直接建合成/改属性/跑脚本（889★，2025-26 增长最快方向）。</td><td><a href="https://github.com/Dakkshin/after-effects-mcp" target="_blank" rel="noopener">GitHub</a></td></tr>
+      <tr><td>二次创作</td><td class="nm">TheAnimeScripter</td><td><span class="tag a">必装</span></td><td class="mut">AI 放大 + RIFE 补帧 + 画质修复一条龙，先跑一遍再进工程（347★，二创圈爆火）。</td><td><a href="https://github.com/NevermindNilas/TheAnimeScripter" target="_blank" rel="noopener">GitHub</a></td></tr>
+      <tr><td>二次创作</td><td class="nm">喵哉补帧·抠像脚本</td><td><span class="tag a">必装</span></td><td class="mut">AE 内一键补帧+抠像，对标 Twixtor+Roto 组合（转发视频 39,376 播放 / 5,372 收藏）。</td><td><a href="https://www.lookae.com/miaozai" target="_blank" rel="noopener">lookae.com/miaozai</a></td></tr>
+      <tr><td>二次创作</td><td class="nm">Real-ESRGAN</td><td><span class="tag rec">推荐</span></td><td class="mut">anime6B 模型超分关键镜头，别全片跑（37,490★，开源超分事实标准）。</td><td><a href="https://github.com/xinntao/Real-ESRGAN" target="_blank" rel="noopener">GitHub</a></td></tr>
+      <tr><td>二次创作</td><td class="nm">Saber</td><td><span class="tag rec">推荐</span></td><td class="mut">能量描边直接套再改颜色，别手搓光效（Video Copilot 官方免费，Magic Mark 榜第 9）。</td><td><a href="https://www.videocopilot.net/blog/2016/03/new-plug-in-saber-now-available-100-free" target="_blank" rel="noopener">官方发布页</a></td></tr>
+      <tr><td>二次创作</td><td class="nm">om_midi</td><td><span class="tag c">可选</span></td><td class="mut">MIDI/音频驱动关键帧，OTOMAD/YTPMV 音画同步半自动（84★，音 MAD 圈标配）。</td><td><a href="https://github.com/otomad/om_midi" target="_blank" rel="noopener">GitHub</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ 02 CLONES ============ -->
+<section id="clones">
+  <div class="shead">
+    <div>
+      <div class="kicker">Clone Library · Clean-room</div>
+      <h2><span class="idx">02</span>复刻插件库 · 8 个</h2>
+      <p class="sub">复刻库快照时刻：<b style="color:var(--acc)">2026-11-14 07:40（最终版）</b>（clones/ 目录 ls 实测 8 个目录，卡片摘要取自各目录 README.md 功能对照表）。全部为 ExtendScript（ES3），仅依据 paid-list.md 的功能性描述独立实现，未反编译、未参考任何原代码。</p>
+    </div>
+    <div class="bigno">02</div>
+  </div>
+  <div class="rule"></div>
+  <div class="clone-head">
+    <div class="ring" style="--p:27"><div class="rv"><b>8/30</b><span>A 类复刻覆盖 27%</span></div></div>
+    <div class="card" style="flex:1;min-width:260px">
+      <div style="font-size:12.5px;color:var(--dim);line-height:1.9">
+        已复刻：<b style="color:var(--acc2)">Flow · EaseCopy · Motion 2 · AutoSway · GifGun · Joysticks 'n Sliders · RubberHose/Limber（IK 核心）· True Comp Duplicator</b><br>
+        待复刻（价值/难度序）：KeyTweak → Parrot / WobbleBox → 其余 A 类小工具批量复刻池（paid-list.md 结论 §7）。B 类走原生效果组合近似，C 类不投入复刻、直接用免费替代。
+      </div>
+    </div>
+  </div>
+  <div class="clone-grid">
+    <div class="clone-card">
+      <h3>Flow Clone <span class="tag done">已复刻</span></h3>
+      <div class="orig">原版：Flow（renderTom + Zack Lovatt，aescripts，$35，CEP+jsx）</div>
+      <ul>
+        <li class="ok">16 条预设缓动曲线库（12 贝塞尔 + 4 曲线函数），选中关键帧一键应用</li>
+        <li class="ok">强度 Intensity / 速度 Speed 0.2–3.0 全局调节；spring/bounce 逐帧采样插键实现</li>
+        <li class="ok">ScriptUI 停靠面板 + 只读曲线预览；命令行 / $.global API 调用（原版没有的加分项）</li>
+        <li class="no">拖拽手柄曲线编辑器 / 自定义预设保存加载 / 曲线分享未复刻</li>
+      </ul>
+      <div class="path"><code>C:\Users\19894\ae-mission\clones\flow-clone</code><button class="copybtn" data-copy="C:\Users\19894\ae-mission\clones\flow-clone">复制路径</button></div>
+      <div class="inst"><b>安装：</b>main.jsx 放入 ScriptUI Panels 目录，重启 AE 从 Window 菜单打开。</div>
+    </div>
+    <div class="clone-card">
+      <h3>EaseCopy Clone <span class="tag done">已复刻</span></h3>
+      <div class="orig">原版：EaseCopy（Mike Overbeck，aescripts，$15 NYOP，jsx）</div>
+      <ul>
+        <li class="ok">Copy/Paste 1–4 四槽位：只拷缓动（speed+influence）不动数值；In only / Out only</li>
+        <li class="ok">多维属性逐维 ease；跨属性/跨维度粘贴（维度按索引映射回退）</li>
+        <li class="ok">整段动画拷贝，粘贴时按目标关键帧跨度自动缩放时间与 ease 速度</li>
+        <li class="no">槽位跨会话持久化未复刻（仅内存）；曲线可视化 / 预设库未复刻</li>
+      </ul>
+      <div class="path"><code>C:\Users\19894\ae-mission\clones\easecopy-clone</code><button class="copybtn" data-copy="C:\Users\19894\ae-mission\clones\easecopy-clone">复制路径</button></div>
+      <div class="inst"><b>安装：</b>main.jsx 放入 ScriptUI Panels 目录或经 File &gt; Scripts 运行。</div>
+    </div>
+    <div class="clone-card">
+      <h3>M2 Clone <span class="tag done">已复刻</span></h3>
+      <div class="orig">原版：Motion 2（Mt. Mograph，$65，ScriptUI 面板）</div>
+      <ul>
+        <li class="ok">锚点智能移动：3×3 网格，toComp/fromComp 逐关键帧精确补偿（父级/旋转/缩放下内容不动）</li>
+        <li class="ok">方向联动：velocityAtTime 驱动 rotation 朝向 + scale 挤压拉伸表达式</li>
+        <li class="ok">弹性后处理预设：elastic / bounce / pendulum 三模式，amp/freq/decay 可调</li>
+        <li class="no">Ease 滑块（keyframeEase 批量写入）/ Burst / Clone / Rig 未复刻（仅支持 2D 图层）</li>
+      </ul>
+      <div class="path"><code>C:\Users\19894\ae-mission\clones\motion2-clone</code><button class="copybtn" data-copy="C:\Users\19894\ae-mission\clones\motion2-clone">复制路径</button></div>
+      <div class="inst"><b>安装：</b>main.jsx 放入 ScriptUI Panels 目录，重启 AE。</div>
+    </div>
+    <div class="clone-card">
+      <h3>AS Spring Clone <span class="tag done">已复刻</span></h3>
+      <div class="orig">原版：AutoSway（aescripts，$39.99，jsx 表达式绑定生成器）</div>
+      <ul>
+        <li class="ok">欠阻尼弹簧 Verlet 离散化 + valueAtTime 前帧递推（独立推导，8 项数学仿真通过）</li>
+        <li class="ok">图层链按时间线顺序传导：子层 = Base + 风力 + 父层摆动 × Inherit%</li>
+        <li class="ok">Stiffness / Damping / Mass / Wind / Inherit 全参数，旋转与位置两种模式；数值稳定域自动钳制</li>
+        <li class="no">控制 Null 生成（控制挂图层效果）/ 形状点链 / 重力未实现</li>
+      </ul>
+      <div class="path"><code>C:\Users\19894\ae-mission\clones\autosway-clone</code><button class="copybtn" data-copy="C:\Users\19894\ae-mission\clones\autosway-clone">复制路径</button></div>
+      <div class="inst"><b>安装：</b>main.jsx 放入 ScriptUI Panels 目录；时间线自上而下选层后点 Apply。</div>
+    </div>
+    <div class="clone-card">
+      <h3>GifGun Clone <span class="tag done">已复刻</span></h3>
+      <div class="orig">原版：GifGun 2（Nik Ska，aescripts，$39.99，jsx 面板）</div>
+      <ul>
+        <li class="ok">一键 GIF：AE 渲染 PNG 序列 → ffmpeg palettegen/paletteuse 两遍法全自动串联</li>
+        <li class="ok">工作区/全时长范围；fps 8–30 滑杆 + 最大宽度（lanczos 重采样）+ 质量 1–5</li>
+        <li class="ok">ffmpeg 三级自动检测；缺失时降级为仅序列帧并给出指引；设置持久化</li>
+        <li class="no">WEBP/WEBM/MP4 多格式 / 后台渲染不锁 AE / 队列批量未复刻</li>
+      </ul>
+      <div class="path"><code>C:\Users\19894\ae-mission\clones\gifgun-clone</code><button class="copybtn" data-copy="C:\Users\19894\ae-mission\clones\gifgun-clone">复制路径</button></div>
+      <div class="inst"><b>安装：</b>main.jsx 放入 ScriptUI Panels 目录；需 ffmpeg（自动检测：脚本同目录 / PATH / 手动路径）。</div>
+    </div>
+    <div class="clone-card">
+      <h3>JNS Clone <span class="tag done">已复刻</span></h3>
+      <div class="orig">原版：Joysticks 'n Sliders（Mike Overbeck，aescripts，$39.95）</div>
+      <ul>
+        <li class="ok">Joystick 四象限双线性插值：wTL/wTR/wBL/wBR 权重和恒为 1，出界边缘钳制</li>
+        <li class="ok">4 角点姿势容器（滑杆/点控制）+ 表达式自动绑定；thisComp.layer(N) 索引引用防改名断链</li>
+        <li class="ok">EaseBias 简化复刻（0-100 偏置滑杆 → smoothstep 混合）；Joy 控制层边界可视化</li>
+        <li class="no">Sliders 无限姿势 / Switch Template / Path Rigging / 跨 comp 未实现</li>
+      </ul>
+      <div class="path"><code>C:\Users\19894\ae-mission\clones\joysticks-clone</code><button class="copybtn" data-copy="C:\Users\19894\ae-mission\clones\joysticks-clone">复制路径</button></div>
+      <div class="inst"><b>安装：</b>main.jsx 放入 ScriptUI Panels 目录；创建 Joy 控制层 → 选属性 → 绑定生成表达式。</div>
+    </div>
+    <div class="clone-card">
+      <h3>TwoBone IK Clone <span class="tag done">已复刻</span></h3>
+      <div class="orig">原版：RubberHose 3（Battle Axe，$65）／Limber 2（Mike Overbeck，$65）同类两骨 IK</div>
+      <ul>
+        <li class="ok">余弦定理两骨 IK：A1=acos((L1²+d²−L2²)/(2·L1·d))，可达域钳制 + 零除保护（Node 逐字提取验证，8 组用例 PASS）</li>
+        <li class="ok">生成 IKC: Upper / IKC: Elbow 双 null 控制器 + Bend Flip 弯向 Checkbox + L1/L2 骨长（含自动测量）</li>
+        <li class="ok">IKC: Hose 三点贝塞尔软管形状层，描边宽度挂 Thickness 滑杆（createPath 需 AE 15.0/CC2018+）</li>
+        <li class="no">弯折半径独立参数（常量近似）/ squash &amp; stretch / Rubberize 样式替换 / 自动打键未实现；单 comp 仅一套 IK</li>
+      </ul>
+      <div class="path"><code>C:\Users\19894\ae-mission\clones\rubberhose-clone</code><button class="copybtn" data-copy="C:\Users\19894\ae-mission\clones\rubberhose-clone">复制路径</button></div>
+      <div class="inst"><b>安装：</b>main.jsx 放入 ScriptUI Panels 目录或 Run Script File；选中根关节层 + 末端控制层后点 Create IK。</div>
+    </div>
+    <div class="clone-card">
+      <h3>TCD Clone <span class="tag done">已复刻</span></h3>
+      <div class="orig">原版：True Comp Duplicator（Brennan Chapman，aescripts，$24.99 NYOP）</div>
+      <ul>
+        <li class="ok">comp 依赖图构建 + DFS 后序遍历闭包收集（防环），完整层级树复制</li>
+        <li class="ok">优先 layer.copyToComp 原生保真，不可用时逐属性树克隆回退（文本/形状/效果/蒙版分派）</li>
+        <li class="ok">source 重映射 + 父级重链接 + 文件夹镜像 + 排除列表 + footage 可选复制；支持多选 comp</li>
+        <li class="no">正则重命名 / 表达式内 comp("旧名") 重映射 / 代理保留未复刻</li>
+      </ul>
+      <div class="path"><code>C:\Users\19894\ae-mission\clones\true-comp-dup-clone</code><button class="copybtn" data-copy="C:\Users\19894\ae-mission\clones\true-comp-dup-clone">复制路径</button></div>
+      <div class="inst"><b>安装：</b>main.jsx 放入 ScriptUI Panels 目录或 Run Script File；先在项目面板选中 comp（可多选）。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 BILI ============ -->
+<section id="bili">
+  <div class="shead">
+    <div>
+      <div class="kicker">Bilibili Heat Index</div>
+      <h2><span class="idx">03</span>B站热度榜 · 30 项</h2>
+      <p class="sub">来源 intel/free-bilibili.md · 口径：B站搜索 API 检索日 2026-11-14（视频池 1,631 条去重，按标题正则归入插件，含 AE 上下文过滤）；热度 = 标题命中视频数 × 播放量合计，仅统计进入检索池的视频。条形图按榜首 1,042,181 归一化。</p>
+    </div>
+    <div class="bigno">03</div>
+  </div>
+  <div class="rule"></div>
+  <div class="toolrow"><input class="search" type="search" placeholder="搜索插件 / 功能 / 渠道…" data-filter="bili-tbl"><span class="count" data-count="bili-tbl"></span></div>
+  <div class="tblwrap"><table id="bili-tbl">
+    <thead><tr><th>#</th><th>名称</th><th>功能一句话</th><th style="min-width:150px">播放量合计</th><th>视频数</th><th>获取渠道</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td class="nm">Duik</td><td class="mut">角色骨骼绑定/IK/自动走路，MG 人物动画事实标准</td><td><span class="mini"><span>1,042,181</span><i style="width:100%"></i></span></td><td>31</td><td><span class="tag free">免费</span> 开源（Rainbox Lab）</td></tr>
+      <tr><td>2</td><td class="nm">Saber</td><td class="mut">Video Copilot 能量光剑/激光/霓虹描边特效</td><td><span class="mini"><span>708,884</span><i style="width:68%"></i></span></td><td>23</td><td><span class="tag free">免费</span> 官方（videocopilot.net）</td></tr>
+      <tr><td>3</td><td class="nm">AutoSway</td><td class="mut">一键生成风吹自由摆动/自动摇晃动画</td><td><span class="mini"><span>694,173</span><i style="width:66.6%"></i></span></td><td>32</td><td><span class="tag free">免费</span> 作者官网（B站多汉化版）</td></tr>
+      <tr><td>4</td><td class="nm">BeatEdit</td><td class="mut">音乐节拍检测+自动卡点打点</td><td><span class="mini"><span>690,672</span><i style="width:66.3%"></i></span></td><td>38</td><td><span class="tag paid">收费</span> aescripts（B站流传汉化版）</td></tr>
+      <tr><td>5</td><td class="nm">AfterCodecs</td><td class="mut">AE/PR 快速导出 H264/HEVC/ProRes 等渲染输出</td><td><span class="mini"><span>672,174</span><i style="width:64.5%"></i></span></td><td>31</td><td><span class="tag paid">收费</span> Autokroma（B站流传汉化/破解）</td></tr>
+      <tr><td>6</td><td class="nm">Optical Flares</td><td class="mut">镜头光晕/光斑合成（AK 大神出品）</td><td><span class="mini"><span>511,562</span><i style="width:49.1%"></i></span></td><td>24</td><td><span class="tag paid">收费</span> Video Copilot（B站流传汉化）</td></tr>
+      <tr><td>7</td><td class="nm">GifGun</td><td class="mut">一键导出 GIF/WEBM/MP4 动图</td><td><span class="mini"><span>286,705</span><i style="width:27.5%"></i></span></td><td>32</td><td><span class="tag paid">收费</span> aescripts（B站流传汉化）</td></tr>
+      <tr><td>8</td><td class="nm">Motion Tools 2</td><td class="mut">锚点/缓动/对齐/变换多功能效率面板</td><td><span class="mini"><span>230,717</span><i style="width:22.1%"></i></span></td><td>11</td><td><span class="tag free">免费</span> 作者发布（中文汉化普及）</td></tr>
+      <tr><td>9</td><td class="nm">FXConsole</td><td class="mut">一键调出/搜索并套用效果与预设（中文搜索友好）</td><td><span class="mini"><span>197,528</span><i style="width:19%"></i></span></td><td>18</td><td><span class="tag free">免费</span> 官方（Video Copilot）</td></tr>
+      <tr><td>10</td><td class="nm">Deep Glow</td><td class="mut">物理正确的高级辉光（亮度平方反比衰减）</td><td><span class="mini"><span>197,301</span><i style="width:18.9%"></i></span></td><td>16</td><td><span class="tag paid">收费</span> aescripts（B站流传汉化）</td></tr>
+      <tr><td>11</td><td class="nm">True Comp Duplicator</td><td class="mut">预合成/嵌套合成整体复制重命名</td><td><span class="mini"><span>136,673</span><i style="width:13.1%"></i></span></td><td>15</td><td><span class="tag free">免费</span> aescripts</td></tr>
+      <tr><td>12</td><td class="nm">Ae小伴侣</td><td class="mut">脚本/工程文件管理器（国区创作者自制）</td><td><span class="mini"><span>97,430</span><i style="width:9.3%"></i></span></td><td>6</td><td><span class="tag free">免费</span> 作者B站/网盘分发</td></tr>
+      <tr><td>13</td><td class="nm">Nebulosity</td><td class="mut">程序化云雾/星云体积生成</td><td><span class="mini"><span>94,664</span><i style="width:9.1%"></i></span></td><td>23</td><td><span class="tag paid">收费</span> （B站流传汉化）</td></tr>
+      <tr><td>14</td><td class="nm">SpeedX</td><td class="mut">抽帧+补帧/变速（UP 主自制开源）</td><td><span class="mini"><span>91,779</span><i style="width:8.8%"></i></span></td><td>5</td><td><span class="tag free">免费</span> UP 主自制开源</td></tr>
+      <tr><td>15</td><td class="nm">Ease and Wizz</td><td class="mut">关键帧弹性/回弹缓动预设</td><td><span class="mini"><span>84,254</span><i style="width:8.1%"></i></span></td><td>5</td><td><span class="tag free">免费</span> aescripts 老牌免费脚本</td></tr>
+      <tr><td>16</td><td class="nm">AEUX</td><td class="mut">Figma/Sketch/Illustrator 图层导入 AE</td><td><span class="mini"><span>81,420</span><i style="width:7.8%"></i></span></td><td>7</td><td><span class="tag free">免费</span> 开源（aeux.io）</td></tr>
+      <tr><td>17</td><td class="nm">Flow</td><td class="mut">关键帧曲线缓动编辑（动效神器）</td><td><span class="mini"><span>74,233</span><i style="width:7.1%"></i></span></td><td>4</td><td><span class="tag free">免费</span> GitHub（Flow 1.x；新版在 aescripts）</td></tr>
+      <tr><td>18</td><td class="nm">工具箱大师</td><td class="mut">国产多功能效率工具箱脚本</td><td><span class="mini"><span>57,165</span><i style="width:5.5%"></i></span></td><td>14</td><td><span class="tag free">免费</span> 作者B站/网盘分发</td></tr>
+      <tr><td>19</td><td class="nm">laForge</td><td class="mut">ProductionCrate 素材/特效桥接插件</td><td><span class="mini"><span>36,443</span><i style="width:3.5%"></i></span></td><td>11</td><td><span class="tag paid">收费</span> ProductionCrate（部分免费素材）</td></tr>
+      <tr><td>20</td><td class="nm">AE脚本管家</td><td class="mut">脚本管理器（30+ 功能整合面板，国产原创）</td><td><span class="mini"><span>25,561</span><i style="width:2.5%"></i></span></td><td>1</td><td><span class="tag free">免费</span> 星美男原创（B站发布）</td></tr>
+      <tr><td>21</td><td class="nm">EaseCopy</td><td class="mut">关键帧缓动复制粘贴</td><td><span class="mini"><span>19,658</span><i style="width:1.9%"></i></span></td><td>7</td><td><span class="tag free">免费</span></td></tr>
+      <tr><td>22</td><td class="nm">GridGuide</td><td class="mut">自动网格排版/对齐参考线</td><td><span class="mini"><span>17,960</span><i style="width:1.7%"></i></span></td><td>8</td><td><span class="tag paid">收费</span> aescripts（B站流传汉化）</td></tr>
+      <tr><td>23</td><td class="nm">AEJuice</td><td class="mut">预设/元素素材包全家桶（含免费包）</td><td><span class="mini"><span>16,646</span><i style="width:1.6%"></i></span></td><td>12</td><td><span class="tag free">免费</span> 入门包+订阅制</td></tr>
+      <tr><td>24</td><td class="nm">Wiggle Pro</td><td class="mut">一键高级抖动/晃动/震动</td><td><span class="mini"><span>15,276</span><i style="width:1.5%"></i></span></td><td>1</td><td><span class="tag paid">收费</span> aescripts（B站流传汉化）</td></tr>
+      <tr><td>25</td><td class="nm">LEAP BOX</td><td class="mut">提高剪辑/图层管理效率的宝藏脚本</td><td><span class="mini"><span>11,874</span><i style="width:1.1%"></i></span></td><td>1</td><td><span class="tag free">免费</span> UP 主分享</td></tr>
+      <tr><td>26</td><td class="nm">Easy Workflow Pro</td><td class="mut">预合成/图层/锚点/曲线多功能工作流面板</td><td><span class="mini"><span>10,627</span><i style="width:1%"></i></span></td><td>2</td><td><span class="tag paid">收费</span> （B站流传汉化）</td></tr>
+      <tr><td>27</td><td class="nm">Coco Color</td><td class="mut">颜色博物馆：调色/配色板/渐变色卡</td><td><span class="mini"><span>9,596</span><i style="width:0.9%"></i></span></td><td>1</td><td><span class="tag free">免费</span> 作者发布（董老师教程带火）</td></tr>
+      <tr><td>28</td><td class="nm">Camera Crew</td><td class="mut">3D 摄像机多机位操作简化</td><td><span class="mini"><span>9,270</span><i style="width:0.9%"></i></span></td><td>1</td><td><span class="tag free">免费</span> B站宣称免费分享</td></tr>
+      <tr><td>29</td><td class="nm">AE百宝箱</td><td class="mut">国产通用效率工具箱</td><td><span class="mini"><span>7,243</span><i style="width:0.7%"></i></span></td><td>1</td><td><span class="tag free">免费</span> 网盘流传</td></tr>
+      <tr><td>30</td><td class="nm">懒人工具箱</td><td class="mut">视频综合处理辅助工具箱（数据偏低如实标注）</td><td><span class="mini w0"><span>405</span><i style="width:0.4%"></i></span></td><td>2</td><td><span class="tag free">免费</span> 网盘流传</td></tr>
+    </tbody>
+  </table></div>
+  <p class="sub" style="margin-top:8px">关键结论（原文）：免费工具霸榜头部——Duik（104.2 万）、Saber（70.9 万）、AutoSway（69.4 万）三强均为免费/开源；渲染输出是刚需入口（AfterCodecs + GifGun 合计约 96 万播放但均为收费汉化流传 → 免费替代有明确痛点）；国产免费脚本合计约 17 万播放；KeTools 未获可靠热度数据暂不入榜；收费插件热度常由「汉化/破解分享」驱动，引用注意版权合规。</p>
+</section>
+
+<!-- ============ 04 GLOBAL ============ -->
+<section id="global">
+  <div class="shead">
+    <div>
+      <div class="kicker">Global Free List</div>
+      <h2><span class="idx">04</span>全球免费榜 · 39 项</h2>
+      <p class="sub">来源 intel/free-global.md（插件 15 + 脚本 14 + 预设/工具 10）。热度证据三类：Reddit r/AfterEffects 13 帖聚合提及数 · GitHub stars（2026-11-13 API 实测）· 编辑部榜单与 YouTube 盘点。NYOP = 结账可填 $0（需 aescripts 账号）。</p>
+    </div>
+    <div class="bigno">04</div>
+  </div>
+  <div class="rule"></div>
+  <div class="bars">
+    <h3>GitHub stars 实测 Top 10（全球榜内，2026-11-13 快照）</h3>
+    <div class="brow"><span class="bn">lottie-web</span><div class="bt"><div class="bf" style="width:100%"></div></div><span class="bv">32,405★</span></div>
+    <div class="brow"><span class="bn">nexrender</span><div class="bt"><div class="bf" style="width:5.8%"></div></div><span class="bv">1,864★</span></div>
+    <div class="brow"><span class="bn">after-effects-mcp</span><div class="bt"><div class="bf" style="width:2.7%"></div></div><span class="bv">889★</span></div>
+    <div class="brow"><span class="bn">adobe-discord-rpc</span><div class="bt"><div class="bf" style="width:2.1%"></div></div><span class="bv">671★</span></div>
+    <div class="brow"><span class="bn">ScriptUI Dialog Builder</span><div class="bt"><div class="bf" style="width:1.3%"></div></div><span class="bv">422★</span></div>
+    <div class="brow"><span class="bn">Duik（RxLaboratory）</span><div class="bt"><div class="bf" style="width:1.3%"></div></div><span class="bv">408★</span></div>
+    <div class="brow"><span class="bn">TheAnimeScripter</span><div class="bt"><div class="bf" style="width:1.1%"></div></div><span class="bv">347★</span></div>
+    <div class="brow"><span class="bn">ISF4AE</span><div class="bt"><div class="bf" style="width:1%"></div></div><span class="bv">324★</span></div>
+    <div class="brow"><span class="bn">kyletmartinez 脚本合集</span><div class="bt"><div class="bf" style="width:0.9%"></div></div><span class="bv">290★</span></div>
+    <div class="brow"><span class="bn">Sketch2AE</span><div class="bt"><div class="bf" style="width:0.5%"></div></div><span class="bv">174★</span></div>
+  </div>
+  <div class="toolrow"><input class="search" type="search" placeholder="搜索全球榜…" data-filter="global-tbl"><span class="count" data-count="global-tbl"></span></div>
+  <div class="tblwrap"><table id="global-tbl">
+    <thead><tr><th>组</th><th>#</th><th>名称</th><th>功能一句话</th><th>热度证据</th><th>获取渠道</th></tr></thead>
+    <tbody>
+      <tr><td>插件</td><td>1</td><td class="nm">FX Console</td><td class="mut">一键搜索/套用效果与预设的效果控制台，工作流类第一神器</td><td class="mut">Reddit 多帖公认第一必装；Magic Mark 2025 榜</td><td><a href="https://www.videocopilot.net" target="_blank" rel="noopener">videocopilot.net</a> 免邮箱</td></tr>
+      <tr><td>插件</td><td>2</td><td class="nm">Saber</td><td class="mut">能量光剑/激光/霓虹描边特效，100% 免费</td><td class="mut">VC 官方免费主打；Magic Mark 榜第 9；YouTube 常客</td><td><a href="https://www.videocopilot.net/blog/2016/03/new-plug-in-saber-now-available-100-free" target="_blank" rel="noopener">官方发布页</a> 免邮箱</td></tr>
+      <tr><td>插件</td><td>3</td><td class="nm">Animation Composer</td><td class="mut">拖拽即用预设动画库（入场/转场/弹跳），新手最友好</td><td class="mut">Reddit 4 帖 14 提及；School of Motion「新手第一推荐」；41 万播放盘点必提</td><td><a href="https://misterhorse.net/animationcomposer" target="_blank" rel="noopener">misterhorse.net</a> 免费版直装</td></tr>
+      <tr><td>插件</td><td>4</td><td class="nm">Color Vibrance</td><td class="mut">快速高饱和上色/发光色分离的经典调色插件</td><td class="mut">VC 免费三件套之一（2022.1 适配新 AE）；PremiumBeat 收录</td><td>videocopilot.net 免邮箱</td></tr>
+      <tr><td>插件</td><td>5</td><td class="nm">VC Reflect</td><td class="mut">一键给图层加真实感倒影</td><td class="mut">VC 免费件；PremiumBeat 清单收录</td><td>videocopilot.net 免邮箱</td></tr>
+      <tr><td>插件</td><td>6</td><td class="nm">Schmeeer</td><td class="mut">风格化「拖影」运动模糊</td><td class="mut">Magic Mark 榜第 7；Battle Axe（Overlord 作者）出品</td><td><a href="https://battleaxe.co/schmeeer" target="_blank" rel="noopener">battleaxe.co</a> 免邮箱</td></tr>
+      <tr><td>插件</td><td>7</td><td class="nm">Buttcapper</td><td class="mut">可视化调节描边线帽/虚线的小神器</td><td class="mut">Battle Axe 官方免费件</td><td><a href="https://battleaxe.co/buttcapper" target="_blank" rel="noopener">battleaxe.co</a> 免邮箱</td></tr>
+      <tr><td>插件</td><td>8</td><td class="nm">Void</td><td class="mut">改良版 Null 对象（更干净的绑定锚点）</td><td class="mut">2023-01 官方免费发布</td><td><a href="https://battleaxe.co/void" target="_blank" rel="noopener">battleaxe.co</a> 免邮箱</td></tr>
+      <tr><td>插件</td><td>9</td><td class="nm">Quick Chromatic Aberration 3</td><td class="mut">一键模拟真实镜头色散/RGB 偏移</td><td class="mut">Magic Mark 榜第 8；aescripts 标注 Free</td><td><a href="https://aescripts.com/quick-chromatic-aberration/" target="_blank" rel="noopener">aescripts</a> NYOP（可 $0）</td></tr>
+      <tr><td>插件</td><td>10</td><td class="nm">ISF4AE</td><td class="mut">AE 里直接跑 ISF/GLSL 着色器效果</td><td class="mut">GitHub 324★（实测）</td><td><a href="https://github.com/baku89/ISF4AE" target="_blank" rel="noopener">GitHub</a> 开源</td></tr>
+      <tr><td>插件</td><td>11</td><td class="nm">TheAnimeScripter</td><td class="mut">AI 放大 + RIFE 补帧 + 画质修复一条龙，动漫二创圈爆火</td><td class="mut">GitHub 347★（实测）</td><td><a href="https://github.com/NevermindNilas/TheAnimeScripter" target="_blank" rel="noopener">GitHub</a> 开源</td></tr>
+      <tr><td>插件</td><td>12</td><td class="nm">AE_tl_math</td><td class="mut">AE 内直接写 GLSL/数学表达式驱动效果</td><td class="mut">GitHub 133★（实测）</td><td><a href="https://github.com/crazylafo/AE_tl_math" target="_blank" rel="noopener">GitHub</a> 开源</td></tr>
+      <tr><td>插件</td><td>13</td><td class="nm">AEJuice Pack Manager + Starter Pack</td><td class="mut">免费素材管理器，内置 100+ 免费拖拽动画/转场/音效起步包</td><td class="mut">官方免费区；PremiumBeat 收录；YouTube 盘点常客</td><td><a href="https://aejuice.com/free-plugins/" target="_blank" rel="noopener">aejuice.com</a> 需注册</td></tr>
+      <tr><td>插件</td><td>14</td><td class="nm">Motion Bro</td><td class="mut">转场/预设管理面板，自带大量免费包</td><td class="mut">Magic Mark 榜第 2；多个 YouTube 盘点提及</td><td><a href="https://motionbro.net" target="_blank" rel="noopener">motionbro.net</a> 免费包需注册</td></tr>
+      <tr><td>插件</td><td>15</td><td class="nm">Motion Dock</td><td class="mut">单面板收纳 28 个常用工具的免费效率扩展</td><td class="mut">Motion Tools Pro 的「真免费替代」被多帖推荐</td><td>官网搜索获取（未逐一验证）</td></tr>
+      <tr><td>脚本</td><td>1</td><td class="nm">True Comp Duplicator</td><td class="mut">完整复制合成层级（含子合成）并保留引用关系，改版工程必备</td><td class="mut">Reddit 13 帖中 7 帖推荐、23 次提及，脚本类第一</td><td><a href="https://aescripts.com/true-comp-duplicator/" target="_blank" rel="noopener">aescripts</a> NYOP（可 $0）</td></tr>
+      <tr><td>脚本</td><td>2</td><td class="nm">EaseCopy</td><td class="mut">复制/粘贴关键帧缓动曲线而不动数值</td><td class="mut">Reddit 6 帖 31 次提及，热评 220 赞；有「内置进 AE」请愿</td><td><a href="https://aescripts.com/easecopy/" target="_blank" rel="noopener">aescripts</a> NYOP（可 $0）</td></tr>
+      <tr><td>脚本</td><td>3</td><td class="nm">Duik Ángela</td><td class="mut">行业级 2D 角色绑定/IK/自动动画工具，完全免费</td><td class="mut">GitHub 408★（2026-11 仍在更新）；Reddit 4 帖 9 提及</td><td><a href="https://github.com/RxLaboratory/Duik" target="_blank" rel="noopener">GitHub</a> 开源（可捐赠）</td></tr>
+      <tr><td>脚本</td><td>4</td><td class="nm">TextEvo 2</td><td class="mut">文字逐段变形/渐变动画工具</td><td class="mut">Reddit 3 帖 6 提及</td><td><a href="https://aescripts.com/textevo/" target="_blank" rel="noopener">aescripts</a> NYOP（可 $0）</td></tr>
+      <tr><td>脚本</td><td>5</td><td class="nm">UnPrecompose</td><td class="mut">智能解嵌套预合成（保留效果/表达式）</td><td class="mut">NYOP 区常客；Reddit 推荐清单点名</td><td><a href="https://aescripts.com/unprecompose/" target="_blank" rel="noopener">aescripts</a> NYOP（可 $0）</td></tr>
+      <tr><td>脚本</td><td>6</td><td class="nm">Kease</td><td class="mut">多关键帧缓动编辑器，Flow 的免费替代</td><td class="mut">Reddit 4 帖 4 提及</td><td><a href="https://aescripts.com/kease/" target="_blank" rel="noopener">aescripts</a> 免费版可用</td></tr>
+      <tr><td>脚本</td><td>7</td><td class="nm">MoBar（免费版）</td><td class="mut">150+ 工具的工具箱面板（对齐/替换/清理等）</td><td class="mut">Reddit 5 帖 8 提及；官方 Pro 免费版开放</td><td><a href="https://aescripts.com/mobar/" target="_blank" rel="noopener">aescripts</a> 有限次需注册</td></tr>
+      <tr><td>脚本</td><td>8</td><td class="nm">CrossFrame</td><td class="mut">一次搭建、多尺寸/比例批量导出的新工具</td><td class="mut">Reddit 2026 新帖作者免费发布</td><td><a href="https://www.reddit.com/r/AfterEffects/comments/1rxhw8h/made_a_free_ae_script_that_lets_you_build_once" target="_blank" rel="noopener">Reddit 帖</a></td></tr>
+      <tr><td>脚本</td><td>9</td><td class="nm">mograph.life 32 件套</td><td class="mut">MIT 开源的 32 个实用小脚本 + 打包工具条</td><td class="mut">作者 Reddit 帖发布，社区反响好，已适配 AE 25/26</td><td><a href="https://mograph.life" target="_blank" rel="noopener">mograph.life</a> MIT</td></tr>
+      <tr><td>脚本</td><td>10</td><td class="nm">kyletmartinez 脚本合集</td><td class="mut">原生运行或配 Kbar 使用的实用脚本大合集</td><td class="mut">GitHub 290★（实测）</td><td><a href="https://github.com/kyletmartinez/after-effects-scripts" target="_blank" rel="noopener">GitHub</a> 开源</td></tr>
+      <tr><td>脚本</td><td>11</td><td class="nm">aturtur 脚本合集</td><td class="mut">图层/关键帧/合成批量操作脚本集（教程作者出品）</td><td class="mut">GitHub 152★（实测）</td><td><a href="https://github.com/aturtur/after-effects-scripts" target="_blank" rel="noopener">GitHub</a> 开源</td></tr>
+      <tr><td>脚本</td><td>12</td><td class="nm">zl_Scriptlets</td><td class="mut">一批小而美的工具脚本，适配 kbar 等启动器</td><td class="mut">GitHub 142★（实测）</td><td><a href="https://github.com/zlovatt/zl_Scriptlets" target="_blank" rel="noopener">GitHub</a> 开源</td></tr>
+      <tr><td>脚本</td><td>13</td><td class="nm">om_midi</td><td class="mut">音频/MIDI 驱动关键帧的 OTOMAD/YTPMV 辅助脚本</td><td class="mut">GitHub 84★（实测），音 MAD 圈标配</td><td><a href="https://github.com/otomad/om_midi" target="_blank" rel="noopener">GitHub</a> 开源</td></tr>
+      <tr><td>脚本</td><td>14</td><td class="nm">Repeater</td><td class="mut">快速做形状重复/阵列动画</td><td class="mut">Reddit 1n9xjcn 帖提名（aescripts 免费区）</td><td>aescripts 站内搜（NYOP 未验证）</td></tr>
+      <tr><td>预设/工具</td><td>1</td><td class="nm">lottie-web（Bodymovin）</td><td class="mut">AE 动画导出为 Lottie JSON 的行业标准（现内置于 AE）</td><td class="mut">GitHub 32,405★（实测），AE 相关生态第一</td><td><a href="https://github.com/airbnb/lottie-web" target="_blank" rel="noopener">GitHub</a> 开源</td></tr>
+      <tr><td>预设/工具</td><td>2</td><td class="nm">nexrender</td><td class="mut">数据驱动的 AE 无头渲染农场/自动出片框架</td><td class="mut">GitHub 1,864★（实测）</td><td><a href="https://github.com/inlife/nexrender" target="_blank" rel="noopener">GitHub</a> 开源</td></tr>
+      <tr><td>预设/工具</td><td>3</td><td class="nm">after-effects-mcp</td><td class="mut">用 MCP 让 Claude 等 AI 直接操控 AE</td><td class="mut">GitHub 889★（实测），2025-26 AI×AE 热点</td><td><a href="https://github.com/Dakkshin/after-effects-mcp" target="_blank" rel="noopener">GitHub</a> 开源</td></tr>
+      <tr><td>预设/工具</td><td>4</td><td class="nm">adobe-discord-rpc</td><td class="mut">把 AE/PR 等 Adobe 软件状态同步到 Discord 状态栏</td><td class="mut">GitHub 671★（实测）</td><td><a href="https://github.com/teeteeteeteetee/adobe-discord-rpc" target="_blank" rel="noopener">GitHub</a> 开源</td></tr>
+      <tr><td>预设/工具</td><td>5</td><td class="nm">ScriptUI Dialog Builder</td><td class="mut">可视化拖拽生成 Adobe ScriptUI 对话框 .jsx 的网页工具</td><td class="mut">GitHub 422★（实测）</td><td><a href="https://github.com/joonaspaakko/ScriptUI-Dialog-Builder-Joonas" target="_blank" rel="noopener">GitHub</a> 开源</td></tr>
+      <tr><td>预设/工具</td><td>6</td><td class="nm">Sketch2AE</td><td class="mut">Sketch 图层导出为 AE 形状图层</td><td class="mut">GitHub 174★（实测）</td><td><a href="https://github.com/bigxixi/Sketch2AE" target="_blank" rel="noopener">GitHub</a> 开源</td></tr>
+      <tr><td>预设/工具</td><td>7</td><td class="nm">momentum.js</td><td class="mut">用 p5.js 风格代码在 AE 里生成动画</td><td class="mut">GitHub 169★（实测）</td><td><a href="https://github.com/barium3/momentumjs" target="_blank" rel="noopener">GitHub</a> 开源</td></tr>
+      <tr><td>预设/工具</td><td>8</td><td class="nm">Mister Horse 免费预设包</td><td class="mut">Animation Composer 内的 bounce/wiggle/overshoot 免费包</td><td class="mut">Reddit 147963z 帖列为「必备」</td><td><a href="https://misterhorse.net/animationcomposer" target="_blank" rel="noopener">misterhorse.net</a> 直装</td></tr>
+      <tr><td>预设/工具</td><td>9</td><td class="nm">Animoplex Freebies</td><td class="mut">经典免费文字/缓动预设与教程配套资源（ECAbrams）</td><td class="mut">官方 Freebies 区；Reddit r/MotionDesign 收录</td><td><a href="https://www.animoplex.com" target="_blank" rel="noopener">animoplex.com</a>（网盘直链未逐一验证）</td></tr>
+      <tr><td>预设/工具</td><td>10</td><td class="nm">FFX Essentials / Duck Pack 等</td><td class="mut">日常动效 FFX 合集、100 个免费 AE/PR 模板包</td><td class="mut">2026 年「最佳免费文字预设」类盘点多篇收录</td><td>各盘点文章内链接（多数需注册）</td></tr>
+    </tbody>
+  </table></div>
+  <p class="sub" style="margin-top:8px">关键结论（原文）：免费三巨头 = FX Console（工作流）+ Animation Composer（预设动画）+ Duik（角色绑定），三线（Reddit/编辑部/YouTube）同时出现；Video Copilot 是最大免费插件供应商（4 件免邮箱直下）；GitHub 开源热度断层：lottie-web 32.4k★ 遥遥领先。</p>
+</section>
+
+<!-- ============ 05 CHINA ============ -->
+<section id="china">
+  <div class="shead">
+    <div>
+      <div class="kicker">Chinese Community</div>
+      <h2><span class="idx">05</span>中文圈资源 · 20 项</h2>
+      <p class="sub">来源 intel/china-resources.md（中文自产 13 + 工作流 4 + 资源站 3）。GitHub stars 为 2026-11-14 API 实测；B站数据为 Bilibili API 实测。检索枢纽：LookAE / 新CG儿 / CG资源网；选型原则——优先 GitHub（仓库长寿），网盘作备选。</p>
+    </div>
+    <div class="bigno">05</div>
+  </div>
+  <div class="rule"></div>
+  <div class="bars">
+    <h3>B站播放实测 Top 5（Bilibili API，2026-11-14）</h3>
+    <div class="brow"><span class="bn">喵哉补帧抠像（转发）</span><div class="bt"><div class="bf" style="width:100%"></div></div><span class="bv">39,376</span></div>
+    <div class="brow"><span class="bn">BHY_CompChanger</span><div class="bt"><div class="bf" style="width:35.3%"></div></div><span class="bv">13,907</span></div>
+    <div class="brow"><span class="bn">LoYoi AE6 工具箱</span><div class="bt"><div class="bf" style="width:10.3%"></div></div><span class="bv">4,038</span></div>
+    <div class="brow"><span class="bn">一只橘猫豆 AI 脚本</span><div class="bt"><div class="bf" style="width:8.9%"></div></div><span class="bv">3,489</span></div>
+    <div class="brow"><span class="bn">工具箱大师</span><div class="bt"><div class="bf" style="width:6.6%"></div></div><span class="bv">2,591</span></div>
+  </div>
+  <div class="toolrow"><input class="search" type="search" placeholder="搜索中文圈资源…" data-filter="china-tbl"><span class="count" data-count="china-tbl"></span></div>
+  <div class="tblwrap"><table id="china-tbl">
+    <thead><tr><th>分组</th><th>#</th><th>名称</th><th>功能一句话</th><th>热度证据（实测）</th><th>获取</th></tr></thead>
+    <tbody>
+      <tr><td>中文自产</td><td>1</td><td class="nm">喵哉动漫补帧·抠像脚本</td><td class="mut">动漫二创一键补帧+一键抠像，对标付费 Twixtor+Roto 组合；v1.1 已修 GPU 绿屏</td><td class="mut">B站转发 39,376 播放 / 赞 2,985 / 藏 5,372</td><td><a href="https://www.lookae.com/miaozai" target="_blank" rel="noopener">LookAE 收录页</a>（网盘当天验证）</td></tr>
+      <tr><td>中文自产</td><td>2</td><td class="nm">bigxixi 脚本全家桶</td><td class="mut">12+ 开源仓库：ae2css(369★) / bodymovin_cn(359★) / webp 导出(173★) / Sketch2AE(174★) / PSDImporter 等</td><td class="mut">各仓库 star 全部实测，国内设计圈长期转载</td><td><a href="https://github.com/bigxixi" target="_blank" rel="noopener">github.com/bigxixi</a></td></tr>
+      <tr><td>中文自产</td><td>3</td><td class="nm">Tencent libpag</td><td class="mut">AE 一键导出 PAG，iOS/Android/Web/桌面原生渲染 AE 动画</td><td class="mut">GitHub 5,820★ / 532 fork（2026-11 仍活跃）</td><td><a href="https://github.com/Tencent/libpag" target="_blank" rel="noopener">GitHub</a></td></tr>
+      <tr><td>中文自产</td><td>4</td><td class="nm">BHY 免费脚本家族</td><td class="mut">CompChanger（超强穿透/解预合成/批量改合成设置）、SpeedS、Text 歌词排版、AnyRand、copy IO</td><td class="mut">CompChanger 13,907 播放 / 藏 926（收藏比极高）</td><td><a href="https://www.bilibili.com/video/BV12VtueAERP" target="_blank" rel="noopener">B站简介领取</a></td></tr>
+      <tr><td>中文自产</td><td>5</td><td class="nm">Twixtor 批量辅助脚本（yanyiju）</td><td class="mut">一键搭建 Twixtor 变速所需多层合成结构</td><td class="mut">14★，小众但精准命中 AMV 变速痛点</td><td><a href="https://github.com/yanyiju/twixtor-batch-operation-script" target="_blank" rel="noopener">GitHub</a></td></tr>
+      <tr><td>中文自产</td><td>6</td><td class="nm">Comp Setting Tool v2.1</td><td class="mut">批量改合成时长/帧率/尺寸（嵌套同步）；明确允许商用（禁止转售）</td><td class="mut">LookAE 页面 16 条评论，多合集转载</td><td><a href="https://www.lookae.com/comp-setting-tool" target="_blank" rel="noopener">LookAE</a>（舟午，开源）</td></tr>
+      <tr><td>中文自产</td><td>7</td><td class="nm">AE 插件 SDK 指南中文版</td><td class="mut">Adobe AE 插件 SDK 官方指南非官方中文翻译</td><td class="mut">7★，2025-12 更新</td><td><a href="https://github.com/ilharp/ae-plugin-sdk-guide-cn" target="_blank" rel="noopener">GitHub</a></td></tr>
+      <tr><td>中文自产</td><td>8</td><td class="nm">vscode-ae-script-linker</td><td class="mut">VSCode 直接运行/调试 AE .jsx；另开源 CEP 框架 ace-uikit</td><td class="mut">4★，VSCode 市场可装</td><td><a href="https://github.com/zpfz/vscode-ae-script-linker" target="_blank" rel="noopener">GitHub</a></td></tr>
+      <tr><td>中文自产</td><td>9</td><td class="nm">Z-Tool V1 万能工具箱</td><td class="mut">免费功能工具箱，功能实时动态更新无需重装（CEP）</td><td class="mut">C4DCG 站长「大柱」亲自发布推荐</td><td><a href="https://c4dcg.com/10533.html" target="_blank" rel="noopener">c4dcg.com</a>（需登录）</td></tr>
+      <tr><td>中文自产</td><td>10</td><td class="nm">LoYoi / AE6 工具箱</td><td class="mut">国人自研中文 AE 工具箱 v1.4，附「说明书」视频</td><td class="mut">B站 4,038 播放 / 赞 46 / 藏 102</td><td><a href="https://www.bilibili.com/video/BV1hH4y1w7A7" target="_blank" rel="noopener">B站简介获取</a></td></tr>
+      <tr><td>中文自产</td><td>11</td><td class="nm">工具箱大师（小庄掌门）</td><td class="mut">AI 抠图（GPU，可替代 Roto 笔刷）/ 深度图 / 叠层 / Shake 预设</td><td class="mut">B站 2,591 播放 / 赞 65 / 藏 80</td><td><a href="https://www.bilibili.com/video/BV12TyYYpEsv" target="_blank" rel="noopener">B站简介领取</a></td></tr>
+      <tr><td>中文自产</td><td>12</td><td class="nm">一只橘猫豆 AI 原创脚本</td><td class="mut">AI 辅助开发的原创 AE 实用脚本，免费分享</td><td class="mut">B站 3,489 播放 / 藏 131（收藏比偏高）</td><td><a href="https://www.bilibili.com/video/BV1hko1YcEjY" target="_blank" rel="noopener">B站</a></td></tr>
+      <tr><td>中文自产</td><td>13</td><td class="nm">AeNux</td><td class="mut">为 Linux 跑 After Effects 一键配置 wine 环境</td><td class="mut">100★，2026-06 仍在推送</td><td><a href="https://github.com/cutefishaep/AeNux" target="_blank" rel="noopener">GitHub</a></td></tr>
+      <tr><td>工作流</td><td>14</td><td class="nm">nihui 补帧/超分全家桶</td><td class="mut">rife-ncnn-vulkan 光流补帧 / realcugan 动漫超分 / waifu2x 超分</td><td class="mut">rife 1,130★ · realcugan 932★ · waifu2x 3,504★（全实测存活）</td><td><a href="https://github.com/nihui/rife-ncnn-vulkan" target="_blank" rel="noopener">GitHub</a>（命令行 + 第三方 GUI）</td></tr>
+      <tr><td>工作流</td><td>15</td><td class="nm">Real-ESRGAN</td><td class="mut">通用图像/视频修复超分，anime6B 模型对动漫图效果佳</td><td class="mut">GitHub 37,490★（开源超分事实标准之一）</td><td><a href="https://github.com/xinntao/Real-ESRGAN" target="_blank" rel="noopener">GitHub</a></td></tr>
+      <tr><td>工作流</td><td>16</td><td class="nm">小丸工具箱</td><td class="mut">高质量 H264+AAC 压制 / 字幕内嵌 / 音频转码，B站定制版调优二压阈值</td><td class="mut">B站免二压手册（cv3485）长期引用；2025 年仍有新教程</td><td><a href="https://maruko.appinn.me" target="_blank" rel="noopener">maruko.appinn.me</a></td></tr>
+      <tr><td>工作流</td><td>17</td><td class="nm">免费节拍打点工作流</td><td class="mut">Audition 节拍标记 → 导入 AE 合成标记，手书「卡点画拍」</td><td class="mut">B站教程圈成熟免费路径（av841497914 等）</td><td><a href="https://www.bilibili.com/video/BV16S4y187wF" target="_blank" rel="noopener">B站工作流演示</a></td></tr>
+      <tr><td>资源站</td><td>18</td><td class="nm">LookAE 大众脸博客</td><td class="mut">国内最大 AE/PR 免费资源中文分发站之一</td><td class="mut">中文圈教程普遍以其为下载指引；两页面实测可达</td><td><a href="https://www.lookae.com" target="_blank" rel="noopener">lookae.com</a></td></tr>
+      <tr><td>资源站</td><td>19</td><td class="nm">新CG儿 newcger</td><td class="mut">免费 AE 模板/音效/视频素材，无需积分直接下载</td><td class="mut">国内免费模板站第一梯队（热度数值待核实）</td><td><a href="https://www.newcger.com" target="_blank" rel="noopener">newcger.com</a></td></tr>
+      <tr><td>资源站</td><td>20</td><td class="nm">CG资源网 cgzy.net</td><td class="mut">AE 脚本/扩展专栏，大量汉化与免费脚本条目</td><td class="mut">站内条目下载量待核实</td><td><a href="https://www.cgzy.net/extensions/aejb" target="_blank" rel="noopener">cgzy.net</a></td></tr>
+    </tbody>
+  </table></div>
+  <p class="sub" style="margin-top:8px">关键结论（原文）：中文圈自产免费资源三类供给方 = B站UP主（视频引流+网盘）· GitHub 中文开发者（长寿）· 腾讯系大厂降维供给；「解决单一痛点」型收藏比显著高于大而全工具箱（喵哉 5,372 收藏、CompChanger 926 收藏 vs 工具箱 2k-4k 播放级）。</p>
+</section>
+
+<!-- ============ 06 PAID ============ -->
+<section id="paid">
+  <div class="shead">
+    <div>
+      <div class="kicker">Paid Landscape &amp; Clone Progress</div>
+      <h2><span class="idx">06</span>收费插件与复刻进度 · 48 项评估</h2>
+      <p class="sub">来源 intel/paid-list.md。评级：A = jsx 可复刻（30）｜B = 原生效果组合近似（4）｜C = 原生渲染引擎不可行，直接找免费替代（14）。复刻环 = A 类 30 项中已完成 8 项。价格为 aescripts 常规价（NYOP 可 $0）。</p>
+    </div>
+    <div class="bigno">06</div>
+  </div>
+  <div class="rule"></div>
+  <div class="clone-head">
+    <div class="ring" style="--p:27"><div class="rv"><b>27%</b><span>8 / 30 A 类已复刻</span></div></div>
+    <div class="grid3" style="flex:1;min-width:280px">
+      <div class="stat"><div class="v g">A · 30</div><div class="k">jsx 可复刻（含 A- 与 aex 形态逻辑 A 类）</div></div>
+      <div class="stat"><div class="v w">B · 4</div><div class="k">原生效果组合可近似</div></div>
+      <div class="stat"><div class="v p">C · 14</div><div class="k">渲染引擎不可行 → 免费替代</div></div>
+    </div>
+  </div>
+  <div class="toolrow">
+    <span class="chip on" data-mode="all" data-scope="paid-tbl">全部 48</span>
+    <span class="chip" data-mode="cat-a" data-scope="paid-tbl">A 类 30</span>
+    <span class="chip" data-mode="cat-b" data-scope="paid-tbl">B 类 4</span>
+    <span class="chip" data-mode="cat-c" data-scope="paid-tbl">C 类 14</span>
+    <span class="chip" data-mode="cloned" data-scope="paid-tbl">已复刻 8</span>
+    <input class="search" type="search" placeholder="搜索收费插件…" data-filter="paid-tbl"><span class="count" data-count="paid-tbl"></span>
+  </div>
+  <div class="tblwrap"><table id="paid-tbl" data-mode="all">
+    <thead><tr><th>#</th><th>名称</th><th>价格($)</th><th>评级</th><th>复刻 / 替代状态</th></tr></thead>
+    <tbody>
+      <tr data-cat="cat-a cloned" class="cloned"><td>1</td><td class="nm">Flow</td><td>35</td><td><span class="tag a">A</span></td><td><span class="tag done">已复刻</span> <span class="mut">flow-clone</span></td></tr>
+      <tr data-cat="cat-a cloned" class="cloned"><td>2</td><td class="nm">EaseCopy</td><td>15 (NYOP)</td><td><span class="tag a">A</span></td><td><span class="tag done">已复刻</span> <span class="mut">easecopy-clone</span></td></tr>
+      <tr data-cat="cat-a cloned" class="cloned"><td>3</td><td class="nm">Motion 2</td><td>65</td><td><span class="tag a">A</span></td><td><span class="tag done">已复刻</span> <span class="mut">motion2-clone</span></td></tr>
+      <tr data-cat="cat-a"><td>4</td><td class="nm">EaseAndWizz</td><td>29.99</td><td><span class="tag a">A</span></td><td class="mut">待复刻（Penner 缓动表达式生成器）</td></tr>
+      <tr data-cat="cat-a cloned" class="cloned"><td>5</td><td class="nm">GifGun 2</td><td>39.99</td><td><span class="tag a">A-</span></td><td><span class="tag done">已复刻</span> <span class="mut">gifgun-clone（ffmpeg 内核）</span></td></tr>
+      <tr data-cat="cat-a cloned" class="cloned"><td>6</td><td class="nm">AutoSway</td><td>39.99</td><td><span class="tag a">A</span></td><td><span class="tag done">已复刻</span> <span class="mut">autosway-clone</span></td></tr>
+      <tr data-cat="cat-a cloned" class="cloned"><td>7</td><td class="nm">Joysticks 'n Sliders</td><td>39.95</td><td><span class="tag a">A</span></td><td><span class="tag done">核心已复刻</span> <span class="mut">joysticks-clone</span></td></tr>
+      <tr data-cat="cat-a cloned" class="cloned"><td>8</td><td class="nm">RubberHose 3</td><td>65</td><td><span class="tag a">A</span></td><td><span class="tag done">核心已复刻</span> <span class="mut">rubberhose-clone（两骨 IK + 软管基线）</span></td></tr>
+      <tr data-cat="cat-a"><td>9</td><td class="nm">Limber 2</td><td>65</td><td><span class="tag a">A</span></td><td class="mut">IK 核心与 rubberhose-clone 同类覆盖（squash/stretch 样式未含）</td></tr>
+      <tr data-cat="cat-a cloned" class="cloned"><td>10</td><td class="nm">True Comp Duplicator</td><td>24.99 (NYOP)</td><td><span class="tag a">A</span></td><td><span class="tag done">已复刻</span> <span class="mut">true-comp-dup-clone</span></td></tr>
+      <tr data-cat="cat-a"><td>11</td><td class="nm">KeyTweak</td><td>5.99 (NYOP)</td><td><span class="tag a">A</span></td><td class="mut">待复刻（小工具，下一优先）</td></tr>
+      <tr data-cat="cat-a"><td>12</td><td class="nm">Parrot</td><td>29.99</td><td><span class="tag a">A</span></td><td class="mut">待复刻（valueAtTime 链式采样）</td></tr>
+      <tr data-cat="cat-a"><td>13</td><td class="nm">Squirrel</td><td>35</td><td><span class="tag a">A</span></td><td class="mut">待复刻（父子树视图面板）</td></tr>
+      <tr data-cat="cat-a"><td>14</td><td class="nm">WobbleBox</td><td>5 (NYOP)</td><td><span class="tag a">A</span></td><td class="mut">待复刻（纯表达式弹簧盒）</td></tr>
+      <tr data-cat="cat-a"><td>15</td><td class="nm">Easify 4</td><td>49</td><td><span class="tag a">A</span></td><td class="mut">任务池（[未核实细节]）</td></tr>
+      <tr data-cat="cat-a"><td>16</td><td class="nm">Keyframe Parent</td><td>24.99</td><td><span class="tag a">A</span></td><td class="mut">任务池（关键帧组仿射变换）</td></tr>
+      <tr data-cat="cat-a"><td>17</td><td class="nm">KeyMaster</td><td>25</td><td><span class="tag a">A</span></td><td class="mut">任务池</td></tr>
+      <tr data-cat="cat-a"><td>18</td><td class="nm">Ease Stash</td><td>35</td><td><span class="tag a">A</span></td><td class="mut">任务池（缓动槽位存储）</td></tr>
+      <tr data-cat="cat-a"><td>19</td><td class="nm">Again!</td><td>5 (NYOP)</td><td><span class="tag a">A</span></td><td class="mut">任务池</td></tr>
+      <tr data-cat="cat-a"><td>20</td><td class="nm">Add Sauce</td><td>9.99</td><td><span class="tag a">A</span></td><td class="mut">任务池</td></tr>
+      <tr data-cat="cat-a"><td>21</td><td class="nm">Retend</td><td>29</td><td><span class="tag a">A</span></td><td class="mut">任务池（嵌套树重定时）</td></tr>
+      <tr data-cat="cat-a"><td>22</td><td class="nm">Slice it Up 2</td><td>29.99</td><td><span class="tag a">A</span></td><td class="mut">任务池</td></tr>
+      <tr data-cat="cat-a"><td>23</td><td class="nm">Roll it!</td><td>29.99</td><td><span class="tag a">A</span></td><td class="mut">任务池</td></tr>
+      <tr data-cat="cat-a"><td>24</td><td class="nm">Easy Bake</td><td>14.99</td><td><span class="tag a">A</span></td><td class="mut">任务池（表达式烘焙）</td></tr>
+      <tr data-cat="cat-a"><td>25</td><td class="nm">Scribe</td><td>30</td><td><span class="tag a">A</span></td><td class="mut">任务池（write-on 字型库）</td></tr>
+      <tr data-cat="cat-a"><td>26</td><td class="nm">Trim Comp to Contents</td><td>4.99 (NYOP)</td><td><span class="tag a">A</span></td><td class="mut">任务池</td></tr>
+      <tr data-cat="cat-a"><td>27</td><td class="nm">Project Item Labels</td><td>5.99 (NYOP)</td><td><span class="tag a">A</span></td><td class="mut">任务池</td></tr>
+      <tr data-cat="cat-a"><td>28</td><td class="nm">Overlord</td><td>75</td><td><span class="tag a">A</span></td><td class="mut">可走 SVG 中转复刻（大工程）</td></tr>
+      <tr data-cat="cat-a"><td>29</td><td class="nm">Move Anchor Point 4</td><td>29.99</td><td><span class="tag a">A</span></td><td class="mut">锚点逻辑已被 motion2-clone 覆盖</td></tr>
+      <tr data-cat="cat-a"><td>30</td><td class="nm">Rows and Columns</td><td>未核实(~25)</td><td><span class="tag a">A</span></td><td class="mut">任务池（网格排列）</td></tr>
+      <tr data-cat="cat-b"><td>12*</td><td class="nm">LineBoil</td><td>—（无同名商品）</td><td><span class="tag b">B</span></td><td class="mut">免费原生做法：Turbulent Displace + 逐帧 Hold；脚本化本身是 A 类复刻点</td></tr>
+      <tr data-cat="cat-b"><td>32</td><td class="nm">LongShadow 2</td><td>未核实</td><td><span class="tag b">B</span></td><td class="mut">复制层+重复偏移+透明度渐变近似</td></tr>
+      <tr data-cat="cat-b"><td>33</td><td class="nm">Deep Glow 2</td><td>99.95</td><td><span class="tag b">B</span></td><td class="mut">原生 Glow + 多层模糊叠加，约 80% 观感；新项目 openglow（MIT）可盯</td></tr>
+      <tr data-cat="cat-b"><td>34</td><td class="nm">Hawaiki Keyer 5</td><td>~50-60</td><td><span class="tag b">B</span></td><td class="mut">内置 Keylight + Key Cleaner + Spill Suppressor 可达 80%</td></tr>
+      <tr data-cat="cat-c"><td>35</td><td class="nm">AutoFill</td><td>v1 ~75-100</td><td><span class="tag c">C</span></td><td class="mut">蒙版+关键帧手工近似，无等价插件</td></tr>
+      <tr data-cat="cat-c"><td>36</td><td class="nm">Sapphire</td><td>~1995/订阅</td><td><span class="tag c">C</span></td><td class="mut">AE 内置效果组合 / Natron 跨主机（见替代表 #1）</td></tr>
+      <tr data-cat="cat-c"><td>37</td><td class="nm">Continuum</td><td>~995</td><td><span class="tag c">C</span></td><td class="mut">AE 内置效果</td></tr>
+      <tr data-cat="cat-c"><td>38</td><td class="nm">Mocha Pro</td><td>~695/年</td><td><span class="tag c">C</span></td><td class="mut">Mocha AE（随 AE 附带，功能受限）</td></tr>
+      <tr data-cat="cat-c"><td>39</td><td class="nm">Magic Bullet Looks</td><td>套装 ~199</td><td><span class="tag c">C</span></td><td class="mut">Lumetri + LUT / Resolve 免费版（出 AE）</td></tr>
+      <tr data-cat="cat-c"><td>40</td><td class="nm">Element 3D</td><td>149.95</td><td><span class="tag c">C</span></td><td class="mut">C4D Lite（随 AE）+ Blender 免费管线</td></tr>
+      <tr data-cat="cat-c"><td>41</td><td class="nm">Plexus 3</td><td>~59.99</td><td><span class="tag c">C</span></td><td class="mut">Blender 几何节点 / CC Particle World 组合</td></tr>
+      <tr data-cat="cat-c"><td>42</td><td class="nm">Optical Flares</td><td>124.95</td><td><span class="tag c">C</span></td><td class="mut">内置 Lens Flare + CC Light Rays + 免费素材（见替代表 #5）</td></tr>
+      <tr data-cat="cat-c"><td>43</td><td class="nm">ShapeShifter AE</td><td>~99-169</td><td><span class="tag c">C</span></td><td class="mut">C4D Lite</td></tr>
+      <tr data-cat="cat-c"><td>44</td><td class="nm">Trapcode Particular</td><td>套件/订阅</td><td><span class="tag c">C</span></td><td class="mut">CC Particle World（弱），复杂粒子无免费等价</td></tr>
+      <tr data-cat="cat-c"><td>45</td><td class="nm">Twixtor Pro</td><td>~595</td><td><span class="tag c">C</span></td><td class="mut">内置 Timewarp / rife-ncnn-vulkan / Flowframes</td></tr>
+      <tr data-cat="cat-c"><td>46</td><td class="nm">AfterCodecs</td><td>~105</td><td><span class="tag c">C</span></td><td class="mut">Adobe Media Encoder（免费随装）</td></tr>
+      <tr data-cat="cat-c"><td>47</td><td class="nm">Lockdown</td><td>~79.99</td><td><span class="tag c">C</span></td><td class="mut">Mocha 平面追踪 + Corner Pin（近似）</td></tr>
+      <tr data-cat="cat-c"><td>48</td><td class="nm">Datamosh</td><td>未核实(~25)</td><td><span class="tag c">C</span></td><td class="mut">ffmpeg AVI 去关键帧流程免费实现</td></tr>
+    </tbody>
+  </table></div>
+  <p class="sub" style="margin-top:8px">A 类共性（原文）：全部通过 AE Scripting API（app.project / keyframeEase / 表达式字符串生成）实现，无 C++ 依赖、不涉及渲染引擎；C 类不投入复刻，直接走免费替代。NYOP 条目（EaseCopy/KeyTweak/TCD/Again!/WobbleBox/Trim Comp/Project Item Labels）结账可填 $0。注：LineBoil 为原表 #12（编号 12* 以免与 A 类 #12 Parrot 混淆），其免费做法本身是 A 类复刻点。</p>
+</section>
+
+<!-- ============ 07 ALT ============ -->
+<section id="alt">
+  <div class="shead">
+    <div>
+      <div class="kicker">Free Alternatives</div>
+      <h2><span class="idx">07</span>免费替代对照表 · 15 组</h2>
+      <p class="sub">来源 intel/free-alternatives.md。覆盖度：全替代 = 核心功能完整覆盖；部分 = 主要场景可覆盖有明显缺口；仅近似 = 效果相似工作流差异大。GitHub 数据 2026-11-14 API 实测。</p>
+    </div>
+    <div class="bigno">07</div>
+  </div>
+  <div class="rule"></div>
+  <div class="toolrow"><input class="search" type="search" placeholder="搜索对照表…" data-filter="alt-tbl"><span class="count" data-count="alt-tbl"></span></div>
+  <div class="tblwrap"><table id="alt-tbl">
+    <thead><tr><th>#</th><th>收费插件</th><th>免费/开源替代</th><th>覆盖度</th><th>链接</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td class="nm">Boris FX Sapphire</td><td class="mut">Natron（开源节点合成器，内置 Glow/LensFlare/Grain 等）+ craft-plugins（MIT，宿主 EffectCraft，跨主机方案）</td><td><span class="tag b">部分</span></td><td class="mut"><a href="https://github.com/NatronGitHub/Natron" target="_blank" rel="noopener">Natron</a> · <a href="https://github.com/qwertyonek/craft-plugins" target="_blank" rel="noopener">craft-plugins</a></td></tr>
+      <tr><td>2</td><td class="nm">Magic Bullet Looks/Colorista</td><td class="mut">DaVinci Resolve 免费版（专业调色页）+ 免费电影 LUT；AE 内用内置 Lumetri + LUT</td><td><span class="tag b">部分</span></td><td class="mut"><a href="https://www.blackmagicdesign.com/products/davinciresolve" target="_blank" rel="noopener">blackmagicdesign.com</a></td></tr>
+      <tr><td>3</td><td class="nm">Video Copilot Element 3D</td><td class="mut">Blender（建模/渲染后合成回 AE）+ AE 自带 Cineware/Cinema 4D Lite</td><td><span class="tag b">部分</span></td><td class="mut"><a href="https://github.com/blender/blender" target="_blank" rel="noopener">blender</a></td></tr>
+      <tr><td>4</td><td class="nm">Rowbyte Plexus 3</td><td class="mut">Blender 几何节点（点+按距离连线）+ AE 内置 CC Particle World / CC Ball Action + 线性表达式</td><td><span class="tag b">部分</span></td><td class="mut"><a href="https://github.com/blender/blender" target="_blank" rel="noopener">blender</a></td></tr>
+      <tr><td>5</td><td class="nm">Video Copilot Optical Flares</td><td class="mut">AE 内置 Lens Flare + CC Light Rays + Creation Lens Flares（免费模板，已验证 $0）</td><td><span class="tag b">部分</span></td><td class="mut"><a href="https://creationeffects.com/creation-lens-flares" target="_blank" rel="noopener">creationeffects.com</a></td></tr>
+      <tr><td>6</td><td class="nm">aescripts Deep Glow</td><td class="mut">openglow（MIT，AE/PR GPU glow）+ LumenGlow（Deep Glow 风格新项目，0★ 需自行评估）+ AE 内置 Glow</td><td><span class="tag b">部分</span></td><td class="mut"><a href="https://github.com/danilomdamiani/openglow" target="_blank" rel="noopener">openglow</a> · <a href="https://github.com/JackBuzbuz/LumenGlow" target="_blank" rel="noopener">LumenGlow</a></td></tr>
+      <tr><td>7</td><td class="nm">aescripts Flow</td><td class="mut">Bezier Curve_Editor（自称 "Flow-like, open-source"）+ Rebound（缓动面板）</td><td><span class="tag a">全替代</span></td><td class="mut"><a href="https://github.com/Vergil1000x/Bezier_Curve_Editor" target="_blank" rel="noopener">Bezier_Curve_Editor</a> · <a href="https://github.com/meszmate/rebound" target="_blank" rel="noopener">rebound</a></td></tr>
+      <tr><td>8</td><td class="nm">aescripts EaseCopy</td><td class="mut">eKeys（MIT）+ ivg-design/AE（35 个 MIT 脚本）+ Flow-State-Pack</td><td><span class="tag b">部分</span></td><td class="mut"><a href="https://github.com/motiondeveloper/eKeys" target="_blank" rel="noopener">eKeys</a> · <a href="https://github.com/ivg-design/AE" target="_blank" rel="noopener">ivg-design/AE</a></td></tr>
+      <tr><td>9</td><td class="nm">Mt. Mograph Motion 2</td><td class="mut">Rebound（缓动 + 锚点/对齐等 motion 工具面板）</td><td><span class="tag b">部分</span></td><td class="mut"><a href="https://github.com/meszmate/rebound" target="_blank" rel="noopener">rebound</a></td></tr>
+      <tr><td>10</td><td class="nm">aescripts GifGun</td><td class="mut">AEJuice Export GIF（免费，渲染队列一键导出 GIF）+ ffmpeg（开源转码）</td><td><span class="tag a">全替代</span></td><td class="mut"><a href="https://aejuice.com/product/export-gif/" target="_blank" rel="noopener">aejuice.com</a></td></tr>
+      <tr><td>11</td><td class="nm">aescripts AutoSway</td><td class="mut">Duik Ángela（骨骼+表达式自动化辅助摆动）+ wiggle/Puppet Pin 表达式方案</td><td><span class="tag c">仅近似</span></td><td class="mut"><a href="https://github.com/RxLaboratory/Duik" target="_blank" rel="noopener">Duik</a></td></tr>
+      <tr><td>12</td><td class="nm">aescripts RubberHose</td><td class="mut">Duik Ángela（GPL-3.0，IK/骨骼/自动绑定，功能集更大，工作流不同）</td><td><span class="tag a">全替代</span></td><td class="mut"><a href="https://github.com/RxLaboratory/Duik" target="_blank" rel="noopener">Duik</a></td></tr>
+      <tr><td>13</td><td class="nm">aescripts Joysticks n Sliders</td><td class="mut">Duik Ángela（auto-rig + 控制器/骨骼做头部姿势绑定，不如 JnS 专用滑杆直观）</td><td><span class="tag b">部分</span></td><td class="mut"><a href="https://github.com/RxLaboratory/Duik" target="_blank" rel="noopener">Duik</a></td></tr>
+      <tr><td>14</td><td class="nm">RE:Vision Twixtor</td><td class="mut">slowmoVideo（GPL-3.0 光流补帧）+ Flowframes（RIFE/DAIN AI 补帧）+ AE 内置 Timewarp/Pixel Motion</td><td><span class="tag b">部分</span></td><td class="mut"><a href="https://github.com/slowmoVideo/slowmoVideo" target="_blank" rel="noopener">slowmoVideo</a> · <a href="https://github.com/n00mkrad/flowframes" target="_blank" rel="noopener">flowframes</a></td></tr>
+      <tr><td>15</td><td class="nm">Red Giant Universe</td><td class="mut">Mixkit 免费转场模板库（43 个 AE 转场）+ AEJuice 免费包</td><td><span class="tag b">部分</span></td><td class="mut"><a href="https://mixkit.co/free-after-effects-templates/transitions/" target="_blank" rel="noopener">mixkit.co</a></td></tr>
+    </tbody>
+  </table></div>
+  <p class="sub" style="margin-top:8px">结论（原文）：全替代 3 组（Flow / GifGun / RubberHose→Duik）；绑定类免费侧收敛于 Duik Ángela，缓动类收敛于 Rebound + Bezier Curve_Editor，变速类 = slowmoVideo + Flowframes，调色出 AE 用 Resolve 免费版，3D/点线类用 Blender。低 star 新项目（openglow / LumenGlow / Bezier_Curve_Editor / Flow-State-Pack 均 ≤4★）真实存在但缺社区验证，采用前试装。Fake Dynamic（AutoSway 替代线索）未能核实，未收录。</p>
+</section>
+
+<!-- ============ 08 PITS ============ -->
+<section id="pits">
+  <div class="shead">
+    <div>
+      <div class="kicker">Pitfalls</div>
+      <h2><span class="idx">08</span>避坑清单 · 13 条</h2>
+      <p class="sub">汇总自 value-picks / china-resources / free-global / free-bilibili / free-alternatives 五份报告的核实结论，非本页新增观点；失效与未核实项照原文标注。</p>
+    </div>
+    <div class="bigno">08</div>
+  </div>
+  <div class="rule"></div>
+  <ol class="pits">
+    <li><b>第三方「免费下载」站</b>（freevideoeffect.com 一类）：多为盗版/捆绑，社区确认有恶意软件风险（free-global 风险提示）。一律只走官网 / GitHub / 作者原始渠道。</li>
+    <li><b>BeatEdit 没有免费版</b>：aescripts 付费插件，B站教程视频只是演示工作流（china-resources 防坑清单）。打点走 Audition 标记 → AE 合成标记的免费路径。</li>
+    <li><b>KeTools 疑似不存在</b>：多轮精确搜索（WebSearch × 2 + GitHub API）无法核实，疑似不存在/已改名/极小圈子流传；B站定向检索也未命中 AE 语境视频。中文工具箱需求用已核实替代：BHY 家族 / LoYoi AE6 / Z-Tool V1。</li>
+    <li><b>B站营销号「插件合集一键安装包」</b>：多为捆绑/诱导关注，非作者官方发布。免费脚本一律从作者视频简介或 GitHub 原仓库领取。</li>
+    <li><b>网盘链接时效</b>：喵哉脚本、Comp Setting Tool、小丸工具箱等走城通/百度/阿里云盘分发，时效无保证——<b>使用当天验证</b>；GitHub 条目核实当日全部可达，选型原则「优先 GitHub」。</li>
+    <li><b>Twixtor 批量脚本 ≠ 免费 Twixtor</b>：yanyiju 脚本只免费化「搭建变速合成结构」的工作流，本体仍是付费插件；补帧/变速用 rife-ncnn-vulkan 或 TheAnimeScripter 替代。</li>
+    <li><b>大而全的中文工具箱性价比偏低</b>：单一痛点型收藏比显著更高（喵哉 5,372 收藏、CompChanger 926 收藏），大而全工具箱普遍 2k-4k 播放级（LoYoi 4,038 / 工具箱大师 2,591）。按痛点单点选装。</li>
+    <li><b>Real-ESRGAN 第三方中文 GUI 整合包</b>：注意来源甄别，最稳妥直接用 GitHub 官方仓库或其明确列出的衍生生态。</li>
+    <li><b>aescripts NYOP 不是坑是门槛</b>：EaseCopy、True Comp Duplicator、QCA3 等结账可填 $0 但必须注册账号；AEJuice 同理。提前知道免得以为「要付费」而错过。</li>
+    <li><b>B站收费插件热度的合规注意</b>：BeatEdit / AfterCodecs / GifGun / Deep Glow 等高热度常由「汉化/破解分享」驱动（free-bilibili 原文注：引用时注意版权合规）。本页仅引用数据，不做分发指引。</li>
+    <li><b>GitHub 盗版分发仓库</b>：核实中已排除 <code>OwlWorkshop78/video-copilot-optical-flares-offline-installer</code> 等收费插件「离线安装包」仓库（free-alternatives：判定盗版分发风险，不收录）。</li>
+    <li><b>已核实失效链接</b>：<code>videocopilot.net/products/saber/</code> 与 <code>/downloads/</code> → 404（Saber 有效入口为发布博文页）；<code>rainboxprod.coop</code>、<code>duik.rxlaboratory.com</code>、<code>premation.com</code> 不可连通——Duik 一律引用 GitHub 仓库链接。</li>
+    <li><b>低 star 新项目缺验证</b>：openglow、LumenGlow、Bezier_Curve_Editor、Flow-State-Pack 均为 ≤4★ 或 0★ 项目，真实存在但缺社区验证，采用前建议试装。</li>
+  </ol>
+</section>
+
+<footer>
+  <div class="fcols">
+    <div>
+      <p><b>数据口径：</b>B站播放量为 Bilibili 搜索/视频 API 2026-11-14 实测（检索池 1,631 条视频去重归类，仅统计进入检索池的视频）；GitHub stars 为 2026-11-13/14 GitHub API 实测当日快照，会随时间变化；Reddit 提及数来自 r/AfterEffects 13 帖聚合（2024–2026）；价格为 aescripts 常规价，NYOP 条目可 $0 结账。数字口径：免费榜单条目 89 = B站 30 + 全球 39 + 中文圈 20；收费评估 48 = A 30 + B 4 + C 14；未核实项照原文标注（Rows and Columns / LongShadow 2 / Datamosh 价格未核实，newcger / cgzy 热度数值待核实，Animoplex 网盘直链未逐一验证）。</p>
+      <p><b>复刻库快照：</b>2026-11-14 07:40（最终版，ls 实测 8 个目录：autosway / easecopy / flow / gifgun / joysticks / motion2 / rubberhose / true-comp-dup；卡片摘要取自各目录 README.md 功能对照表，rubberhose-clone README 已于 07:30 补齐并据此更新摘要）。</p>
+    </div>
+    <div>
+      <p><b>Clean-room 复刻声明：</b>clones/ 下全部 8 个脚本仅依据 intel/paid-list.md 的功能性文字描述与公开数学/API 资料从零实现，未反编译、未下载、未参考任何原版代码/安装包/资源文件；数学与结构为独立推导。原版商业产品著作权归各自作者所有（Flow、EaseCopy、Motion 2、GifGun、AutoSway、Joysticks 'n Sliders、RubberHose、True Comp Duplicator 等）；复刻版仅供学习与互操作研究，商业使用请购买正版。</p>
+      <p><b>生成：</b>web/index.html · 终稿（三稿合并：仪表盘框架 + 推荐卡视觉 + 编辑风章头） · generated_at 2026-11-14 07:40 · 数据区块 8 个 · 单文件零外部依赖，双击离线可开 · 交互：全表搜索过滤（含行数统计）/ 复刻路径一键复制 / 收费表分类筛选 / 侧边+移动端双导航。</p>
+    </div>
+  </div>
+</footer>
+
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------- 全表搜索过滤（含行数统计，与分类模式联合生效） ---------- */
+  function applyFilter(table, kw, mode) {
+    var rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+    var shown = 0;
+    for (var i = 0; i < rows.length; i++) {
+      var hit = (kw === '') || (rows[i].textContent.toLowerCase().indexOf(kw) !== -1);
+      if (hit && mode !== 'all') {
+        var cat = rows[i].getAttribute('data-cat') || '';
+        if (cat.indexOf(mode) === -1) { hit = false; }
+      }
+      rows[i].style.display = hit ? '' : 'none';
+      if (hit) { shown++; }
+    }
+    return shown;
+  }
+  function bindSearch(input) {
+    var key = input.getAttribute('data-filter');
+    var table = document.getElementById(key);
+    if (!table) { return; }
+    var counter = document.querySelector('[data-count="' + key + '"]');
+    function run() {
+      var q = input.value.toLowerCase().replace(/^\s+|\s+$/g, '');
+      var mode = table.getAttribute('data-mode') || 'all';
+      var shown = applyFilter(table, q, mode);
+      if (counter) { counter.textContent = shown + ' / ' + shownAll(table) + ' 行'; }
+    }
+    function shownAll(table) {
+      return table.getElementsByTagName('tbody')[0].getElementsByTagName('tr').length;
+    }
+    input.addEventListener('input', run);
+    run();
+  }
+  var inputs = document.querySelectorAll('input[data-filter]');
+  for (var i = 0; i < inputs.length; i++) { bindSearch(inputs[i]); }
+
+  /* ---------- 收费表分类切换（全部 / A / B / C / 已复刻） ---------- */
+  var chips = document.querySelectorAll('.chip[data-mode]');
+  for (var c = 0; c < chips.length; c++) {
+    (function (ch) {
+      ch.addEventListener('click', function () {
+        var scopeId = ch.getAttribute('data-scope');
+        var table = document.getElementById(scopeId);
+        if (!table) { return; }
+        table.setAttribute('data-mode', ch.getAttribute('data-mode'));
+        var all = document.querySelectorAll('.chip[data-scope="' + scopeId + '"]');
+        for (var k = 0; k < all.length; k++) { all[k].classList.remove('on'); }
+        ch.classList.add('on');
+        var inp = document.querySelector('input[data-filter="' + scopeId + '"]');
+        var shown = applyFilter(table, inp ? inp.value.toLowerCase().replace(/^\s+|\s+$/g, '') : '', ch.getAttribute('data-mode'));
+        var counter = document.querySelector('[data-count="' + scopeId + '"]');
+        if (counter) { counter.textContent = shown + ' / ' + table.getElementsByTagName('tbody')[0].getElementsByTagName('tr').length + ' 行'; }
+      });
+    })(chips[c]);
+  }
+
+  /* ---------- 复刻路径一键复制（file:// 降级 execCommand） ---------- */
+  function copyText(text, btn) {
+    var done = function () {
+      var old = btn.textContent;
+      btn.textContent = '已复制';
+      btn.classList.add('copied');
+      setTimeout(function () { btn.textContent = old; btn.classList.remove('copied'); }, 1400);
+    };
+    var legacy = function () {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { if (document.execCommand('copy')) { done(); } } catch (e) { /* 静默 */ }
+      document.body.removeChild(ta);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, legacy);
+    } else { legacy(); }
+  }
+  var btns = document.querySelectorAll('.copybtn');
+  for (var j = 0; j < btns.length; j++) {
+    btns[j].addEventListener('click', (function (b) {
+      return function () { copyText(b.getAttribute('data-copy'), b); };
+    })(btns[j]));
+  }
+})();
+</script>
+
+</body>
+</html>
