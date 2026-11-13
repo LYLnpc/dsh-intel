@@ -1,6 +1,6 @@
 {
   "date": "2026-11-13",
-  "generated": "2026-11-13T18:05:00+08:00",
+  "generated": "2026-11-13T13:06:15.479Z",
   "groups": [
     {
       "key": "opportunity",
@@ -36,6 +36,22 @@
           "deadline": "待官方公告",
           "source": "B站",
           "tag": "百万元级"
+        },
+        {
+          "title": "明日方舟「时间啊，向前！」创作征集（12/1 截止）",
+          "url": "https://ak.hypergryph.com/news/7352",
+          "desc": "鹰角官方多平台同人征集。B站带 #明日方舟创作者应援计划 投稿或开播达条件即可参与现金瓜分与评优；手书/PV 可直投，无报名门槛。",
+          "deadline": "2026-12-01",
+          "source": "鹰角官方",
+          "tag": "同人/手书"
+        },
+        {
+          "title": "HiShorts!×updream AiShorts! AI 短片大赛（11/18 截止）",
+          "url": "https://www.bilibili.com/opus/1248700439276290085",
+          "desc": "剧情/动画/实验/MV 四单元，2–30 分钟，须以 updream 为主要创作工具并投影视分区。入围 70 部各得 500 元积分，优先入选 B站人才库。",
+          "deadline": "2026-11-18",
+          "source": "B站",
+          "tag": "MV/动画"
         }
       ]
     },
@@ -84,6 +100,30 @@
           "desc": "Character Poster（保持社交视觉风格一致）、Character Arc（跨年龄保留角色辨识）、Pixel Machine（复古像素风）、Lucid Glass（光学折射）、Pocket Studio（一段手机实拍生成多机位并提升画质）。在 Flow 创作工作室里可试用，功能和地区可能因订阅与所在地而异。",
           "source": "Google 官方博客",
           "tag": "角色一致性"
+        },
+        {
+          "title": "After Effects 27.0：可对话的 AI Assistant + 3D Materials",
+          "url": "https://helpx.adobe.com/after-effects/desktop/what-s-new/whats-new.html",
+          "desc": "11/10 发布。自然语言建表达式、改文字层、生成图像/视频；还能把图层当材质做 3D。PV/手书里重复图层活可以直接交给助手。",
+          "deadline": "",
+          "source": "Adobe",
+          "tag": "AE"
+        },
+        {
+          "title": "即梦「动效工作室」：一句话描述就编译出片",
+          "url": "https://www.163.com/dy/article/LBHCTOJA0511AQHO.html",
+          "desc": "11/10 上线，用文字描述创意、代码编译视觉画面，把结构/配音/画面/配乐串成一条片，支持多轮改片。官方实测 60 秒片约 8 分半、82 积分。标题字效、动态排版能一句话起步。",
+          "deadline": "",
+          "source": "即梦",
+          "tag": "动效"
+        },
+        {
+          "title": "ChatCut：能让 Agent 直接改时间线的 AI 剪辑器",
+          "url": "https://chatcut.io/",
+          "desc": "桌面+网页，Claude/Codex/Grok 可直接操作时间线，桌面版免费 4K。适合\"一句话先粗剪、再回工程精修\"。",
+          "deadline": "",
+          "source": "ChatCut",
+          "tag": "剪辑"
         }
       ]
     },
@@ -133,6 +173,22 @@
           "desc": "先用文字生成一张 360 度全景，再像架虚拟摄像机一样换方向、换焦段取景，导出的多张画面来自同一张全景图 —— 墙面、光线、道具位置都对得上，场景不跑样。付费套餐可用，按现有积分扣费。需要「同一空间的多机位」时比反复抽卡省太多。",
           "source": "AlphaSignal",
           "tag": "场景一致性"
+        },
+        {
+          "title": "Seedance 2.5 flash：720P 约 0.99 元/秒",
+          "url": "https://finance.sina.com.cn/tech/digi/2026-11-12/doc-iniynaxf1823447.shtml",
+          "desc": "火山引擎 11/12 发布，比 Seedance 2.5 便宜约 34%，单段最长 30 秒，480P/720P 两档，陆续上线即梦。批量出空镜、转场、气氛镜头成本直降。",
+          "deadline": "",
+          "source": "火山引擎",
+          "tag": "视频模型"
+        },
+        {
+          "title": "Premiere Pro 27.0：Lumetri 退役、不再支持 Intel Mac",
+          "url": "https://community.adobe.com/announcements-727/welcome-to-adobe-premiere-27-0-1655028",
+          "desc": "11/10 发布。新增 Color Mode 与 AI Assistant 面板，能在时间线生成音乐/音效/环境声。旧调色流程要迁移，Intel 机器升不了。",
+          "deadline": "",
+          "source": "Adobe",
+          "tag": "PR"
         }
       ]
     },
@@ -160,6 +216,22 @@
           "desc": "有报道称多平台调整分成口径：成片偏「特效堆砌」的类别分成下调约 30%。信号是平台在为内容质量而不是视觉堆料付钱。B站侧激励金额下调、门槛提高的口径也在延续。做 PV/MAD 光靠转场特效堆时长的路在变窄。",
           "source": "自媒体经验分享 / TrueSight",
           "tag": "分成规则"
+        },
+        {
+          "title": "AI 漫剧已经卷到没利润：万播分账从 100 元掉到 4~5 元",
+          "url": "https://field.10jqka.com.cn/20261113/c681783757.shtml",
+          "desc": "网易科技 11/13 对话六位从业者：某头部平台每天收上万部漫剧、约 1500 部能上线，最终盈利的约 30 部。纯 AI 批量内容几乎无利，接单报价别往这条路上压。",
+          "deadline": "",
+          "source": "网易科技",
+          "tag": "漫剧"
+        },
+        {
+          "title": "B站 11/24 公布 Q3 财报",
+          "url": "https://orientaldaily.on.cc/content/%E7%94%A2%E7%B6%93/odn-20261111-1111_00202_052/%E5%A4%A7%E8%A1%8C%E5%A0%B1%E5%91%8A%EF%BC%9A%E6%8B%9B%E9%8A%80%E4%B8%8B%E8%AA%BF%E5%97%B6%E5%93%A9%E5%97%B6%E5%93%A9%E4%BB%8A%E5%B9%B4%E7%9B%88%E6%B8%AC",
+          "desc": "招银国际预计总营收同比增 7% 至 82.3 亿元、经调整营业利润同比增 15%。广告是B站第一大收入且仍两位数增长，财报前后是谈商单的窗口。",
+          "deadline": "2026-11-24",
+          "source": "东方日报",
+          "tag": "B站"
         }
       ]
     }
