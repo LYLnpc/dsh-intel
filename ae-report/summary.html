@@ -141,6 +141,9 @@ td.size{font-family:var(--mono);font-size:12px;color:var(--ink2);white-space:now
 a{color:var(--pink-deep);text-decoration:none;border-bottom:1.5px dotted var(--pink-soft)}
 a:hover{color:#d94a72}
 td a{font-weight:700}
+a.stat{display:block;text-decoration:none;color:inherit}
+a.stat:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.faint{color:var(--ink3)}
 </style>
 </head>
 <body>
@@ -159,15 +162,15 @@ td a{font-weight:700}
 
 
   <div class="stats">
-    <div class="stat"><div class="v">31</div><div class="k">复刻件总数</div></div>
-    <div class="stat lav"><div class="v">3</div><div class="k">原生 aex 编译完成</div></div>
-    <div class="stat mint"><div class="v">24</div><div class="k">情报文件</div></div>
-    <div class="stat butter"><div class="v">25</div><div class="k">外部免费精选</div></div>
-    <div class="stat sky"><div class="v">4</div><div class="k">配套文档</div></div>
+    <a class="stat" href="#sec-replica"><div class="v">31</div><div class="k">复刻件总数 · 点看明细</div></a>
+    <a class="stat lav" href="#sec-native"><div class="v">3</div><div class="k">原生 aex · 点看明细</div></a>
+    <a class="stat mint" href="#sec-intel"><div class="v">24</div><div class="k">情报文件 · 点看明细</div></a>
+    <a class="stat butter" href="#sec-external"><div class="v">25</div><div class="k">外部免费精选 · 点看明细</div></a>
+    <a class="stat sky" href="#sec-docs"><div class="v">4</div><div class="k">配套文档 · 点看明细</div></a>
   </div>
 
   <!-- 一 -->
-  <div class="shead"><h2>一、复刻件：31 件全部落地</h2><span class="hint">点卡片展开明细 · clean-room jsx</span></div>
+  <div class="shead" id="sec-replica"><h2>一、复刻件：31 件全部落地</h2><span class="hint">点卡片展开明细 · clean-room jsx</span></div>
   <div class="divider"></div>
 
   <details class="card" open>
@@ -230,7 +233,7 @@ td a{font-weight:700}
   </details>
 
   <!-- 二 -->
-  <div class="shead"><h2>二、原创 aex：3 件编译完成</h2><span class="hint">E:\AEDev 管线 · 待实机装测</span></div>
+  <div class="shead" id="sec-native"><h2>二、原创 aex：3 件编译完成</h2><span class="hint">E:\AEDev 管线 · 待实机装测</span></div>
   <div class="divider"></div>
   <div class="tblwrap">
     <table>
@@ -248,7 +251,7 @@ td a{font-weight:700}
   </div>
 
   <!-- 三 -->
-  <div class="shead"><h2>三、情报与清单 + 配套文档</h2><span class="hint">文档可点击打开</span></div>
+  <div class="shead" id="sec-intel"><h2>三、情报与清单 + 配套文档</h2><span class="hint">文档可点击打开</span></div>
   <div class="divider"></div>
   <div class="grid g2">
     <div class="card">
@@ -271,7 +274,79 @@ td a{font-weight:700}
     </div>
   </div>
 
-  <h3 style="margin:20px 0 4px;font-size:15px;color:var(--pink-deep)">配套文档（点击打开）</h3>
+  <details class="card" style="margin-top:16px">
+    <summary><span class="dot" style="background:var(--mint)"></span>情报文件 24 份 <span class="pill ok">点开看清单</span></summary>
+    <div class="dbody">
+      <div class="tblwrap"><table>
+        <thead><tr><th>文件</th><th>大小</th><th>打开</th></tr></thead>
+        <tbody>
+<tr><td class="name">audit-dcinkbleed-samefield</td><td class="size">3.9 KB</td><td><span class="faint">本机 intel/</span></td></tr>
+<tr><td class="name">baseline</td><td class="size">0.9 KB</td><td><span class="faint">本机 intel/</span></td></tr>
+<tr><td class="name">bf-watchlist</td><td class="size">15.2 KB</td><td><span class="faint">本机 intel/</span></td></tr>
+<tr><td class="name">china-resources</td><td class="size">17.3 KB</td><td><span class="faint">本机 intel/</span></td></tr>
+<tr><td class="name">feasible-assessment</td><td class="size">7.4 KB</td><td><span class="faint">本机 intel/</span></td></tr>
+<tr><td class="name">feed-2026-11-14-round2</td><td class="size">4.9 KB</td><td><span class="faint">本机 intel/</span></td></tr>
+<tr><td class="name">feed-2026-11-14-round3</td><td class="size">5.8 KB</td><td><span class="faint">本机 intel/</span></td></tr>
+<tr><td class="name">feed-2026-11-14-round4</td><td class="size">4.6 KB</td><td><span class="faint">本机 intel/</span></td></tr>
+<tr><td class="name">feed-2026-11-14</td><td class="size">6.7 KB</td><td><span class="faint">本机 intel/</span></td></tr>
+<tr><td class="name">free-alternatives</td><td class="size">12.7 KB</td><td><span class="faint">本机 intel/</span></td></tr>
+<tr><td class="name">free-anim-fx</td><td class="size">5.8 KB</td><td><span class="faint">本机 intel/</span></td></tr>
+<tr><td class="name">free-bilibili</td><td class="size">10.1 KB</td><td><span class="faint">本机 intel/</span></td></tr>
+<tr><td class="name">free-global</td><td class="size">17.6 KB</td><td><span class="faint">本机 intel/</span></td></tr>
+<tr><td class="name">free-tools-mg</td><td class="size">3.9 KB</td><td><span class="faint">本机 intel/</span></td></tr>
+<tr><td class="name">local-env-layers</td><td class="size">3.4 KB</td><td><span class="faint">本机 intel/</span></td></tr>
+<tr><td class="name">local-env</td><td class="size">1.4 KB</td><td><span class="faint">本机 intel/</span></td></tr>
+<tr><td class="name">native-candidates</td><td class="size">5.0 KB</td><td><span class="faint">本机 intel/</span></td></tr>
+<tr><td class="name">native-dev-bootstrap</td><td class="size">4.8 KB</td><td><span class="faint">本机 intel/</span></td></tr>
+<tr><td class="name">paid-list</td><td class="size">31.6 KB</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">打开 ↗</a></td></tr>
+<tr><td class="name">replicas-boundary</td><td class="size">16.1 KB</td><td><span class="faint">本机 intel/</span></td></tr>
+<tr><td class="name">search-sources</td><td class="size">4.8 KB</td><td><span class="faint">本机 intel/</span></td></tr>
+<tr><td class="name">token-saving</td><td class="size">5.5 KB</td><td><span class="faint">本机 intel/</span></td></tr>
+<tr><td class="name">value-and-feasible</td><td class="size">2.4 KB</td><td><span class="faint">本机 intel/</span></td></tr>
+<tr><td class="name">value-picks</td><td class="size">30.7 KB</td><td><a href="docs/value-picks.html" target="_blank" rel="noopener">打开 ↗</a></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </details>
+
+  <details class="card" id="sec-external" style="margin-top:16px">
+    <summary><span class="dot" style="background:var(--butter)"></span>外部免费精选 25 项 <span class="pill wip">点开看清单</span></summary>
+    <div class="dbody">
+      <p style="margin:8px 0 12px">按你的筛选规则（三层盘点已装剔除、lookae 免费不列、3 大厂不列）过筛后按工作流分档的免费资源。</p>
+      <div class="tblwrap"><table>
+        <thead><tr><th>资源</th><th>分类</th><th>来源</th><th>优先级</th></tr></thead>
+        <tbody>
+          <tr><td class="name">FX Console（Video Copilot）</td><td>PV 制作（歌词曲绘向 / </td><td><a href="https://www.videocopilot.net" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">必装</span></td></tr>
+          <tr><td class="name">EaseCopy（aescripts NYOP）</td><td>PV 制作（歌词曲绘向 / </td><td><a href="https://aescripts.com/easecopy/" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">必装</span></td></tr>
+          <tr><td class="name">Animation Composer（Mister Horse 免费版）</td><td>PV 制作（歌词曲绘向 / </td><td><a href="https://misterhorse.net/animationcomposer" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">推荐</span></td></tr>
+          <tr><td class="name">True Comp Duplicator（aescripts NYOP）</td><td>PV 制作（歌词曲绘向 / </td><td><a href="https://aescripts.com/true-comp-duplicator/" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">推荐</span></td></tr>
+          <tr><td class="name">BHY_Text（B站「匕禾页bili」免费脚本家族）</td><td>PV 制作（歌词曲绘向 / </td><td><a href="https://www.bilibili.com/video/BV12VtueAERP" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">推荐</span></td></tr>
+          <tr><td class="name">PSDImporter（bigxixi，AE 扩展）</td><td>手书（分镜 PSD → 卡点</td><td><a href="https://github.com/bigxixi" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">必装</span></td></tr>
+          <tr><td class="name">rife-ncnn-vulkan（nihui，ncnn 系）</td><td>手书（分镜 PSD → 卡点</td><td><a href="https://github.com/nihui/rife-ncnn-vulkan" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">必装</span></td></tr>
+          <tr><td class="name">节拍打点工作流（Audition 标记 → AE 合成标记，B站成熟免费路径）</td><td>手书（分镜 PSD → 卡点</td><td><a href="https://www.bilibili.com/video/BV16S4y187wF" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">必装</span></td></tr>
+          <tr><td class="name">Duik Ángela（RxLaboratory，开源）</td><td>手书（分镜 PSD → 卡点</td><td><a href="https://rxlaboratory.org/tools/duik/" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">推荐</span></td></tr>
+          <tr><td class="name">Comp Setting Tool v2.1（舟午，开源）</td><td>手书（分镜 PSD → 卡点</td><td><a href="https://www.lookae.com/comp-setting-tool" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">推荐</span></td></tr>
+          <tr><td class="name">小丸工具箱（社区维护，x264/ffmpeg GUI）</td><td>剪辑交付（成片、投稿、多平台</td><td><a href="https://maruko.appinn.me" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">必装</span></td></tr>
+          <tr><td class="name">Twixtor 批量操作辅助脚本（yanyiju）</td><td>剪辑交付（成片、投稿、多平台</td><td><a href="https://github.com/yanyiju/twixtor-batch-operation-script" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">推荐</span></td></tr>
+          <tr><td class="name">webp_apng_exporter_for_AE（bigxixi，173★）</td><td>剪辑交付（成片、投稿、多平台</td><td><a href="https://github.com/bigxixi" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">推荐</span></td></tr>
+          <tr><td class="name">Quick Chromatic Aberration 3（aescripts Free/$0）</td><td>剪辑交付（成片、投稿、多平台</td><td><a href="https://aescripts.com/quick-chromatic-aberration/" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">可选</span></td></tr>
+          <tr><td class="name">CrossFrame（Reddit 2026 新发布）</td><td>剪辑交付（成片、投稿、多平台</td><td><a href="https://www.reddit.com/r/AfterEffects/comments/1rxhw8h/made_a_free_ae_script_that_lets_you_build_once" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">可选</span></td></tr>
+          <tr><td class="name">BHY_CompChanger（匕禾页bili）</td><td>效率工具（工程整理、批量操作</td><td><a href="https://www.bilibili.com/video/BV12VtueAERP" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">必装</span></td></tr>
+          <tr><td class="name">mograph.life 32 件套（MIT 开源）</td><td>效率工具（工程整理、批量操作</td><td><a href="https://mograph.life" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">推荐</span></td></tr>
+          <tr><td class="name">MoBar 免费版（aescripts）</td><td>效率工具（工程整理、批量操作</td><td><a href="https://aescripts.com/mobar/" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">可选</span></td></tr>
+          <tr><td class="name">kyletmartinez 脚本合集（290★，开源）</td><td>效率工具（工程整理、批量操作</td><td><a href="https://github.com/kyletmartinez/after-effects-scripts" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">可选</span></td></tr>
+          <tr><td class="name">after-effects-mcp（889★，开源）</td><td>效率工具（工程整理、批量操作</td><td><a href="https://github.com/Dakkshin/after-effects-mcp" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">可选</span></td></tr>
+          <tr><td class="name">TheAnimeScripter（开源）</td><td>二次创作与补帧（二创素材修复</td><td><a href="https://github.com/NevermindNilas/TheAnimeScripter" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">必装</span></td></tr>
+          <tr><td class="name">喵哉动漫补帧·抠像二创辅助脚本（开源，中文）</td><td>二次创作与补帧（二创素材修复</td><td><a href="https://www.lookae.com/miaozai" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">必装</span></td></tr>
+          <tr><td class="name">Real-ESRGAN（37,490★，开源）</td><td>二次创作与补帧（二创素材修复</td><td><a href="https://github.com/xinntao/Real-ESRGAN" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">推荐</span></td></tr>
+          <tr><td class="name">Saber（Video Copilot 官方免费）</td><td>二次创作与补帧（二创素材修复</td><td><a href="https://www.videocopilot.net/blog/2016/03/new-plug-in-saber-now-available-100-free" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">推荐</span></td></tr>
+          <tr><td class="name">om_midi（84★，开源）</td><td>二次创作与补帧（二创素材修复</td><td><a href="https://github.com/otomad/om_midi" target="_blank" rel="noopener">官方/来源 ↗</a></td><td><span class="pill">可选</span></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </details>
+
+  <h3 id="sec-docs" style="margin:20px 0 4px;font-size:15px;color:var(--pink-deep)">配套文档（点击打开）</h3>
   <div class="doclist">
     <a class="doclink" href="docs/usage-guide.html" target="_blank" rel="noopener"><span class="ico">MD</span><span class="tx"><b>使用指南</b><span>usage-guide · 全量中文指南</span></span></a>
     <a class="doclink" href="docs/free-plugin-guide.html" target="_blank" rel="noopener"><span class="ico">MD</span><span class="tx"><b>免费插件指南</b><span>free-plugin-guide</span></span></a>
