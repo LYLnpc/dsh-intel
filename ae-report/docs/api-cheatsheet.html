@@ -1,128 +1,61 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>API 速查 api-cheatsheet</title><style>
-  body{background:#fffaf7;color:#2b2723;font-family:'PingFang SC','Microsoft YaHei',system-ui,sans-serif;max-width:920px;margin:0 auto;padding:34px 24px 80px;line-height:1.8}
-  a.back{display:inline-block;margin-bottom:20px;color:#f2799a;text-decoration:none;border-bottom:1.5px dotted #ffd9e3;font-weight:700}
-  h1.doc{font-size:22px;margin:0 0 18px;padding-bottom:12px;border-bottom:2px solid #ffd9e3;color:#f2799a}
-  pre{white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,'Cascadia Mono',Consolas,monospace;font-size:13px;line-height:1.75;background:#fff;border:1.5px solid #f3e3e8;border-radius:14px;padding:22px;box-shadow:0 8px 30px rgba(242,121,154,.08)}
-  </style></head><body><a class="back" href="../summary.html">&larr; 返回总结</a><h1 class="doc">API 速查 api-cheatsheet</h1><pre>---
-generated_at: 2026-11-14T08:12:00+08:00
-task: 沉淀 AE Scripting API 白名单速查表——对照官方 After Effects Scripting Guide（docsforadobe 社区镜像 + 页面抓取）逐条核实，纠正交叉评审中发现的枚举拼写回归与错误 API 假设
----
-
-# AE Scripting API 白名单速查表（复刻项目专用）
-
-- **核实来源**（均于 2026-11-14 抓取）：
-  - After Effects Scripting Guide 社区官方镜像整页：`https://ae-scripting.docsforadobe.dev/print_page/`（1.4MB 全文已下载，逐字 grep 核对）
-  - 单页直抓：`/property/property/`（Property 对象）、`/other/keyframeease/`（KeyframeEase）、`/other/settings`（Settings，经 WebSearch 摘要核实）
-- **标注体系**：`[官方核实]` = 官方指南全文逐字确认；`[指南未收录]` = 该名称在当前 docsforadobe 版指南中 0 命中（历史 PDF 版指南或社区通行用法，**使用必须包 try/catch 并实机验证**）
-- **教训来源**：交叉评审（logs/review-1.md）发现 3 个项目凭记忆书写 API 名出错；本次速查又纠正了评审本身引入的枚举拼写回归（详见文末"纠错记录"）。
-
-## 一、PropertyValueType 枚举全表 `[官方核实]`
-
-官方指南逐字原文（大小写敏感，grep 实证：`OneD`×3、`TwoD_SPATIAL`×13、`ONE_D`×0）：
-
-| 枚举成员（唯一正确拼法） | 含义（指南原文摘译） | value 形状 |
-|---|---|---|
-| `OneD` | 浮点标量 | number（指南示例：opacity "has propertyValueType of OneD, and is stored as a float"） |
-| `TwoD` | 二维数量值 | `[x, y]`（指南示例：Scale "might be [5.1, ...]"） |
-| `TwoD_SPATIAL` | 二维空间值 | `[x, y]`（Anchor Point 等） |
-| `ThreeD` | 三维数量值 | `[x, y, z]`（Scale 3D） |
-| `ThreeD_SPATIAL` | 三维空间值 | `[x, y, z]`（3D Anchor Point） |
-| `COLOR` | 颜色 | `[r, g, b, (a)]`，范围 [0.0..1.0] |
-| `MARKER` | 层/合成标记 | MarkerValue 对象 |
-| `SHAPE` | 蒙版/形状路径 | Shape 对象 |
-| `TEXT_DOCUMENT` | 文本（Source Text） | TextDocument 对象 |
-| `CUSTOM_VALUE` | 自定义数据 | 自定义（指南示例：Levels 效果的 Histogram） |
-| `NO_VALUE` | 无值 | — |
-
-### 易错拼法黑名单（评审实测踩坑）
-
-| 错误拼法 | 错在哪里 |
-|---|---|
-| `PropertyValueType.ONE_D` / `TWO_D` / `THREE_D` | **全大写不存在**。正确是混合大小写 `OneD/TwoD/ThreeD`。 ExtendScript 里访问不存在的枚举成员得到 `undefined`，比较恒为 false（不报错，静默失效）——最危险的一类错误 |
-| `PropertyValueType.ValueType_ONE_D` 等 | 无此类成员（flow-clone 初版踩坑） |
-| `PropertyValueType.Text_Document` / `TextDocument` | 正确为全大写 `TEXT_DOCUMENT`；`COLOR/MARKER/SHAPE/NO_VALUE/CUSTOM_VALUE` 同为全大写 |
-| 字符串回退大小写 | `String(prop.propertyValueType)` 得到如 `"TwoD_SPATIAL"`，做子串判断时大小写敏感：`indexOf("TWO_D_SPATIAL")` 失败、`indexOf("TwoD")` 成功 |
-
-**比对示范（官方指南原文风格）**：
-```javascript
-if (myProperty.propertyValueType === PropertyValueType.ThreeD_SPATIAL) { /* ... */ }
-```
-
-## 二、关键帧时间缓动双接口 `[官方核实]`
-
-### 读接口（每维一组 KeyframeEase）
-
-```javascript
-// 签名 [官方核实]
+  body{background:#fffaf7;color:#2b2723;font-family:'PingFang SC','Microsoft YaHei',system-ui,sans-serif;max-width:900px;margin:0 auto;padding:34px 24px 90px;line-height:1.85;font-size:14.5px}
+  a.back{display:inline-block;margin-bottom:18px;color:#f2799a;text-decoration:none;border-bottom:1.5px dotted #ffd9e3;font-weight:700}
+  h1.doc{font-size:22px;margin:0 0 20px;padding-bottom:12px;border-bottom:2px solid #ffd9e3;color:#f2799a}
+  h1,h2,h3,h4{color:#5b4a54;line-height:1.4;margin:22px 0 8px}
+  h1{font-size:21px}h2{font-size:18px;border-left:4px solid #ff9eb5;padding-left:10px}h3{font-size:15.5px}
+  p{margin:9px 0}ul,ol{margin:9px 0 9px 22px}li{margin:4px 0}
+  code{background:#fff0f4;color:#d94a72;padding:1px 6px;border-radius:6px;font-family:ui-monospace,Consolas,monospace;font-size:12.5px}
+  pre.code{background:#fff;border:1.5px solid #f3e3e8;border-radius:12px;padding:16px;overflow-x:auto;box-shadow:0 6px 20px rgba(242,121,154,.06)}
+  pre.code code{background:none;color:#5b4a54;padding:0}
+  blockquote{margin:12px 0;padding:8px 16px;border-left:3px solid #b89ee8;background:#f8f4ff;color:#5b4a54;border-radius:0 8px 8px 0}
+  hr{border:none;border-top:1.5px dashed #ffd9e3;margin:20px 0}
+  .tw{overflow-x:auto;margin:12px 0;border:1.5px solid #f3e3e8;border-radius:12px}
+  table{border-collapse:collapse;width:100%;font-size:13px}
+  th{background:#fff6f9;color:#f2799a;text-align:left;padding:8px 12px;border-bottom:1.5px solid #f3e3e8;white-space:nowrap}
+  td{padding:8px 12px;border-bottom:1px solid #f8eef1;vertical-align:top}
+  a{color:#f2799a;text-decoration:none;border-bottom:1.5px dotted #ffd9e3}
+  </style></head><body><a class="back" href="../summary.html">&larr; 返回总结</a><h1 class="doc">API 速查 api-cheatsheet</h1><h1>AE Scripting API 白名单速查表（复刻项目专用）</h1>
+<ul><li><strong>核实来源</strong>（均于 2026-11-14 抓取）：</li><li>After Effects Scripting Guide 社区官方镜像整页：<code>https://ae-scripting.docsforadobe.dev/print_page/</code>（1.4MB 全文已下载，逐字 grep 核对）</li><li>单页直抓：<code>/property/property/</code>（Property 对象）、<code>/other/keyframeease/</code>（KeyframeEase）、<code>/other/settings</code>（Settings，经 WebSearch 摘要核实）</li><li><strong>标注体系</strong>：<code>[官方核实]</code> = 官方指南全文逐字确认；<code>[指南未收录]</code> = 该名称在当前 docsforadobe 版指南中 0 命中（历史 PDF 版指南或社区通行用法，<strong>使用必须包 try/catch 并实机验证</strong>）</li><li><strong>教训来源</strong>：交叉评审（logs/review-1.md）发现 3 个项目凭记忆书写 API 名出错；本次速查又纠正了评审本身引入的枚举拼写回归（详见文末"纠错记录"）。</li></ul>
+<h2>一、PropertyValueType 枚举全表 <code>[官方核实]</code></h2>
+<p>官方指南逐字原文（大小写敏感，grep 实证：<code>OneD</code>×3、<code>TwoD_SPATIAL</code>×13、<code>ONE_D</code>×0）：</p>
+<div class="tw"><table><thead><tr><th>枚举成员（唯一正确拼法）</th><th>含义（指南原文摘译）</th><th>value 形状</th></tr></thead><tbody><tr><td><code>OneD</code></td><td>浮点标量</td><td>number（指南示例：opacity "has propertyValueType of OneD, and is stored as a float"）</td></tr><tr><td><code>TwoD</code></td><td>二维数量值</td><td><code>[x, y]</code>（指南示例：Scale "might be [5.1, ...]"）</td></tr><tr><td><code>TwoD_SPATIAL</code></td><td>二维空间值</td><td><code>[x, y]</code>（Anchor Point 等）</td></tr><tr><td><code>ThreeD</code></td><td>三维数量值</td><td><code>[x, y, z]</code>（Scale 3D）</td></tr><tr><td><code>ThreeD_SPATIAL</code></td><td>三维空间值</td><td><code>[x, y, z]</code>（3D Anchor Point）</td></tr><tr><td><code>COLOR</code></td><td>颜色</td><td><code>[r, g, b, (a)]</code>，范围 [0.0..1.0]</td></tr><tr><td><code>MARKER</code></td><td>层/合成标记</td><td>MarkerValue 对象</td></tr><tr><td><code>SHAPE</code></td><td>蒙版/形状路径</td><td>Shape 对象</td></tr><tr><td><code>TEXT_DOCUMENT</code></td><td>文本（Source Text）</td><td>TextDocument 对象</td></tr><tr><td><code>CUSTOM_VALUE</code></td><td>自定义数据</td><td>自定义（指南示例：Levels 效果的 Histogram）</td></tr><tr><td><code>NO_VALUE</code></td><td>无值</td><td>—</td></tr></tbody></table></div>
+<h3>易错拼法黑名单（评审实测踩坑）</h3>
+<div class="tw"><table><thead><tr><th>错误拼法</th><th>错在哪里</th></tr></thead><tbody><tr><td><code>PropertyValueType.ONE_D</code> / <code>TWO_D</code> / <code>THREE_D</code></td><td><strong>全大写不存在</strong>。正确是混合大小写 <code>OneD/TwoD/ThreeD</code>。 ExtendScript 里访问不存在的枚举成员得到 <code>undefined</code>，比较恒为 false（不报错，静默失效）——最危险的一类错误</td></tr><tr><td><code>PropertyValueType.ValueType_ONE_D</code> 等</td><td>无此类成员（flow-clone 初版踩坑）</td></tr><tr><td><code>PropertyValueType.Text_Document</code> / <code>TextDocument</code></td><td>正确为全大写 <code>TEXT_DOCUMENT</code>；<code>COLOR/MARKER/SHAPE/NO_VALUE/CUSTOM_VALUE</code> 同为全大写</td></tr><tr><td>字符串回退大小写</td><td><code>String(prop.propertyValueType)</code> 得到如 <code>"TwoD_SPATIAL"</code>，做子串判断时大小写敏感：<code>indexOf("TWO_D_SPATIAL")</code> 失败、<code>indexOf("TwoD")</code> 成功</td></tr></tbody></table></div>
+<p><strong>比对示范（官方指南原文风格）</strong>：</p>
+<pre class="code"><code>if (myProperty.propertyValueType === PropertyValueType.ThreeD_SPATIAL) { /* ... */ }</code></pre>
+<h2>二、关键帧时间缓动双接口 <code>[官方核实]</code></h2>
+<h3>读接口（每维一组 KeyframeEase）</h3>
+<pre class="code"><code>// 签名 [官方核实]
 prop.keyInTemporalEase(keyIndex);   // -&gt; Array of KeyframeEase（读入方向）
-prop.keyOutTemporalEase(keyIndex);  // -&gt; Array of KeyframeEase（读出方向）
-```
-- 返回数组长度 = 属性维度：`TwoD/ThreeD` → 2/3 个元素；**其余所有类型（含 OneD 与 COLOR）→ 1 个元素**（指南原文 "For any other value type, the array contains 1 object"）。
-- `keyIndex` 范围 [1..numKeys]。
-
-### 写接口
-
-```javascript
-// 签名 [官方核实]
-prop.setTemporalEaseAtKey(keyIndex, inTemporalEase[, outTemporalEase]);
-```
-- `inTemporalEase/outTemporalEase`：**每维一个 KeyframeEase 对象的数组**（TwoD→2 个，ThreeD→3 个，其他→1 个）。
-- `outTemporalEase` 省略时，出方向被设为与 inTemporalEase 相同——**只改一侧时必须先读回另一侧**：
-```javascript
-// 单侧覆盖的安全写法（easecopy-clone 已按此实现）
+prop.keyOutTemporalEase(keyIndex);  // -&gt; Array of KeyframeEase（读出方向）</code></pre>
+<ul><li>返回数组长度 = 属性维度：<code>TwoD/ThreeD</code> → 2/3 个元素；<strong>其余所有类型（含 OneD 与 COLOR）→ 1 个元素</strong>（指南原文 "For any other value type, the array contains 1 object"）。</li><li><code>keyIndex</code> 范围 [1..numKeys]。</li></ul>
+<h3>写接口</h3>
+<pre class="code"><code>// 签名 [官方核实]
+prop.setTemporalEaseAtKey(keyIndex, inTemporalEase[, outTemporalEase]);</code></pre>
+<ul><li><code>inTemporalEase/outTemporalEase</code>：<strong>每维一个 KeyframeEase 对象的数组</strong>（TwoD→2 个，ThreeD→3 个，其他→1 个）。</li><li><code>outTemporalEase</code> 省略时，出方向被设为与 inTemporalEase 相同——<strong>只改一侧时必须先读回另一侧</strong>：</li></ul>
+<pre class="code"><code>// 单侧覆盖的安全写法（easecopy-clone 已按此实现）
 var curOut = null;
 try { curOut = prop.keyOutTemporalEase(ki); } catch (e) { curOut = null; }
-prop.setTemporalEaseAtKey(ki, inEaseArr, (curOut !== null ? curOut : inEaseArr));
-```
-
-### KeyframeEase 构造 `[官方核实]`
-
-```javascript
-var ease = new KeyframeEase(speed, influence);
-```
-- `influence`：浮点，**范围 [0.1..100.0]**（百分比）；`speed`：浮点（单位随关键帧类型不同，见 AE"关键帧速度"对话框）。
-- 官方示例（1D 与多维）：
-```javascript
-// OneD 属性（如 Rotation）
+prop.setTemporalEaseAtKey(ki, inEaseArr, (curOut !== null ? curOut : inEaseArr));</code></pre>
+<h3>KeyframeEase 构造 <code>[官方核实]</code></h3>
+<pre class="code"><code>var ease = new KeyframeEase(speed, influence);</code></pre>
+<ul><li><code>influence</code>：浮点，<strong>范围 [0.1..100.0]</strong>（百分比）；<code>speed</code>：浮点（单位随关键帧类型不同，见 AE"关键帧速度"对话框）。</li><li>官方示例（1D 与多维）：</li></ul>
+<pre class="code"><code>// OneD 属性（如 Rotation）
 myProp.setTemporalEaseAtKey(2, [easeIn], [easeOut]);
 // 多维属性（如 Scale）必须每维一个元素
-myScale.setTemporalEaseAtKey(2, [easeIn, easeIn, easeIn], [easeOut, easeOut, easeOut]);
-```
-
-### 缓动周边方法（指南收录）
-
-`[官方核实]`：`keyInInterpolationType(k)` / `keyOutInterpolationType(k)` / `setInterpolationTypeAtKey(k, inType, outType)`、`keyTime(k)`、`keyValue(k)`、`keySpatialContinuous(k)`、`keyRoving(k)` / `setRovingAtKey(k, bool)`、`keySpatialAutoBezier(k)`、`setTemporalAutoBezierAtKey(k, bool)` / `keyTemporalContinuous(k)`、`keyInSpatialTangent(k)` / `keyOutSpatialTangent(k)` / `setSpatialTangentsAtKey(k, inTan, outTan)`、`setValueAtKey(k, newvalue[, time])`。
-`KeyframeInterpolationType.LINEAR / BEZIER / HOLD` 三成员。
-
-### 关键帧删除 —— **勿用 deleteKey** `[官方核实]`
-
-- 官方指南**唯一收录**的删除方法：`prop.removeKey(keyIndex)`（grep 实证：`removeKey`×2、`deleteKey`×0）。
-- **`deleteKey()` 不存在**（flow-clone 初版踩坑，评审后已改 `removeKey`）。
-
-### 指南未收录（社区通行，须 try/catch + 实机验证）
-
-- `prop.isInterpolationTypeOK(keyType[, keyIndex])` `[指南未收录]` — flow-clone 用于能力探测，已包 try/catch。
-- `app.getCommandLineArguments()` `[指南未收录]` — flow-clone CLI 模式使用，AE CC2014+ 社区通行。
-
-## 三、集合接口正确遍历 `[官方核实]`
-
-| 集合 | 正确遍历 | 说明 |
-|---|---|---|
-| 项目条目 | `for (i = 1; i &lt;= app.project.numItems; i++) app.project.item(i)` | **1-based + numItems**；不存在 `project.items[i]` 数组式访问 |
-| comp 图层 | `for (i = 1; i &lt;= comp.numLayers; i++) comp.layer(i)` | 同上 1-based |
-| 效果/蒙版/属性组 | `for (i = 1; i &lt;= grp.numProperties; i++) grp.property(i)` | 1-based |
-| 合成选中项 | `comp.selectedLayers`（数组，0-based `length` 遍历） | 顺序无文档保证，勿假设 |
-| 属性选中项 | `comp.selectedProperties`（数组，0-based） | 混合含 Property、PropertyGroup、Layer |
-| 属性选中关键帧 | `prop.selectedKeys`（数组，元素为 1-based 关键帧索引） | 用 `length` 遍历；排序需自做（`sort(function(a,b){return a-b;})`，ES3 无默认数值比较） |
-| 项目面板选中项 | `app.project.selection`（数组，0-based） | |
-| 按名/按索引取图层 | `comp.layer("名字")` / `comp.layer(i)` | 名字不存在时**抛异常**（包 try/catch 或先遍历比对 `layer.name`） |
-
-要点：**"集合类用 numXxx + item(i)/layer(i)（1-based）；'选中的'类用 .length + [i]（0-based）"**——两套索引风格并存是最常见踩坑点。
-
-## 四、Property 核心方法签名 `[官方核实]`
-
-```javascript
-prop.value;                        // 当前值；关键帧属性返回当前时间值
+myScale.setTemporalEaseAtKey(2, [easeIn, easeIn, easeIn], [easeOut, easeOut, easeOut]);</code></pre>
+<h3>缓动周边方法（指南收录）</h3>
+<p><code>[官方核实]</code>：<code>keyInInterpolationType(k)</code> / <code>keyOutInterpolationType(k)</code> / <code>setInterpolationTypeAtKey(k, inType, outType)</code>、<code>keyTime(k)</code>、<code>keyValue(k)</code>、<code>keySpatialContinuous(k)</code>、<code>keyRoving(k)</code> / <code>setRovingAtKey(k, bool)</code>、<code>keySpatialAutoBezier(k)</code>、<code>setTemporalAutoBezierAtKey(k, bool)</code> / <code>keyTemporalContinuous(k)</code>、<code>keyInSpatialTangent(k)</code> / <code>keyOutSpatialTangent(k)</code> / <code>setSpatialTangentsAtKey(k, inTan, outTan)</code>、<code>setValueAtKey(k, newvalue[, time])</code>。 <code>KeyframeInterpolationType.LINEAR / BEZIER / HOLD</code> 三成员。</p>
+<h3>关键帧删除 —— <strong>勿用 deleteKey</strong> <code>[官方核实]</code></h3>
+<ul><li>官方指南<strong>唯一收录</strong>的删除方法：<code>prop.removeKey(keyIndex)</code>（grep 实证：<code>removeKey</code>×2、<code>deleteKey</code>×0）。</li><li><strong><code>deleteKey()</code> 不存在</strong>（flow-clone 初版踩坑，评审后已改 <code>removeKey</code>）。</li></ul>
+<h3>指南未收录（社区通行，须 try/catch + 实机验证）</h3>
+<ul><li><code>prop.isInterpolationTypeOK(keyType[, keyIndex])</code> <code>[指南未收录]</code> — flow-clone 用于能力探测，已包 try/catch。</li><li><code>app.getCommandLineArguments()</code> <code>[指南未收录]</code> — flow-clone CLI 模式使用，AE CC2014+ 社区通行。</li></ul>
+<h2>三、集合接口正确遍历 <code>[官方核实]</code></h2>
+<div class="tw"><table><thead><tr><th>集合</th><th>正确遍历</th><th>说明</th></tr></thead><tbody><tr><td>项目条目</td><td><code>for (i = 1; i &lt;= app.project.numItems; i++) app.project.item(i)</code></td><td><strong>1-based + numItems</strong>；不存在 <code>project.items[i]</code> 数组式访问</td></tr><tr><td>comp 图层</td><td><code>for (i = 1; i &lt;= comp.numLayers; i++) comp.layer(i)</code></td><td>同上 1-based</td></tr><tr><td>效果/蒙版/属性组</td><td><code>for (i = 1; i &lt;= grp.numProperties; i++) grp.property(i)</code></td><td>1-based</td></tr><tr><td>合成选中项</td><td><code>comp.selectedLayers</code>（数组，0-based <code>length</code> 遍历）</td><td>顺序无文档保证，勿假设</td></tr><tr><td>属性选中项</td><td><code>comp.selectedProperties</code>（数组，0-based）</td><td>混合含 Property、PropertyGroup、Layer</td></tr><tr><td>属性选中关键帧</td><td><code>prop.selectedKeys</code>（数组，元素为 1-based 关键帧索引）</td><td>用 <code>length</code> 遍历；排序需自做（<code>sort(function(a,b){return a-b;})</code>，ES3 无默认数值比较）</td></tr><tr><td>项目面板选中项</td><td><code>app.project.selection</code>（数组，0-based）</td><td></td></tr><tr><td>按名/按索引取图层</td><td><code>comp.layer("名字")</code> / <code>comp.layer(i)</code></td><td>名字不存在时<strong>抛异常</strong>（包 try/catch 或先遍历比对 <code>layer.name</code>）</td></tr></tbody></table></div>
+<p>要点：<strong>"集合类用 numXxx + item(i)/layer(i)（1-based）；'选中的'类用 .length + [i]（0-based）"</strong>——两套索引风格并存是最常见踩坑点。</p>
+<h2>四、Property 核心方法签名 <code>[官方核实]</code></h2>
+<pre class="code"><code>prop.value;                        // 当前值；关键帧属性返回当前时间值
 prop.setValue(v);                  // 仅限无关键帧属性；有关键帧时抛异常（指南原文明确）
 prop.valueAtTime(time, preExpression);  // time 秒；preExpression=true 时取表达式应用前的值
 prop.setValueAtTime(time, v);      // 该时刻无键则新建
@@ -132,52 +65,24 @@ prop.numKeys;                      // 关键帧数（无关键帧属性为 0；P
 prop.expression;                   // 读写字符串；无效表达式赋值会抛异常
 prop.removeKey(keyIndex);          // 删除关键帧（勿用 deleteKey）
 prop.addProperty(matchName);       // 效果/蒙版/形状组追加子对象
-grp.canAddProperty(matchName);     // 返回 bool
-```
-
-## 五、Layer / CompItem / TextDocument 常用成员 `[官方核实]`
-
-### Layer（图层）
-- 读 `[官方核实]`：`index`、`name`、`comment`、`label`、`source`（AVLayer）、`parent`、`inPoint`/`outPoint`/`startTime`/`stretch`、`enabled`/`solo`/`shy`/`locked`/`guideLayer`、`blendingMode`、`trackMatteType`、`motionBlur`、`audioEnabled`、`autoOrient`、`threeDLayer`、`nullLayer`、`adjustmentLayer`、`timeRemapEnabled`、`environmentLayer`、`selected`、`selectedProperties`、`quality`。
-- 方法 `[官方核实]`：`copyToComp(targetComp)`、`moveAfter(layer)`、`replaceSource(item, fixExpressions)`。
-- 图层创建 `[官方核实]`：`comp.layers.addShape() / addNull() / addText(docOrString) / addBoxText() / addText(text)（竖排另有 addVerticalText） / addSolid(color, name, w, h, pixelAspect, duration) / addCamera(name, centerPoint) / addLight(name, centerPoint)`。
-
-### CompItem（合成）
-- `[官方核实]`：`width`/`height`/`pixelAspect`/`frameRate`/`duration`/`frameDuration`/`displayStartTime`、`numLayers`/`layer(i)`、`bgColor`、`motionBlur`、`shutterAngle`/`shutterPhase`、`workAreaStart`/`workAreaDuration`、`resolutionFactor`、`label`/`comment`、`parentFolder`、`selectedLayers`/`selectedProperties`、`layer("name")`（不存在即抛异常）。
-- `app.project.activeItem` 可读写（15 处指南收录）；写前确认 `instanceof CompItem`。
-
-### TextDocument（文本）
-- `[官方核实]`：`text`、`font`、`fontSize`、`applyFill`/`applyStroke`、`fillColor`/`strokeColor`/`strokeWidth`、`tracking`、`leading`/`autoLeading`、`baselineShift`、`justification`、`fauxBold`/`fauxItalic`、`boxText`。
-- `[指南未收录]`（tcd-clone 在 try/catch 中作版本兼容尝试）：`boxSize`、`paragraphJustification`、`antiAliasDirection`、`restHorizontalJustification`。注意**不存在 `baselineLocShift`**，正确名是 `baselineShift`。
-- 构造：`new TextDocument(text)` 之后逐字段赋值。
-
-### 其他对象要点
-- `app.settings` `[官方核实]`：`getSetting(section, key)`（缺失时**抛异常**）、`getHavingSaved(section, key)`（返回**布尔**"是否已保存"，不是值！）、`saveSetting(section, key, value)`、`haveSetting(section, key)`、`saveToDisk()`。安全读取模式：
-```javascript
-try {
+grp.canAddProperty(matchName);     // 返回 bool</code></pre>
+<h2>五、Layer / CompItem / TextDocument 常用成员 <code>[官方核实]</code></h2>
+<h3>Layer（图层）</h3>
+<ul><li>读 <code>[官方核实]</code>：<code>index</code>、<code>name</code>、<code>comment</code>、<code>label</code>、<code>source</code>（AVLayer）、<code>parent</code>、<code>inPoint</code>/<code>outPoint</code>/<code>startTime</code>/<code>stretch</code>、<code>enabled</code>/<code>solo</code>/<code>shy</code>/<code>locked</code>/<code>guideLayer</code>、<code>blendingMode</code>、<code>trackMatteType</code>、<code>motionBlur</code>、<code>audioEnabled</code>、<code>autoOrient</code>、<code>threeDLayer</code>、<code>nullLayer</code>、<code>adjustmentLayer</code>、<code>timeRemapEnabled</code>、<code>environmentLayer</code>、<code>selected</code>、<code>selectedProperties</code>、<code>quality</code>。</li><li>方法 <code>[官方核实]</code>：<code>copyToComp(targetComp)</code>、<code>moveAfter(layer)</code>、<code>replaceSource(item, fixExpressions)</code>。</li><li>图层创建 <code>[官方核实]</code>：<code>comp.layers.addShape() / addNull() / addText(docOrString) / addBoxText() / addText(text)（竖排另有 addVerticalText） / addSolid(color, name, w, h, pixelAspect, duration) / addCamera(name, centerPoint) / addLight(name, centerPoint)</code>。</li></ul>
+<h3>CompItem（合成）</h3>
+<ul><li><code>[官方核实]</code>：<code>width</code>/<code>height</code>/<code>pixelAspect</code>/<code>frameRate</code>/<code>duration</code>/<code>frameDuration</code>/<code>displayStartTime</code>、<code>numLayers</code>/<code>layer(i)</code>、<code>bgColor</code>、<code>motionBlur</code>、<code>shutterAngle</code>/<code>shutterPhase</code>、<code>workAreaStart</code>/<code>workAreaDuration</code>、<code>resolutionFactor</code>、<code>label</code>/<code>comment</code>、<code>parentFolder</code>、<code>selectedLayers</code>/<code>selectedProperties</code>、<code>layer("name")</code>（不存在即抛异常）。</li><li><code>app.project.activeItem</code> 可读写（15 处指南收录）；写前确认 <code>instanceof CompItem</code>。</li></ul>
+<h3>TextDocument（文本）</h3>
+<ul><li><code>[官方核实]</code>：<code>text</code>、<code>font</code>、<code>fontSize</code>、<code>applyFill</code>/<code>applyStroke</code>、<code>fillColor</code>/<code>strokeColor</code>/<code>strokeWidth</code>、<code>tracking</code>、<code>leading</code>/<code>autoLeading</code>、<code>baselineShift</code>、<code>justification</code>、<code>fauxBold</code>/<code>fauxItalic</code>、<code>boxText</code>。</li><li><code>[指南未收录]</code>（tcd-clone 在 try/catch 中作版本兼容尝试）：<code>boxSize</code>、<code>paragraphJustification</code>、<code>antiAliasDirection</code>、<code>restHorizontalJustification</code>。注意<strong>不存在 <code>baselineLocShift</code></strong>，正确名是 <code>baselineShift</code>。</li><li>构造：<code>new TextDocument(text)</code> 之后逐字段赋值。</li></ul>
+<h3>其他对象要点</h3>
+<ul><li><code>app.settings</code> <code>[官方核实]</code>：<code>getSetting(section, key)</code>（缺失时<strong>抛异常</strong>）、<code>getHavingSaved(section, key)</code>（返回<strong>布尔</strong>"是否已保存"，不是值！）、<code>saveSetting(section, key, value)</code>、<code>haveSetting(section, key)</code>、<code>saveToDisk()</code>。安全读取模式：</li></ul>
+<pre class="code"><code>try {
     if (app.settings.getHavingSaved(sec, key)) { return app.settings.getSetting(sec, key); }
 } catch (e) { /* 缺失或异常 */ }
-return fallback;
-```
-- `Item.duplicate()` `[官方核实]`（footage 复制）、`item.parentFolder` 可写、`item.id`（数字，建议 `String(id)` 做映射键）、`footageMissing`。
-- `MarkerValue`：属性 `comment/duration/label/chapter/url/cuePointName` `[官方核实]`；层标记 parade 组 matchName 为 `ADBE Marker Parade`。
-- undo：`app.beginUndoGroup(name)` / `app.endUndoGroup()` 必须成对（推荐 try/finally）。
-
-## 六、编码规范（复刻项目强制）
-
-1. **枚举名与 API 名一律抄本表，不凭记忆**。拿不准 → 先查本文档或 `print_page` 原文，再落码。
-2. ExtendScript 访问不存在的对象成员**不报错、返回 undefined**——拼错枚举/方法名是静默失效，`node --check` 与 ES3 扫描均无法发现，必须 API 对照 + AE 实机冒烟（见 docs/smoke-test.md）。
-3. 新 API 用法须带 try/catch；指南未收录 API 禁止裸用。
-4. 交付前自查三件套：`node --check`（剥离 BOM/#target）→ ES3 扫描 → 对照本表逐个核对本文件出现过的 `PropertyValueType.*`、`key*(`、`set*AtKey(`、`app.settings.*` 名称。
-
-## 七、纠错记录（本速查表编写过程中发现并已当场修复）
-
-1. **评审纠错（重要）**：review-1 中我把 flow/easecopy 的枚举"修正"为全大写 `ONE_D/TWO_D/THREE_D`——**方向反了**。官方指南 grep 实证成员为混合大小写 `OneD/TwoD/ThreeD`（`ONE_D` 0 命中）。flow/easecopy 已当场改回；easecopy 原作者写的 `OneD/TwoD` 系列本就是对的（当时判其"致命"有误，但同文件确实存在 `keyTemporalEase`/缺 onClick 两个真 bug，修复仍然成立）。
-2. **flow-clone 新发现真 bug**：采样预设（Overshoot/Spring/Bounce）用 `prop.deleteKey()` 删中间键——该方法官方指南 0 命中，正确方法为 **`Property.removeKey(keyIndex)`**。已修复。此 bug 使三个采样类预设首删即抛异常（被上层 catch 计入 errors），属功能性损坏。
-3. **tcd-clone 新发现真 bug**：`app.settings.getHavingSaved()` 返回**布尔**而非字符串，原代码把它当值用（后缀/复选框记忆会静默变 true/false）。已改为 `getHavingSaved` 判断 + `getSetting` 读值的两段式。
-4. `isInterpolationTypeOK`、`getCommandLineArguments` 确认为指南未收录的社区通行 API（现有代码已包 try/catch，保留并在本表登记）。
-
-### 补充黑名单（评审3a实测新增）
-- `InterpolationType.LINEAR`（易错：正确为 `KeyframeInterpolationType.LINEAR`）[官方核实]
-- `ADBE Mask Group`（易错：正确 matchName 为 `ADBE Mask Atom`）[官方核实]
-</pre></body></html>
+return fallback;</code></pre>
+<ul><li><code>Item.duplicate()</code> <code>[官方核实]</code>（footage 复制）、<code>item.parentFolder</code> 可写、<code>item.id</code>（数字，建议 <code>String(id)</code> 做映射键）、<code>footageMissing</code>。</li><li><code>MarkerValue</code>：属性 <code>comment/duration/label/chapter/url/cuePointName</code> <code>[官方核实]</code>；层标记 parade 组 matchName 为 <code>ADBE Marker Parade</code>。</li><li>undo：<code>app.beginUndoGroup(name)</code> / <code>app.endUndoGroup()</code> 必须成对（推荐 try/finally）。</li></ul>
+<h2>六、编码规范（复刻项目强制）</h2>
+<ol><li><strong>枚举名与 API 名一律抄本表，不凭记忆</strong>。拿不准 → 先查本文档或 <code>print_page</code> 原文，再落码。</li><li>ExtendScript 访问不存在的对象成员<strong>不报错、返回 undefined</strong>——拼错枚举/方法名是静默失效，<code>node --check</code> 与 ES3 扫描均无法发现，必须 API 对照 + AE 实机冒烟（见 docs/smoke-test.md）。</li><li>新 API 用法须带 try/catch；指南未收录 API 禁止裸用。</li><li>交付前自查三件套：<code>node --check</code>（剥离 BOM/#target）→ ES3 扫描 → 对照本表逐个核对本文件出现过的 <code>PropertyValueType.*</code>、<code>key*(</code>、<code>set*AtKey(</code>、<code>app.settings.*</code> 名称。</li></ol>
+<h2>七、纠错记录（本速查表编写过程中发现并已当场修复）</h2>
+<ol><li><strong>评审纠错（重要）</strong>：review-1 中我把 flow/easecopy 的枚举"修正"为全大写 <code>ONE_D/TWO_D/THREE_D</code>——<strong>方向反了</strong>。官方指南 grep 实证成员为混合大小写 <code>OneD/TwoD/ThreeD</code>（<code>ONE_D</code> 0 命中）。flow/easecopy 已当场改回；easecopy 原作者写的 <code>OneD/TwoD</code> 系列本就是对的（当时判其"致命"有误，但同文件确实存在 <code>keyTemporalEase</code>/缺 onClick 两个真 bug，修复仍然成立）。</li><li><strong>flow-clone 新发现真 bug</strong>：采样预设（Overshoot/Spring/Bounce）用 <code>prop.deleteKey()</code> 删中间键——该方法官方指南 0 命中，正确方法为 <strong><code>Property.removeKey(keyIndex)</code></strong>。已修复。此 bug 使三个采样类预设首删即抛异常（被上层 catch 计入 errors），属功能性损坏。</li><li><strong>tcd-clone 新发现真 bug</strong>：<code>app.settings.getHavingSaved()</code> 返回<strong>布尔</strong>而非字符串，原代码把它当值用（后缀/复选框记忆会静默变 true/false）。已改为 <code>getHavingSaved</code> 判断 + <code>getSetting</code> 读值的两段式。</li><li><code>isInterpolationTypeOK</code>、<code>getCommandLineArguments</code> 确认为指南未收录的社区通行 API（现有代码已包 try/catch，保留并在本表登记）。</li></ol>
+<h3>补充黑名单（评审3a实测新增）</h3>
+<ul><li><code>InterpolationType.LINEAR</code>（易错：正确为 <code>KeyframeInterpolationType.LINEAR</code>）[官方核实]</li><li><code>ADBE Mask Group</code>（易错：正确 matchName 为 <code>ADBE Mask Atom</code>）[官方核实]</li></ul></body></html>
