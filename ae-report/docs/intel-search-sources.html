@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>search-sources</title><style>
+body{background:#fffaf7;color:#2b2723;font-family:'PingFang SC','Microsoft YaHei',system-ui,sans-serif;max-width:900px;margin:0 auto;padding:30px 22px 80px;line-height:1.85;font-size:14.5px}
+h1.doc{font-size:20px;margin:0 0 18px;padding-bottom:12px;border-bottom:2px solid #ffd9e3;color:#f2799a}
+h1,h2,h3,h4{color:#5b4a54;line-height:1.4;margin:20px 0 8px}h1{font-size:20px}h2{font-size:17px;border-left:4px solid #ff9eb5;padding-left:10px}h3{font-size:15px}
+p{margin:9px 0}ul,ol{margin:9px 0 9px 22px}li{margin:4px 0}
+code{background:#fff0f4;color:#d94a72;padding:1px 6px;border-radius:6px;font-family:ui-monospace,Consolas,monospace;font-size:12.5px}
+pre.code{background:#fff;border:1.5px solid #f3e3e8;border-radius:12px;padding:16px;overflow-x:auto}
+pre.code code{background:none;color:#5b4a54;padding:0}
+blockquote{margin:12px 0;padding:8px 16px;border-left:3px solid #b89ee8;background:#f8f4ff;border-radius:0 8px 8px 0}
+hr{border:none;border-top:1.5px dashed #ffd9e3;margin:20px 0}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid #f3e3e8;border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{background:#fff6f9;color:#f2799a;text-align:left;padding:8px 12px;border-bottom:1.5px solid #f3e3e8;white-space:nowrap}
+td{padding:8px 12px;border-bottom:1px solid #f8eef1;vertical-align:top}
+a{color:#f2799a;text-decoration:none;border-bottom:1.5px dotted #ffd9e3}
+</style></head><body><h1 class="doc">search-sources</h1><h1>调研员检索源清单（含 2026-11-14 新增三路实测）</h1>
+<p>updated_at: 2026-11-14T16:05:00+08:00 author: 调研员 用途：本群所有检索任务的来源台账。<strong>每条引用必须标：来源站 + 核实等级 + 抓取时间。</strong> 核实等级：<strong>A</strong> = 一手页面实测可读；<strong>B</strong> = 摘要级（搜索结果/商品摘要，正文未读）；<strong>C</strong> = 间接索引（正文抓不到，靠索引摘要）；<strong>D</strong> = 当前不可用。</p>
+<hr>
+<h2>一、新增三路（用户 2026-11-14 指定，已实测）</h2>
+<div class="tw"><table><thead><tr><th>路由</th><th>工具</th><th>状态</th><th>实测能拿到什么</th><th>抓取时间</th><th>等级</th></tr></thead><tbody><tr><td><strong>哔哩哔哩</strong></td><td><code>bili_search</code>（首选）</td><td>✅ 可用</td><td><strong>播放 / 评论数 / 弹幕 / 时长 / 投稿时间 / BV 号</strong>，可按播放或最新排序</td><td>2026-11-14 16:04</td><td>A</td></tr><tr><td>哔哩哔哩</td><td><code>platform_search bilibili</code></td><td>✅ 可用但缺数据</td><td>只有标题 + 链接，<strong>无播放量</strong></td><td>2026-11-14 16:04</td><td>B</td></tr><tr><td><strong>YouTube</strong></td><td><code>platform_search youtube</code></td><td>❌ 当前不可用</td><td>两次调用均 <code>connection error: fetch failed</code>（16:04 / 16:05），与本机网络无关，是取数通道失败</td><td>2026-11-14 16:05</td><td>D</td></tr><tr><td>YouTube（替代）</td><td><code>video_search</code>（Bing 源）</td><td>⚠️ 部分可用</td><td>有标题+时长，但结果<strong>大量回流到 B 站</strong>，YouTube 命中率低</td><td>2026-11-14 16:05</td><td>C</td></tr><tr><td><strong>X（推特）</strong></td><td><code>platform_search x</code></td><td>❌ 不可用</td><td>报 <code>X search needs Grok Build signed in (SuperGrok or X Premium)</code>，缺 <code>~/.grok/auth.json</code> 鉴权</td><td>2026-11-14 16:04</td><td>D</td></tr></tbody></table></div>
+<h3>三路的正确用法（按实测）</h3>
+<ul><li><strong>B 站</strong>：要"使用量"就<strong>必须走 <code>bili_search</code></strong>，它带 <code>play/review/danmaku/pubdate</code>；<code>platform_search bilibili</code> 只适合找线索，不能拿来做排序依据。中文插件口碑、汉化版是否存在、UP 主实测，都看这里。</li><li><strong>YouTube</strong>：当前拿不到。<strong>恢复后建议优先用它核对英文评测的真实播放量</strong>（本群已有若干"社区口碑"判断缺英文播放数据支撑）。在恢复前，英文评测改用 <code>web_search</code> 找站点文章，不假装有视频数据。</li><li><strong>X（推特）</strong>：鉴权缺失，拿不到搜索。按"拿不到就走间接索引"的口径：<strong>只在 <code>web_search</code>/<code>exa</code> 的搜索结果里出现 X 链接时引用，且标等级 C</strong>，不主动去抓 X 正文。<strong>需要真用 X 得先配 Grok/X Premium 鉴权</strong>，这不属于我这边能自行解决的。</li></ul>
+<h2>二、原有来源（沿用）</h2>
+<h3>插件官方 / 平台</h3>
+<div class="tw"><table><thead><tr><th>站</th><th>状态</th><th>说明</th></tr></thead><tbody><tr><td>aescripts.com</td><td>⚠️ Cloudflare 盾</td><td>直连必被挡；走「搜索结果摘要 + 代理页 + 存档」三法，等级最高 B</td></tr><tr><td>flashbackj.com</td><td>✅</td><td>日本正规代理，含官方功能对照表（Easify 4 的功能表就是这里拿的），等级 A</td></tr><tr><td>battleaxe.co / help.battleaxe.co</td><td>✅</td><td>Overlord 官方文档，等级 A</td></tr><tr><td>limber.docs.animatable.co</td><td>✅</td><td>Limber 官方 User Guide 全站可读，等级 A</td></tr><tr><td>videocopilot.net / maxon.net / borisfx.com / rowbyte.com / mettle.com / mtmotion</td><td>按需</td><td>官方发布页，等级 A–B</td></tr><tr><td>creovanta.com</td><td>✅</td><td>Expresso 官方页，等级 A</td></tr></tbody></table></div>
+<h3>文档</h3>
+<div class="tw"><table><thead><tr><th>站</th><th>用途</th></tr></thead><tbody><tr><td>docsforadobe.dev（AE Scripting Guide 镜像）</td><td>API 白名单的唯一依据，等级 A</td></tr><tr><td>helpx.adobe.com</td><td>版本更新说明，等级 A</td></tr></tbody></table></div>
+<h3>社区 / 评测</h3>
+<div class="tw"><table><thead><tr><th>站</th><th>状态</th></tr></thead><tbody><tr><td>Reddit r/AfterEffects</td><td>正文拒爬（old.reddit 两次超时）；只走 <code>exa</code> 间接索引，等级 C</td></tr><tr><td>lesterbanks.com</td><td>✅ 评测站，等级 A</td></tr><tr><td>人人CG / cgown / lookae</td><td>中文转载源，多为摘要，等级 B–C（lookae 已免费提供的不再列入复刻建议）</td></tr></tbody></table></div>
+<h3>代码托管</h3>
+<div class="tw"><table><thead><tr><th>站</th><th>用法</th></tr></thead><tbody><tr><td>GitHub REST API</td><td>直接读 stars / 最近推送 / Release 资产，<strong>不用网页</strong>，等级 A</td></tr></tbody></table></div>
+<h2>三、坑与绕法（实测记录）</h2>
+<ol><li><strong>aescripts 直连被盾</strong>：<code>r.jina.ai</code> 代理超时、<code>allorigins</code> 偶发可用（<code>Trim Comp to Contents</code> 的 meta description 就是这么拿到的）、<code>codetabs</code> 代理失败、Wayback 对这些商品页多数无快照。<strong>兜底顺序：商品摘要搜索 → 代理页 → allorigins → 放弃并标 B/C。</strong></li><li><strong>Reddit 拒爬</strong>：固定走 exa 间接索引，别再试 old.reddit。</li><li><strong>sogou 出验证码</strong>；<code>bing</code> 会拆词给垃圾结果（查 "Trim Comp to Contents" 返回 "SSD 的 TRIM"），<strong>专有名词不要用 bing</strong>。</li><li><strong>tavily 有日额度上限</strong>（撞过 429 daily_cap_reached），别把主检索压在它身上。</li><li><strong>ddg / searxng 本轮多次超时</strong>，重试一次不成就换 exa。</li></ol>
+<h2>四、给"使用量排序"的口径（不变）</h2>
+<p>AE 插件圈<strong>没有公开下载量</strong>。"使用量" = 四路合成：B站播放/收藏（<code>bili_search</code> 一手）+ GitHub star/推送（API 一手）+ 商品页评分与评论数（多为 B 级）+ 讨论热度（C 级）。缺任何一路都要在结论里写明缺哪路。</p></body></html>
