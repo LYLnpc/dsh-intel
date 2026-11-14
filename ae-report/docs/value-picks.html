@@ -1,290 +1,108 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>价值清单 value-picks</title><style>
-  body{background:#fffaf7;color:#2b2723;font-family:'PingFang SC','Microsoft YaHei',system-ui,sans-serif;max-width:920px;margin:0 auto;padding:34px 24px 80px;line-height:1.8}
-  a.back{display:inline-block;margin-bottom:20px;color:#f2799a;text-decoration:none;border-bottom:1.5px dotted #ffd9e3;font-weight:700}
-  h1.doc{font-size:22px;margin:0 0 18px;padding-bottom:12px;border-bottom:2px solid #ffd9e3;color:#f2799a}
-  pre{white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,'Cascadia Mono',Consolas,monospace;font-size:13px;line-height:1.75;background:#fff;border:1.5px solid #f3e3e8;border-radius:14px;padding:22px;box-shadow:0 8px 30px rgba(242,121,154,.08)}
-  </style></head><body><a class="back" href="../summary.html">&larr; 返回总结</a><h1 class="doc">价值清单 value-picks</h1><pre># 对你最有价值的东西：AE 免费资源精选推荐（PV / 手书 / 剪辑接单向）
-
-generated_at: 2026-11-13T22:42:57Z （本地时间 2026-11-14 06:42）
-task: 基于 intel/free-global.md（39 项全球免费榜）与 intel/china-resources.md（20 项中文圈资源），为独立创作者（主业 PV/手书/剪辑、接单）按工作流筛选「最有价值」清单，产出 intel/value-picks.md
-
-&gt; **筛选规则（用户 2026-11-14 定，本文件强制遵守）**：推装任何件之前必须过三层盘点（.aex / CEP / 脚本），已装正版的不再推；lookae 已免费提供的不列；3 大厂套件不列；每条建议带来源链接与「为什么对你有用」；拿不准标「未核实」。
-&gt; **本机盘点依据层说明**：第九节（本地复刻件）已按 Chief 只读核对结果去重，依据层=CEP+脚本两层。**第一节至第五节的外部 25 项尚无本机三层盘点依据**，按规则统一标「未核实是否已装」——推给用户前须由指挥提供 .aex/CEP/脚本三层清单，我逐条复核后才算通过。
-
-&gt; ⚠ **2026-11-14 增补（调研员）**：本文 1–137 行为首发版（25 项外部免费资源），结论保持不变。本轮 9 件收费插件复刻完成后，文末新增「九、复刻件分档（25 件可用 / 6 件归档）」与「十、校正说明」，与首发版并行，不覆盖。
-
-&gt; 选型方法：不是把榜单再抄一遍，而是按「你的工作流」重排。排序依据 = 两份报告中的热度证据（Reddit r/AfterEffects 13 帖聚合提及数、GitHub star 实测、B站播放/收藏实测、编辑部榜单）× 痛点命中率（中文报告结论：小工具应按痛点命中率而非 star 数选型）。每组 3-5 项，共 25 项；优先级分 必装 / 推荐 / 可选。
-&gt; 所有链接均来自两份报告核实的官方/原始渠道；aescripts 的 NYOP 条目结账可填 $0（需注册账号）。
-
----
-
-## 一、PV 制作（歌词曲绘向 / 音画同步 / 客户改稿）
-
-接 PV 单的核心痛点：歌词字幕量大、动画手感要丝滑、客户反复改稿。
-
-| 推荐 | 链接 | 上手建议 | 优先级 |
-|------|------|----------|--------|
-| **FX Console**（Video Copilot） | https://www.videocopilot.net （站内 Downloads，v1.0.7） | 装完绑定一个快捷键，效果/预设全部按名字秒搜秒套，用它替代翻菜单。 | 必装 |
-| **EaseCopy**（aescripts NYOP） | https://aescripts.com/easecopy/ | 先复制一段调好的缓动，选中目标关键帧直接粘贴「只贴曲线不动数值」，PV 动画手感立刻统一。 | 必装 |
-| **Animation Composer**（Mister Horse 免费版） | https://misterhorse.net/animationcomposer | 入场/弹跳/过冲直接拖给图层再改参数，赶工时先套库再手 K，别从零画。 | 推荐 |
-| **True Comp Duplicator**（aescripts NYOP） | https://aescripts.com/true-comp-duplicator/ | 客户要"换个颜色/换个角色再出一版"时，用它复制整条合成链（含子合成）再改，别手动另存。 | 推荐 |
-| **BHY_Text**（B站「匕禾页bili」免费脚本家族） | https://www.bilibili.com/video/BV12VtueAERP （简介领取） | 歌词先扔进去批量分割/排版/改样式，别逐条打字调位置。 | 推荐 |
-
-依据：FX Console 是 Reddit 多帖公认「第一必装」（pusdsi、1flmaip 等帖 + Magic Mark 2025 榜）；EaseCopy 在 Reddit 13 帖聚合中 6 帖 31 次提及、热评 220 赞，甚至有"内置进 AE"的社区请愿，是脚本类热度第二；True Comp Duplicator 7/13 帖推荐、23 次提及，脚本类第一，正好命中"接单改稿"痛点；Animation Composer 获 Reddit 4 帖 14 提及 + School of Motion"新手第一推荐" + 约 41 万播放的 YouTube 盘点必提；BHY 家族是中文圈 UP 主免费供给（其 CompChanger 视频实测 13,907 播放 / 926 收藏，收藏比极高，作者可信度有数据支撑），歌词排版被中文报告明确列为 PV/手书刚需。
-
----
-
-## 二、手书（分镜 PSD → 卡点成片）
-
-手书作者最痛的四步：PSD 分层进 AE、低帧率扫描稿补帧、按 BPM 画拍、交付规格反复改。这四步全有免费解。
-
-| 推荐 | 链接 | 上手建议 | 优先级 |
-|------|------|----------|--------|
-| **PSDImporter**（bigxixi，AE 扩展） | https://github.com/bigxixi （仓库 PSDImporter，Release 下载 zxp） | 分镜 PSD 按画板/图层自动裁切进 AE，一个图层一层手书，免手动切。 | 必装 |
-| **rife-ncnn-vulkan**（nihui，ncnn 系） | https://github.com/nihui/rife-ncnn-vulkan | 手书原画先按 8-12fps 画，扫描导入后用它 GPU 离线补帧到 24/60fps，配第三方 GUI 免命令行。 | 必装 |
-| **节拍打点工作流**（Audition 标记 → AE 合成标记，B站成熟免费路径） | https://www.bilibili.com/video/BV16S4y187wF （工作流演示） | 在 Audition 按 BPM 打标记 → 导入 AE 当合成标记，按拍画分镜；不必买 BeatEdit（见避坑节）。 | 必装 |
-| **Duik Ángela**（RxLaboratory，开源） | https://rxlaboratory.org/tools/duik/ | 让手书人物真的动起来：先给角色绑 IK/骨骼再摆姿势，省掉逐帧重画。 | 推荐 |
-| **Comp Setting Tool v2.1**（舟午，开源） | https://www.lookae.com/comp-setting-tool | 客户要求 23.976↔25↔60fps 或改 B站 1080p 时，一键全工程（含嵌套子合成）批量改，别逐个合成开设置。 | 推荐 |
-
-依据：PSDImporter star 仅 10，但中文报告结论明确指出"按痛点命中率而非 star 数选型"，它命中的正是手书第一道工序（PSD 分层）；rife-ncnn-vulkan 1,130★（GitHub 实测），中文报告将其列为"免费替代付费补帧插件（Flow/Twixtor）"的首选；Duik 408★ 且 2026-11 仍在更新，同时获 Reddit 4 帖 9 提及，是全球榜单"免费三巨头"之一（角色绑定方向）；Comp Setting Tool 在 LookAE 页面有 16 条评论、被多个中文合集转载，明确允许商用（禁止转售）；打点工作流是中文报告确认的"B站教程圈成熟免费路径"，长期有稳定教程供给（av841497914 等）。
-
----
-
-## 三、剪辑交付（成片、投稿、多平台物料）
-
-接剪辑单的最后一公里：压制免二压、变速卡点、动图物料、多尺寸出片、成片质感。
-
-| 推荐 | 链接 | 上手建议 | 优先级 |
-|------|------|----------|--------|
-| **小丸工具箱**（社区维护，x264/ffmpeg GUI） | https://maruko.appinn.me | 投稿前用 B站定制参数压一版对照官方二压阈值，字幕内嵌/音频转码也在这里一并做掉。 | 必装 |
-| **Twixtor 批量操作辅助脚本**（yanyiju） | https://github.com/yanyiju/twixtor-batch-operation-script | 卡点慢放流用它一键搭好多层变速合成结构，省掉每天几十次手动嵌套（注意：Twixtor 本体付费，见避坑节）。 | 推荐 |
-| **webp_apng_exporter_for_AE**（bigxixi，173★） | https://github.com/bigxixi | 交付动态宣传图/进度表时直接从合成导出 WebP/APNG，别再录屏转 GIF。 | 推荐 |
-| **Quick Chromatic Aberration 3**（aescripts Free/$0） | https://aescripts.com/quick-chromatic-aberration/ | 成片高潮段/音 bomb 处叠一层色散再谈"质感"，一键出镜头味。 | 可选 |
-| **CrossFrame**（Reddit 2026 新发布） | https://www.reddit.com/r/AfterEffects/comments/1rxhw8h/made_a_free_ae_script_that_lets_you_build_once | 一次搭建、多尺寸/比例批量导出，B站横版 + 抖音竖版 + 客户方版一次出齐。 | 可选 |
-
-依据：小丸工具箱是中文报告认定的"中文圈剪辑作者默认收官工具"，B站免二压压制手册（cv3485）长期被引用、2025 年仍有新参数教程；yanyiju 脚本 14★ 但"精准命中 AMV 变速痛点"，属典型小而准；webp_apng_exporter 173★（实测），中文报告列为剪辑/PV 作者投稿物料首选；QCA3 列 Magic Mark 榜第 8、aescripts 页面标注 $0；CrossFrame 来自 Reddit 2026 新帖（1rxhw8h）作者免费发布，尚无长期热度数据故列可选。多平台/轻量交付如需把动效给 App/web 端内嵌，可进一步了解腾讯 libpag（5,820★，https://github.com/Tencent/libpag ），但对纯视频交付的接单者属边缘需求，未列入主表。
-
----
-
-## 四、效率工具（工程整理、批量操作、AI 提效）
-
-接单者的隐性成本全在"整理工程"上。这类工具热度不算最高，但直接省工时。
-
-| 推荐 | 链接 | 上手建议 | 优先级 |
-|------|------|----------|--------|
-| **BHY_CompChanger**（匕禾页bili） | https://www.bilibili.com/video/BV12VtueAERP （简介领取） | 接手合作工程/二改模板先用它"超强穿透 + 解预合成 + 批量改尺寸时长帧率"，摸清结构再动手。 | 必装 |
-| **mograph.life 32 件套**（MIT 开源） | https://mograph.life | 装上打包工具条挑常用的挂 Kbar/快捷键，已适配 AE 25/26。 | 推荐 |
-| **MoBar 免费版**（aescripts） | https://aescripts.com/mobar/ | 当对齐/替换/清理的小工具箱用；免费版有限次使用，重度用再考虑 Pro。 | 可选 |
-| **kyletmartinez 脚本合集**（290★，开源） | https://github.com/kyletmartinez/after-effects-scripts | 需要什么装什么，别一次全装；配合 Kbar 按钮化最顺。 | 可选 |
-| **after-effects-mcp**（889★，开源） | https://github.com/Dakkshin/after-effects-mcp | 前瞻项：让 Claude 等 AI 直接建合成/改属性/跑脚本，是 2025-26 增长最快的 AI×AE 方向，建议先了解。 | 可选 |
-
-依据：BHY_CompChanger 是中文报告实测数据里"单一痛点型"的高收藏样本（13,907 播放 / 926 收藏，收藏比远超同类大而全工具箱），穿透解预合成被列为"接手合作手书、二改模板工程最省命的功能"；mograph.life 32 件套来自作者 Reddit 帖（1up9gxy）免费发布、社区反响好且已适配 AE 25/26；MoBar 免费版获 Reddit 5 帖 8 提及；kyletmartinez 合集 290★（实测）；after-effects-mcp 889★（实测），全球报告点名为"AI 操控 AE 是 2025-26 增长最快的方向"。
-
----
-
-## 五、二次创作与补帧（二创素材修复 / 音 MAD）
-
-二创的两个硬门槛：素材清晰度（老素材低清、作画帧率低）和合规获取渠道。以下全部官方/开源。
-
-| 推荐 | 链接 | 上手建议 | 优先级 |
-|------|------|----------|--------|
-| **TheAnimeScripter**（开源） | https://github.com/NevermindNilas/TheAnimeScripter | 二创素材先在 AE 外用它跑一遍 AI 放大 + RIFE 补帧 + 画质修复，再把干净素材进工程。 | 必装 |
-| **喵哉动漫补帧·抠像二创辅助脚本**（开源，中文） | https://www.lookae.com/miaozai （LookAE 收录页） | 想留在 AE 里干：一键补帧 + 一键抠像替代 Twixtor+Roto 组合；v1.1 已修 GPU 绿屏，走网盘下载当天先验证（见避坑节）。 | 必装 |
-| **Real-ESRGAN**（37,490★，开源） | https://github.com/xinntao/Real-ESRGAN | 截图/老番素材用 anime6B 模型超分，只对关键镜头用，别全片跑（耗时）。 | 推荐 |
-| **Saber**（Video Copilot 官方免费） | https://www.videocopilot.net/blog/2016/03/new-plug-in-saber-now-available-100-free | 打斗/光效二创的能量描边直接套 Saber 再改颜色，别手搓光效。 | 推荐 |
-| **om_midi**（84★，开源） | https://github.com/otomad/om_midi | 做 OTOMAD/YTPMV 时用 MIDI/音频直接驱动关键帧，音画同步从手调变半自动，音 MAD 圈标配。 | 可选 |
-
-依据：TheAnimeScripter 347★（实测），全球报告原话"动漫二创圈爆火"，且与 rife-ncnn-vulkan 同源思路但集成度更高；喵哉脚本 B站转发视频实测播放 39,376 / 收藏 5,372（2021 年发布至今仍被持续收藏，长期价值已验证），中文报告定位为"直接对标付费的 Twixtor+Roto 组合"；Real-ESRGAN 37,490★ 是两份榜单里除 lottie-web 外的最高 star，开源超分事实标准；Saber 是 Video Copilot 官方免费主打 + Magic Mark 榜第 9 + YouTube 盘点常客；om_midi 84★，全球报告标注"音 MAD 圈标配"。真人抠像若需 AE 外补充，可看 B站「工具箱大师」AI 抠图（实测 2,591 播放，https://www.bilibili.com/video/BV12TyYYpEsv ）。
-
----
-
-## 六、立即提升接单竞争力的组合
-
-三个"装齐即战力"的套装，对应三种最典型的活儿。
-
-### 组合 A：手书作者套装 ——「从分镜 PSD 到卡点成片」
-**PSDImporter + rife-ncnn-vulkan + 节拍打点工作流 + Comp Setting Tool**
-- 流程：PSD 分板进 AE → Audition 打拍导标记 → 按 BPM 画拍 → rife 补帧 → 交付前批量改规格。
-- 解决：手书接单最耗时的三段手工劳动（分层、画拍、改规格）全部免费自动化；补帧环节直接省掉 Twixtor/Flow 的付费预算。
-- 数据支撑：rife-ncnn-vulkan 1,130★ + 喵哉脚本 5,372 收藏证明"免费补帧"是中文二创圈已验证的真实需求。
-
-### 组合 B：二创剪辑套装 ——「素材修复 → 投稿免二压」
-**TheAnimeScripter（或喵哉脚本）+ Real-ESRGAN + 小丸工具箱**
-- 流程：素材超分/补帧/修复（AE 外或 AE 内二选一）→ 剪辑 → 小丸按 B站二压阈值压制收官。
-- 解决：低清老素材没法用的尴尬 + 投稿被二压糊掉的挫败，两端都是二创剪辑的口碑命门。
-- 数据支撑：Real-ESRGAN 37,490★ + TheAnimeScripter 347★（全球报告称"二创圈爆火"）+ 小丸工具箱为 B站投稿标配（cv3485 手册长期引用）。
-
-### 组合 C：接单交付套装 ——「改稿快、规格不翻车」
-**FX Console + EaseCopy + True Comp Duplicator + BHY_CompChanger（+ CrossFrame）**
-- 流程：FX Console 秒调效果 → EaseCopy 统一动画手感 → 客户改稿用 True Comp Duplicator 复制整链出新版本 → 接别人工程先 CompChanger 穿透解构 → 多平台交付 CrossFrame 一次出齐。
-- 解决：接单利润率取决于改稿轮次成本——这套把"改一版"的时间从小时级压到分钟级，也是专业度最直观的体现。
-- 数据支撑：这一组包揽了全球榜脚本类热度前二（EaseCopy 31 提及/220 赞、True Comp Duplicator 7/13 帖）+ 工作流第一（FX Console），叠加中文圈高收藏的 CompChanger（926 收藏），是全球+中文两侧数据同时背书的组合。
-
----
-
-## 七、避坑：看似热门，实际不需要或有风险
-
-以下均直接引自两份报告的核实结论。
-
-1. **第三方"免费下载"站（freevideoeffect.com 一类）**：全球报告明确警告——多为盗版/捆绑，社区确认有恶意软件风险。本清单全部条目只走官网/GitHub/作者原始渠道，看到"XX 插件合集免费打包下载"直接关掉。
-2. **BeatEdit 没有免费版**：中文报告核实——aescripts 上它是付费插件，B站教程视频只是演示工作流。手书打点走第一节「节拍打点工作流」的免费路径（Audition 标记 → AE），不必为此付费。
-3. **KeTools 疑似不存在**：中文报告多轮搜索（WebSearch × 2 + GitHub API）无法核实，疑似不存在、已改名或仅极小圈子流传。中文工具箱需求用已核实的替代：BHY 家族 / LoYoi AE6 / Z-Tool V1。
-4. **B站营销号「插件合集一键安装包」**：中文报告判定多为捆绑/诱导关注，非作者官方发布。免费脚本一律从作者 B站视频简介或 GitHub 原仓库领取。
-5. **网盘链接时效**：喵哉脚本、Comp Setting Tool、小丸工具箱等走城通/百度/阿里云盘分发，时效无保证——中文报告要求"使用当天验证"，且其 GitHub 条目在核实当日全部可达。选型原则（中文报告结论 4）：**优先 GitHub，网盘作备选**。
-6. **Twixtor 批量脚本 ≠ 免费 Twixtor**：yanyiju 脚本只免费化"搭建变速合成结构"的工作流，Twixtor 本体仍是付费插件；没买本体的话，补帧/变速需求用 rife-ncnn-vulkan 或 TheAnimeScripter 替代。
-7. **大而全的中文工具箱性价比偏低**：中文报告实测数据显示，"解决单一痛点"型工具收藏比显著更高（喵哉 5,372 收藏、CompChanger 926 收藏），而大而全工具箱普遍只有 2k-4k 播放量级（LoYoi AE6 4,038、工具箱大师 2,591、一只橘猫豆 3,489）。别被"一个面板解决一切"吸引，按痛点单点选装。
-8. **Real-ESRGAN 第三方中文 GUI 整合包**：中文报告提示网传整合包（如 updaterc 等）需注意来源甄别，最稳妥是直接用 GitHub 官方仓库或其明确列出的衍生生态。
-9. **aescripts 的 NYOP 条目**：EaseCopy、True Comp Duplicator、QCA3 等结账可填 $0，但必须注册 aescripts 账号；AEJuice 同理需注册。这不是坑，是门槛——提前知道免得以为"要付费"而错过。
-
----
-
-## 八、一览：25 项按优先级
-
-- **必装（9）**：FX Console、EaseCopy、PSDImporter、rife-ncnn-vulkan、节拍打点工作流、小丸工具箱、BHY_CompChanger、TheAnimeScripter、喵哉补帧抠像脚本
-- **推荐（10）**：Animation Composer、True Comp Duplicator、BHY_Text、Duik Ángela、Comp Setting Tool v2.1、Twixtor 批量脚本（yanyiju）、webp_apng_exporter、mograph.life 32 件套、Real-ESRGAN、Saber
-- **可选（6）**：QCA3、CrossFrame、MoBar 免费版、kyletmartinez 合集、after-effects-mcp、om_midi
-
-&gt; 数据来源与可信度：全部热度数据（Reddit 13 帖聚合、GitHub star、B站播放/收藏、编辑部榜单、页面可达性）均引自 intel/free-global.md 与 intel/china-resources.md 的核实记录，采集时间 2026-11-13/14；两份报告的完整来源列表见各自文末。
-
----
-
-## 九、复刻件分档（本地 25 件可用；另 6 件已归档）
-
-本节是**另一条轨道**：前 25 项是"别人做的免费东西"，这 25 件是"我们自己做出来的免费东西"。同样是免费，但复刻件有两条额外优势——**没有账号/激活/联网授权**，且**逻辑可读可改**（要加一个参数不用求作者）。
-
-分档口径：
-- **必装** = 每单都会碰，且直接替代最贵的那档付费件
-- **推荐** = 一周内会用到的具体场景
-- **可选** = 备着，遇到特定活才开
-
-| 档位 | 件 | 替代的原收费件 | 你的使用场景 |
-|---|---|---|---|
-| **必装** | `limber2-clone` | Limber 2（$65） | 角色肢体 IK：拖控制器就弯，手脚钉原地 |
-| **必装** | `rubberhose-clone` | RubberHose（$75 级） | 橡皮管式手绘肢体，PV 最常见的"手臂/腿" |
-| **必装** | `joysticks-clone` | Joysticks 'n Sliders（$60 级） | 用滑块/旋钮控制角色姿态，省掉逐层改属性 |
-| **必装** | `overlord-clone` | Overlord（$75） | Ai/SVG → AE 形状层，免重新描一遍（单向） |
-| **必装** | `true-comp-dup-clone` | True Comp Duplicator | 客户要"换个色/换个角色再出一版"时复制整条合成链 |
-| 推荐 | `wobblebox-clone` | WobbleBox | 抖动/晃动生成，字效与画面微颤 |
-| 推荐 | `keyframe-parent-clone` | Keyframe Parent（$24.99） | 把一组关键帧当整体平移/拉伸（整体改节奏） |
-| 推荐 | `easify4-clone` | Easify 4（$49） | 缓动面板：批量应用 + 跨属性时间归一化 |
-| 推荐 | `easestash-clone` | Ease Stash（$35） | 缓动存槽位，跨工程复用 |
-| 推荐 | `keymaster-clone` | KeyMaster（$25） | 跨多图层按时间/属性筛关键帧，批量改时间 |
-| 推荐 | `keytweak-clone` | KeyTweak | 线性↔缓动批量转换（接手别人工程常用） |
-| 推荐 | `again-clone` | Again!（$5） | 以新起点值重复同一段运动（循环动作） |
-| 推荐 | `addsauce-clone` | Add Sauce（$9.99） | 把一套效果打包，一键套到别的图层 |
-| 推荐 | `retend-clone` | Retend（$29） | 整棵嵌套 precomp 树整体变速/加长（客户改时长） |
-| 推荐 | `scribe-clone` | Scribe（$30） | 书写/描线动画（用的是公有领域 Hershey 字型） |
-| 推荐 | `parrot-clone` | Parrot | 图层替换/父子关系快速切换，换角色不重搭 |
-| 推荐 | `easeandwizz-clone` | Ease and Wizz | 表达式缓动预设（免插件出缓动） |
-| 可选 | `move-anchor-point-clone` | Move Anchor Point 4（$29.99） | 锚点一键移到中心/边角（jsx 逻辑版） |
-| 可选 | `project-item-labels-clone` | Project Item Labels（$5.99） | 项目面板批量标色，整理导入工程 |
-| 可选 | `trim-comp-clone` | Trim Comp to Contents（$4.99） | 把 comp 时长裁到刚好包住内容 |
-| 可选 | `rollit-clone` | Roll it!（$29.99） | 形状沿边"滚动"（接触点驱动） |
-| 可选 | `rowscols-clone` | Rows and Columns | 按行列网格排布 + 逐格延迟 |
-| 可选 | `sliceitup-clone` | Slice it Up 2（$29.99） | 程序化切片 + 逐片延迟 |
-| 可选 | `native-presets-clone` | 自带预设扩展包 | 应急预设，风格固定 |
-| 可选 | `squirrel-clone` | Squirrel | 待现场确认用法，先备着 |
-
-**本轮新增 9 件的原价合计 ≈ $313.96**（Limber 2 $65 + Overlord $75 + Easify 4 $49 + Scribe $30 + Retend $29 + Move Anchor Point $29.99 + Keyframe Parent $24.99 + Project Item Labels $5.99 + Trim Comp $4.99）。这 9 件正好是 A 类（纯脚本逻辑可写）里最贵的缺口，现在全部本地可用。
-
-### ⚠ 本机已装重叠：这 5 件对你是冗余，别装
-
-据 Chief 2026-11-14 只读核对（未改动任何已装件），下表 5 件**你机器上已经装了正版/官方版**，上表的克隆版对你**没有新增价值**，保留仅作参考实现：
-
-| 克隆件 | 你本机已有 | 性质 |
-|---|---|---|
-| `flow-clone` | CEP 扩展 `flow-v1.4.2`（Laco） | 收费 |
-| `gifgun-clone` | CEP `GifGun2` + `gifgun2.jsxbin` | 收费 |
-| `motion2-clone` | 脚本 `Motion Tools 2汉化版.jsx` | 收费 |
-| `easecopy-clone` | `EaseCopy.jsxbin`（D/E 两盘都有） | 免费但已有 |
-| `easybake-clone` | `Easy Bake.jsxbin` | 收费 |
-| ~~`autosway-clone`~~ | `AutoSway 1.92 杂鱼汉化版.jsxbin`（D 盘 2026 Scripts） | 已归档 |
-
-因此上表三档要这样读：**下表 6 件已从分档表移除**（你机器已有正版，克隆件已归档到 `clones-archive\`，需要时可恢复）——对你真正新增的必装只有 5 件：`rubberhose-clone`、`limber2-clone`、`joysticks-clone`、`overlord-clone`、`true-comp-dup-clone`（改稿向）。**缺口 9 件（第 22–30 号那批）与已装清单零重叠**，是货真价实的空白，放心装。
-
-### 怎么装（别一次全装）
-
-下面的组合已剔除本机已装件，一次装 5–6 个够用一阵：
-
-- **手书/角色向起步**：`rubberhose` + `limber2` + `joysticks` + `overlord`（AutoSway 你已装汉化版，不需要克隆件）
-- **接单/改稿向起步**：`true-comp-dup` + `keymaster` + `retend` + `overlord`（缓动用你已装的 Flow/EaseCopy，不必装克隆版）
-- **纯 PV 动效向起步**：`wobblebox` + `again` + `easeandwizz` + `easestash`（缓动主力同样用已装的 Flow）
-
----
-
-## 十、校正说明（2026-11-14）
-
-1. **首发版 25 项外部免费资源全部保留**，未发现需要撤回的结论（数据采集 11-13/14，间隔不足一天）。
-2. **优先级口径修正**：原来的「必装 9 项」和本节的「必装 5 件」是两条轨道，不能相加当 14 项看。实际建议：外部必装里先装 `FX Console` + `PSDImporter` + `节拍打点工作流`（**EaseCopy 你已装正版，不再推荐**）；本地复刻件按上面的起步组合装（flow / easecopy 的克隆件已归档，直接用你装的 Flow 与 EaseCopy）。合计 8 件左右，已覆盖 80% 日常。
-3. **`rubberhose-clone` 与 `limber2-clone` 不冲突**：前者是"一根橡皮管"，后者是"可分离关节 + 手脚钉地"。角色动画优先 rubberhose，需要脚踩实的走路循环用 limber2。
-4. **`move-anchor-point-clone` 与原版的差异**：原版 v4 已是 aex 原生插件，复刻体是 jsx 逻辑版——锚点与 position 的补偿逻辑等价，差别在交互手感与大批量时的速度，功能不缺。
-5. **`scribe-clone` 不含原版字型**：原版价值的一半在 6 套单线字型资产（版权物，不能复刻）。复刻体用公有领域 Hershey 字型，行为等价、字形不同，**只覆盖拉丁字符**，中文要走"文字转形状"兜底。
-6. 三条新增结论里最值得记住的一条：**复刻件的真正价值不是省钱，是"可改"**——25 件中有 7 件原本是 $49–$150 的价目，但更重要的是出了问题能自己打开源码看。
-
-&gt; 本节数据来源：`clones/` 目录实测 31 个复刻目录（每目录 2 文件：main.jsx + README.md）；原价引自 `intel/paid-list.md` 已核条目；行为说明见 `intel/specs/` 9 份 spec 与 `_acceptance-index.md`。**注：原始为 31 目录，经 2026-11-14 去重，现 25 件在库 + 6 件归档（clones-archive）。**
-
----
-
-## 十一、三层盘点过筛结果（2026-11-14，依据 intel/local-env-layers.md）
-
-盘点依据层说明：本盘点覆盖 **.aex（MediaCore 790 个）/ CEP（4 个）/ 脚本（E 盘 2024 共 46 个 + D 盘 2026 共 72 个 + 用户层 26.0 共 1 个）** 三层。凡是"外部独立程序"（python / exe 工具），**三层清单核不到**，一律标「三层不可核」。
-
-### 11.1 必须剔除（你已装，别再推）
-
-| 原清单条目 | 你机器已有 | 依据层 | 精确位置 |
-|---|---|---|---|
-| FX Console | `FX Console.jsx` | 脚本 | `D:\Adobe After Effects 2026 v26.0.0.67\...\Support Files\`（E 盘 2024 也有） |
-| EaseCopy | `EaseCopy.jsxbin` | 脚本 | D 盘 2026 + E 盘 2024 均有 |
-| Duik Ángela | `Duik Bassel.2 AE2025适配版.jsx` + Duik 系列 8 个 jsx | 脚本 | D 盘 2026 `Support Files\` |
-| Twixtor（本体，非脚本） | `Twixtor8AE` 厂商目录 | .aex | MediaCore |
-| Yan-K ToolKit（情报员二轮当"新免费件"推过） | `Yan-K ToolKit.jsx` + 同族 7 个（FastBlink/Glitch/Purge/RanAni 3/Switch/Typewriter） | 脚本 | D 盘 2026 + E 盘 2024 |
-
-&gt; 第 4 条要分清：**Twixtor 本体你已有**，但「Twixtor 批量操作辅助脚本」（yanyiju，免费）是另一件工作流脚本，三层清单里没有，仍可保留在清单里——只是文案要改成"本体已装，缺的是批量搭建脚本"。
-
-### 11.2 过筛通过（未装，可继续推；每条已带来源与用途）
-
-Animation Composer（免费版）、True Comp Duplicator、BHY_Text、PSDImporter、Comp Setting Tool v2.1、webp_apng_exporter、Quick Chromatic Aberration 3、CrossFrame、BHY_CompChanger、mograph.life 32 件套、MoBar 免费版、kyletmartinez 合集、喵哉补帧抠像脚本、Saber、om_midi。
-
-### 11.3 三层不可核（外部程序，盘点不适用）
-
-rife-ncnn-vulkan、小丸工具箱、after-effects-mcp、TheAnimeScripter、Real-ESRGAN。这 5 项不依赖 AE 安装目录，请按"你机器上有没有装过这个程序"自行确认，我不代猜。
-
-### 11.4 情报员第三轮 3 个新件过筛
-
-| 件 | 三层清单结果 | 结论 |
-|---|---|---|
-| Expresso（免费表达式管理器） | 无同名 | 未装，**可推**（表达式的参数化/导入导出，你现在的 `表达式烘焙.jsx` 是相反方向的工具，不冲突） |
-| ae-essentials（MIT 插件包） | 无同名 | 未装，可推（缓动编辑器/形状转遮罩/时间线文件夹） |
-| transversal-tools | 无同名 | 未装，可推（但小众，建议先看它的 README 再决定） |
-
-### 11.5 ⚠ 待指挥判定的疑点：25 件复刻里可能还有 4 件与你已装脚本同域
-
-按群规第 2 条，判定权归指挥，我只列证据不裁定：
-
-| 复刻件 | 疑似同域的已装脚本 | 依据层 + 位置 | 我的观察 |
-|---|---|---|---|
-| `again-clone`（关键帧循环/重复） | `Loopy.jsxbin`、`Loop Tools Pro.jsxbin`、`loopy` 同族 | 脚本 / D 盘 2026 | 都是"循环关键帧"，重叠度高 |
-| `keytweak-clone`（关键帧时间批量） | `KeyFast.jsxbin` | 脚本 / D 盘 + E 盘 | 都做关键帧时间批量，重叠度中等 |
-| `rowscols-clone`（行列网格排列） | `简易阵列脚本 v1.1最新版.jsxbin`（用户层 26.0）、`GridGuide.jsxbin` | 脚本 / 用户层 + D 盘 | 阵列排列重叠度高；GridGuide 偏参考线，可能不算 |
-| `joysticks-clone`（摇杆滑块控姿势） | `立绘控制脚本_VROAUX_1.0.jsx` | 脚本 / D 盘 2026 | 都是"滑块控制角色"，重叠度中等 |
-
-&gt; 建议指挥按"能不能替代"而不是"名字像不像"判：`again`、`rowscols`、`joysticks` 这三件我倾向可归档（已装件能覆盖 80% 场景），`keytweak` 保留（KeyFast 偏快捷操作、KeyTweak 偏数值批量，场景不同）。**但这只是建议，判定由指挥下。**
-
-### 11.6 本次过筛的自我修正
-
-我之前在第九节写"缺口 9 件与你装机零重叠"，这句话在当时只有 CEP+脚本两层部分名单支撑，**不是三层核验结论**。按群规第 6 条，现在补正：缺口 9 件经三层清单逐一比对，**确认无同名项**（`limber2 / overlord / easify4 / scribe / retend / move-anchor-point / keyframe-parent / trim-comp / project-item-labels`），此结论现在有完整三层依据。
-
-### 11.7 情报员 B 站首轮 3 个新件过筛（2026-11-14）
-
-三层清单（`intel/local-env-layers.md`）逐一比对，**三件均无同名项 = 未装**。但其中两件与已装正版**功能同域**，按规则 a) 不能整件推：
-
-| 件 | 三层清单 | 同域风险（依据层 + 位置） | 结论 |
-|---|---|---|---|
-| **Flux 全能效率面板**（KoalaVisual，2,367 播放） | 无 Flux | **缓动模块 ↔ 已装正版 Flow**（CEP 层 `flow-v1.4.2`，Laco）。另外你已装三个"大而全"工具盒：`AE脚本大师V1.6.jsxbin`、`工具箱大师.jsx`（D 盘 2026）、CEP `com.zayu.hook.panel` / `AE-Shortcut-Preview` | **不整件推**。若要试，只用它的锚点/对齐那几个与 Flow 不重叠的模块，缓动别换——Flow 你已有正版 |
-| **ColorGo 常驻实时调色**（2,690 播放） | 无 ColorGo | **调色 ↔ 已装 .aex 全家桶**：`Magic Bullet Colorista`、`MBLooks`、`Magic Bullet Mojo`、`MBFilm`（.aex 层，MediaCore），另有 BorisFX / Sapphire 与 AE 自带 Lumetri | **不推**。实时调色你机器上已有四套，免费件属于重复建设；除非你嫌 Magic Bullet 太重，才考虑当轻量替补 |
-| **预合成操作 All in one**（Telosma_夜来香，1,698 播放 / 32 评论） | 无同名中文脚本 | 与复刻件 `true-comp-dup-clone`（整链复制）、`retend-clone`（整树重定时）**场景相邻但不完全同域**：这两件是"复制/改时长"，它是"预合成的批量整理操作"（重命名/排序/进出） | **可推（推荐级）**。你机器上没有专门管预合成整理的工具，`Scale Composition.jsx` 与 `com.motionfun.picky` 都不是这个用途 |
-
-**一句话给用户**：这三件里只有「预合成操作 All in one」值得装；Flux 的缓动别碰（你有 Flow 正版），ColorGo 不用（你有 Magic Bullet 四件套）。
-
-&gt; 依据层说明：本小节的同域判定用到三层中的 **CEP 层**（flow-v1.4.2、com.zayu.hook.panel、AE-Shortcut-Preview）与 **.aex 层**（Magic Bullet 系列、BorisFX、Sapphire）与 **脚本层**（AE脚本大师V1.6、工具箱大师），三处均有 `local-env-layers.md` 的原文列名可查。
-</pre></body></html>
+  body{background:#fffaf7;color:#2b2723;font-family:'PingFang SC','Microsoft YaHei',system-ui,sans-serif;max-width:900px;margin:0 auto;padding:34px 24px 90px;line-height:1.85;font-size:14.5px}
+  a.back{display:inline-block;margin-bottom:18px;color:#f2799a;text-decoration:none;border-bottom:1.5px dotted #ffd9e3;font-weight:700}
+  h1.doc{font-size:22px;margin:0 0 20px;padding-bottom:12px;border-bottom:2px solid #ffd9e3;color:#f2799a}
+  h1,h2,h3,h4{color:#5b4a54;line-height:1.4;margin:22px 0 8px}
+  h1{font-size:21px}h2{font-size:18px;border-left:4px solid #ff9eb5;padding-left:10px}h3{font-size:15.5px}
+  p{margin:9px 0}ul,ol{margin:9px 0 9px 22px}li{margin:4px 0}
+  code{background:#fff0f4;color:#d94a72;padding:1px 6px;border-radius:6px;font-family:ui-monospace,Consolas,monospace;font-size:12.5px}
+  pre.code{background:#fff;border:1.5px solid #f3e3e8;border-radius:12px;padding:16px;overflow-x:auto;box-shadow:0 6px 20px rgba(242,121,154,.06)}
+  pre.code code{background:none;color:#5b4a54;padding:0}
+  blockquote{margin:12px 0;padding:8px 16px;border-left:3px solid #b89ee8;background:#f8f4ff;color:#5b4a54;border-radius:0 8px 8px 0}
+  hr{border:none;border-top:1.5px dashed #ffd9e3;margin:20px 0}
+  .tw{overflow-x:auto;margin:12px 0;border:1.5px solid #f3e3e8;border-radius:12px}
+  table{border-collapse:collapse;width:100%;font-size:13px}
+  th{background:#fff6f9;color:#f2799a;text-align:left;padding:8px 12px;border-bottom:1.5px solid #f3e3e8;white-space:nowrap}
+  td{padding:8px 12px;border-bottom:1px solid #f8eef1;vertical-align:top}
+  a{color:#f2799a;text-decoration:none;border-bottom:1.5px dotted #ffd9e3}
+  </style></head><body><a class="back" href="../summary.html">&larr; 返回总结</a><h1 class="doc">价值清单 value-picks</h1><h1>对你最有价值的东西：AE 免费资源精选推荐（PV / 手书 / 剪辑接单向）</h1>
+<p>generated_at: 2026-11-13T22:42:57Z （本地时间 2026-11-14 06:42） task: 基于 intel/free-global.md（39 项全球免费榜）与 intel/china-resources.md（20 项中文圈资源），为独立创作者（主业 PV/手书/剪辑、接单）按工作流筛选「最有价值」清单，产出 intel/value-picks.md</p>
+<blockquote><strong>筛选规则（用户 2026-11-14 定，本文件强制遵守）</strong>：推装任何件之前必须过三层盘点（.aex / CEP / 脚本），已装正版的不再推；lookae 已免费提供的不列；3 大厂套件不列；每条建议带来源链接与「为什么对你有用」；拿不准标「未核实」。 <strong>本机盘点依据层说明</strong>：第九节（本地复刻件）已按 Chief 只读核对结果去重，依据层=CEP+脚本两层。<strong>第一节至第五节的外部 25 项尚无本机三层盘点依据</strong>，按规则统一标「未核实是否已装」——推给用户前须由指挥提供 .aex/CEP/脚本三层清单，我逐条复核后才算通过。</blockquote>
+<blockquote>⚠ <strong>2026-11-14 增补（调研员）</strong>：本文 1–137 行为首发版（25 项外部免费资源），结论保持不变。本轮 9 件收费插件复刻完成后，文末新增「九、复刻件分档（25 件可用 / 6 件归档）」与「十、校正说明」，与首发版并行，不覆盖。</blockquote>
+<blockquote>选型方法：不是把榜单再抄一遍，而是按「你的工作流」重排。排序依据 = 两份报告中的热度证据（Reddit r/AfterEffects 13 帖聚合提及数、GitHub star 实测、B站播放/收藏实测、编辑部榜单）× 痛点命中率（中文报告结论：小工具应按痛点命中率而非 star 数选型）。每组 3-5 项，共 25 项；优先级分 必装 / 推荐 / 可选。 所有链接均来自两份报告核实的官方/原始渠道；aescripts 的 NYOP 条目结账可填 $0（需注册账号）。</blockquote>
+<hr>
+<h2>一、PV 制作（歌词曲绘向 / 音画同步 / 客户改稿）</h2>
+<p>接 PV 单的核心痛点：歌词字幕量大、动画手感要丝滑、客户反复改稿。</p>
+<div class="tw"><table><thead><tr><th>推荐</th><th>链接</th><th>上手建议</th><th>优先级</th></tr></thead><tbody><tr><td><strong>FX Console</strong>（Video Copilot）</td><td>https://www.videocopilot.net （站内 Downloads，v1.0.7）</td><td>装完绑定一个快捷键，效果/预设全部按名字秒搜秒套，用它替代翻菜单。</td><td>必装</td></tr><tr><td><strong>EaseCopy</strong>（aescripts NYOP）</td><td>https://aescripts.com/easecopy/</td><td>先复制一段调好的缓动，选中目标关键帧直接粘贴「只贴曲线不动数值」，PV 动画手感立刻统一。</td><td>必装</td></tr><tr><td><strong>Animation Composer</strong>（Mister Horse 免费版）</td><td>https://misterhorse.net/animationcomposer</td><td>入场/弹跳/过冲直接拖给图层再改参数，赶工时先套库再手 K，别从零画。</td><td>推荐</td></tr><tr><td><strong>True Comp Duplicator</strong>（aescripts NYOP）</td><td>https://aescripts.com/true-comp-duplicator/</td><td>客户要"换个颜色/换个角色再出一版"时，用它复制整条合成链（含子合成）再改，别手动另存。</td><td>推荐</td></tr><tr><td><strong>BHY_Text</strong>（B站「匕禾页bili」免费脚本家族）</td><td>https://www.bilibili.com/video/BV12VtueAERP （简介领取）</td><td>歌词先扔进去批量分割/排版/改样式，别逐条打字调位置。</td><td>推荐</td></tr></tbody></table></div>
+<p>依据：FX Console 是 Reddit 多帖公认「第一必装」（pusdsi、1flmaip 等帖 + Magic Mark 2025 榜）；EaseCopy 在 Reddit 13 帖聚合中 6 帖 31 次提及、热评 220 赞，甚至有"内置进 AE"的社区请愿，是脚本类热度第二；True Comp Duplicator 7/13 帖推荐、23 次提及，脚本类第一，正好命中"接单改稿"痛点；Animation Composer 获 Reddit 4 帖 14 提及 + School of Motion"新手第一推荐" + 约 41 万播放的 YouTube 盘点必提；BHY 家族是中文圈 UP 主免费供给（其 CompChanger 视频实测 13,907 播放 / 926 收藏，收藏比极高，作者可信度有数据支撑），歌词排版被中文报告明确列为 PV/手书刚需。</p>
+<hr>
+<h2>二、手书（分镜 PSD → 卡点成片）</h2>
+<p>手书作者最痛的四步：PSD 分层进 AE、低帧率扫描稿补帧、按 BPM 画拍、交付规格反复改。这四步全有免费解。</p>
+<div class="tw"><table><thead><tr><th>推荐</th><th>链接</th><th>上手建议</th><th>优先级</th></tr></thead><tbody><tr><td><strong>PSDImporter</strong>（bigxixi，AE 扩展）</td><td>https://github.com/bigxixi （仓库 PSDImporter，Release 下载 zxp）</td><td>分镜 PSD 按画板/图层自动裁切进 AE，一个图层一层手书，免手动切。</td><td>必装</td></tr><tr><td><strong>rife-ncnn-vulkan</strong>（nihui，ncnn 系）</td><td>https://github.com/nihui/rife-ncnn-vulkan</td><td>手书原画先按 8-12fps 画，扫描导入后用它 GPU 离线补帧到 24/60fps，配第三方 GUI 免命令行。</td><td>必装</td></tr><tr><td><strong>节拍打点工作流</strong>（Audition 标记 → AE 合成标记，B站成熟免费路径）</td><td>https://www.bilibili.com/video/BV16S4y187wF （工作流演示）</td><td>在 Audition 按 BPM 打标记 → 导入 AE 当合成标记，按拍画分镜；不必买 BeatEdit（见避坑节）。</td><td>必装</td></tr><tr><td><strong>Duik Ángela</strong>（RxLaboratory，开源）</td><td>https://rxlaboratory.org/tools/duik/</td><td>让手书人物真的动起来：先给角色绑 IK/骨骼再摆姿势，省掉逐帧重画。</td><td>推荐</td></tr><tr><td><strong>Comp Setting Tool v2.1</strong>（舟午，开源）</td><td>https://www.lookae.com/comp-setting-tool</td><td>客户要求 23.976↔25↔60fps 或改 B站 1080p 时，一键全工程（含嵌套子合成）批量改，别逐个合成开设置。</td><td>推荐</td></tr></tbody></table></div>
+<p>依据：PSDImporter star 仅 10，但中文报告结论明确指出"按痛点命中率而非 star 数选型"，它命中的正是手书第一道工序（PSD 分层）；rife-ncnn-vulkan 1,130★（GitHub 实测），中文报告将其列为"免费替代付费补帧插件（Flow/Twixtor）"的首选；Duik 408★ 且 2026-11 仍在更新，同时获 Reddit 4 帖 9 提及，是全球榜单"免费三巨头"之一（角色绑定方向）；Comp Setting Tool 在 LookAE 页面有 16 条评论、被多个中文合集转载，明确允许商用（禁止转售）；打点工作流是中文报告确认的"B站教程圈成熟免费路径"，长期有稳定教程供给（av841497914 等）。</p>
+<hr>
+<h2>三、剪辑交付（成片、投稿、多平台物料）</h2>
+<p>接剪辑单的最后一公里：压制免二压、变速卡点、动图物料、多尺寸出片、成片质感。</p>
+<div class="tw"><table><thead><tr><th>推荐</th><th>链接</th><th>上手建议</th><th>优先级</th></tr></thead><tbody><tr><td><strong>小丸工具箱</strong>（社区维护，x264/ffmpeg GUI）</td><td>https://maruko.appinn.me</td><td>投稿前用 B站定制参数压一版对照官方二压阈值，字幕内嵌/音频转码也在这里一并做掉。</td><td>必装</td></tr><tr><td><strong>Twixtor 批量操作辅助脚本</strong>（yanyiju）</td><td>https://github.com/yanyiju/twixtor-batch-operation-script</td><td>卡点慢放流用它一键搭好多层变速合成结构，省掉每天几十次手动嵌套（注意：Twixtor 本体付费，见避坑节）。</td><td>推荐</td></tr><tr><td><strong>webp_apng_exporter_for_AE</strong>（bigxixi，173★）</td><td>https://github.com/bigxixi</td><td>交付动态宣传图/进度表时直接从合成导出 WebP/APNG，别再录屏转 GIF。</td><td>推荐</td></tr><tr><td><strong>Quick Chromatic Aberration 3</strong>（aescripts Free/$0）</td><td>https://aescripts.com/quick-chromatic-aberration/</td><td>成片高潮段/音 bomb 处叠一层色散再谈"质感"，一键出镜头味。</td><td>可选</td></tr><tr><td><strong>CrossFrame</strong>（Reddit 2026 新发布）</td><td>https://www.reddit.com/r/AfterEffects/comments/1rxhw8h/made_a_free_ae_script_that_lets_you_build_once</td><td>一次搭建、多尺寸/比例批量导出，B站横版 + 抖音竖版 + 客户方版一次出齐。</td><td>可选</td></tr></tbody></table></div>
+<p>依据：小丸工具箱是中文报告认定的"中文圈剪辑作者默认收官工具"，B站免二压压制手册（cv3485）长期被引用、2025 年仍有新参数教程；yanyiju 脚本 14★ 但"精准命中 AMV 变速痛点"，属典型小而准；webp_apng_exporter 173★（实测），中文报告列为剪辑/PV 作者投稿物料首选；QCA3 列 Magic Mark 榜第 8、aescripts 页面标注 $0；CrossFrame 来自 Reddit 2026 新帖（1rxhw8h）作者免费发布，尚无长期热度数据故列可选。多平台/轻量交付如需把动效给 App/web 端内嵌，可进一步了解腾讯 libpag（5,820★，https://github.com/Tencent/libpag ），但对纯视频交付的接单者属边缘需求，未列入主表。</p>
+<hr>
+<h2>四、效率工具（工程整理、批量操作、AI 提效）</h2>
+<p>接单者的隐性成本全在"整理工程"上。这类工具热度不算最高，但直接省工时。</p>
+<div class="tw"><table><thead><tr><th>推荐</th><th>链接</th><th>上手建议</th><th>优先级</th></tr></thead><tbody><tr><td><strong>BHY_CompChanger</strong>（匕禾页bili）</td><td>https://www.bilibili.com/video/BV12VtueAERP （简介领取）</td><td>接手合作工程/二改模板先用它"超强穿透 + 解预合成 + 批量改尺寸时长帧率"，摸清结构再动手。</td><td>必装</td></tr><tr><td><strong>mograph.life 32 件套</strong>（MIT 开源）</td><td>https://mograph.life</td><td>装上打包工具条挑常用的挂 Kbar/快捷键，已适配 AE 25/26。</td><td>推荐</td></tr><tr><td><strong>MoBar 免费版</strong>（aescripts）</td><td>https://aescripts.com/mobar/</td><td>当对齐/替换/清理的小工具箱用；免费版有限次使用，重度用再考虑 Pro。</td><td>可选</td></tr><tr><td><strong>kyletmartinez 脚本合集</strong>（290★，开源）</td><td>https://github.com/kyletmartinez/after-effects-scripts</td><td>需要什么装什么，别一次全装；配合 Kbar 按钮化最顺。</td><td>可选</td></tr><tr><td><strong>after-effects-mcp</strong>（889★，开源）</td><td>https://github.com/Dakkshin/after-effects-mcp</td><td>前瞻项：让 Claude 等 AI 直接建合成/改属性/跑脚本，是 2025-26 增长最快的 AI×AE 方向，建议先了解。</td><td>可选</td></tr></tbody></table></div>
+<p>依据：BHY_CompChanger 是中文报告实测数据里"单一痛点型"的高收藏样本（13,907 播放 / 926 收藏，收藏比远超同类大而全工具箱），穿透解预合成被列为"接手合作手书、二改模板工程最省命的功能"；mograph.life 32 件套来自作者 Reddit 帖（1up9gxy）免费发布、社区反响好且已适配 AE 25/26；MoBar 免费版获 Reddit 5 帖 8 提及；kyletmartinez 合集 290★（实测）；after-effects-mcp 889★（实测），全球报告点名为"AI 操控 AE 是 2025-26 增长最快的方向"。</p>
+<hr>
+<h2>五、二次创作与补帧（二创素材修复 / 音 MAD）</h2>
+<p>二创的两个硬门槛：素材清晰度（老素材低清、作画帧率低）和合规获取渠道。以下全部官方/开源。</p>
+<div class="tw"><table><thead><tr><th>推荐</th><th>链接</th><th>上手建议</th><th>优先级</th></tr></thead><tbody><tr><td><strong>TheAnimeScripter</strong>（开源）</td><td>https://github.com/NevermindNilas/TheAnimeScripter</td><td>二创素材先在 AE 外用它跑一遍 AI 放大 + RIFE 补帧 + 画质修复，再把干净素材进工程。</td><td>必装</td></tr><tr><td><strong>喵哉动漫补帧·抠像二创辅助脚本</strong>（开源，中文）</td><td>https://www.lookae.com/miaozai （LookAE 收录页）</td><td>想留在 AE 里干：一键补帧 + 一键抠像替代 Twixtor+Roto 组合；v1.1 已修 GPU 绿屏，走网盘下载当天先验证（见避坑节）。</td><td>必装</td></tr><tr><td><strong>Real-ESRGAN</strong>（37,490★，开源）</td><td>https://github.com/xinntao/Real-ESRGAN</td><td>截图/老番素材用 anime6B 模型超分，只对关键镜头用，别全片跑（耗时）。</td><td>推荐</td></tr><tr><td><strong>Saber</strong>（Video Copilot 官方免费）</td><td>https://www.videocopilot.net/blog/2016/03/new-plug-in-saber-now-available-100-free</td><td>打斗/光效二创的能量描边直接套 Saber 再改颜色，别手搓光效。</td><td>推荐</td></tr><tr><td><strong>om_midi</strong>（84★，开源）</td><td>https://github.com/otomad/om_midi</td><td>做 OTOMAD/YTPMV 时用 MIDI/音频直接驱动关键帧，音画同步从手调变半自动，音 MAD 圈标配。</td><td>可选</td></tr></tbody></table></div>
+<p>依据：TheAnimeScripter 347★（实测），全球报告原话"动漫二创圈爆火"，且与 rife-ncnn-vulkan 同源思路但集成度更高；喵哉脚本 B站转发视频实测播放 39,376 / 收藏 5,372（2021 年发布至今仍被持续收藏，长期价值已验证），中文报告定位为"直接对标付费的 Twixtor+Roto 组合"；Real-ESRGAN 37,490★ 是两份榜单里除 lottie-web 外的最高 star，开源超分事实标准；Saber 是 Video Copilot 官方免费主打 + Magic Mark 榜第 9 + YouTube 盘点常客；om_midi 84★，全球报告标注"音 MAD 圈标配"。真人抠像若需 AE 外补充，可看 B站「工具箱大师」AI 抠图（实测 2,591 播放，https://www.bilibili.com/video/BV12TyYYpEsv ）。</p>
+<hr>
+<h2>六、立即提升接单竞争力的组合</h2>
+<p>三个"装齐即战力"的套装，对应三种最典型的活儿。</p>
+<h3>组合 A：手书作者套装 ——「从分镜 PSD 到卡点成片」</h3>
+<p><strong>PSDImporter + rife-ncnn-vulkan + 节拍打点工作流 + Comp Setting Tool</strong></p>
+<ul><li>流程：PSD 分板进 AE → Audition 打拍导标记 → 按 BPM 画拍 → rife 补帧 → 交付前批量改规格。</li><li>解决：手书接单最耗时的三段手工劳动（分层、画拍、改规格）全部免费自动化；补帧环节直接省掉 Twixtor/Flow 的付费预算。</li><li>数据支撑：rife-ncnn-vulkan 1,130★ + 喵哉脚本 5,372 收藏证明"免费补帧"是中文二创圈已验证的真实需求。</li></ul>
+<h3>组合 B：二创剪辑套装 ——「素材修复 → 投稿免二压」</h3>
+<p><strong>TheAnimeScripter（或喵哉脚本）+ Real-ESRGAN + 小丸工具箱</strong></p>
+<ul><li>流程：素材超分/补帧/修复（AE 外或 AE 内二选一）→ 剪辑 → 小丸按 B站二压阈值压制收官。</li><li>解决：低清老素材没法用的尴尬 + 投稿被二压糊掉的挫败，两端都是二创剪辑的口碑命门。</li><li>数据支撑：Real-ESRGAN 37,490★ + TheAnimeScripter 347★（全球报告称"二创圈爆火"）+ 小丸工具箱为 B站投稿标配（cv3485 手册长期引用）。</li></ul>
+<h3>组合 C：接单交付套装 ——「改稿快、规格不翻车」</h3>
+<p><strong>FX Console + EaseCopy + True Comp Duplicator + BHY_CompChanger（+ CrossFrame）</strong></p>
+<ul><li>流程：FX Console 秒调效果 → EaseCopy 统一动画手感 → 客户改稿用 True Comp Duplicator 复制整链出新版本 → 接别人工程先 CompChanger 穿透解构 → 多平台交付 CrossFrame 一次出齐。</li><li>解决：接单利润率取决于改稿轮次成本——这套把"改一版"的时间从小时级压到分钟级，也是专业度最直观的体现。</li><li>数据支撑：这一组包揽了全球榜脚本类热度前二（EaseCopy 31 提及/220 赞、True Comp Duplicator 7/13 帖）+ 工作流第一（FX Console），叠加中文圈高收藏的 CompChanger（926 收藏），是全球+中文两侧数据同时背书的组合。</li></ul>
+<hr>
+<h2>七、避坑：看似热门，实际不需要或有风险</h2>
+<p>以下均直接引自两份报告的核实结论。</p>
+<ol><li><strong>第三方"免费下载"站（freevideoeffect.com 一类）</strong>：全球报告明确警告——多为盗版/捆绑，社区确认有恶意软件风险。本清单全部条目只走官网/GitHub/作者原始渠道，看到"XX 插件合集免费打包下载"直接关掉。</li><li><strong>BeatEdit 没有免费版</strong>：中文报告核实——aescripts 上它是付费插件，B站教程视频只是演示工作流。手书打点走第一节「节拍打点工作流」的免费路径（Audition 标记 → AE），不必为此付费。</li><li><strong>KeTools 疑似不存在</strong>：中文报告多轮搜索（WebSearch × 2 + GitHub API）无法核实，疑似不存在、已改名或仅极小圈子流传。中文工具箱需求用已核实的替代：BHY 家族 / LoYoi AE6 / Z-Tool V1。</li><li><strong>B站营销号「插件合集一键安装包」</strong>：中文报告判定多为捆绑/诱导关注，非作者官方发布。免费脚本一律从作者 B站视频简介或 GitHub 原仓库领取。</li><li><strong>网盘链接时效</strong>：喵哉脚本、Comp Setting Tool、小丸工具箱等走城通/百度/阿里云盘分发，时效无保证——中文报告要求"使用当天验证"，且其 GitHub 条目在核实当日全部可达。选型原则（中文报告结论 4）：<strong>优先 GitHub，网盘作备选</strong>。</li><li><strong>Twixtor 批量脚本 ≠ 免费 Twixtor</strong>：yanyiju 脚本只免费化"搭建变速合成结构"的工作流，Twixtor 本体仍是付费插件；没买本体的话，补帧/变速需求用 rife-ncnn-vulkan 或 TheAnimeScripter 替代。</li><li><strong>大而全的中文工具箱性价比偏低</strong>：中文报告实测数据显示，"解决单一痛点"型工具收藏比显著更高（喵哉 5,372 收藏、CompChanger 926 收藏），而大而全工具箱普遍只有 2k-4k 播放量级（LoYoi AE6 4,038、工具箱大师 2,591、一只橘猫豆 3,489）。别被"一个面板解决一切"吸引，按痛点单点选装。</li><li><strong>Real-ESRGAN 第三方中文 GUI 整合包</strong>：中文报告提示网传整合包（如 updaterc 等）需注意来源甄别，最稳妥是直接用 GitHub 官方仓库或其明确列出的衍生生态。</li><li><strong>aescripts 的 NYOP 条目</strong>：EaseCopy、True Comp Duplicator、QCA3 等结账可填 $0，但必须注册 aescripts 账号；AEJuice 同理需注册。这不是坑，是门槛——提前知道免得以为"要付费"而错过。</li></ol>
+<hr>
+<h2>八、一览：25 项按优先级</h2>
+<ul><li><strong>必装（9）</strong>：FX Console、EaseCopy、PSDImporter、rife-ncnn-vulkan、节拍打点工作流、小丸工具箱、BHY_CompChanger、TheAnimeScripter、喵哉补帧抠像脚本</li><li><strong>推荐（10）</strong>：Animation Composer、True Comp Duplicator、BHY_Text、Duik Ángela、Comp Setting Tool v2.1、Twixtor 批量脚本（yanyiju）、webp_apng_exporter、mograph.life 32 件套、Real-ESRGAN、Saber</li><li><strong>可选（6）</strong>：QCA3、CrossFrame、MoBar 免费版、kyletmartinez 合集、after-effects-mcp、om_midi</li></ul>
+<blockquote>数据来源与可信度：全部热度数据（Reddit 13 帖聚合、GitHub star、B站播放/收藏、编辑部榜单、页面可达性）均引自 intel/free-global.md 与 intel/china-resources.md 的核实记录，采集时间 2026-11-13/14；两份报告的完整来源列表见各自文末。</blockquote>
+<hr>
+<h2>九、复刻件分档（本地 25 件可用；另 6 件已归档）</h2>
+<p>本节是<strong>另一条轨道</strong>：前 25 项是"别人做的免费东西"，这 25 件是"我们自己做出来的免费东西"。同样是免费，但复刻件有两条额外优势——<strong>没有账号/激活/联网授权</strong>，且<strong>逻辑可读可改</strong>（要加一个参数不用求作者）。</p>
+<p>分档口径：</p>
+<ul><li><strong>必装</strong> = 每单都会碰，且直接替代最贵的那档付费件</li><li><strong>推荐</strong> = 一周内会用到的具体场景</li><li><strong>可选</strong> = 备着，遇到特定活才开</li></ul>
+<div class="tw"><table><thead><tr><th>档位</th><th>件</th><th>替代的原收费件</th><th>你的使用场景</th></tr></thead><tbody><tr><td><strong>必装</strong></td><td><code>limber2-clone</code></td><td>Limber 2（$65）</td><td>角色肢体 IK：拖控制器就弯，手脚钉原地</td></tr><tr><td><strong>必装</strong></td><td><code>rubberhose-clone</code></td><td>RubberHose（$75 级）</td><td>橡皮管式手绘肢体，PV 最常见的"手臂/腿"</td></tr><tr><td><strong>必装</strong></td><td><code>joysticks-clone</code></td><td>Joysticks 'n Sliders（$60 级）</td><td>用滑块/旋钮控制角色姿态，省掉逐层改属性</td></tr><tr><td><strong>必装</strong></td><td><code>overlord-clone</code></td><td>Overlord（$75）</td><td>Ai/SVG → AE 形状层，免重新描一遍（单向）</td></tr><tr><td><strong>必装</strong></td><td><code>true-comp-dup-clone</code></td><td>True Comp Duplicator</td><td>客户要"换个色/换个角色再出一版"时复制整条合成链</td></tr><tr><td>推荐</td><td><code>wobblebox-clone</code></td><td>WobbleBox</td><td>抖动/晃动生成，字效与画面微颤</td></tr><tr><td>推荐</td><td><code>keyframe-parent-clone</code></td><td>Keyframe Parent（$24.99）</td><td>把一组关键帧当整体平移/拉伸（整体改节奏）</td></tr><tr><td>推荐</td><td><code>easify4-clone</code></td><td>Easify 4（$49）</td><td>缓动面板：批量应用 + 跨属性时间归一化</td></tr><tr><td>推荐</td><td><code>easestash-clone</code></td><td>Ease Stash（$35）</td><td>缓动存槽位，跨工程复用</td></tr><tr><td>推荐</td><td><code>keymaster-clone</code></td><td>KeyMaster（$25）</td><td>跨多图层按时间/属性筛关键帧，批量改时间</td></tr><tr><td>推荐</td><td><code>keytweak-clone</code></td><td>KeyTweak</td><td>线性↔缓动批量转换（接手别人工程常用）</td></tr><tr><td>推荐</td><td><code>again-clone</code></td><td>Again!（$5）</td><td>以新起点值重复同一段运动（循环动作）</td></tr><tr><td>推荐</td><td><code>addsauce-clone</code></td><td>Add Sauce（$9.99）</td><td>把一套效果打包，一键套到别的图层</td></tr><tr><td>推荐</td><td><code>retend-clone</code></td><td>Retend（$29）</td><td>整棵嵌套 precomp 树整体变速/加长（客户改时长）</td></tr><tr><td>推荐</td><td><code>scribe-clone</code></td><td>Scribe（$30）</td><td>书写/描线动画（用的是公有领域 Hershey 字型）</td></tr><tr><td>推荐</td><td><code>parrot-clone</code></td><td>Parrot</td><td>图层替换/父子关系快速切换，换角色不重搭</td></tr><tr><td>推荐</td><td><code>easeandwizz-clone</code></td><td>Ease and Wizz</td><td>表达式缓动预设（免插件出缓动）</td></tr><tr><td>可选</td><td><code>move-anchor-point-clone</code></td><td>Move Anchor Point 4（$29.99）</td><td>锚点一键移到中心/边角（jsx 逻辑版）</td></tr><tr><td>可选</td><td><code>project-item-labels-clone</code></td><td>Project Item Labels（$5.99）</td><td>项目面板批量标色，整理导入工程</td></tr><tr><td>可选</td><td><code>trim-comp-clone</code></td><td>Trim Comp to Contents（$4.99）</td><td>把 comp 时长裁到刚好包住内容</td></tr><tr><td>可选</td><td><code>rollit-clone</code></td><td>Roll it!（$29.99）</td><td>形状沿边"滚动"（接触点驱动）</td></tr><tr><td>可选</td><td><code>rowscols-clone</code></td><td>Rows and Columns</td><td>按行列网格排布 + 逐格延迟</td></tr><tr><td>可选</td><td><code>sliceitup-clone</code></td><td>Slice it Up 2（$29.99）</td><td>程序化切片 + 逐片延迟</td></tr><tr><td>可选</td><td><code>native-presets-clone</code></td><td>自带预设扩展包</td><td>应急预设，风格固定</td></tr><tr><td>可选</td><td><code>squirrel-clone</code></td><td>Squirrel</td><td>待现场确认用法，先备着</td></tr></tbody></table></div>
+<p><strong>本轮新增 9 件的原价合计 ≈ $313.96</strong>（Limber 2 $65 + Overlord $75 + Easify 4 $49 + Scribe $30 + Retend $29 + Move Anchor Point $29.99 + Keyframe Parent $24.99 + Project Item Labels $5.99 + Trim Comp $4.99）。这 9 件正好是 A 类（纯脚本逻辑可写）里最贵的缺口，现在全部本地可用。</p>
+<h3>⚠ 本机已装重叠：这 5 件对你是冗余，别装</h3>
+<p>据 Chief 2026-11-14 只读核对（未改动任何已装件），下表 5 件<strong>你机器上已经装了正版/官方版</strong>，上表的克隆版对你<strong>没有新增价值</strong>，保留仅作参考实现：</p>
+<div class="tw"><table><thead><tr><th>克隆件</th><th>你本机已有</th><th>性质</th></tr></thead><tbody><tr><td><code>flow-clone</code></td><td>CEP 扩展 <code>flow-v1.4.2</code>（Laco）</td><td>收费</td></tr><tr><td><code>gifgun-clone</code></td><td>CEP <code>GifGun2</code> + <code>gifgun2.jsxbin</code></td><td>收费</td></tr><tr><td><code>motion2-clone</code></td><td>脚本 <code>Motion Tools 2汉化版.jsx</code></td><td>收费</td></tr><tr><td><code>easecopy-clone</code></td><td><code>EaseCopy.jsxbin</code>（D/E 两盘都有）</td><td>免费但已有</td></tr><tr><td><code>easybake-clone</code></td><td><code>Easy Bake.jsxbin</code></td><td>收费</td></tr><tr><td>~~<code>autosway-clone</code>~~</td><td><code>AutoSway 1.92 杂鱼汉化版.jsxbin</code>（D 盘 2026 Scripts）</td><td>已归档</td></tr></tbody></table></div>
+<p>因此上表三档要这样读：<strong>下表 6 件已从分档表移除</strong>（你机器已有正版，克隆件已归档到 <code>clones-archive\</code>，需要时可恢复）——对你真正新增的必装只有 5 件：<code>rubberhose-clone</code>、<code>limber2-clone</code>、<code>joysticks-clone</code>、<code>overlord-clone</code>、<code>true-comp-dup-clone</code>（改稿向）。<strong>缺口 9 件（第 22–30 号那批）与已装清单零重叠</strong>，是货真价实的空白，放心装。</p>
+<h3>怎么装（别一次全装）</h3>
+<p>下面的组合已剔除本机已装件，一次装 5–6 个够用一阵：</p>
+<ul><li><strong>手书/角色向起步</strong>：<code>rubberhose</code> + <code>limber2</code> + <code>joysticks</code> + <code>overlord</code>（AutoSway 你已装汉化版，不需要克隆件）</li><li><strong>接单/改稿向起步</strong>：<code>true-comp-dup</code> + <code>keymaster</code> + <code>retend</code> + <code>overlord</code>（缓动用你已装的 Flow/EaseCopy，不必装克隆版）</li><li><strong>纯 PV 动效向起步</strong>：<code>wobblebox</code> + <code>again</code> + <code>easeandwizz</code> + <code>easestash</code>（缓动主力同样用已装的 Flow）</li></ul>
+<hr>
+<h2>十、校正说明（2026-11-14）</h2>
+<ol><li><strong>首发版 25 项外部免费资源全部保留</strong>，未发现需要撤回的结论（数据采集 11-13/14，间隔不足一天）。</li><li><strong>优先级口径修正</strong>：原来的「必装 9 项」和本节的「必装 5 件」是两条轨道，不能相加当 14 项看。实际建议：外部必装里先装 <code>FX Console</code> + <code>PSDImporter</code> + <code>节拍打点工作流</code>（<strong>EaseCopy 你已装正版，不再推荐</strong>）；本地复刻件按上面的起步组合装（flow / easecopy 的克隆件已归档，直接用你装的 Flow 与 EaseCopy）。合计 8 件左右，已覆盖 80% 日常。</li><li><strong><code>rubberhose-clone</code> 与 <code>limber2-clone</code> 不冲突</strong>：前者是"一根橡皮管"，后者是"可分离关节 + 手脚钉地"。角色动画优先 rubberhose，需要脚踩实的走路循环用 limber2。</li><li><strong><code>move-anchor-point-clone</code> 与原版的差异</strong>：原版 v4 已是 aex 原生插件，复刻体是 jsx 逻辑版——锚点与 position 的补偿逻辑等价，差别在交互手感与大批量时的速度，功能不缺。</li><li><strong><code>scribe-clone</code> 不含原版字型</strong>：原版价值的一半在 6 套单线字型资产（版权物，不能复刻）。复刻体用公有领域 Hershey 字型，行为等价、字形不同，<strong>只覆盖拉丁字符</strong>，中文要走"文字转形状"兜底。</li><li>三条新增结论里最值得记住的一条：<strong>复刻件的真正价值不是省钱，是"可改"</strong>——25 件中有 7 件原本是 $49–$150 的价目，但更重要的是出了问题能自己打开源码看。</li></ol>
+<blockquote>本节数据来源：<code>clones/</code> 目录实测 31 个复刻目录（每目录 2 文件：main.jsx + README.md）；原价引自 <code>intel/paid-list.md</code> 已核条目；行为说明见 <code>intel/specs/</code> 9 份 spec 与 <code>_acceptance-index.md</code>。<strong>注：原始为 31 目录，经 2026-11-14 去重，现 25 件在库 + 6 件归档（clones-archive）。</strong></blockquote>
+<hr>
+<h2>十一、三层盘点过筛结果（2026-11-14，依据 intel/local-env-layers.md）</h2>
+<p>盘点依据层说明：本盘点覆盖 <strong>.aex（MediaCore 790 个）/ CEP（4 个）/ 脚本（E 盘 2024 共 46 个 + D 盘 2026 共 72 个 + 用户层 26.0 共 1 个）</strong> 三层。凡是"外部独立程序"（python / exe 工具），<strong>三层清单核不到</strong>，一律标「三层不可核」。</p>
+<h3>11.1 必须剔除（你已装，别再推）</h3>
+<div class="tw"><table><thead><tr><th>原清单条目</th><th>你机器已有</th><th>依据层</th><th>精确位置</th></tr></thead><tbody><tr><td>FX Console</td><td><code>FX Console.jsx</code></td><td>脚本</td><td><code>D:\Adobe After Effects 2026 v26.0.0.67\...\Support Files\</code>（E 盘 2024 也有）</td></tr><tr><td>EaseCopy</td><td><code>EaseCopy.jsxbin</code></td><td>脚本</td><td>D 盘 2026 + E 盘 2024 均有</td></tr><tr><td>Duik Ángela</td><td><code>Duik Bassel.2 AE2025适配版.jsx</code> + Duik 系列 8 个 jsx</td><td>脚本</td><td>D 盘 2026 <code>Support Files\</code></td></tr><tr><td>Twixtor（本体，非脚本）</td><td><code>Twixtor8AE</code> 厂商目录</td><td>.aex</td><td>MediaCore</td></tr><tr><td>Yan-K ToolKit（情报员二轮当"新免费件"推过）</td><td><code>Yan-K ToolKit.jsx</code> + 同族 7 个（FastBlink/Glitch/Purge/RanAni 3/Switch/Typewriter）</td><td>脚本</td><td>D 盘 2026 + E 盘 2024</td></tr></tbody></table></div>
+<blockquote>第 4 条要分清：<strong>Twixtor 本体你已有</strong>，但「Twixtor 批量操作辅助脚本」（yanyiju，免费）是另一件工作流脚本，三层清单里没有，仍可保留在清单里——只是文案要改成"本体已装，缺的是批量搭建脚本"。</blockquote>
+<h3>11.2 过筛通过（未装，可继续推；每条已带来源与用途）</h3>
+<p>Animation Composer（免费版）、True Comp Duplicator、BHY_Text、PSDImporter、Comp Setting Tool v2.1、webp_apng_exporter、Quick Chromatic Aberration 3、CrossFrame、BHY_CompChanger、mograph.life 32 件套、MoBar 免费版、kyletmartinez 合集、喵哉补帧抠像脚本、Saber、om_midi。</p>
+<h3>11.3 三层不可核（外部程序，盘点不适用）</h3>
+<p>rife-ncnn-vulkan、小丸工具箱、after-effects-mcp、TheAnimeScripter、Real-ESRGAN。这 5 项不依赖 AE 安装目录，请按"你机器上有没有装过这个程序"自行确认，我不代猜。</p>
+<h3>11.4 情报员第三轮 3 个新件过筛</h3>
+<div class="tw"><table><thead><tr><th>件</th><th>三层清单结果</th><th>结论</th></tr></thead><tbody><tr><td>Expresso（免费表达式管理器）</td><td>无同名</td><td>未装，<strong>可推</strong>（表达式的参数化/导入导出，你现在的 <code>表达式烘焙.jsx</code> 是相反方向的工具，不冲突）</td></tr><tr><td>ae-essentials（MIT 插件包）</td><td>无同名</td><td>未装，可推（缓动编辑器/形状转遮罩/时间线文件夹）</td></tr><tr><td>transversal-tools</td><td>无同名</td><td>未装，可推（但小众，建议先看它的 README 再决定）</td></tr></tbody></table></div>
+<h3>11.5 ⚠ 待指挥判定的疑点：25 件复刻里可能还有 4 件与你已装脚本同域</h3>
+<p>按群规第 2 条，判定权归指挥，我只列证据不裁定：</p>
+<div class="tw"><table><thead><tr><th>复刻件</th><th>疑似同域的已装脚本</th><th>依据层 + 位置</th><th>我的观察</th></tr></thead><tbody><tr><td><code>again-clone</code>（关键帧循环/重复）</td><td><code>Loopy.jsxbin</code>、<code>Loop Tools Pro.jsxbin</code>、<code>loopy</code> 同族</td><td>脚本 / D 盘 2026</td><td>都是"循环关键帧"，重叠度高</td></tr><tr><td><code>keytweak-clone</code>（关键帧时间批量）</td><td><code>KeyFast.jsxbin</code></td><td>脚本 / D 盘 + E 盘</td><td>都做关键帧时间批量，重叠度中等</td></tr><tr><td><code>rowscols-clone</code>（行列网格排列）</td><td><code>简易阵列脚本 v1.1最新版.jsxbin</code>（用户层 26.0）、<code>GridGuide.jsxbin</code></td><td>脚本 / 用户层 + D 盘</td><td>阵列排列重叠度高；GridGuide 偏参考线，可能不算</td></tr><tr><td><code>joysticks-clone</code>（摇杆滑块控姿势）</td><td><code>立绘控制脚本_VROAUX_1.0.jsx</code></td><td>脚本 / D 盘 2026</td><td>都是"滑块控制角色"，重叠度中等</td></tr></tbody></table></div>
+<blockquote>建议指挥按"能不能替代"而不是"名字像不像"判：<code>again</code>、<code>rowscols</code>、<code>joysticks</code> 这三件我倾向可归档（已装件能覆盖 80% 场景），<code>keytweak</code> 保留（KeyFast 偏快捷操作、KeyTweak 偏数值批量，场景不同）。<strong>但这只是建议，判定由指挥下。</strong></blockquote>
+<h3>11.6 本次过筛的自我修正</h3>
+<p>我之前在第九节写"缺口 9 件与你装机零重叠"，这句话在当时只有 CEP+脚本两层部分名单支撑，<strong>不是三层核验结论</strong>。按群规第 6 条，现在补正：缺口 9 件经三层清单逐一比对，<strong>确认无同名项</strong>（<code>limber2 / overlord / easify4 / scribe / retend / move-anchor-point / keyframe-parent / trim-comp / project-item-labels</code>），此结论现在有完整三层依据。</p>
+<h3>11.7 情报员 B 站首轮 3 个新件过筛（2026-11-14）</h3>
+<p>三层清单（<code>intel/local-env-layers.md</code>）逐一比对，<strong>三件均无同名项 = 未装</strong>。但其中两件与已装正版<strong>功能同域</strong>，按规则 a) 不能整件推：</p>
+<div class="tw"><table><thead><tr><th>件</th><th>三层清单</th><th>同域风险（依据层 + 位置）</th><th>结论</th></tr></thead><tbody><tr><td><strong>Flux 全能效率面板</strong>（KoalaVisual，2,367 播放）</td><td>无 Flux</td><td><strong>缓动模块 ↔ 已装正版 Flow</strong>（CEP 层 <code>flow-v1.4.2</code>，Laco）。另外你已装三个"大而全"工具盒：<code>AE脚本大师V1.6.jsxbin</code>、<code>工具箱大师.jsx</code>（D 盘 2026）、CEP <code>com.zayu.hook.panel</code> / <code>AE-Shortcut-Preview</code></td><td><strong>不整件推</strong>。若要试，只用它的锚点/对齐那几个与 Flow 不重叠的模块，缓动别换——Flow 你已有正版</td></tr><tr><td><strong>ColorGo 常驻实时调色</strong>（2,690 播放）</td><td>无 ColorGo</td><td><strong>调色 ↔ 已装 .aex 全家桶</strong>：<code>Magic Bullet Colorista</code>、<code>MBLooks</code>、<code>Magic Bullet Mojo</code>、<code>MBFilm</code>（.aex 层，MediaCore），另有 BorisFX / Sapphire 与 AE 自带 Lumetri</td><td><strong>不推</strong>。实时调色你机器上已有四套，免费件属于重复建设；除非你嫌 Magic Bullet 太重，才考虑当轻量替补</td></tr><tr><td><strong>预合成操作 All in one</strong>（Telosma_夜来香，1,698 播放 / 32 评论）</td><td>无同名中文脚本</td><td>与复刻件 <code>true-comp-dup-clone</code>（整链复制）、<code>retend-clone</code>（整树重定时）<strong>场景相邻但不完全同域</strong>：这两件是"复制/改时长"，它是"预合成的批量整理操作"（重命名/排序/进出）</td><td><strong>可推（推荐级）</strong>。你机器上没有专门管预合成整理的工具，<code>Scale Composition.jsx</code> 与 <code>com.motionfun.picky</code> 都不是这个用途</td></tr></tbody></table></div>
+<p><strong>一句话给用户</strong>：这三件里只有「预合成操作 All in one」值得装；Flux 的缓动别碰（你有 Flow 正版），ColorGo 不用（你有 Magic Bullet 四件套）。</p>
+<blockquote>依据层说明：本小节的同域判定用到三层中的 <strong>CEP 层</strong>（flow-v1.4.2、com.zayu.hook.panel、AE-Shortcut-Preview）与 <strong>.aex 层</strong>（Magic Bullet 系列、BorisFX、Sapphire）与 <strong>脚本层</strong>（AE脚本大师V1.6、工具箱大师），三处均有 <code>local-env-layers.md</code> 的原文列名可查。</blockquote></body></html>
