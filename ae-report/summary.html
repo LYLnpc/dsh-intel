@@ -33,7 +33,6 @@ body{
 }
 .wrap{max-width:1080px;margin:0 auto;padding:36px 22px 90px}
 
-/* hero */
 .hero{text-align:center;padding:22px 10px 8px}
 .hero h1{
   font-size:clamp(26px,4.4vw,38px); font-weight:800; letter-spacing:.5px; margin:0 0 10px;
@@ -45,13 +44,11 @@ body{
   color:var(--pink-deep);background:#fff;border:1.5px solid var(--pink-soft);
   border-radius:999px;padding:5px 16px;box-shadow:var(--shadow)}
 
-/* note */
 .note{margin:26px auto 0;max-width:840px;background:linear-gradient(135deg,#fff,#fff6f9);
   border:1.5px dashed var(--pink-soft);border-radius:18px;padding:16px 22px;
   font-size:14px;color:var(--ink);box-shadow:var(--shadow)}
 .note b{color:var(--pink-deep)}
 
-/* stats */
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:30px}
 .stat{background:var(--card);border-radius:20px;padding:20px 16px;text-align:center;
   box-shadow:var(--shadow);border:1.5px solid #fff;position:relative;overflow:hidden;transition:transform .18s ease}
@@ -64,14 +61,12 @@ body{
 .stat.butter .v{color:#d9a83c} .stat.sky .v{color:#4a93cf}
 .stat .k{font-size:12px;color:var(--ink2);margin-top:5px}
 
-/* section head */
 .shead{margin:44px 0 4px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
 .shead h2{font-size:20px;font-weight:800;letter-spacing:.3px;padding-left:13px;border-left:4px solid var(--pink)}
 .shead .hint{margin-left:auto;font-size:12px;color:var(--ink3)}
 .divider{height:2px;background:linear-gradient(90deg,var(--pink-soft),var(--lav-soft),transparent);
   border-radius:2px;margin:10px 0 20px}
 
-/* cards */
 .grid{display:grid;gap:16px}
 .g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
 .card{background:var(--card);border-radius:18px;padding:20px 22px;box-shadow:var(--shadow);border:1.5px solid #fff}
@@ -82,25 +77,35 @@ body{
 .card li{position:relative;padding-left:18px;margin:6px 0;font-size:13.5px;color:var(--ink)}
 .card li::before{content:"";position:absolute;left:2px;top:9px;width:6px;height:6px;border-radius:50%;background:var(--pink-soft)}
 
-/* pill */
+/* 可展开卡片 */
+details.card{padding:0;overflow:hidden}
+details.card>summary{cursor:pointer;list-style:none;padding:17px 22px;display:flex;align-items:center;gap:10px;
+  font-weight:800;font-size:15.5px;user-select:none}
+details.card>summary::-webkit-details-marker{display:none}
+details.card>summary::after{content:"展开 ▾";margin-left:auto;font-size:12px;font-weight:700;color:var(--pink-deep);
+  font-family:var(--mono);transition:transform .15s}
+details.card[open]>summary::after{content:"收起 ▴"}
+details.card>summary .dot{width:9px;height:9px;border-radius:50%;background:var(--pink);flex:none}
+details.card .dbody{padding:0 18px 18px}
+details.card[open]>summary{border-bottom:1px solid var(--line)}
+
 .pill{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 11px;border-radius:999px;
   border:1.5px solid var(--pink-soft);background:#fff6f9;color:var(--pink-deep);white-space:nowrap}
 .pill.ok{color:#3aa886;border-color:var(--mint-soft);background:#f0fbf7}
 .pill.wip{color:#d9a83c;border-color:var(--butter-soft);background:#fffaf0}
 .pill.lav{color:#9a7ed6;border-color:var(--lav-soft);background:#f8f4ff}
 
-/* table */
-.tblwrap{background:var(--card);border-radius:18px;box-shadow:var(--shadow);border:1.5px solid #fff;overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:13.5px}
+.tblwrap{background:var(--card);border-radius:14px;box-shadow:var(--shadow);border:1.5px solid var(--line);overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
 thead th{text-align:left;font-size:11.5px;font-weight:800;color:var(--pink-deep);letter-spacing:.04em;
-  padding:12px 16px;background:linear-gradient(90deg,#fff6f9,#f8f4ff);border-bottom:1.5px solid var(--line);white-space:nowrap}
-tbody td{padding:11px 16px;border-bottom:1px solid var(--line);vertical-align:middle}
+  padding:10px 14px;background:linear-gradient(90deg,#fff6f9,#f8f4ff);border-bottom:1.5px solid var(--line);white-space:nowrap}
+tbody td{padding:9px 14px;border-bottom:1px solid var(--line);vertical-align:top}
 tbody tr:last-child td{border-bottom:none}
 tbody tr:hover{background:#fffafb}
 td.name{font-weight:700;color:var(--ink);white-space:nowrap}
-td.mono,td.size{font-family:var(--mono);font-size:12px;color:var(--ink2);white-space:nowrap}
+td.path{font-family:var(--mono);font-size:11.5px;color:var(--ink2);word-break:break-all;line-height:1.5}
+td.size{font-family:var(--mono);font-size:12px;color:var(--ink2);white-space:nowrap}
 
-/* tasks */
 .tasks{display:grid;gap:11px}
 .task{display:flex;gap:13px;align-items:flex-start;background:var(--card);border-radius:15px;
   padding:13px 18px;box-shadow:var(--shadow);border:1.5px solid #fff}
@@ -111,24 +116,31 @@ td.mono,td.size{font-family:var(--mono);font-size:12px;color:var(--ink2);white-s
 .task .d{font-size:12.5px;color:var(--ink2);margin-top:2px}
 .task .st{flex:none;margin-left:6px}
 
-/* banner */
 .banner{background:linear-gradient(135deg,#fff3f6,#f8f2ff);border:1.5px solid var(--pink-soft);
   border-radius:18px;padding:18px 22px;box-shadow:var(--shadow);margin-top:14px}
 .banner .row{position:relative;padding-left:18px;margin:10px 0;font-size:13.8px}
 .banner .row::before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;border-radius:50%;background:var(--pink)}
 .banner .row b{color:var(--pink-deep)}
 
-/* bar */
 .bar{height:12px;border-radius:999px;background:#f7e9ee;overflow:hidden;margin-top:8px}
 .bar>i{display:block;height:100%;border-radius:999px;
   background:linear-gradient(90deg,var(--pink),var(--lav));box-shadow:0 0 10px rgba(242,121,154,.4)}
 
-/* footer */
+.doclist{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:12px}
+.doclink{display:flex;align-items:center;gap:12px;background:var(--card);border:1.5px solid #fff;
+  border-radius:14px;padding:14px 16px;box-shadow:var(--shadow);transition:transform .16s ease;color:var(--ink)}
+.doclink:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.doclink .ico{flex:none;width:38px;height:38px;border-radius:10px;background:#fff0f4;color:var(--pink-deep);
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:var(--mono)}
+.doclink .tx b{display:block;font-size:13.5px;font-weight:800}
+.doclink .tx span{font-size:11.5px;color:var(--ink2)}
+
 .foot{text-align:center;margin-top:56px;color:var(--ink3);font-size:12.5px;line-height:2}
 .path{font-family:var(--mono);font-size:12px;background:#fff6f9;border:1px solid var(--pink-soft);
   border-radius:8px;padding:1px 8px;color:var(--pink-deep);word-break:break-all}
 a{color:var(--pink-deep);text-decoration:none;border-bottom:1.5px dotted var(--pink-soft)}
 a:hover{color:#d94a72}
+td a{font-weight:700}
 </style>
 </head>
 <body>
@@ -137,13 +149,12 @@ a:hover{color:#d94a72}
   <div class="hero">
     <h1>AE 复刻任务 · 进度总结</h1>
     <p class="sub">免费插件清单 · 收费件 clean-room 复刻 · 原生 aex 开发 · 情报与价值清单</p>
-    <span class="date">2026-11-14 · 数据以磁盘实测为准</span>
+    <span class="date">2026-11-14 · 数据以磁盘实测为准 · 卡片可点击展开</span>
   </div>
 
   <div class="note">
     <b>一句话总览：</b>复刻件 <b>31 件</b>全部落地（24 在库 + 7 已归档），原创 aex <b>3 件</b>编译完成待装测，
-    情报 <b>24 份</b>、文档 <b>4 份</b>、外部免费精选 <b>25 项</b> 全部成稿。复刻／情报／文档三大主线已收口，
-    只剩「原生件实机装测」和「额度／停摆恢复」两件事待定。
+    情报 <b>24 份</b>、文档 <b>4 份</b>、外部免费精选 <b>25 项</b> 全部成稿。下方带 <b>「展开 ▾」</b> 的卡片可点开看符合条件的插件明细（含官方页、本机完整路径、检索来源）。
   </div>
 
   <div class="stats">
@@ -155,52 +166,88 @@ a:hover{color:#d94a72}
   </div>
 
   <!-- 一 -->
-  <div class="shead"><h2>一、复刻件：31 件全部落地</h2><span class="hint">clean-room jsx · 零原码复制</span></div>
+  <div class="shead"><h2>一、复刻件：31 件全部落地</h2><span class="hint">点卡片展开明细 · clean-room jsx</span></div>
   <div class="divider"></div>
-  <div class="grid g2">
-    <div class="card">
-      <h3><span class="dot"></span>在库 24 件 <span class="pill ok">可用</span></h3>
-      <p>落在 <span class="path">C:\Users\19894\ae-mission\clones\</span>，每件含 <code>main.jsx</code> + <code>README.md</code>。</p>
-      <ul>
-        <li>角色／绑定向：rubberhose · limber2 · joysticks · parrot · squirrel</li>
-        <li>关键帧／时间向：again · keytweak · keymaster · retend · keyframe-parent</li>
-        <li>合成／改稿向：true-comp-dup · overlord · sliceitup · trim-comp · project-item-labels</li>
-        <li>动效／缓动向：easeandwizz · easestash · easify4 · wobblebox · rollit · addsauce</li>
-        <li>其他：scribe · move-anchor-point · native-presets</li>
-      </ul>
+
+  <details class="card" open>
+    <summary><span class="dot"></span>在库 24 件 <span class="pill ok">可用</span></summary>
+    <div class="dbody">
+      <p style="margin:8px 0 12px">落在 <span class="path">C:\Users\19894\ae-mission\clones\</span>，每件含 <code>main.jsx</code> + <code>README.md</code>。</p>
+      <div class="tblwrap">
+        <table>
+          <thead><tr><th>复刻件</th><th>原版官方页</th><th>本机完整路径</th><th>检索来源</th></tr></thead>
+          <tbody>
+            <tr><td class="name">RubberHose</td><td><a href="https://battleaxe.co/rubberhose" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones\rubberhose-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">Limber 2</td><td><a href="https://aescripts.com/limber/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones\limber2-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">Joysticks n Sliders</td><td><a href="https://aescripts.com/joysticks-n-sliders/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones\joysticks-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">Overlord</td><td><a href="https://battleaxe.co/overlord" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones\overlord-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">Parrot</td><td><a href="https://aescripts.com/parrot/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones\parrot-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">Squirrel</td><td><a href="https://aescripts.com/squirrel/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones\squirrel-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">True Comp Duplicator</td><td><a href="https://aescripts.com/true-comp-duplicator/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones\true-comp-dup-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">Slice It Up</td><td><a href="https://aescripts.com/slice-it-up/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones\sliceitup-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">Trim Comp to Contents</td><td><a href="https://aescripts.com/trim-comp-to-contents/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones\trim-comp-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">Project Item Labels</td><td><a href="https://aescripts.com/project-item-labels/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones\project-item-labels-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">Retend</td><td><a href="https://aescripts.com/retend/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones\retend-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">Again</td><td><a href="https://aescripts.com/again/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones\again-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">KeyTweak</td><td><a href="https://aescripts.com/keytweak/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones\keytweak-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">KeyMaster</td><td><a href="https://aescripts.com/keymaster/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones\keymaster-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">Keyframe Parent</td><td><a href="https://aescripts.com/keyframe-parent/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones\keyframe-parent-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">Ease and Wizz</td><td><a href="https://aescripts.com/ease-and-wizz/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones\easeandwizz-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">Ease Stash</td><td><a href="https://aescripts.com/ease-stash/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones\easestash-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">Easify 4</td><td><a href="https://aescripts.com/easify/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones\easify4-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">Wobblebox</td><td><a href="https://aescripts.com/wobblebox/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones\wobblebox-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">Roll It</td><td><a href="https://aescripts.com/roll-it/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones\rollit-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">Add Sauce</td><td><a href="https://aescripts.com/add-sauce/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones\addsauce-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">Scribe</td><td><a href="https://aescripts.com/scribe/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones\scribe-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">Move Anchor Point</td><td><a href="https://aescripts.com/move-anchor-point/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones\move-anchor-point-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">Native Presets（B 类近似）</td><td><a href="https://aescripts.com/deep-glow/" target="_blank" rel="noopener">Deep Glow 2 ↗</a> · <a href="https://aescripts.com/longshadow/" target="_blank" rel="noopener">LongShadow 2 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones\native-presets-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div class="card">
-      <h3><span class="dot" style="background:var(--lav)"></span>已归档 7 件 <span class="pill lav">可恢复</span></h3>
-      <p>与你本机已装正版重复，哈希存证后移入 <span class="path">clones-archive\</span>，不销毁、随时可恢复。</p>
-      <ul>
-        <li>flow · gifgun · motion2 · easecopy · easybake · autosway · rowscols</li>
-      </ul>
-      <p style="margin-top:10px;font-size:12.5px">存证文件：<span class="path">clones-archive\archive-manifest.json</span>（每件带 SHA256 + 归档原因 + 恢复方式）</p>
+  </details>
+
+  <details class="card" style="margin-top:16px">
+    <summary><span class="dot" style="background:var(--lav)"></span>已归档 7 件 <span class="pill lav">可恢复</span></summary>
+    <div class="dbody">
+      <p style="margin:8px 0 12px">与你本机已装正版重复，哈希存证后移入 <span class="path">C:\Users\19894\ae-mission\clones-archive\</span>，不销毁、随时可恢复。存证文件：<span class="path">clones-archive\archive-manifest.json</span>。</p>
+      <div class="tblwrap">
+        <table>
+          <thead><tr><th>复刻件</th><th>原版官方页</th><th>本机完整路径</th><th>检索来源</th></tr></thead>
+          <tbody>
+            <tr><td class="name">Flow</td><td><a href="https://aescripts.com/flow/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones-archive\flow-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">EaseCopy</td><td><a href="https://aescripts.com/easecopy/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones-archive\easecopy-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">GifGun</td><td><a href="https://aescripts.com/gifgun/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones-archive\gifgun-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">Motion 2</td><td><a href="https://mtmograph.com/products/motion" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones-archive\motion2-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">Easy Bake</td><td><a href="https://aescripts.com/easy-bake/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones-archive\easybake-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">AutoSway</td><td><a href="https://aescripts.com/autosway/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones-archive\autosway-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+            <tr><td class="name">Rows and Columns</td><td><a href="https://aescripts.com/rows-and-columns/" target="_blank" rel="noopener">官方页 ↗</a></td><td class="path">C:\Users\19894\ae-mission\clones-archive\rowscols-clone\</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">paid-list</a></td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
+  </details>
 
   <!-- 二 -->
   <div class="shead"><h2>二、原创 aex：3 件编译完成</h2><span class="hint">E:\AEDev 管线 · 待实机装测</span></div>
   <div class="divider"></div>
   <div class="tblwrap">
     <table>
-      <thead><tr><th>效果件</th><th>做什么</th><th>产物大小</th><th>状态</th></tr></thead>
+      <thead><tr><th>效果件</th><th>做什么</th><th>产物大小</th><th>本机完整路径</th><th>状态</th></tr></thead>
       <tbody>
-        <tr><td class="name">DCDuotone</td><td>双色调映射</td><td class="size">25,088 B</td><td><span class="pill wip">待装测</span></td></tr>
-        <tr><td class="name">DCLineBoil</td><td>线条沸腾抖动（一拍二／逐帧）</td><td class="size">28,160 B</td><td><span class="pill wip">待装测</span></td></tr>
-        <tr><td class="name">DCInkBleed</td><td>墨迹渗透 · 线稿湿边</td><td class="size">30,720 B</td><td><span class="pill wip">待装测</span></td></tr>
+        <tr><td class="name">DCDuotone</td><td>双色调映射</td><td class="size">25,088 B</td><td class="path">E:\AEDev\BuildOut\DCDuotone.aex</td><td><span class="pill wip">待装测</span></td></tr>
+        <tr><td class="name">DCLineBoil</td><td>线条沸腾抖动（一拍二／逐帧）</td><td class="size">28,160 B</td><td class="path">E:\AEDev\BuildOut\DCLineBoil.aex</td><td><span class="pill wip">待装测</span></td></tr>
+        <tr><td class="name">DCInkBleed</td><td>墨迹渗透 · 线稿湿边</td><td class="size">30,720 B</td><td class="path">E:\AEDev\BuildOut\DCInkBleed.aex</td><td><span class="pill wip">待装测</span></td></tr>
       </tbody>
     </table>
   </div>
   <div class="card" style="margin-top:14px">
     <h3><span class="dot" style="background:var(--mint)"></span>三件都走同一条已验证管线</h3>
-    <p>建项目 → 编译 Release x64 → 产物落 <span class="path">E:\AEDev\BuildOut\</span>。编译 error 0（4 条 C4819 为 SDK 936 代码页常态警告）。
-    每件都带 README：参数说明、算法、同域差异声明、部署一句 copy + 重启 AE、以及「装好后该看到什么」对照现象。</p>
-    <p style="margin-top:8px">部署这一步需要管理员权限 + 重启 AE，<b>由你执行</b>，我们只交产物和说明。</p>
+    <p>建项目 → 编译 Release x64 → 产物落 <span class="path">E:\AEDev\BuildOut\</span>。编译 error 0（4 条 C4819 为 SDK 936 代码页常态警告）。每件 README：<span class="path">E:\AEDev\Projects\&lt;名&gt;\README.md</span>。部署需管理员权限 + 重启 AE，由你执行。</p>
   </div>
 
   <!-- 三 -->
-  <div class="shead"><h2>三、情报与清单：24 份成稿</h2><span class="hint">检索 + 过筛 + 诚实标注</span></div>
+  <div class="shead"><h2>三、情报与清单 + 配套文档</h2><span class="hint">文档可点击打开</span></div>
   <div class="divider"></div>
   <div class="grid g2">
     <div class="card">
@@ -209,7 +256,7 @@ a:hover{color:#d94a72}
         <li>免费插件榜：全球榜／中文圈／B站／动画特效／工具MG 五路</li>
         <li>收费件评估：paid-list（32KB）+ 复刻可行性</li>
         <li>价值清单：value-picks（31KB）按 PV／手书／剪辑／效率四工作流分档</li>
-        <li>黑五心愿单：11/16 大促约 25% off，条款已核（Flashback Japan 公告）</li>
+        <li>黑五心愿单：11/16 大促约 25% off，条款已核</li>
       </ul>
     </div>
     <div class="card">
@@ -217,10 +264,20 @@ a:hover{color:#d94a72}
       <ul>
         <li>三层盘点：<span class="path">local-env-layers.md</span>（.aex 790／CEP 4／脚本三层）</li>
         <li>检索三路实测：B站可用最有用 · YouTube 通道故障 · X 需登录态</li>
-        <li>外部 25 项逐条过筛：已装剔除 5 项、可推 15 项、外部程序不可核 5 项</li>
-        <li>拿不准一律标「未核实」，不猜（按你的筛选规则死锁）</li>
+        <li>外部 25 项逐条过筛：已装剔除 5、可推 15、外部程序不可核 5</li>
+        <li>拿不准一律标「未核实」，不猜</li>
       </ul>
     </div>
+  </div>
+
+  <h3 style="margin:20px 0 4px;font-size:15px;color:var(--pink-deep)">配套文档（点击打开）</h3>
+  <div class="doclist">
+    <a class="doclink" href="docs/usage-guide.html" target="_blank" rel="noopener"><span class="ico">MD</span><span class="tx"><b>使用指南</b><span>usage-guide · 全量中文指南</span></span></a>
+    <a class="doclink" href="docs/free-plugin-guide.html" target="_blank" rel="noopener"><span class="ico">MD</span><span class="tx"><b>免费插件指南</b><span>free-plugin-guide</span></span></a>
+    <a class="doclink" href="docs/api-cheatsheet.html" target="_blank" rel="noopener"><span class="ico">MD</span><span class="tx"><b>API 速查</b><span>api-cheatsheet · 官方白名单</span></span></a>
+    <a class="doclink" href="docs/smoke-test.html" target="_blank" rel="noopener"><span class="ico">MD</span><span class="tx"><b>实机冒烟清单</b><span>smoke-test</span></span></a>
+    <a class="doclink" href="docs/paid-list.html" target="_blank" rel="noopener"><span class="ico">MD</span><span class="tx"><b>收费件清单</b><span>paid-list · 检索来源依据</span></span></a>
+    <a class="doclink" href="docs/value-picks.html" target="_blank" rel="noopener"><span class="ico">MD</span><span class="tx"><b>价值清单</b><span>value-picks · 四工作流分档</span></span></a>
   </div>
 
   <!-- 四 -->
@@ -243,7 +300,7 @@ a:hover{color:#d94a72}
     <div class="row"><b>Chief 在线</b>：观察员通道正常，已按「指挥挂则 Chief 代理执行」预案接管调度。</div>
     <div class="row"><b>指挥／原生工停摆</b>：模型调用 AUTH 失败——是 ApiKey 401（凭证失效），<b>不是 402 真死</b>，属可恢复。恢复需在桌面端换一批有效模型 key。</div>
     <div class="row"><b>已接管续活</b>：原生工停摆前写好的 DCInkBleed 算法，已由 Chief 直接驱动管线编译验收完成（30,720 B／error 0／README 已补）。</div>
-    <div class="row"><b>仍冻结</b>：CEP-Flow 面板 · 线上 HTML 报告推送（守发布红线）· Chief 总结（等额度口径）。</div>
+    <div class="row"><b>仍冻结</b>：CEP-Flow 面板 · 线上 HTML 报告推送 · Chief 总结（等额度口径）。</div>
   </div>
 
   <!-- 六 -->
@@ -252,7 +309,7 @@ a:hover{color:#d94a72}
   <div class="grid g2">
     <div class="card">
       <h3><span class="dot"></span>甲 · 恢复模型 key</h3>
-      <p>你在桌面端换一批有效模型 key → 指挥／原生工／子 agent 立刻复活，按原队列继续（CEP 面板、黑五心愿单、报告推送）。</p>
+      <p>你在桌面端换一批有效模型 key → 指挥／原生工／子 agent 立刻复活，按原队列继续。</p>
       <div class="bar"><i style="width:45%"></i></div>
     </div>
     <div class="card">
@@ -262,63 +319,9 @@ a:hover{color:#d94a72}
     </div>
   </div>
 
-  <!-- 附 -->
-  <div class="shead"><h2>附、原版网址与复刻件位置</h2><span class="hint">source &amp; path</span></div>
-  <div class="divider"></div>
-  <p style="margin-bottom:6px;color:var(--ink2);font-size:13.5px">根目录：<span class="path">C:\Users\19894\ae-mission\</span>。每件给出原版（收费件）官方页与本机复刻件所在文件夹。clean-room 复刻件仅供学习研究，商标与著作权归各原作者所有。</p>
-
-  <h3 style="margin:18px 0 8px;font-size:15px">在库 24 件（clones\）</h3>
-  <div class="tblwrap">
-    <table>
-      <thead><tr><th>复刻件</th><th>原版官方网址</th><th>本机位置</th></tr></thead>
-      <tbody>
-        <tr><td class="name">RubberHose</td><td><a href="https://battleaxe.co/rubberhose" target="_blank">battleaxe.co/rubberhose</a></td><td class="mono">clones\rubberhose-clone\</td></tr>
-        <tr><td class="name">Limber 2</td><td><a href="https://aescripts.com/limber/" target="_blank">aescripts.com/limber</a></td><td class="mono">clones\limber2-clone\</td></tr>
-        <tr><td class="name">Joysticks n Sliders</td><td><a href="https://aescripts.com/joysticks-n-sliders/" target="_blank">aescripts.com/joysticks-n-sliders</a></td><td class="mono">clones\joysticks-clone\</td></tr>
-        <tr><td class="name">Overlord</td><td><a href="https://battleaxe.co/overlord" target="_blank">battleaxe.co/overlord</a></td><td class="mono">clones\overlord-clone\</td></tr>
-        <tr><td class="name">Parrot</td><td><a href="https://aescripts.com/parrot/" target="_blank">aescripts.com/parrot</a></td><td class="mono">clones\parrot-clone\</td></tr>
-        <tr><td class="name">Squirrel</td><td><a href="https://aescripts.com/squirrel/" target="_blank">aescripts.com/squirrel</a></td><td class="mono">clones\squirrel-clone\</td></tr>
-        <tr><td class="name">True Comp Duplicator</td><td><a href="https://aescripts.com/true-comp-duplicator/" target="_blank">aescripts.com/true-comp-duplicator</a></td><td class="mono">clones\true-comp-dup-clone\</td></tr>
-        <tr><td class="name">Slice It Up</td><td><a href="https://aescripts.com/slice-it-up/" target="_blank">aescripts.com/slice-it-up</a></td><td class="mono">clones\sliceitup-clone\</td></tr>
-        <tr><td class="name">Trim Comp to Contents</td><td><a href="https://aescripts.com/trim-comp-to-contents/" target="_blank">aescripts.com/trim-comp-to-contents</a></td><td class="mono">clones\trim-comp-clone\</td></tr>
-        <tr><td class="name">Project Item Labels</td><td><a href="https://aescripts.com/project-item-labels/" target="_blank">aescripts.com/project-item-labels</a></td><td class="mono">clones\project-item-labels-clone\</td></tr>
-        <tr><td class="name">Retend</td><td><a href="https://aescripts.com/retend/" target="_blank">aescripts.com/retend</a></td><td class="mono">clones\retend-clone\</td></tr>
-        <tr><td class="name">Again</td><td><a href="https://aescripts.com/again/" target="_blank">aescripts.com/again</a></td><td class="mono">clones\again-clone\</td></tr>
-        <tr><td class="name">KeyTweak</td><td><a href="https://aescripts.com/keytweak/" target="_blank">aescripts.com/keytweak</a></td><td class="mono">clones\keytweak-clone\</td></tr>
-        <tr><td class="name">KeyMaster</td><td><a href="https://aescripts.com/keymaster/" target="_blank">aescripts.com/keymaster</a></td><td class="mono">clones\keymaster-clone\</td></tr>
-        <tr><td class="name">Keyframe Parent</td><td><a href="https://aescripts.com/keyframe-parent/" target="_blank">aescripts.com/keyframe-parent</a></td><td class="mono">clones\keyframe-parent-clone\</td></tr>
-        <tr><td class="name">Ease and Wizz</td><td><a href="https://aescripts.com/ease-and-wizz/" target="_blank">aescripts.com/ease-and-wizz</a></td><td class="mono">clones\easeandwizz-clone\</td></tr>
-        <tr><td class="name">Ease Stash</td><td><a href="https://aescripts.com/ease-stash/" target="_blank">aescripts.com/ease-stash</a></td><td class="mono">clones\easestash-clone\</td></tr>
-        <tr><td class="name">Easify 4</td><td><a href="https://aescripts.com/easify/" target="_blank">aescripts.com/easify</a></td><td class="mono">clones\easify4-clone\</td></tr>
-        <tr><td class="name">Wobblebox</td><td><a href="https://aescripts.com/wobblebox/" target="_blank">aescripts.com/wobblebox</a></td><td class="mono">clones\wobblebox-clone\</td></tr>
-        <tr><td class="name">Roll It</td><td><a href="https://aescripts.com/roll-it/" target="_blank">aescripts.com/roll-it</a></td><td class="mono">clones\rollit-clone\</td></tr>
-        <tr><td class="name">Add Sauce</td><td><a href="https://aescripts.com/add-sauce/" target="_blank">aescripts.com/add-sauce</a></td><td class="mono">clones\addsauce-clone\</td></tr>
-        <tr><td class="name">Scribe</td><td><a href="https://aescripts.com/scribe/" target="_blank">aescripts.com/scribe</a></td><td class="mono">clones\scribe-clone\</td></tr>
-        <tr><td class="name">Move Anchor Point</td><td><a href="https://aescripts.com/move-anchor-point/" target="_blank">aescripts.com/move-anchor-point</a></td><td class="mono">clones\move-anchor-point-clone\</td></tr>
-        <tr><td class="name">Native Presets（B 类近似）</td><td><a href="https://aescripts.com/deep-glow/" target="_blank">Deep Glow 2</a> · <a href="https://aescripts.com/longshadow/" target="_blank">LongShadow 2</a> · LineBoil（免费做法）</td><td class="mono">clones\native-presets-clone\</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <h3 style="margin:22px 0 8px;font-size:15px">已归档 7 件（clones-archive\，可恢复）</h3>
-  <div class="tblwrap">
-    <table>
-      <thead><tr><th>复刻件</th><th>原版官方网址</th><th>本机位置</th></tr></thead>
-      <tbody>
-        <tr><td class="name">Flow</td><td><a href="https://aescripts.com/flow/" target="_blank">aescripts.com/flow</a></td><td class="mono">clones-archive\flow-clone\</td></tr>
-        <tr><td class="name">EaseCopy</td><td><a href="https://aescripts.com/easecopy/" target="_blank">aescripts.com/easecopy</a></td><td class="mono">clones-archive\easecopy-clone\</td></tr>
-        <tr><td class="name">GifGun</td><td><a href="https://aescripts.com/gifgun/" target="_blank">aescripts.com/gifgun</a></td><td class="mono">clones-archive\gifgun-clone\</td></tr>
-        <tr><td class="name">Motion 2</td><td><a href="https://mtmograph.com/products/motion" target="_blank">mtmograph.com/products/motion</a></td><td class="mono">clones-archive\motion2-clone\</td></tr>
-        <tr><td class="name">Easy Bake</td><td><a href="https://aescripts.com/easy-bake/" target="_blank">aescripts.com/easy-bake</a></td><td class="mono">clones-archive\easybake-clone\</td></tr>
-        <tr><td class="name">AutoSway</td><td><a href="https://aescripts.com/autosway/" target="_blank">aescripts.com/autosway</a></td><td class="mono">clones-archive\autosway-clone\</td></tr>
-        <tr><td class="name">Rows and Columns</td><td><a href="https://aescripts.com/rows-and-columns/" target="_blank">aescripts.com/rows-and-columns</a></td><td class="mono">clones-archive\rowscols-clone\</td></tr>
-      </tbody>
-    </table>
-  </div>
-
   <div class="foot">
     数据来源：clones/ 磁盘实测 · intel/ 24 份 · docs/ 4 份 · E:\AEDev\BuildOut/ 3 件 aex<br>
-    本地页面：<span class="path">C:\Users\19894\ae-mission\web\summary.html</span> ｜ 已发布站：<a href="https://lylnpc.github.io/dsh-intel/ae-report/" target="_blank">lylnpc.github.io/dsh-intel/ae-report</a><br>
+    本地页面：<span class="path">C:\Users\19894\ae-mission\web\summary.html</span> ｜ 已发布站：<a href="https://lylnpc.github.io/dsh-intel/ae-report/" target="_blank" rel="noopener">lylnpc.github.io/dsh-intel/ae-report</a><br>
     按既定红线：index.html 不覆盖 · 没发话不发布上线 · 原生件部署由你执行
   </div>
 
