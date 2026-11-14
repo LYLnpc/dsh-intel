@@ -1,0 +1,39 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>token-saving</title><style>
+body{background:#fffaf7;color:#2b2723;font-family:'PingFang SC','Microsoft YaHei',system-ui,sans-serif;max-width:900px;margin:0 auto;padding:30px 22px 80px;line-height:1.85;font-size:14.5px}
+h1.doc{font-size:20px;margin:0 0 18px;padding-bottom:12px;border-bottom:2px solid #ffd9e3;color:#f2799a}
+h1,h2,h3,h4{color:#5b4a54;line-height:1.4;margin:20px 0 8px}h1{font-size:20px}h2{font-size:17px;border-left:4px solid #ff9eb5;padding-left:10px}h3{font-size:15px}
+p{margin:9px 0}ul,ol{margin:9px 0 9px 22px}li{margin:4px 0}
+code{background:#fff0f4;color:#d94a72;padding:1px 6px;border-radius:6px;font-family:ui-monospace,Consolas,monospace;font-size:12.5px}
+pre.code{background:#fff;border:1.5px solid #f3e3e8;border-radius:12px;padding:16px;overflow-x:auto}
+pre.code code{background:none;color:#5b4a54;padding:0}
+blockquote{margin:12px 0;padding:8px 16px;border-left:3px solid #b89ee8;background:#f8f4ff;border-radius:0 8px 8px 0}
+hr{border:none;border-top:1.5px dashed #ffd9e3;margin:20px 0}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid #f3e3e8;border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{background:#fff6f9;color:#f2799a;text-align:left;padding:8px 12px;border-bottom:1.5px solid #f3e3e8;white-space:nowrap}
+td{padding:8px 12px;border-bottom:1px solid #f8eef1;vertical-align:top}
+a{color:#f2799a;text-decoration:none;border-bottom:1.5px dotted #ffd9e3}
+</style></head><body><h1 class="doc">token-saving</h1><h1>怎么把额度花在真活上（不浪费 token 的消耗法）</h1>
+<p>generated_at: 2026-11-14T14:00:00+08:00 author: 调研员 用途：任务书第⑧条。给「额度快过期、想尽量烧在有产出的事上」的人看——不是省额度，是<strong>别把额度烧在假活上</strong>。 判据一句话：<strong>这份支出能不能落盘成别人（或未来的自己）能直接用的东西？能 = 真活；不能 = 空转。</strong></p>
+<hr>
+<h2>一、本轮实战验证过的三条（新证据，排最前）</h2>
+<h3>1. spec 驱动复刻：先写 6–12KB 功能说明，再让执行者照写</h3>
+<p>本轮 Scribe 就是活证据：码农先按商品摘要起手，做成「文字层转形状」；<code>intel/specs/scribe.md</code> 到位后，spec 直接指出版权红线（原版 6 套字型不能复刻、改用公有领域 Hershey）与正确架构，码农当场<strong>删掉重做</strong>。一份 5.8KB 的 spec 省掉一整版（≈18KB 代码）返工。</p>
+<ul><li>成本：一件 spec ≈ 一次调研 + 6–12KB 落盘</li><li>收益：执行阶段返工率显著下降；返工是最贵的 token 支出（写 + 验 + 改 三轮）</li><li>做法：spec 必含「用户可见行为 / 参数表 / 复刻要点（含 API）/ <strong>明确不做</strong> / 验收点」五段。缺「明确不做」的 spec 等于没写——范围不收口，执行者必然发散。</li></ul>
+<h3>2. 精确路径核验：每句「已落地」都要有命令输出兜底</h3>
+<p>本轮实账：我用 glob 扫 <code>clones/</code> 报「trim-comp MISS」，换 <code>Get-ChildItem</code> 全量列目录才看清真实名字是 <code>trim-comp-clone</code>——<strong>错在匹配词，不在产物</strong>。同类事故还有一次更贵的：码农误判子 agent 未交件，重写了一份 19.7KB 的 <code>limber2-clone/main.jsx</code> 覆盖原件，靠 <code>out/limber-clone/</code> 的备份才救回。</p>
+<ul><li>规则：验收/进度统计只认「命令 + 输出」；不用印象、不用上次的列表。</li><li>具体三件套：<code>Get-ChildItem &lt;dir&gt; -Directory</code> 列全量 → 逐目录 <code>-File -Recurse</code> 计数 → 与清单对账（数量差必须为 0 才能报「齐了」）。</li><li>覆盖同伴文件前先 <code>Test-Path</code> + 读一遍；改内容用追加，换版本用 <code>-full</code> / <code>-v2</code> 新文件名。本轮为此废掉三份详细 spec 又靠备份救回，纯属可避免的支出。</li></ul>
+<h3>3. 批次限流 + 402 即切：把额度当配额，不当水管</h3>
+<p>本轮子 agent 池的实测节奏：</p>
+<ul><li>一次放 <strong>3 个</strong>子 agent（对应三个可并行件），不是放 9 个——9 个同时跑会互相等文件锁、且失败面不好定位</li><li>三个模型轮着用（<code>deepseek-v4.1-flash</code> / <code>deepseek-v4.1-flash-1017</code> / <code>glm-5.3-flash</code>），某模型返回 402 <strong>立刻切下一个，不重试同一模型</strong></li><li>三全 402 才算真死，才收工；单模型 402 只记录不喧哗</li><li>好处：额度用尽前的最后一刻仍在出活，而不是卡在一个死掉的 provider 上反复超时</li></ul>
+<hr>
+<h2>二、值得主动多烧的「真活」清单</h2>
+<p>按「每千 token 的落地价值」排序：</p>
+<div class="tw"><table><thead><tr><th>活儿</th><th>单次产出量级</th><th>为什么值</th></tr></thead><tbody><tr><td>交叉评审一轮（两人互审对方产物）</td><td>15–25KB</td><td>本轮实际抓出：<code>deleteKey</code> 不存在、枚举大小写 <code>ONE_D</code> 错拼、<code>getHavingSaved</code> 被当值用、撤销组双 end。这类错 <code>node --check</code> 查不出、运行才炸</td></tr><tr><td>新件复刻（每件 main.jsx + README）</td><td>60–110KB</td><td>唯一能直接进交付物的支出</td></tr><tr><td>深度检索补情报（价格/替代/教程/踩坑）</td><td>10–20KB</td><td>直接进网页「价值清单/替代方案」两节，可反复引用</td></tr><tr><td>把长报告压成结构化表（MD 表 / JSON）</td><td>5–15KB</td><td>一次压缩，后续所有汇总都便宜；网页、记忆、总结三处复用</td></tr><tr><td>写 spec（功能行为说明）</td><td>6–12KB</td><td>见 §1.1，摊薄返工</td></tr><tr><td>回归/冒烟脚本（如 AE 实机冒烟清单）</td><td>5–10KB</td><td>一次写好，每批产物复用；比人眼抽查可靠</td></tr><tr><td>第二版增强（给已有件加参数/修边界）</td><td>20–40KB</td><td>边际价值高（用户真正会用的常是第二版）</td></tr><tr><td>离线自检（网页/产物可打开、路径可达、计数勾稽）</td><td>5–10KB</td><td>交付前的最后一道闸，成本极低</td></tr></tbody></table></div>
+<h2>三、看着像活、其实是空转的（别烧）</h2>
+<ol><li><strong>同一条信息重复检索</strong>——先 <code>cache_search</code> 查本地缓存（保留 7 天），命中就别再打一次 API。</li><li><strong>把已落盘的内容再抄一遍</strong>（比如把 intel/ 里已有的表挪进另一个文件）——用链接指过去就行。</li><li><strong>空转催办</strong>（「进度如何了」）——改成要一份可验收的产物或状态清单。</li><li><strong>无验收标准的「再优化一版」</strong>——没有「不过就打回」的条目，优化没有终点，这是最容易吃掉大额度的黑洞。</li><li><strong>一次放太多并行 agent</strong>——互相等依赖、重复读同批文件，实际吞吐反而下降。</li><li><strong>在死掉的 provider 上重试</strong>——402/超时就是答案，切走。</li><li><strong>为了「让输出更长」而扩写</strong>——长不等于有用；判断标准是有没有新增可验收的信息。</li></ol>
+<h2>四、额度快过期时的收尾顺序（照着走，不留半成品）</h2>
+<ol><li>手头在写的件<strong>写完</strong>（半成品等于零）</li><li>打最终包 / 落最终报告（可发布状态）</li><li>出总结（做了什么、没做什么、缺口在哪）</li><li>停；不做新的探索性尝试</li></ol>
+<p>本轮的落点正是这个顺序：9/9 复刻完成 → zip 打包 351,548B → 等用户发话再发布。</p>
+<h2>五、一句话总结</h2>
+<p><strong>额度不是用来「跑满」的，是用来「换产物」的。</strong> 每一笔支出问一句：这一轮结束后，磁盘上多了什么别人能直接用的东西？答不上来就停。</p></body></html>
