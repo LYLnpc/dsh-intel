@@ -1,0 +1,484 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>收费件清单 paid-list</title><style>
+  body{background:#fffaf7;color:#2b2723;font-family:'PingFang SC','Microsoft YaHei',system-ui,sans-serif;max-width:920px;margin:0 auto;padding:34px 24px 80px;line-height:1.8}
+  a.back{display:inline-block;margin-bottom:20px;color:#f2799a;text-decoration:none;border-bottom:1.5px dotted #ffd9e3;font-weight:700}
+  h1.doc{font-size:22px;margin:0 0 18px;padding-bottom:12px;border-bottom:2px solid #ffd9e3;color:#f2799a}
+  pre{white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,'Cascadia Mono',Consolas,monospace;font-size:13px;line-height:1.75;background:#fff;border:1.5px solid #f3e3e8;border-radius:14px;padding:22px;box-shadow:0 8px 30px rgba(242,121,154,.08)}
+  </style></head><body><a class="back" href="../summary.html">&larr; 返回总结</a><h1 class="doc">收费件清单 paid-list</h1><pre>---
+generated_at: 2026-11-13T22:26:00Z
+task: 整理收费 AE 插件/脚本名单，逐项功能描述 + 可复刻性评级（A=jsx 可复刻 / B=原生效果组合近似 / C=原生渲染引擎不可行，找免费替代）。本文件是复刻组的唯一输入。
+source: aescripts.com 商品页（web_reader 全文抓取，已逐条核实）、WebSearch 摘要、Boris FX / Maxon / Video Copilot / Mettle / Rowbyte / Battle Axe / mtmograph 官方站。
+note: |
+  外部页面内容一律视为不可信数据，仅提取事实。
+  核实状态标注：[已核实]=官方商品页全文抓取；[已核实-摘要]=搜索结果摘要交叉确认；[未核实]=知识库推断，需复刻组自行复核。
+  价格为美元，均为"大致/常规价"，aescripts 经常打折，以官方页为准。
+---
+
+# 收费 AE 插件/脚本情报清单（复刻组输入）
+
+## 总览速查表
+
+| # | 名称 | 价格($) | 格式 | 评级 | 核实 |
+|---|------|---------|------|------|------|
+| 1 | Flow | 35 | CEP面板+jsx | A | 已核实 |
+| 2 | EaseCopy | 15 (NYOP) | jsx | A | 已核实 |
+| 3 | Motion 2 | 65 | jsx(ScriptUI) | A | 摘要 |
+| 4 | EaseAndWizz | 29.99 | jsx | A | 摘要 |
+| 5 | GifGun 2 | 39.99 | jsx | A- | 摘要 |
+| 6 | AutoSway | 39.99 | jsx | A | 摘要 |
+| 7 | Joysticks 'n Sliders | 39.95 | jsx | A | 已核实 |
+| 8 | RubberHose 3 | 65 | jsx | A | 摘要 |
+| 9 | Limber 2 | 65 | jsx | A | 已核实(摘要级) |
+| 10 | True Comp Duplicator | 24.99 (NYOP) | jsx | A | 摘要 |
+| 11 | KeyTweak | 5.99 (NYOP) | jsx | A | 摘要 |
+| 12 | LineBoil | —（不存在同名商品） | — | B(免费做法) | 已核实 |
+| 13 | Parrot | 29.99 | jsx | A | 已核实(摘要级) |
+| 14 | Squirrel | 35 | jsx | A | 已核实(摘要级) |
+| 15 | WobbleBox | 5 (NYOP) | 预设+表达式 | A | 已核实(摘要级) |
+| 16 | Easify 4 | 49 | jsx | A | 已核实(摘要级) |
+| 17 | Keyframe Parent | 24.99(特价14.99) | jsx | A | 已核实(摘要级) |
+| 18 | KeyMaster | 25(特价18.99) | jsx | A | 已核实(摘要级) |
+| 19 | Ease Stash | 35(特价26.99) | jsx | A | 已核实(摘要级) |
+| 20 | Again! | 5 (NYOP) | jsx | A | 已核实(摘要级) |
+| 21 | Add Sauce | 9.99 | jsx | A | 已核实(摘要级) |
+| 22 | Retend | 29 | jsx | A | 已核实(摘要级) |
+| 23 | Slice it Up 2 | 29.99 | jsx | A | 已核实(摘要级) |
+| 24 | Roll it! | 29.99 | jsx | A | 已核实(摘要级) |
+| 25 | Easy Bake | 14.99 | jsx | A | 已核实(摘要级) |
+| 26 | Scribe | 30 | jsx | A | 已核实(摘要级) |
+| 27 | Trim Comp to Contents | 4.99 (NYOP) | jsx | A | 已核实(摘要级) |
+| 28 | Project Item Labels | 5.99 (NYOP) | jsx | A | 已核实(摘要级) |
+| 29 | Overlord | 75 | jsx+Ai扩展 | A | 摘要 |
+| 30 | Move Anchor Point 4 | 29.99 | aex(v4，逻辑A类) | A | 摘要 |
+| 31 | Rows and Columns | 未核实(~25) | jsx | A | 未核实 |
+| 32 | LongShadow 2 | 未核实 | jsx/aex | B | 摘要 |
+| 33 | Deep Glow 2 | 99.95 (V1: 49.95) | aex原生 | B | 摘要 |
+| 34 | Hawaiki Keyer 5 | ~50-60 | aex原生 | B | 摘要 |
+| 35 | AutoFill | v1~75-100 / v2更高 | aex原生 | C | 摘要 |
+| 36 | Sapphire | ~1995/订阅 | aex原生 | C | 摘要 |
+| 37 | Continuum | ~995 | aex原生 | C | 摘要 |
+| 38 | Mocha Pro | ~695/年 | aex原生 | C | 摘要 |
+| 39 | Magic Bullet Looks | 未核实(套装~199) | aex+UI | C | 摘要 |
+| 40 | Element 3D | 149.95 | aex原生 | C | 摘要 |
+| 41 | Plexus 3 | ~59.99 | aex原生 | C | 摘要 |
+| 42 | Optical Flares | 124.95 | aex原生 | C | 摘要 |
+| 43 | ShapeShifter AE | ~99-169 | aex原生 | C | 摘要 |
+| 44 | Trapcode Particular | 套件/订阅 | aex原生 | C | 摘要 |
+| 45 | Twixtor Pro | ~595(Pro) | aex原生 | C | 摘要 |
+| 46 | AfterCodecs | ~105 | aex+编码器 | C | 摘要 |
+| 47 | Lockdown | ~79.99 | aex原生 | C | 摘要 |
+| 48 | Datamosh | 未核实(~25) | aex原生 | C | 摘要 |
+
+---
+
+# 一、缓动/动画控制类（A 类，复刻重点，描述最细）
+
+## 1. Flow [A类] [已核实]
+- 官方页：https://aescripts.com/flow/
+- 价格：$35（Single User License；Floating 另购 FLS $99.99）
+- 格式：CEP/HTML 面板 + jsx（版本日志同时更新 JSX 与 CEP 许可框架，混合实现）
+- 作者：renderTom (Tom Clemenhagen) + Zack Lovatt
+- 兼容：AE 17.0/CC2020 起（1.5.1 后最低 17.5），到 2026
+- 核实状态：商品页全文抓取 ✅
+
+核心功能（分点）：
+1. **曲线编辑器**：一个归一化(normalized)的缓动曲线画布，替代 AE 内置速度/影响图形编辑器。拖动 2 个贝塞尔控制点定义 ease 曲线；Shift+拖拽吸附到网格格点；v1.5 起支持 responsive overshoot/undershoot（曲线可超出 0–1 值域，即过冲回弹）；可选反转曲线值显示方向。
+2. **预设库（Library）**：把当前曲线 Save Preset 存入库；v1.5 支持多库（multi-library）切换、拖拽重排、库导入/导出分享；内置 25 条常用曲线；官方页提供社区预设包下载（Oddernod/Ryan Summers 包、Andrew Embury 包、Matthew Law 包、Workbench 包、Google Material Design 缓动曲线包等）。
+3. **应用方式二选一**：
+   - **Keys**：把曲线写入选中关键帧的 easeIn/easeOut（贝塞尔控制参数按时间跨度与值跨度归一化换算为 keyframeEase 的 influence/speed）；对未分离维度的 Position 会提示分离维度。
+   - **Expression**：把曲线作为表达式写入属性（用 ease 近似 cubic-bezier），可记住"记住表达式应用行为"偏好。
+   - 修饰键：Ctrl/Shift/Alt 组合实现反向(inverse easing)、镜像等（1.4.0b：SHIFT+CTRL 反转缓动）。
+4. **Read Values / Edit Curve**：读取现有关键帧缓动回编辑器；若关键帧已带 Flow 表达式，能识别出原始曲线并选中对应库项；"Last Curve"可视化与偏好。
+5. **集成**：导出库到 KBar（一键把库曲线变成 KBar 按钮）；复制曲线为 CSS cubic-bezier() 格式；控件位置可配置（上/下）。
+- 复刻要点：
+  - 数学核心 = cubic-bezier 参数 (x1,y1,x2,y2) ↔ AE 关键帧 easeIn/easeOut(influence, speed) 的双向换算。x 是时间比例，y 是值比例；AE ease 用 speed(p/s)+influence(%) 表示切线，需推导公式。
+  - 库文件存 userData/磁盘 JSON（1.3 起写入磁盘可跨 AE 版本同步）。
+  - UI 用 ScriptUI 画布或 CEP canvas 均可；表达式模式需要生成安全表达式字符串（注意 JS 引擎 16.0+ 兼容）。
+
+## 2. EaseCopy [A类] [已核实]
+- 官方页：https://aescripts.com/easecopy/
+- 价格：$15（Name Your Own Price，个人可少付）
+- 格式：jsx（ScriptUI 面板 + 3 个独立快捷键脚本 + KBAR 包）
+- 作者：Mike Overbeck
+- 兼容：CS6 – AE 2026
+- 核实状态：商品页全文抓取 ✅
+
+核心功能（分点）：
+1. **Copy**：复制选中关键帧的"缓动"到剪贴板（userData 持久化），不带数值。
+2. **Paste Eases**：把缓动粘贴到目标关键帧；**智能缩放**：自动按目标段值域/时长比例缩放 ease 数值；**自动翻转**：目标速度方向与来源相反时自动镜像缓动；跨属性类型通用（一切可插值属性）。
+3. **Paste Values**：只粘贴数值不覆盖缓动（属性类型必须匹配）。
+4. **数量规则**：粘贴目标键数必须等于剪贴板键数或为其整数倍。
+5. **Pass-through**：优先匹配"穿过速度"（intermediary keyframes 的穿行速度），适合 ≥3 连续关键帧串，避免速度断点。
+6. **集成**：KBAR 一按钮化；Command Frame 可搜索调用；独立 Copy / Paste Eases / Paste Values 脚本可绑 AE 键盘快捷键。
+- 复刻要点：KeyframeEase{influence, speed} 读写 + 按值域/时长缩放 + 方向翻转 + pass-through 匹配算法；UI 极小面板常驻。
+
+## 3. Motion 2 (Mt. Mograph) [A类] [已核实-摘要]
+- 官方页：https://mtmograph.com/products/motion（aescripts 无 Motion 2 页面，404 已验证）
+- 价格：$65（2014-12-09 首发价）
+- 格式：jsx ScriptUI 面板
+- 作者：Mt. Mograph（Matt Jylkka）
+- 核心功能：
+  1. **Ease 滑块**：面板中央三段滑块，选中关键帧一键写入 ease（ease-out / easy-ease / ease-in），本质是批量设置 keyframeEase（influence/速度预设）。
+  2. **Burst**：一键生成放射状爆发图形（自动复制形状层、旋转分布、缩放+不透明度关键帧）。
+  3. **Anchor Point 工具**：把锚点移到图层几何中心/指定点且保持画面位置不动（锚点移动补偿 position）。
+  4. **Direction**：水平/垂直翻转动画方向（交换首尾关键帧值）。
+  5. **Clone/复制关键帧**：按帧偏移复制关键帧序列。
+  6. **Rig**：父子绑定辅助工具。
+  7. 兼容 AE 2018/2019+（升级 AE 需重装面板）。
+- 复刻要点：全部是关键帧/图层属性操作，无渲染内核；Ease 滑块 = Flow 的简化版。
+
+## 4. EaseAndWizz [A类] [已核实-摘要]
+- 官方页：https://aescripts.com/ease-and-wizz/
+- 价格：$29.99（原价 $39，常打折）
+- 格式：jsx（表达式生成型脚本）
+- 作者：aescripts 平台（原为 Eric Dittloff 开发的知名老牌脚本）
+- 核心功能：
+  1. 给选中关键帧套用 **数十种数学缓动预设**：Back / Bounce / Elastic / Expo / Circ / Quad / Quint / Sine / Cubic 等 Penner 缓动家族。
+  2. 方向控制：Ease In / Ease Out / 双端。
+  3. 可选**随机化**（给每次应用加随机抖动）、批量应用到全部选中属性。
+  4. 实现原理 = 往属性写入表达式（JS 移植的 Penner easing 公式按关键帧索引取段计算），或烘焙为关键帧。
+- 复刻要点：Penner 30+ 缓动函数公式表 + 表达式模板字符串生成器；处理多关键帧分段插值。
+
+## 5. GifGun 2 [A类-] [已核实-摘要]
+- 官方页：https://aescripts.com/gifgun/
+- 价格：$39.99（1 代老用户升级 $20）
+- 格式：jsx 面板（内含渲染/编码辅助引擎）
+- 作者：Nik Ska（同作者：Gridder 2、LongShadow 2、BG Renderer MAX）
+- 核心功能：
+  1. 一键把 comp/工作区导出为 GIF / WEBP / WEBM / MP4（2015 年起行业标准 AE→GIF 工具）。
+  2. 参数：输出尺寸、帧率、dither 抖动方式、loop 循环设置、范围（工作区/选中区间）、输出目录。
+  3. 面板常驻 + 快捷键触发；后台渲染不锁 AE。
+- 复刻要点：帧序列导出 + 外部编码器调用（可复刻组用 ffmpeg 替代编码内核）；面板 UI 与队列管理。
+
+## 6. AutoSway [A类] [已核实-摘要]
+- 官方页：https://aescripts.com/autosway/
+- 价格：$39.99
+- 格式：jsx（表达式绑定生成器）
+- 核心功能：
+  1. 为图层/形状点自动添加**二次运动（摆尾/弹簧）**绑定：适用于头发、布料、绳子、树枝等柔性元素。
+  2. 工作流：选中按顺序排列的图层（或形状点）→ 一键生成控制 Null + 表达式链，上级运动自动传导为滞后摆动。
+  3. 参数：stiffness 刚度、amplitude 振幅、decay 衰减、按段权重、可选重力/风力方向。
+- 复刻要点：表达式实现弹簧摆积分（或 valueAtTime 滞后叠加+衰减系数），按链式层级串起来。
+
+## 7. Joysticks 'n Sliders [A类] [已核实]
+- 官方页：https://aescripts.com/joysticks-n-sliders/
+- 价格：$39.95
+- 格式：jsx（ScriptUI 面板 + 表达式绑定生成器）
+- 作者：Mike Overbeck（同作者：EaseCopy、Limber、Parrot、Squirrel、WobbleBox）
+- 兼容：CC – AE 2026（1.7.5 曾短暂不兼容 CS6）
+- 核实状态：商品页全文抓取 ✅
+
+核心功能（分点）：
+1. **Joystick**：摆好 5 个连续关键帧表示 origin / 右 / 左 / 上 / 下 极端姿势 → 选中这些图层 → 一键在合成窗口创建 Joystick 控制器 Null；控制器 2D 位置驱动四象限姿势**双线性插值**（表达式的 layer index 引用生成的姿势层）。典型用途：3D 角色面部（嘴型、眼球朝向）。
+2. **EaseBias**：控制 joystick 插值的偏置曲线（1.5 新增）。
+3. **Switch Template**：为"可替换部件"（不同角度嘴型包等）自动按 joystick 所在象限切换素材图层。
+4. **Sliders**：与 joystick 同一套姿势思路但**姿势数量无上限**：每个姿势对应一个滑杆，可任意混合（权重叠加），适合手、眼、嘴、整套身体姿势，也可用于纯 MG 抽象动画；支持正向/反向 posing（1.1 起反向为默认）。
+5. **Path Shape Rigging（v1.6+）**：把形状路径顶点绑定到控制器（joystick 或 slider），实时变形路径（依赖 CC2018 新 JS 表达式引擎，1.7 大幅提速）；Path Flipper 加速路径翻转 rigging。
+6. **UI Sliders**：在合成内创建可视化滑杆控件层。
+7. **Move to Parent / Move to Child**：把控制器挪入父 comp（跨 comp 驱动，支持分离维度与父级化的 Origin）或收回子 comp；rig 与 BodyMovin'（lottie）导出兼容。
+8. **试用限制**（功能边界线索）：7 天、每个 Slider Null 限 4 个滑杆、禁用控制器挪父 comp。
+9. 与 puppet pins、Limber、BAO Bones、PuppetTools、DUIK、RubberHose 配合良好。
+- 复刻要点：核心是"姿势层选择 → 生成引用 layer(index) 的插值表达式骨架 + 控制器命名约定"；路径绑定需逐顶点 lerp 表达式；跨 comp 用 comp(name).layer() 引用。
+
+## 8. RubberHose 3 [A类] [已核实-摘要]
+- 官方页：https://battleaxe.co/rubberhose（也在 aescripts 分发）
+- 价格：$65（RubberHose 2 曾为 $45）
+- 格式：jsx（Battle Axe / Adam Plouff）
+- 核心功能：
+  1. **两骨 IK 软肢体**：创建 hose 肢体形状层，两端控制器（髋/脚），关节自动弯折；"最快的 AE 角色绑定方式"。
+  2. 参数：hose 长度、弯折半径/柔度、肢体外观样式（可用任意自定义形状图层替换默认肢体外观 = Rubberize）。
+  3. **Rig once, use everywhere**：绑定可发布到 Essential Graphics 面板，跨项目/PR 复用。
+  4. 家族工具：RubberBend（弯折风格）、RubberPin（puppet pin 跟随）、Buttcapper（肢体端点缩放，独立小工具）。
+  5. 与 Joysticks 'n Sliders、Limber、DUIK 互操作。
+- 复刻要点：两骨 IK 解算公式（已知根/梢位置与肢体总长 → 膝点），把解算写入形状层路径/位置表达式；样式替换 = 预设形状图层组装。
+
+## 9. Limber 2 [A类] [已核实-摘要级]
+- 官方页：https://aescripts.com/limber/
+- 价格：$65
+- 格式：jsx
+- 作者：Mike Overbeck
+- 核心功能（官网一句话 + 知识库）：
+  1. 最受喜爱的 IK 四肢绑定工具：一键生成带双骨 IK 的肢体形状层。
+  2. 参数：肢体分段/长度、弯折曲线风格（squash &amp; stretch、弹性弯）、分层配色（内层/高光层自动生成）。
+  3. 手脚可替换形状并随肢体自动跟随；自动打关键帧。
+  4. 样式库（预设肢体外观）。
+- 复刻要点：与 RubberHose 同级——IK + 肢体轮廓 bezier 表达式更新 + 端点控制器。
+
+## 10. True Comp Duplicator [A类] [已核实-摘要]
+- 官方页：https://aescripts.com/true-comp-duplicator/
+- 价格：$24.99（NYOP）
+- 格式：jsx
+- 作者：Brennan Chapman（出版教材署名作者；社区常误记为 Paul Tuersley）
+- 核心功能：
+  1. **完整复制选中 comp 的整个层级树**（含所有子 comp），不是 AE 自带的浅复制。
+  2. 选项：唯一化命名（编号/后缀）、是否同时复制 footage 依赖、保留文件夹结构、正则搜索替换新名称、保留层标记与属性。
+  3. 用途：模板多版本化（给同一套动画做 N 个语言/版本副本）。
+- 复刻要点：遍历 comp 依赖图（逐层检查 source 为 comp 的图层），按顺序复制并重链接引用，命名去重。
+
+## 11. KeyTweak [A类] [已核实-摘要]
+- 官方页：https://aescripts.com/keytweak/
+- 价格：$5.99（NYOP；mamoworld Tracking Bundle 成员）
+- 格式：jsx
+- 作者：mamoworld（Mathias Möhl）
+- 核心功能：
+  1. **批量修改大量关键帧**：只手动改 1–2 个"样本"关键帧，KeyTweak 把同样修改自动应用到其余全部关键帧。
+  2. 支持：值缩放、值偏移、时间缩放（重定时）、时间偏移、保持比例。
+  3. 对任意可关键帧属性生效（不限蒙版），常用于修正运动追踪逐帧数据（配合 MaskTracker+、MochaImport+ 组成 Tracking Bundle）。
+- 复刻要点：读取样本键的 delta → 线性/比例映射到选中键集；注意锚点关键帧与空间属性的单位换算。
+
+---
+
+# 二、绑定/角色类补充（A 类）
+
+## 12. Parrot [A类] [已核实-摘要级]
+- 官方页：https://aescripts.com/parrot/
+- 价格：$29.99
+- 格式：jsx
+- 作者：Mike Overbeck
+- 核心功能：**动态连接与偏移动画**的系统：把一个图层的动画"接力"到其他图层（follow-through/延迟复现），参数包括延迟帧数、值偏移、时间偏移、接力次数；MG 动态衔接神器。
+- 复刻要点：表达式 valueAtTime(t - offset) 链式采样 + 值域重映射。
+
+## 13. Squirrel [A类] [已核实-摘要级]
+- 官方页：https://aescripts.com/squirrel/
+- 价格：$35
+- 格式：jsx
+- 作者：Mike Overbeck
+- 核心功能：把时间线父子层级转成**交互树视图面板**（类似 3D 软件的大纲视图）：拖拽重父化、快速选择、重命名。
+- 复刻要点：读取 layer.parent 链建树 + ScriptUI 树控件 + 拖拽写回 parent。
+
+## 14. WobbleBox [A类] [已核实-摘要级]
+- 官方页：https://aescripts.com/wobblebox/
+- 价格：$5（NYOP）
+- 格式：形状层预设 + 表达式
+- 作者：Mike Overbeck
+- 核心功能：把图层变成"果冻盒子"绑定：图层运动时盒体以果冻方式弹性反应（spring 表达式驱动缩放/弯折）。
+- 复刻要点：纯表达式 spring（临界阻尼可调）绑定到 position/velocity 采样。
+
+---
+
+# 三、工作流/管理类（A 类，自扩补充）
+
+&gt; 以下 15–28 号均在本次 aescripts 商品页"相关商品/作者商品"栏直接抓到名称+价格+一句话简介（[已核实-摘要级]），功能细节由知识库补全，标注 [未核实细节]。
+
+## 15. Easify 4 [A类] [已核实-摘要级]
+- 官方页：https://aescripts.com/easify/
+- 价格：$49；作者 Leyero；AE + Premiere Pro 双端
+- 一句话（官方）：Animation Toolkit for Premiere &amp; After Effects. New: Multi-clip timeline and Align panels for Premiere Pro, Speed Graph, multi-point curve, quick reveal transitions, and more!
+- 复刻要点：多段缓动曲线面板 + PR 对齐面板；AE 端为缓动/转场脚本。 [未核实细节]
+
+## 16. Keyframe Parent [A类] [已核实-摘要级]
+- 官方页：https://aescripts.com/keyframe-parent/
+- 价格：$24.99（特价 $14.99）；作者 Xrayvision
+- 核心功能：在 AE 时间线里直接"父化、平移、拉伸"关键帧组（把一组关键帧当对象整体变换）。 [未核实细节]
+- 复刻要点：批量读写关键帧时间/值的仿射变换。
+
+## 17. KeyMaster [A类] [已核实-摘要级]
+- 官方页：https://aescripts.com/keymaster/
+- 价格：$25（特价 $18.99）；作者 Owain Street
+- 核心功能：跨多图层精确选中关键帧（按时间范围/属性过滤），成组移动/重定时，无需逐个手动。 [未核实细节]
+
+## 18. Ease Stash [A类] [已核实-摘要级]
+- 官方页：https://aescripts.com/ease-stash/
+- 价格：$35（特价 $26.99）；作者 null1 lab
+- 核心功能：把关键帧选择（含缓动）存入槽位，一键召回并应用到任意 comp。 [未核实细节]
+
+## 19. Again! [A类] [已核实-摘要级]
+- 官方页：https://aescripts.com/again/
+- 价格：$5（NYOP）；作者 Adam Sacks
+- 核心功能：**以新起点值重复动画**：把既有动画的运动模式套到新的起始值上（换起点重复同一段运动）。 [未核实细节]
+
+## 20. Add Sauce [A类] [已核实-摘要级]
+- 官方页：https://aescripts.com/add-sauce/
+- 价格：$9.99；作者 Jacopist
+- 核心功能：把一组调整层（或普通层）连同效果与全部属性保存为"酱料"捆绑，一键套用到当前图层。 [未核实细节]
+
+## 21. Retend [A类] [已核实-摘要级]
+- 官方页：https://aescripts.com/retend/
+- 价格：$29；作者 Oleksandr Yukhno
+- 核心功能：一键重定时/延长整棵嵌套 precomp 树（Retime or extend entire nested precomp tree — in one click）。 [未核实细节]
+- 复刻要点：递归修改子 comp 时长 + 时间重映射 + 关键帧缩放。
+
+## 22. Slice it Up 2 [A类] [已核实-摘要级]
+- 官方页：https://aescripts.com/slice-it-up/
+- 价格：$29.99；作者 renderTom
+- 核心功能：程序化无损切分图层/蒙版为 N×M 切片（生成蒙版组），支持 gap、圆角、切片延迟动画参数。 [未核实细节]
+
+## 23. Roll it! [A类] [已核实-摘要级]
+- 官方页：https://aescripts.com/roll-it/
+- 价格：$29.99；作者 renderTom
+- 核心功能：让任意形状/蒙版沿边缘"滚动"（接触点驱动的旋转表达式）。 [未核实细节]
+
+## 24. Easy Bake [A类] [已核实-摘要级]
+- 官方页：https://aescripts.com/easy-bake/
+- 价格：$14.99；作者 Zack Lovatt + KraftyFX
+- 核心功能：更快、更可控地把表达式烘焙为关键帧（Convert expressions to keyframes faster, simpler and with more control）。 [未核实细节]
+
+## 25. Scribe [A类] [已核实-摘要级]
+- 官方页：https://aescripts.com/scribe/
+- 价格：$30；作者 renderTom（compCode 作者）
+- 核心功能：自动字型库面板，一键生成文字 write-on/off 描边动画。 [未核实细节]
+
+## 26. Trim Comp to Contents [A类] [已核实-摘要级]
+- 官方页：https://aescripts.com/trim-comp-to-contents/
+- 价格：$4.99（NYOP）；作者 Zack Lovatt
+- 核心功能：把 comp 时长裁剪/延长到恰好包住图层内容（Trim or extend comp duration to fit layer contents）。 [未核实细节]
+
+## 27. Project Item Labels [A类] [已核实-摘要级]
+- 官方页：https://aescripts.com/project-item-labels/
+- 价格：$5.99（NYOP）；作者 Zack Lovatt
+- 核心功能：按项目项类型批量设置标签颜色（整理导入项目用）。 [未核实细节]
+
+## 28. Overlord [A类] [已核实-摘要]
+- 官方页：https://battleaxe.co/overlord
+- 价格：$75（永久许可；偶有升级价/折扣码）
+- 格式：jsx 面板 + Illustrator 端扩展
+- 作者：Battle Axe（Adam Plouff）
+- 兼容：AE 与 Illustrator CC2022+，另支持 Photoshop 2025+ 与 Figma
+- 核心功能：Illustrator ↔ AE 双向传输（免导入）：把 Ai 选中的形状/图层直接推成 AE 形状层，把 AE 形状拉回 Ai；支持文本与渐变；v2 含一键绑定/表达式设置选项。社区公认的 Illo→AE 标准管线。
+- 复刻要点：难点在 Ai 文档解析（可走 SVG 中转）→ shape layer 生成器；双向需双端扩展。
+
+## 29. Move Anchor Point 4 [A类逻辑/aex形态] [已核实-摘要]
+- 官方页：https://aescripts.com/move-anchor-point/
+- 价格：$29.99（v4；v3 曾仅 $2 脚本版，已停售，买 v4 送旧版升级价）
+- 格式：v4 已是 aex 原生插件（不再只是脚本）。【勘误 2026-11-14，据 intel/specs/move-anchor-point.md】"附加一键裁剪 comp 到内容"未见于官方页/手册/评测，疑与 Motion Tools Pro 混淆，已从复刻范围剔除；价格有两说（$29.99 / 官方页快照 $9.99），对外文案不写死。
+- 核心功能：一键把图层锚点移到几何中心/边角/顶点等，同时补偿 position 保持画面不动。
+- 复刻要点：锚点移动逻辑（A 类：anchorPoint 与 position 联动补偿）用 jsx 完全可实现；v4 的 aex 部分仅为性能/交互形态差异。
+
+## 30. Rows and Columns [A类] [未核实]
+- 官方页：https://aescripts.com/rows-and-columns/
+- 价格：未核实
+- 核心功能：把选中图层按行/列网格排列：行列数、间距、对齐、随机化、逐格延迟动画。
+
+## 31. LongShadow 2 [B类] [已核实-摘要]
+- 官方页：https://aescripts.com/longshadow/
+- 价格：未核实
+- 作者：Nik Ska
+- 核心功能：长投影（long shadow）效果；实现形式待核（脚本生成副本或原生效果）。近似：复制层+重复偏移+透明度渐变，或 AE 原生阴影+蒙版组合。
+
+---
+
+# 四、效果类（B 类：可用原生效果组合近似）
+
+## 32. Deep Glow 2 [B类] [已核实-摘要]
+- 官方页：https://aescripts.com/deep-glow/
+- 价格：V2 $99.95（V1 $49.95）；作者 Plugin Everything（同厂：Shadow Studio）
+- 格式：aex 原生插件
+- 核心功能：电影级物理正确的辉光：threshold、radius、exposure、chromatic aberration、glow 类型/色调映射、halation；亮点是多级高质量模糊+色彩处理管线，用于霓虹字、Logo、HUD。
+- 近似路径：AE 原生 Glow + 多层 Gaussian Blur（不同半径叠加）+ 曲线 + 通道分离；免费替代：Creation Effects "Afterglow" 免费 preset。
+- 评级理由：aex 内部是多级可分离模糊管线，原生效果组合可到 80% 观感。
+
+## 33. Hawaiki Keyer 5 [B类] [已核实-摘要]
+- 官方页：https://aescripts.com/hawaiki-keyer/
+- 价格：~$50–60 [未核实]
+- 格式：aex 原生插件（AE/PR 通用）
+- 核心功能：一键抠像 + 自动边缘修复 + spill 去除 + 光罩工具。
+- 近似路径：AE 内置 Keylight(1.2) + Key Cleaner + Advanced Spill Suppressor（CC2014+ 已内置）可达 80%。
+
+---
+
+# 五、原生渲染引擎插件（C 类：复刻不可行，找免费替代）
+
+&gt; C 类只给结论 + 免费替代方向，功能描述从简（复刻组不需要参数级细节）。
+
+## 34. AutoFill [C类] [已核实-摘要]
+- 官方页：https://aescripts.com/autofill/；作者 Plugin Everything；价格：v1 约 $75–100，v2 再高约 $50（v1 用户 2023-04-01 前购升级 $75，之后 $40）
+- 原生 aex：智能"生长填充"（fluidly fills the bounds of your layer），省掉大量蒙版/关键帧的 write-on/reveal 工具；v2 新增计算缓存、原生多帧渲染(MFR)支持、预设系统。
+- 免费替代：无真正等价插件；只能用蒙版+关键帧手工近似。社区普遍认为 ~$100 偏贵。
+
+## 35. Sapphire（Boris FX）[C类]
+- 官方页：https://borisfx.com/products/sapphire/
+- 价格：~$1,995 永久/年订阅 [未核实]
+- 300+ GPU 特效 aex（S_Glow、S_Blur、S_Shake、S_LensFlare 等），影视行业标准。
+- 免费替代：AE 内置效果组合；无单独免费版（Continuum/Sapphire 单位仅有试用）。
+
+## 36. Continuum（Boris FX）[C类]
+- 官方页：https://borisfx.com/products/continuum/
+- 价格：~$995 [未核实]
+- 300+ 单位（粒子、灯光、擦除、字幕单元）。替代：内置效果。
+
+## 37. Mocha Pro（Boris FX）[C类]
+- 官方页：https://borisfx.com/products/mocha-pro/
+- 价格：~$695/年 或永久 [未核实]
+- 平面追踪/物体移除/稳定化引擎；AE 内置版随 AE 附带（Mocha AE，功能受限）→ 免费替代就是 Mocha AE。
+
+## 38. Magic Bullet Looks（Maxon/Red Giant）[C类]
+- 官方页：https://www.maxon.net/en/red-giant/magic-bullet（产品页 maxon.net）
+- 价格：Magic Bullet 套装 ~$199 级别 [未核实]
+- 节点式色彩分级 UI + 数百 look 预设。替代：AE 内置 Lumetri Color + LookLUT。
+
+## 39. Element 3D（Video Copilot）[C类]
+- 官方页：https://videocopilot.net/products/element/
+- 价格：$149.95 [已核实-摘要]
+- OpenGL 实时 3D 模型渲染 aex（模型导入/材质/景深/环境贴图）。替代：AE 内置 Advanced 3D 渲染器 + Cinema 4D Lite（随 AE 附带）+ Blender 免费管线。
+
+## 40. Plexus 3（Rowbyte）[C类]
+- 官方页：https://rowbyte.com/plexus/（aescripts 也有）
+- 价格：~$59.99 [未核实]
+- 3D 点/线/面粒子网络，原生 OpenGL 渲染。替代：CC Particle World/Sphere + 线连接脚本（性能差）；或 Cavalry（试用）。
+
+## 41. Optical Flares（Video Copilot）[C类]
+- 官方页：https://videocopilot.net/products/opticalflares/
+- 价格：$124.95 [已核实-摘要]
+- 镜头光斑引擎（可编辑光斑元件库、遮挡、动态光斑）。替代：AE 原生 Lens Flare + 光斑素材叠加（免费素材包多）。
+
+## 42. ShapeShifter AE（Mettle）[C类]
+- 官方页：https://www.mettle.com/product/shapeshifter-ae
+- 价格：~$99–169 [未核实]（常在 Mettle 全家桶内）
+- 3D 形状/Logo 挤出与变形（OpenCL），文字/蒙版/矢量转 3D 并 morph。替代：Element 3D（同为付费）、C4D Lite。
+
+## 43. Trapcode Particular（Maxon/Red Giant）[C类]
+- 官方页：https://www.maxon.net/en/red-giant/trapcode
+- 价格：Trapcode Suite 套件/订阅 [未核实]
+- GPU 3D 粒子引擎（发射器/物理/精灵）。替代：CC Particle World（弱）、CC Ball Action；复杂粒子无免费等价。
+
+## 44. Twixtor Pro（RE:Vision Effects）[C类]
+- 官方页：https://revisionfx.com/products/twixtor/
+- 价格：Pro ~$595 [未核实]
+- 光流变速/慢动作。替代：AE 内置 Timewarp（Pixel Motion Blur 同理，质量较低）。
+
+## 45. AfterCodecs（Autokroma）[C类]
+- 官方页：https://aescripts.com/aftercodecs/
+- 价格：~$105 [未核实]
+- AE/PR/AME 导出编解码扩展（ProRes/H.264/H.265/多机同时导出）。替代：Adobe Media Encoder（免费随装）。
+
+## 46. Lockdown（aescripts）[C类]
+- 官方页：https://aescripts.com/lockdown/
+- 价格：~$79.99 [未核实]
+- 扭曲表面追踪（把贴图贴回皱缩/弯曲表面）。替代：Mocha 平面追踪 + Corner Pin（近似）；或 AE 内置 3D 相机追踪。
+
+## 47. Datamosh（aescripts）[C类] [未核实细节]
+- 官方页：https://aescripts.com/datamosh/
+- 价格：未核实（~$25）
+- 真实 datamosh 压缩破坏效果。替代：Turbulent Displace + 帧混合伪装；真实 datamosh 需编码层操作（可用 ffmpeg AVI 去关键帧流程免费实现）。
+
+---
+
+# 六、特别更正：LineBoil
+
+## 48. LineBoil [已核实：aescripts 上不存在同名商品]
+- 多次站点内检索（含 site:aescripts.com）确认无 "LineBoil" 产品页；疑似与其他平台工具（如 Framer 的 Line Boil, $5.99）或社区传闻混淆。
+- **" boiling line / 线条沸腾" 效果的免费原生做法**（可直接给复刻组当需求）：
+  1. 调整层 + Turbulent Displace（Evolution 打关键帧）+ 合成逐帧 Hold → 手绘抖动线。
+  2. Turbulent Noise + Displacement Map 路线。
+  3. 评级按"可用原生近似"记 B（且免费）。
+- 如需脚本化：写一个 jsx，对选中形状/蒙版路径顶点逐帧加噪声偏移（seed=frame）即可复刻 —— 这本身是个 A 类复刻点，建议纳入 A 类需求池。
+
+---
+
+# 七、给复刻组的结论与建议
+
+1. **A 类（jsx 可复刻）清单**（按"价值/难度"建议复刻顺序）：
+   1. EaseCopy（小而准，价值高）
+   2. Flow（核心=贝塞尔↔ease 换算，UI 可简化为 ScriptUI）
+   3. AutoSway（表达式弹簧链）
+   4. True Comp Duplicator（工程量大但纯逻辑）
+   5. KeyTweak（小工具）
+   6. Parrot / WobbleBox（表达式系统）
+   7. Joysticks 'n Sliders（姿势插值骨架，中等偏大）
+   8. RubberHose 3 / Limber 2（IK+形状轮廓表达式，大工程）
+   9. 其余小工具（KeyMaster、Ease Stash、Again!、Add Sauce、Retend、Easy Bake、Trim Comp to Contents、Project Item Labels、Slice it Up 2、Roll it!、Scribe、MoveAnchorPoint、Rows and Columns）均为纯脚本逻辑，可作为任务池批量复刻。
+2. **A 类共性**：全部通过 AE Scripting API（app.project / layer.property / keyframeEase / 表达式字符串生成）实现，无 C++ 依赖；复刻不涉及渲染引擎。
+3. **B 类**用原生效果组合近似即可，不必复刻为独立插件。
+4. **C 类**不要投入复刻，直接走免费替代（Mocha AE、C4D Lite、Lumetri、AME、Keylight、Lens Flare+素材）。
+5. **价格时效**：aescripts 长期打折，写报告时用"常规价"并注明 NYOP（Name Your Own Price）机制存在（EaseCopy/KeyTweak/True Comp Duplicator/Again!/WobbleBox/Trim Comp to Contents/Project Item Labels 均为 NYOP，个人用户可低于标价获得）。
+6. **本次未能完成**：Rows and Columns、LongShadow 2、Datamosh 的价格/参数级核实；B 站/YouTube 演示视频简介源未及采集（时间受限）。MoveAnchorPoint 与 AutoFill 已在收尾轮补核。
+</pre></body></html>
