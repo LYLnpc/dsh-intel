@@ -1,170 +1,60 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>实机冒烟清单 smoke-test</title><style>
-  body{background:#fffaf7;color:#2b2723;font-family:'PingFang SC','Microsoft YaHei',system-ui,sans-serif;max-width:920px;margin:0 auto;padding:34px 24px 80px;line-height:1.8}
-  a.back{display:inline-block;margin-bottom:20px;color:#f2799a;text-decoration:none;border-bottom:1.5px dotted #ffd9e3;font-weight:700}
-  h1.doc{font-size:22px;margin:0 0 18px;padding-bottom:12px;border-bottom:2px solid #ffd9e3;color:#f2799a}
-  pre{white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,'Cascadia Mono',Consolas,monospace;font-size:13px;line-height:1.75;background:#fff;border:1.5px solid #f3e3e8;border-radius:14px;padding:22px;box-shadow:0 8px 30px rgba(242,121,154,.08)}
-  </style></head><body><a class="back" href="../summary.html">&larr; 返回总结</a><h1 class="doc">实机冒烟清单 smoke-test</h1><pre>---
-generated_at: 2026-11-14T08:20:00+08:00
-task: 8 个 AE 复刻插件（flow/easecopy/true-comp-dup/autosway/rubberhose/gifgun/joysticks/motion2）的实机冒烟测试清单——每插件安装步骤、5-8 条操作步骤、预期结果、重点回归点
----
-
-# 复刻库实机冒烟测试清单（第一批 8 件）
-
-- 适用：After Effects（建议 2018/15.x 以上；hose 的 createPath 表达式需 15.0+）
-- 背景：全部 clone 未经 AE 实机验证；交叉评审后 flow/easecopy/tcd 有修复（枚举、removeKey、settings、按钮事件），本清单把修复点列为**重点回归**。
-- 标注：🔴 = 重点回归（本次修复直接相关）；✅ = 通过判据。
-
-## 0. 通用准备（约 10 分钟，一次完成）
-
-1. 备用测试工程：新建 comp（1920×1080、25fps、10s）。
-   - 纯色层 `SOLID1`：opacity 打 3 个关键帧（0→50→100，间隔 1s）；
-   - 文本层 `TXT1`（随便一行字）；形状层 `SHAPE1`（矩形）；
-   - 形状层加 Slider Control 效果并打关键帧。
-2. 菜单 `Edit &gt; Preferences &gt; Scripting &amp; Expressions`：允许脚本运行。
-3. 表达式引擎先保持默认（JavaScript/legacy 都可），同组内不改。
-4. 每步操作后：先看状态/弹窗文案，再 Ctrl+Z 验证整体可撤销，最后 Ctrl+Shift+Z 重做回到测试态。
-5. 记录方式：每插件在"结果"栏记 通过 / 失败(现象截图或文案)。
-
----
-
-## 1. flow-clone（重点：维度判定 / 采样预设）
-
-**安装**：`main.jsx` → `Support Files\Scripts\ScriptUI Panels\`，重启 AE，Window 菜单打开面板。
-
-| # | 操作 | 预期结果 |
-|---|---|---|
-| 1 | 选中 SOLID1 的 opacity 全部 3 键，预设选 "Ease Out - Medium"（默认），Apply | ✅ 状态行 "2 segment(s) eased"，0 errors；Graph Editor 里两段曲线平滑 |
-| 2 | 🔴 选中同一批键，预设 "Overshoot (back out)"，Apply | ✅ 两段各插入中间关键帧（状态行显示 keysAdded），末端过冲；**不再报 errors**（removeKey 修复点：重复 Apply 一次确认不堆键） |
-| 3 | 🔴 只选 SOLID1 的 opacity（属性名，不选键），预设 "Bounce (settle)"，勾选 "No keys selected..."，Apply | ✅ 全部键按段采样；单键段被跳过并计数（"single key(s) ignored"） |
-| 4 | 🔴 选 TXT1 的 Source Text（若有键）或选中 SHAPE1 的 Rectangle Path，Apply 贝塞尔预设 | ✅ 被跳过并计数（dims=-1），**不出现 errors**（COLOR/SHAPE/TEXT 守卫 + OneD 枚举修复点：多维 Slider 键应用正常，状态行 0 errors） |
-| 5 | Intensity 拉到 3.0，对第 1 步的键重做 Apply | ✅ 曲线更激进；预览小图同步变化 |
-| 6 | Ctrl+Z | ✅ 一次撤销全部改动 |
-
-**重点回归**：#2（removeKey 修复）、#4（OneD/TwoD 枚举 + 非数值类型守卫）。若 #2 报错，检查错误文案是否含 "removeKey is not a function"。
-
-## 2. easecopy-clone（重点：按钮事件 / Copy-Paste Animation）
-
-**安装**：同上方式放入 ScriptUI Panels（或 Run Script File）。
-
-| # | 操作 | 预期结果 |
-|---|---|---|
-| 1 | 选中 SOLID1 opacity 第 1 键，点 `Copy 1` | ✅ **不弹 "Copy failed"**（keyIn/keyOutTemporalEase 修复点）；槽位 1 显示 "1D, in+out | in spd ... inf ..." |
-| 2 | 选中 SHAPE1 的 Slider 效果的 2 个键，点 `Paste 1` | ✅ 弹出/状态无 errors；选中键缓动变为槽位曲线，**键值不变** |
-| 3 | 勾选 `In only`，重复 1→2 | ✅ 槽位显示 "in only"；粘贴后目标键**出方向缓动保持原样** |
-| 4 | 🔴 时间线选 SOLID1 的 opacity 属性名，点 `Copy Animation` | ✅ 状态行显示 "stored: 1 prop(s), 3 keys, span 2 s"——**按钮必须响应**（onClick 修复点） |
-| 5 | 🔴 在 TXT1 的任一数值属性上打 1 个关键帧并选中它，点 `Paste Animation` | ✅ 弹窗 "Animation pasted: ... Time scale: Nx"；新键的 ease 按缩放写入（setValuesAtTimes + setTemporalEaseAtKey 修复链路） |
-| 6 | Hold 键测试：把 SOLID1 opacity 中间键改 Hold，再 Paste ease | ✅ 该键被计入 skipped，不中断 |
-
-**重点回归**：#4/#5（按钮 onClick + setValuesAtTimes 链路）。若 #4 点击无反应 = onClick 修复未生效。
-
-## 3. true-comp-dup-clone（重点：回退路径缓动复制 / 设置记忆）
-
-**安装**：Run Script File 运行（对话框模式）。
-
-| # | 操作 | 预期结果 |
-|---|---|---|
-| 1 | 工程里建嵌套：`Inner`（SOLID1 + 关键帧）← 被 `Mid` 引用 ← 被 `Main` 引用；选中 `Main` 运行脚本 | ✅ 预览显示 "将复制 3 个 comp"；列表点 `Inner` 标 ✓ 后降为 2 |
-| 2 | 取消排除，创建副本 | ✅ 弹窗汇总 3 comps；新 `Main` 副本自动选中为活动项 |
-| 3 | 🔴 强制回退路径：临时把 `useCopyToComp` 探测行注释（或在旧 AE 中），重跑第 2 步 | ✅ 逐属性克隆成功；对比 `Inner` 副本的关键帧——**速度/影响百分比与原版一致**（copyTemporalEase→keyIn/keyOutTemporalEase 修复点；修复前该路径缓动全部丢失） |
-| 4 | 🔴 改后缀为 " TEST" 点创建副本；重启 AE 再运行脚本 | ✅ 后缀框**仍为 " TEST"**（loadSetting 两段式修复点：修复前会回退默认 " 2" 或显示异常值）；两个复选框状态同样被记忆 |
-| 5 | 排除 `Inner` 后创建副本 | ✅ `Mid` 副本中的 Inner 图层仍指向**原** Inner（共享语义） |
-| 6 | Ctrl+Z | ✅ 一次撤销整树副本 |
-
-**重点回归**：#3（回退路径缓动）、#4（设置记忆）。
-
-## 4. autosway-clone（弹簧链）
-
-**安装**：ScriptUI Panels，Window 菜单打开。
-
-| # | 操作 | 预期结果 |
-|---|---|---|
-| 1 | 建 3 个矩形层竖排（模拟飘带节），自上而下全选，Rotation 模式 Apply | ✅ 弹窗完成提示；每层出现 10 个 `AS:*` 效果 |
-| 2 | 播放 | ✅ 三层像链条一样依次滞后摆动（Wind Strength 默认 8）；无图形报错红条 |
-| 3 | 把第 2 层 `AS: Inherit` 改 0 | ✅ 第 2/3 层停止摆动（传导断开），根层仍摆 |
-| 4 | `AS: Stiffness` 调 5000 | ✅ 摆动变快但**有界不爆**（稳定域钳制）；恢复默认 |
-| 5 | Position 模式：选 2 个普通 2D 层 Apply | ✅ 位置弹簧摆动；选 3D 层 Apply | ✅ 弹窗拒绝 3D |
-| 6 | Remove | ✅ 表达式与 `AS:*` 效果全部清除 |
-
-**重点回归**：表达式红条（任何 "AS Spring Clone" 表达式错误都要记录引擎截图）。
-
-## 5. rubberhose-clone（两骨 IK + hose）
-
-**安装**：ScriptUI Panels。
-
-| # | 操作 | 预期结果 |
-|---|---|---|
-| 1 | 建根关节层（null，放画面上方）与末端 null（下方）；先选根再加选末端，Create IK | ✅ 生成 `IKC: Upper`、`IKC: Elbow`；L1/L2 ≈ 0.6×当前距离 |
-| 2 | 拖末端 null 画圈 | ✅ 肘点连续反算、两 null 骨角始终指向正确；无红条 |
-| 3 | 把末端拖远（超出 L1+L2） | ✅ 链伸直、肘在连线上（钳制），无 NaN/爆炸 |
-| 4 | 勾选 `IKC: Bend Flip` | ✅ 肘弯方向镜像翻转 |
-| 5 | Create Hose | ✅ `IKC: Hose` 形状层出现，三点贝塞尔软管跟随两端弯曲；改 `IKC: Thickness` 描边宽度实时变化 |
-| 6 | 大腿/小腿 artwork 分别父化到两个 null（artwork 沿 +X、锚点在关节） | ✅ artwork 完全跟随 IK |
-
-**重点回归**：#5（`ADBE Vector Shape - Path` matchName 兜底是否命中；失败会有明确弹窗提示且不影响 IK）。
-
-## 6. gifgun-clone（GIF 导出）
-
-**安装**：ScriptUI Panels；准备 ffmpeg（PATH 或手动指定路径）。
-
-| # | 操作 | 预期结果 |
-|---|---|---|
-| 1 | 打开面板（活动 comp = 测试合成） | ✅ 状态行进入"检测 ffmpeg"；三级检测命中（PATH 或手动路径） |
-| 2 | 默认参数点导出 | ✅ 渲染队列跑 PNG 序列 → ffmpeg 两遍合成 → GIF 落盘，进度行逐阶段更新 |
-| 3 | 查看输出 GIF | ✅ 无限循环、尺寸 ≤ 最大宽度、色彩无明显条带（palettegen/paletteuse 两遍法） |
-| 4 | 勾选"仅渲染工作区"，缩短工作区再导出 | ✅ GIF 时长 = 工作区 |
-| 5 | 质量调 1 再导出 | ✅ 调色板 64 色/低抖动档生效，文件更小 |
-| 6 | 重命名/移动工程后再导出一次 | ✅ 输出目录跟随工程目录；同名 GIF 自动 `_1` 防覆盖 |
-| 7 | 临时清空 ffmpeg 路径检测（模拟缺失） | ✅ 保留 PNG 帧 + 弹窗给出手动转换命令 + 自动打开帧目录 |
-| 8 | 重启 AE 打开面板 | ✅ fps/宽度/质量/目录记忆仍在（app.settings） |
-
-**重点回归**：#2（渲染→ffmpeg 管线端到端）、#7（降级路径）。
-
-## 7. joysticks-clone（四象限姿势插值）
-
-**安装**：ScriptUI Panels。
-
-| # | 操作 | 预期结果 |
-|---|---|---|
-| 1 | 建一个 2D 图层（如圆形），选它作为 Joy 层，选目标属性（position/rotation），边界用合成边界，Setup | ✅ Joy 层效果栈出现 4 组角点效果（`JNS |&lt;属性名&gt; |TL/TR/BL/BR`） |
-| 2 | 四角滑杆摆不同姿势（TL=左上角位置，TR=右上……） | ✅ 初始姿势=当前值（如勾选）时四角默认相同 |
-| 3 | 移动 Joy 层位置到边界内四角 | ✅ 目标属性按双线性插值过渡；权重和恒 1，出界钳制到边缘 |
-| 4 | 调 EaseBias 0→100 | ✅ 中间过渡从线性变 S 曲线（中性区更陡） |
-| 5 | 给 2D 属性重复绑定第二个属性 | ✅ 第二组角点效果独立命名，互不干扰 |
-| 6 | 改名 Joy 层 | ✅ 绑定不失效（表达式用 layer(index) 引用）；删除中间图层导致 index 变化时需重绑（预期行为，记录即可） |
-
-**重点回归**：#3（双线性插值连续性：在对角线上拖动应平滑无跳变）。
-
-## 8. motion2-clone（锚点工具 / 方向联动）
-
-**安装**：ScriptUI Panels。
-
-| # | 操作 | 预期结果 |
-|---|---|---|
-| 1 | 选 SHAPE1，点 3×3 网格的"中心" | ✅ 锚点移到内容中心且**画面位置不动**；position 无关键帧时直接补偿 |
-| 2 | 给 position 打 2 个关键帧再点"左上" | ✅ 每个关键帧分别补偿，动画轨迹不变 |
-| 3 | 对有父级+旋转的图层重复 #1 | ✅ 补偿仍精确（toComp/fromComp 链路） |
-| 4 | 选 3D 层或摄像机点网格 | ✅ 状态栏提示跳过 |
-| 5 | 选一个 position 有 ≥2 键的图层，点 `Dir &gt; Rotation` | ✅ rotation 写入朝向表达式，播放时图层朝运动方向 |
-| 6 | 点 `Speed &gt; Squash` | ✅ scale 表达式随速度挤压拉伸（快动压扁、静止复原） |
-| 7 | 选图层应用 elastic 预设 | ✅ amp/freq/decay 可调的衰减正弦生效 |
-| 8 | Ctrl+Z | ✅ 一次撤销 |
-
-**重点回归**：#1/#3（锚点补偿精确性：补偿后画面应完全静止，逐帧对比）。
-
----
-
-## 结果记录表
-
-| 插件 | 日期 | AE 版本 | 表达式引擎 | 结果 | 失败项编号 | 备注 |
-|---|---|---|---|---|---|---|
-| flow-clone | | | | | | |
-| easecopy-clone | | | | | | |
-| true-comp-dup-clone | | | | | | |
-| autosway-clone | | | | | | |
-| rubberhose-clone | | | | | | |
-| gifgun-clone | | | | | | |
-| joysticks-clone | | | | | | |
-| motion2-clone | | | | | | |
-
-&gt; 执行要求：任何失败项记录（1）弹窗/红条原文，（2）AE 版本与表达式引擎，（3）最小复现步骤；失败项与 docs/api-cheatsheet.md 的白名单对照后归因。
-</pre></body></html>
+  body{background:#fffaf7;color:#2b2723;font-family:'PingFang SC','Microsoft YaHei',system-ui,sans-serif;max-width:900px;margin:0 auto;padding:34px 24px 90px;line-height:1.85;font-size:14.5px}
+  a.back{display:inline-block;margin-bottom:18px;color:#f2799a;text-decoration:none;border-bottom:1.5px dotted #ffd9e3;font-weight:700}
+  h1.doc{font-size:22px;margin:0 0 20px;padding-bottom:12px;border-bottom:2px solid #ffd9e3;color:#f2799a}
+  h1,h2,h3,h4{color:#5b4a54;line-height:1.4;margin:22px 0 8px}
+  h1{font-size:21px}h2{font-size:18px;border-left:4px solid #ff9eb5;padding-left:10px}h3{font-size:15.5px}
+  p{margin:9px 0}ul,ol{margin:9px 0 9px 22px}li{margin:4px 0}
+  code{background:#fff0f4;color:#d94a72;padding:1px 6px;border-radius:6px;font-family:ui-monospace,Consolas,monospace;font-size:12.5px}
+  pre.code{background:#fff;border:1.5px solid #f3e3e8;border-radius:12px;padding:16px;overflow-x:auto;box-shadow:0 6px 20px rgba(242,121,154,.06)}
+  pre.code code{background:none;color:#5b4a54;padding:0}
+  blockquote{margin:12px 0;padding:8px 16px;border-left:3px solid #b89ee8;background:#f8f4ff;color:#5b4a54;border-radius:0 8px 8px 0}
+  hr{border:none;border-top:1.5px dashed #ffd9e3;margin:20px 0}
+  .tw{overflow-x:auto;margin:12px 0;border:1.5px solid #f3e3e8;border-radius:12px}
+  table{border-collapse:collapse;width:100%;font-size:13px}
+  th{background:#fff6f9;color:#f2799a;text-align:left;padding:8px 12px;border-bottom:1.5px solid #f3e3e8;white-space:nowrap}
+  td{padding:8px 12px;border-bottom:1px solid #f8eef1;vertical-align:top}
+  a{color:#f2799a;text-decoration:none;border-bottom:1.5px dotted #ffd9e3}
+  </style></head><body><a class="back" href="../summary.html">&larr; 返回总结</a><h1 class="doc">实机冒烟清单 smoke-test</h1><h1>复刻库实机冒烟测试清单（第一批 8 件）</h1>
+<ul><li>适用：After Effects（建议 2018/15.x 以上；hose 的 createPath 表达式需 15.0+）</li><li>背景：全部 clone 未经 AE 实机验证；交叉评审后 flow/easecopy/tcd 有修复（枚举、removeKey、settings、按钮事件），本清单把修复点列为<strong>重点回归</strong>。</li><li>标注：🔴 = 重点回归（本次修复直接相关）；✅ = 通过判据。</li></ul>
+<h2>0. 通用准备（约 10 分钟，一次完成）</h2>
+<ol><li>备用测试工程：新建 comp（1920×1080、25fps、10s）。</li></ol>
+<ul><li>纯色层 <code>SOLID1</code>：opacity 打 3 个关键帧（0→50→100，间隔 1s）；</li><li>文本层 <code>TXT1</code>（随便一行字）；形状层 <code>SHAPE1</code>（矩形）；</li><li>形状层加 Slider Control 效果并打关键帧。</li></ul>
+<ol><li>菜单 <code>Edit &gt; Preferences &gt; Scripting &amp; Expressions</code>：允许脚本运行。</li><li>表达式引擎先保持默认（JavaScript/legacy 都可），同组内不改。</li><li>每步操作后：先看状态/弹窗文案，再 Ctrl+Z 验证整体可撤销，最后 Ctrl+Shift+Z 重做回到测试态。</li><li>记录方式：每插件在"结果"栏记 通过 / 失败(现象截图或文案)。</li></ol>
+<hr>
+<h2>1. flow-clone（重点：维度判定 / 采样预设）</h2>
+<p><strong>安装</strong>：<code>main.jsx</code> → <code>Support Files\Scripts\ScriptUI Panels\</code>，重启 AE，Window 菜单打开面板。</p>
+<div class="tw"><table><thead><tr><th>#</th><th>操作</th><th>预期结果</th></tr></thead><tbody><tr><td>1</td><td>选中 SOLID1 的 opacity 全部 3 键，预设选 "Ease Out - Medium"（默认），Apply</td><td>✅ 状态行 "2 segment(s) eased"，0 errors；Graph Editor 里两段曲线平滑</td></tr><tr><td>2</td><td>🔴 选中同一批键，预设 "Overshoot (back out)"，Apply</td><td>✅ 两段各插入中间关键帧（状态行显示 keysAdded），末端过冲；<strong>不再报 errors</strong>（removeKey 修复点：重复 Apply 一次确认不堆键）</td></tr><tr><td>3</td><td>🔴 只选 SOLID1 的 opacity（属性名，不选键），预设 "Bounce (settle)"，勾选 "No keys selected..."，Apply</td><td>✅ 全部键按段采样；单键段被跳过并计数（"single key(s) ignored"）</td></tr><tr><td>4</td><td>🔴 选 TXT1 的 Source Text（若有键）或选中 SHAPE1 的 Rectangle Path，Apply 贝塞尔预设</td><td>✅ 被跳过并计数（dims=-1），<strong>不出现 errors</strong>（COLOR/SHAPE/TEXT 守卫 + OneD 枚举修复点：多维 Slider 键应用正常，状态行 0 errors）</td></tr><tr><td>5</td><td>Intensity 拉到 3.0，对第 1 步的键重做 Apply</td><td>✅ 曲线更激进；预览小图同步变化</td></tr><tr><td>6</td><td>Ctrl+Z</td><td>✅ 一次撤销全部改动</td></tr></tbody></table></div>
+<p><strong>重点回归</strong>：#2（removeKey 修复）、#4（OneD/TwoD 枚举 + 非数值类型守卫）。若 #2 报错，检查错误文案是否含 "removeKey is not a function"。</p>
+<h2>2. easecopy-clone（重点：按钮事件 / Copy-Paste Animation）</h2>
+<p><strong>安装</strong>：同上方式放入 ScriptUI Panels（或 Run Script File）。</p>
+<div class="tw"><table><thead><tr><th>#</th><th>操作</th><th>预期结果</th></tr></thead><tbody><tr><td>1</td><td>选中 SOLID1 opacity 第 1 键，点 <code>Copy 1</code></td><td>✅ <strong>不弹 "Copy failed"</strong>（keyIn/keyOutTemporalEase 修复点）；槽位 1 显示 "1D, in+out</td><td>in spd ... inf ..."</td></tr><tr><td>2</td><td>选中 SHAPE1 的 Slider 效果的 2 个键，点 <code>Paste 1</code></td><td>✅ 弹出/状态无 errors；选中键缓动变为槽位曲线，<strong>键值不变</strong></td></tr><tr><td>3</td><td>勾选 <code>In only</code>，重复 1→2</td><td>✅ 槽位显示 "in only"；粘贴后目标键<strong>出方向缓动保持原样</strong></td></tr><tr><td>4</td><td>🔴 时间线选 SOLID1 的 opacity 属性名，点 <code>Copy Animation</code></td><td>✅ 状态行显示 "stored: 1 prop(s), 3 keys, span 2 s"——<strong>按钮必须响应</strong>（onClick 修复点）</td></tr><tr><td>5</td><td>🔴 在 TXT1 的任一数值属性上打 1 个关键帧并选中它，点 <code>Paste Animation</code></td><td>✅ 弹窗 "Animation pasted: ... Time scale: Nx"；新键的 ease 按缩放写入（setValuesAtTimes + setTemporalEaseAtKey 修复链路）</td></tr><tr><td>6</td><td>Hold 键测试：把 SOLID1 opacity 中间键改 Hold，再 Paste ease</td><td>✅ 该键被计入 skipped，不中断</td></tr></tbody></table></div>
+<p><strong>重点回归</strong>：#4/#5（按钮 onClick + setValuesAtTimes 链路）。若 #4 点击无反应 = onClick 修复未生效。</p>
+<h2>3. true-comp-dup-clone（重点：回退路径缓动复制 / 设置记忆）</h2>
+<p><strong>安装</strong>：Run Script File 运行（对话框模式）。</p>
+<div class="tw"><table><thead><tr><th>#</th><th>操作</th><th>预期结果</th></tr></thead><tbody><tr><td>1</td><td>工程里建嵌套：<code>Inner</code>（SOLID1 + 关键帧）← 被 <code>Mid</code> 引用 ← 被 <code>Main</code> 引用；选中 <code>Main</code> 运行脚本</td><td>✅ 预览显示 "将复制 3 个 comp"；列表点 <code>Inner</code> 标 ✓ 后降为 2</td></tr><tr><td>2</td><td>取消排除，创建副本</td><td>✅ 弹窗汇总 3 comps；新 <code>Main</code> 副本自动选中为活动项</td></tr><tr><td>3</td><td>🔴 强制回退路径：临时把 <code>useCopyToComp</code> 探测行注释（或在旧 AE 中），重跑第 2 步</td><td>✅ 逐属性克隆成功；对比 <code>Inner</code> 副本的关键帧——<strong>速度/影响百分比与原版一致</strong>（copyTemporalEase→keyIn/keyOutTemporalEase 修复点；修复前该路径缓动全部丢失）</td></tr><tr><td>4</td><td>🔴 改后缀为 " TEST" 点创建副本；重启 AE 再运行脚本</td><td>✅ 后缀框<strong>仍为 " TEST"</strong>（loadSetting 两段式修复点：修复前会回退默认 " 2" 或显示异常值）；两个复选框状态同样被记忆</td></tr><tr><td>5</td><td>排除 <code>Inner</code> 后创建副本</td><td>✅ <code>Mid</code> 副本中的 Inner 图层仍指向<strong>原</strong> Inner（共享语义）</td></tr><tr><td>6</td><td>Ctrl+Z</td><td>✅ 一次撤销整树副本</td></tr></tbody></table></div>
+<p><strong>重点回归</strong>：#3（回退路径缓动）、#4（设置记忆）。</p>
+<h2>4. autosway-clone（弹簧链）</h2>
+<p><strong>安装</strong>：ScriptUI Panels，Window 菜单打开。</p>
+<div class="tw"><table><thead><tr><th>#</th><th>操作</th><th>预期结果</th></tr></thead><tbody><tr><td>1</td><td>建 3 个矩形层竖排（模拟飘带节），自上而下全选，Rotation 模式 Apply</td><td>✅ 弹窗完成提示；每层出现 10 个 <code>AS:*</code> 效果</td></tr><tr><td>2</td><td>播放</td><td>✅ 三层像链条一样依次滞后摆动（Wind Strength 默认 8）；无图形报错红条</td></tr><tr><td>3</td><td>把第 2 层 <code>AS: Inherit</code> 改 0</td><td>✅ 第 2/3 层停止摆动（传导断开），根层仍摆</td></tr><tr><td>4</td><td><code>AS: Stiffness</code> 调 5000</td><td>✅ 摆动变快但<strong>有界不爆</strong>（稳定域钳制）；恢复默认</td></tr><tr><td>5</td><td>Position 模式：选 2 个普通 2D 层 Apply</td><td>✅ 位置弹簧摆动；选 3D 层 Apply</td><td>✅ 弹窗拒绝 3D</td></tr><tr><td>6</td><td>Remove</td><td>✅ 表达式与 <code>AS:*</code> 效果全部清除</td></tr></tbody></table></div>
+<p><strong>重点回归</strong>：表达式红条（任何 "AS Spring Clone" 表达式错误都要记录引擎截图）。</p>
+<h2>5. rubberhose-clone（两骨 IK + hose）</h2>
+<p><strong>安装</strong>：ScriptUI Panels。</p>
+<div class="tw"><table><thead><tr><th>#</th><th>操作</th><th>预期结果</th></tr></thead><tbody><tr><td>1</td><td>建根关节层（null，放画面上方）与末端 null（下方）；先选根再加选末端，Create IK</td><td>✅ 生成 <code>IKC: Upper</code>、<code>IKC: Elbow</code>；L1/L2 ≈ 0.6×当前距离</td></tr><tr><td>2</td><td>拖末端 null 画圈</td><td>✅ 肘点连续反算、两 null 骨角始终指向正确；无红条</td></tr><tr><td>3</td><td>把末端拖远（超出 L1+L2）</td><td>✅ 链伸直、肘在连线上（钳制），无 NaN/爆炸</td></tr><tr><td>4</td><td>勾选 <code>IKC: Bend Flip</code></td><td>✅ 肘弯方向镜像翻转</td></tr><tr><td>5</td><td>Create Hose</td><td>✅ <code>IKC: Hose</code> 形状层出现，三点贝塞尔软管跟随两端弯曲；改 <code>IKC: Thickness</code> 描边宽度实时变化</td></tr><tr><td>6</td><td>大腿/小腿 artwork 分别父化到两个 null（artwork 沿 +X、锚点在关节）</td><td>✅ artwork 完全跟随 IK</td></tr></tbody></table></div>
+<p><strong>重点回归</strong>：#5（<code>ADBE Vector Shape - Path</code> matchName 兜底是否命中；失败会有明确弹窗提示且不影响 IK）。</p>
+<h2>6. gifgun-clone（GIF 导出）</h2>
+<p><strong>安装</strong>：ScriptUI Panels；准备 ffmpeg（PATH 或手动指定路径）。</p>
+<div class="tw"><table><thead><tr><th>#</th><th>操作</th><th>预期结果</th></tr></thead><tbody><tr><td>1</td><td>打开面板（活动 comp = 测试合成）</td><td>✅ 状态行进入"检测 ffmpeg"；三级检测命中（PATH 或手动路径）</td></tr><tr><td>2</td><td>默认参数点导出</td><td>✅ 渲染队列跑 PNG 序列 → ffmpeg 两遍合成 → GIF 落盘，进度行逐阶段更新</td></tr><tr><td>3</td><td>查看输出 GIF</td><td>✅ 无限循环、尺寸 ≤ 最大宽度、色彩无明显条带（palettegen/paletteuse 两遍法）</td></tr><tr><td>4</td><td>勾选"仅渲染工作区"，缩短工作区再导出</td><td>✅ GIF 时长 = 工作区</td></tr><tr><td>5</td><td>质量调 1 再导出</td><td>✅ 调色板 64 色/低抖动档生效，文件更小</td></tr><tr><td>6</td><td>重命名/移动工程后再导出一次</td><td>✅ 输出目录跟随工程目录；同名 GIF 自动 <code>_1</code> 防覆盖</td></tr><tr><td>7</td><td>临时清空 ffmpeg 路径检测（模拟缺失）</td><td>✅ 保留 PNG 帧 + 弹窗给出手动转换命令 + 自动打开帧目录</td></tr><tr><td>8</td><td>重启 AE 打开面板</td><td>✅ fps/宽度/质量/目录记忆仍在（app.settings）</td></tr></tbody></table></div>
+<p><strong>重点回归</strong>：#2（渲染→ffmpeg 管线端到端）、#7（降级路径）。</p>
+<h2>7. joysticks-clone（四象限姿势插值）</h2>
+<p><strong>安装</strong>：ScriptUI Panels。</p>
+<div class="tw"><table><thead><tr><th>#</th><th>操作</th><th>预期结果</th></tr></thead><tbody><tr><td>1</td><td>建一个 2D 图层（如圆形），选它作为 Joy 层，选目标属性（position/rotation），边界用合成边界，Setup</td><td>✅ Joy 层效果栈出现 4 组角点效果（`JNS</td><td>&lt;属性名&gt;</td><td>TL/TR/BL/BR`）</td></tr><tr><td>2</td><td>四角滑杆摆不同姿势（TL=左上角位置，TR=右上……）</td><td>✅ 初始姿势=当前值（如勾选）时四角默认相同</td></tr><tr><td>3</td><td>移动 Joy 层位置到边界内四角</td><td>✅ 目标属性按双线性插值过渡；权重和恒 1，出界钳制到边缘</td></tr><tr><td>4</td><td>调 EaseBias 0→100</td><td>✅ 中间过渡从线性变 S 曲线（中性区更陡）</td></tr><tr><td>5</td><td>给 2D 属性重复绑定第二个属性</td><td>✅ 第二组角点效果独立命名，互不干扰</td></tr><tr><td>6</td><td>改名 Joy 层</td><td>✅ 绑定不失效（表达式用 layer(index) 引用）；删除中间图层导致 index 变化时需重绑（预期行为，记录即可）</td></tr></tbody></table></div>
+<p><strong>重点回归</strong>：#3（双线性插值连续性：在对角线上拖动应平滑无跳变）。</p>
+<h2>8. motion2-clone（锚点工具 / 方向联动）</h2>
+<p><strong>安装</strong>：ScriptUI Panels。</p>
+<div class="tw"><table><thead><tr><th>#</th><th>操作</th><th>预期结果</th></tr></thead><tbody><tr><td>1</td><td>选 SHAPE1，点 3×3 网格的"中心"</td><td>✅ 锚点移到内容中心且<strong>画面位置不动</strong>；position 无关键帧时直接补偿</td></tr><tr><td>2</td><td>给 position 打 2 个关键帧再点"左上"</td><td>✅ 每个关键帧分别补偿，动画轨迹不变</td></tr><tr><td>3</td><td>对有父级+旋转的图层重复 #1</td><td>✅ 补偿仍精确（toComp/fromComp 链路）</td></tr><tr><td>4</td><td>选 3D 层或摄像机点网格</td><td>✅ 状态栏提示跳过</td></tr><tr><td>5</td><td>选一个 position 有 ≥2 键的图层，点 <code>Dir &gt; Rotation</code></td><td>✅ rotation 写入朝向表达式，播放时图层朝运动方向</td></tr><tr><td>6</td><td>点 <code>Speed &gt; Squash</code></td><td>✅ scale 表达式随速度挤压拉伸（快动压扁、静止复原）</td></tr><tr><td>7</td><td>选图层应用 elastic 预设</td><td>✅ amp/freq/decay 可调的衰减正弦生效</td></tr><tr><td>8</td><td>Ctrl+Z</td><td>✅ 一次撤销</td></tr></tbody></table></div>
+<p><strong>重点回归</strong>：#1/#3（锚点补偿精确性：补偿后画面应完全静止，逐帧对比）。</p>
+<hr>
+<h2>结果记录表</h2>
+<div class="tw"><table><thead><tr><th>插件</th><th>日期</th><th>AE 版本</th><th>表达式引擎</th><th>结果</th><th>失败项编号</th><th>备注</th></tr></thead><tbody><tr><td>flow-clone</td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>easecopy-clone</td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>true-comp-dup-clone</td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>autosway-clone</td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>rubberhose-clone</td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>gifgun-clone</td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>joysticks-clone</td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>motion2-clone</td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div>
+<blockquote>执行要求：任何失败项记录（1）弹窗/红条原文，（2）AE 版本与表达式引擎，（3）最小复现步骤；失败项与 docs/api-cheatsheet.md 的白名单对照后归因。</blockquote></body></html>
