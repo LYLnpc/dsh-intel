@@ -1,0 +1,25 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>local-env</title><style>
+body{background:#fffaf7;color:#2b2723;font-family:'PingFang SC','Microsoft YaHei',system-ui,sans-serif;max-width:900px;margin:0 auto;padding:30px 22px 80px;line-height:1.85;font-size:14.5px}
+h1.doc{font-size:20px;margin:0 0 18px;padding-bottom:12px;border-bottom:2px solid #ffd9e3;color:#f2799a}
+h1,h2,h3,h4{color:#5b4a54;line-height:1.4;margin:20px 0 8px}h1{font-size:20px}h2{font-size:17px;border-left:4px solid #ff9eb5;padding-left:10px}h3{font-size:15px}
+p{margin:9px 0}ul,ol{margin:9px 0 9px 22px}li{margin:4px 0}
+code{background:#fff0f4;color:#d94a72;padding:1px 6px;border-radius:6px;font-family:ui-monospace,Consolas,monospace;font-size:12.5px}
+pre.code{background:#fff;border:1.5px solid #f3e3e8;border-radius:12px;padding:16px;overflow-x:auto}
+pre.code code{background:none;color:#5b4a54;padding:0}
+blockquote{margin:12px 0;padding:8px 16px;border-left:3px solid #b89ee8;background:#f8f4ff;border-radius:0 8px 8px 0}
+hr{border:none;border-top:1.5px dashed #ffd9e3;margin:20px 0}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid #f3e3e8;border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{background:#fff6f9;color:#f2799a;text-align:left;padding:8px 12px;border-bottom:1.5px solid #f3e3e8;white-space:nowrap}
+td{padding:8px 12px;border-bottom:1px solid #f8eef1;vertical-align:top}
+a{color:#f2799a;text-decoration:none;border-bottom:1.5px dotted #ffd9e3}
+</style></head><body><h1 class="doc">local-env</h1><h1>本机 AE 环境盘点</h1>
+<p>generated_at: 2026-11-14T11:00+08:00 task: 本机After Effects环境与插件盘点</p>
+<h2>AE 版本（据 %APPDATA%\Adobe\After Effects 配置目录）</h2>
+<ul><li>24.6 / 25.0 / 25.3 / 25.3.1 / 26.0 —— 至少这五个版本的配置存在，26.0 为最新</li><li>注：<code>C:/Program Files/Adobe/</code> 下只见 Creative Cloud Experience 与 Common，AE 本体可能装在其他盘，未进一步全盘扫描（时间受限）</li></ul>
+<h2>MediaCore 公共插件（C:\Program Files\Adobe\Common\Plug-ins\7.0\MediaCore，共 22 项）</h2>
+<p>收费/商业阵容（本机已装，很全）：</p>
+<ul><li>Autokroma AfterCodecs（导出编码加速）</li><li>BorisFX（Continuum 家族）</li><li>Sapphire Plug-ins（GenArts/Maxon 大集合）</li><li>Trapcode 家族（Particular 等）</li><li>Magic Bullet 六件套：Looks / Colorista / Cosmo / Denoiser / Mojo / Renoiser</li><li>RSMB6AE（ReelSmart Motion Blur 往程运动模糊）</li><li>Twixtor8AE（光流变速）</li><li>Deep Glow.aex（辉光，替代内置 Glow）</li><li>Digital Anarchy</li></ul>
+<p>其他：DENoise3AE、MBFilm、MotionFactory100、DCStroke、ScaleUp、Skeleton、RGSGrowBounds</p>
+<h2>结论（对用户的价值判断）</h2>
+<ul><li>本机收费插件储备已覆盖：渲染/光效（Trapcode、Deep Glow、Sapphire）、调色（Magic Bullet）、变速（Twixtor、RSMB）、导出（AfterCodecs）</li><li>空缺主要在：角色绑定（无 RubberHose/Limber/Duik）、缓动工作流（无 Flow/EaseCopy/Motion Tools Pro）——免费方案恰好能补齐，见 free-global.md 与复刻产物</li></ul></body></html>
