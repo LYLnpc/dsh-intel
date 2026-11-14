@@ -3,278 +3,262 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AE 复刻任务 · 进度总结（妹妹版）</title>
+<title>AE 复刻任务 · 进度总结</title>
 <style>
 :root{
-  --cream:#fffaf7; --cream2:#fff3ee;
-  --pink:#ff9eb5; --pink-soft:#ffd9e3; --pink-deep:#f2799a;
-  --lav:#b89ee8; --lav-soft:#e8dcff;
-  --mint:#7fd8bb; --mint-soft:#d7f5ec;
-  --butter:#ffd88a; --butter-soft:#fff0cf;
-  --sky:#8fc8f0; --sky-soft:#dcefff;
-  --ink:#5b4a54; --ink2:#9a8792; --ink3:#c2b3bd;
-  --line:#f3e3e8;
-  --card:#ffffff;
-  --shadow:0 8px 30px rgba(242,121,154,.10), 0 2px 8px rgba(184,158,232,.08);
-  --shadow-lg:0 16px 50px rgba(242,121,154,.16), 0 4px 14px rgba(184,158,232,.10);
-  --sans:'PingFang SC','Microsoft YaHei','Hiragino Sans GB',system-ui,-apple-system,sans-serif;
+  --paper:#f6f2e9;
+  --paper-2:#efe9db;
+  --card:#fbf8f1;
+  --ink:#2b2723;
+  --ink-soft:#5c554c;
+  --ink-faint:#8a8177;
+  --rule:#d9d0bf;
+  --rule-soft:#e6dfd0;
+  --accent:#8a4b32;
+  --accent-soft:#b08268;
+  --serif:'Georgia','Noto Serif SC','Songti SC','STSong','SimSun',serif;
   --mono:ui-monospace,'Cascadia Mono',Consolas,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
-  font-family:var(--sans); color:var(--ink); font-size:14.5px; line-height:1.75;
-  background:
-    radial-gradient(900px 500px at 8% -6%, rgba(255,158,181,.22), transparent 62%),
-    radial-gradient(760px 460px at 96% -2%, rgba(184,158,232,.20), transparent 60%),
-    radial-gradient(700px 420px at 50% 108%, rgba(127,216,187,.14), transparent 62%),
-    var(--cream);
-  background-attachment:fixed;
+  font-family:var(--serif);
+  color:var(--ink);
+  background:var(--paper);
+  font-size:16px;
+  line-height:1.85;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
 }
-.wrap{max-width:1080px;margin:0 auto;padding:36px 22px 90px}
-
-/* ---------- hero ---------- */
-.hero{text-align:center;padding:26px 10px 8px}
-.hero .crown{font-size:34px;line-height:1;filter:drop-shadow(0 4px 8px rgba(242,121,154,.3))}
-.hero h1{
-  font-size:clamp(26px,4.4vw,40px); font-weight:800; letter-spacing:.5px; margin:12px 0 8px;
-  background:linear-gradient(96deg,#f2799a,#b89ee8 55%,#7fd8bb);
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+.page{
+  max-width:760px;
+  margin:0 auto;
+  padding:64px 40px 96px;
+  background:var(--paper);
 }
-.hero .sub{color:var(--ink2);font-size:14px;max-width:640px;margin:0 auto}
-.hero .date{display:inline-block;margin-top:16px;font-family:var(--mono);font-size:12px;
-  color:var(--pink-deep);background:#fff;border:1.5px solid var(--pink-soft);
-  border-radius:999px;padding:5px 16px;box-shadow:var(--shadow)}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
+a:hover{color:#6d3823}
 
-/* ---------- callout ---------- */
-.note{margin:26px auto 0;max-width:820px;background:linear-gradient(135deg,#fff,#fff6f9);
-  border:1.5px dashed var(--pink-soft);border-radius:20px;padding:16px 22px;
-  font-size:14px;color:var(--ink);box-shadow:var(--shadow);position:relative}
-.note::before{content:"🍑";position:absolute;top:-16px;left:22px;font-size:26px}
+/* ---- 页首 ---- */
+.head{text-align:center;padding-bottom:30px;border-bottom:2px solid var(--ink);margin-bottom:8px}
+.head .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:14px}
+.head h1{font-size:clamp(26px,4.6vw,36px);font-weight:700;letter-spacing:.02em;line-height:1.3;margin-bottom:10px}
+.head .sub{font-size:14px;color:var(--ink-soft);font-style:italic}
+.head .meta{font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);margin-top:14px;letter-spacing:.04em}
 
-/* ---------- stats ---------- */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:30px}
-.stat{background:var(--card);border-radius:22px;padding:18px 16px;text-align:center;
-  box-shadow:var(--shadow);border:1.5px solid #fff;position:relative;overflow:hidden;transition:transform .18s ease}
-.stat:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
-.stat::after{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:var(--pink)}
-.stat.lav::after{background:var(--lav)} .stat.mint::after{background:var(--mint)}
-.stat.butter::after{background:var(--butter)} .stat.sky::after{background:var(--sky)}
-.stat .emo{font-size:24px;line-height:1}
-.stat .v{font-size:32px;font-weight:800;line-height:1.15;margin-top:4px;color:var(--pink-deep);font-variant-numeric:tabular-nums}
-.stat.lav .v{color:#9a7ed6} .stat.mint .v{color:#3aa886}
-.stat.butter .v{color:#d9a83c} .stat.sky .v{color:#4a93cf}
-.stat .k{font-size:12px;color:var(--ink2);margin-top:3px}
+/* ---- 导语 ---- */
+.lede{margin:34px 0 10px;font-size:16.5px;line-height:1.95;color:var(--ink)}
+.lede b{font-weight:700;color:var(--accent)}
+.dropcap::first-letter{
+  float:left;font-size:52px;line-height:.9;padding:6px 10px 0 0;
+  font-weight:700;color:var(--accent);
+}
 
-/* ---------- section ---------- */
-.shead{display:flex;align-items:center;gap:12px;margin:44px 0 4px}
-.shead .num{flex:none;width:38px;height:38px;border-radius:14px;display:flex;align-items:center;justify-content:center;
-  font-size:18px;background:linear-gradient(135deg,var(--pink-soft),var(--lav-soft));box-shadow:var(--shadow)}
-.shead h2{font-size:21px;font-weight:800;letter-spacing:.3px}
-.shead .hint{margin-left:auto;font-size:12px;color:var(--ink3)}
-.divider{height:2px;background:linear-gradient(90deg,var(--pink-soft),var(--lav-soft),transparent);
-  border-radius:2px;margin:10px 0 20px}
+/* ---- 数字 ---- */
+.figures{
+  display:grid;grid-template-columns:repeat(5,1fr);
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  margin:34px 0;
+}
+.fig{text-align:center;padding:20px 8px;border-right:1px solid var(--rule-soft)}
+.fig:last-child{border-right:none}
+.fig .n{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--accent);line-height:1.1;font-variant-numeric:lining-nums}
+.fig .l{font-size:12px;color:var(--ink-faint);margin-top:6px;letter-spacing:.04em}
 
-/* ---------- cards ---------- */
-.grid{display:grid;gap:16px}
-.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
-.card{background:var(--card);border-radius:20px;padding:20px 22px;box-shadow:var(--shadow);border:1.5px solid #fff}
-.card h3{font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.card h3 .dot{width:9px;height:9px;border-radius:50%;background:var(--pink)}
-.card p{color:var(--ink2);font-size:13.5px}
-.card ul{list-style:none;margin-top:8px}
-.card li{position:relative;padding-left:22px;margin:6px 0;font-size:13.5px;color:var(--ink)}
-.card li::before{content:"🌸";position:absolute;left:0;top:1px;font-size:12px}
+/* ---- 章节 ---- */
+.chapter{margin-top:52px}
+.chapter .ch-no{
+  font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:6px;
+}
+.chapter h2{
+  font-size:22px;font-weight:700;letter-spacing:.01em;
+  padding-bottom:10px;border-bottom:1px solid var(--rule);margin-bottom:20px;
+  display:flex;align-items:baseline;gap:12px;
+}
+.chapter h2 .en{font-family:var(--mono);font-size:11px;color:var(--ink-faint);font-weight:400;letter-spacing:.1em;margin-left:auto}
+h3{font-size:16.5px;font-weight:700;margin:22px 0 8px;color:var(--ink)}
+p{margin:10px 0;color:var(--ink)}
+.dim{color:var(--ink-soft)}
+.faint{color:var(--ink-faint);font-size:13px}
 
-/* ---------- pill ---------- */
-.pill{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 11px;border-radius:999px;
-  border:1.5px solid var(--pink-soft);background:#fff6f9;color:var(--pink-deep);white-space:nowrap}
-.pill.ok{color:#3aa886;border-color:var(--mint-soft);background:#f0fbf7}
-.pill.wip{color:#d9a83c;border-color:var(--butter-soft);background:#fffaf0}
-.pill.bad{color:#e0607f;border-color:#ffd3dd;background:#fff2f5}
-.pill.lav{color:#9a7ed6;border-color:var(--lav-soft);background:#f8f4ff}
+/* ---- 列表 ---- */
+ul.plain{list-style:none;margin:10px 0}
+ul.plain li{position:relative;padding-left:20px;margin:6px 0;color:var(--ink)}
+ul.plain li::before{content:"—";position:absolute;left:0;color:var(--accent-soft)}
 
-/* ---------- table ---------- */
-.tblwrap{background:var(--card);border-radius:20px;box-shadow:var(--shadow);border:1.5px solid #fff;overflow:hidden}
-table{width:100%;border-collapse:collapse;font-size:13.5px}
-thead th{text-align:left;font-size:11.5px;font-weight:800;color:var(--pink-deep);letter-spacing:.05em;
-  padding:13px 18px;background:linear-gradient(90deg,#fff6f9,#f8f4ff);border-bottom:1.5px solid var(--line)}
-tbody td{padding:12px 18px;border-bottom:1px solid var(--line);vertical-align:middle}
-tbody tr:last-child td{border-bottom:none}
-tbody tr:hover{background:#fffafb}
-td.name{font-weight:700;color:var(--ink)}
-td.mono{font-family:var(--mono);font-size:12px;color:var(--ink2)}
-td.size{font-family:var(--mono);font-size:12.5px;color:var(--ink2);white-space:nowrap}
+/* ---- 表格 ---- */
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14.5px}
+thead th{
+  text-align:left;font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--ink-faint);
+  text-transform:uppercase;padding:10px 12px;border-bottom:1.5px solid var(--ink);
+}
+tbody td{padding:11px 12px;border-bottom:1px solid var(--rule-soft);vertical-align:top}
+tbody tr:last-child td{border-bottom:1px solid var(--rule)}
+td.name{font-weight:700}
+td.mono,td.size{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);white-space:nowrap}
 
-/* ---------- task list ---------- */
-.tasks{display:grid;gap:11px}
-.task{display:flex;gap:14px;align-items:flex-start;background:var(--card);border-radius:16px;
-  padding:14px 18px;box-shadow:var(--shadow);border:1.5px solid #fff}
-.task .ico{flex:none;font-size:20px;line-height:1.3}
-.task .body{flex:1}
-.task .t{font-weight:800;font-size:14px}
-.task .d{font-size:12.5px;color:var(--ink2);margin-top:2px}
-.task .pill{margin-left:6px}
+/* ---- 状态标 ---- */
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.03em;padding:1px 8px;border:1px solid var(--rule);color:var(--ink-soft);white-space:nowrap}
+.tag.ok{color:#3f6b4a;border-color:#b9cdbb}
+.tag.wip{color:#8a6a1e;border-color:#d8c48f}
+.tag.hold{color:#8a4b32;border-color:#d9b8a8}
 
-/* ---------- progress bar ---------- */
-.bar{height:12px;border-radius:999px;background:#f7e9ee;overflow:hidden;margin-top:8px}
-.bar>i{display:block;height:100%;border-radius:999px;
-  background:linear-gradient(90deg,var(--pink),var(--lav));box-shadow:0 0 10px rgba(242,121,154,.4)}
+/* ---- 任务条目 ---- */
+.item{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--rule-soft)}
+.item:last-child{border-bottom:none}
+.item .no{flex:none;font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:700;width:26px;padding-top:2px}
+.item .tx{flex:1}
+.item .tx .t{font-weight:700}
+.item .tx .d{font-size:13.5px;color:var(--ink-soft);margin-top:2px}
+.item .st{flex:none;align-self:flex-start}
 
-/* ---------- status banner ---------- */
-.banner{background:linear-gradient(135deg,#fff3f6,#f8f2ff);border:1.5px solid var(--pink-soft);
-  border-radius:20px;padding:18px 22px;box-shadow:var(--shadow);margin-top:14px}
-.banner .row{display:flex;gap:10px;align-items:flex-start;margin:8px 0}
-.banner .row .ic{font-size:18px;flex:none}
+/* ---- 提示框 ---- */
+.notebox{
+  border-left:3px solid var(--accent-soft);background:var(--card);
+  padding:14px 20px;margin:18px 0;
+}
+.notebox .r{margin:7px 0;font-size:14.5px}
+.notebox .r b{color:var(--accent)}
 
-/* ---------- footer ---------- */
-.foot{text-align:center;margin-top:56px;color:var(--ink3);font-size:12.5px;line-height:2}
-.foot .heart{color:var(--pink);font-size:16px}
-.path{font-family:var(--mono);font-size:12px;background:#fff6f9;border:1px solid var(--pink-soft);
-  border-radius:8px;padding:1px 8px;color:var(--pink-deep);word-break:break-all}
-a{color:var(--pink-deep);text-decoration:none;border-bottom:1.5px dotted var(--pink-soft)}
-a:hover{color:#d94a72}
+/* ---- 页脚 ---- */
+.foot{margin-top:64px;padding-top:22px;border-top:1px solid var(--rule);text-align:center;
+  font-size:12.5px;color:var(--ink-faint);line-height:2}
+.foot .mono{font-family:var(--mono)}
+.foot .sep{color:var(--rule);margin:0 8px}
+
+@media (max-width:640px){
+  .page{padding:44px 22px 70px}
+  .figures{grid-template-columns:repeat(2,1fr)}
+  .fig:nth-child(2){border-right:none}
+  .fig{border-bottom:1px solid var(--rule-soft)}
+  .fig:nth-last-child(-n+1){border-bottom:none}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="page">
 
-  <!-- hero -->
-  <div class="hero">
-    <div class="crown">🎀</div>
+  <div class="head">
+    <div class="kicker">AE Mission · Progress Report</div>
     <h1>AE 复刻任务 · 进度总结</h1>
-    <p class="sub">免费插件清单 · 收费件 clean-room 复刻 · 原生 aex 开发 · 情报与价值清单，一页看完 ✨</p>
-    <span class="date">📅 2026-11-14 · 妹妹版排版 · 数据以磁盘实测为准</span>
+    <p class="sub">免费插件清单 · 收费件 clean-room 复刻 · 原生 aex 开发 · 情报与价值清单</p>
+    <div class="meta">2026-11-14 · 数据以磁盘实测为准</div>
   </div>
 
-  <div class="note">
-    <b>一句话总览：</b>复刻件 <b>31 件</b>全部落地（24 在库 + 7 已归档），原创 aex <b>3 件</b>编译完成待装测，
-    情报 <b>24 份</b>、文档 <b>4 份</b>、外部免费精选 <b>25 项</b> 全部成稿。复刻/情报/文档三大主线已收口，
-    只剩「原生件实机装测」和「额度/停摆恢复」两件事等你拍板。💗
+  <p class="lede dropcap">复刻件 <b>31 件</b>全部落地（24 件在库、7 件已归档），原创 aex <b>3 件</b>编译完成待装测；情报 <b>24 份</b>、文档 <b>4 份</b>、外部免费精选 <b>25 项</b>全部成稿。复刻、情报、文档三大主线已收口，只剩「原生件实机装测」与「额度／停摆恢复」两件事待定。</p>
+
+  <div class="figures">
+    <div class="fig"><div class="n">31</div><div class="l">复刻件总数</div></div>
+    <div class="fig"><div class="n">3</div><div class="l">原生 aex 编译完成</div></div>
+    <div class="fig"><div class="n">24</div><div class="l">情报文件</div></div>
+    <div class="fig"><div class="n">25</div><div class="l">外部免费精选</div></div>
+    <div class="fig"><div class="n">4</div><div class="l">配套文档</div></div>
   </div>
 
-  <!-- stats -->
-  <div class="stats">
-    <div class="stat"><div class="emo">🧩</div><div class="v">31</div><div class="k">复刻件总数</div></div>
-    <div class="stat lav"><div class="emo">⚙️</div><div class="v">3</div><div class="k">原生 aex 编译完成</div></div>
-    <div class="stat mint"><div class="emo">📚</div><div class="v">24</div><div class="k">情报文件</div></div>
-    <div class="stat butter"><div class="emo">💎</div><div class="v">25</div><div class="k">外部免费精选</div></div>
-    <div class="stat sky"><div class="emo">📝</div><div class="v">4</div><div class="k">配套文档</div></div>
+  <!-- 一 -->
+  <div class="chapter">
+    <div class="ch-no">Chapter One</div>
+    <h2>一、复刻件：31 件全部落地<span class="en">CLEAN-ROOM JSX</span></h2>
+
+    <h3>在库 24 件 <span class="tag ok">可用</span></h3>
+    <p class="dim">落在 <span class="mono">C:\Users\19894\ae-mission\clones\</span>，每件含 <code>main.jsx</code> 与 <code>README.md</code>。</p>
+    <ul class="plain">
+      <li>角色／绑定向：rubberhose、limber2、joysticks、parrot、squirrel</li>
+      <li>关键帧／时间向：again、keytweak、keymaster、retend、keyframe-parent</li>
+      <li>合成／改稿向：true-comp-dup、overlord、sliceitup、trim-comp、project-item-labels</li>
+      <li>动效／缓动向：easeandwizz、easestash、easify4、wobblebox、rollit、addsauce</li>
+      <li>其他：scribe、move-anchor-point、native-presets</li>
+    </ul>
+
+    <h3>已归档 7 件 <span class="tag hold">可恢复</span></h3>
+    <p class="dim">与你本机已装正版重复，哈希存证后移入 <span class="mono">clones-archive\</span>，不销毁、随时可恢复。</p>
+    <ul class="plain">
+      <li>flow、gifgun、motion2、easecopy、easybake、autosway、rowscols</li>
+    </ul>
+    <p class="faint">存证文件：<span class="mono">clones-archive\archive-manifest.json</span>（每件带 SHA256、归档原因、恢复方式）</p>
   </div>
 
-  <!-- 1 -->
-  <div class="shead"><div class="num">🧩</div><h2>一、复刻件：31 件全部落地</h2><span class="hint">clean-room jsx · 零原码复制</span></div>
-  <div class="divider"></div>
-  <div class="grid g2">
-    <div class="card">
-      <h3><span class="dot"></span>在库 24 件 <span class="pill ok">可用</span></h3>
-      <p>落在 <span class="path">C:\Users\19894\ae-mission\clones\</span>，每件含 <code>main.jsx</code> + <code>README.md</code>。</p>
-      <ul>
-        <li>角色/绑定向：rubberhose · limber2 · joysticks · parrot · squirrel</li>
-        <li>关键帧/时间向：again · keytweak · keymaster · retend · keyframe-parent</li>
-        <li>合成/改稿向：true-comp-dup · overlord · sliceitup · trim-comp · project-item-labels</li>
-        <li>动效/缓动向：easeandwizz · easestash · easify4 · wobblebox · rollit · addsauce</li>
-        <li>其他：scribe · move-anchor-point · native-presets</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3><span class="dot" style="background:var(--lav)"></span>已归档 7 件 <span class="pill lav">可恢复</span></h3>
-      <p>与你本机已装正版重复，哈希存证后移入 <span class="path">clones-archive\</span>，<b>不销毁、随时可恢复</b>。</p>
-      <ul>
-        <li>flow · gifgun · motion2 · easecopy · easybake · autosway · rowscols</li>
-      </ul>
-      <p style="margin-top:10px;font-size:12.5px">📌 存证文件：<span class="path">clones-archive\archive-manifest.json</span>（每件带 SHA256 + 归档原因 + 恢复方式）</p>
-    </div>
-  </div>
-
-  <!-- 2 -->
-  <div class="shead"><div class="num">⚙️</div><h2>二、原创 aex：3 件编译完成</h2><span class="hint">E:\AEDev 管线 · 待实机装测</span></div>
-  <div class="divider"></div>
-  <div class="tblwrap">
+  <!-- 二 -->
+  <div class="chapter">
+    <div class="ch-no">Chapter Two</div>
+    <h2>二、原创 aex：3 件编译完成<span class="en">E:\AEDEV · 待装测</span></h2>
     <table>
       <thead><tr><th>效果件</th><th>做什么</th><th>产物大小</th><th>状态</th></tr></thead>
       <tbody>
-        <tr><td class="name">DCDuotone</td><td>双色调映射</td><td class="size">25,088 B</td><td><span class="pill wip">待装测</span></td></tr>
-        <tr><td class="name">DCLineBoil</td><td>线条沸腾抖动（一拍二/逐帧）</td><td class="size">28,160 B</td><td><span class="pill wip">待装测</span></td></tr>
-        <tr><td class="name">DCInkBleed</td><td>墨迹渗透 · 线稿湿边</td><td class="size">30,720 B</td><td><span class="pill wip">待装测</span></td></tr>
+        <tr><td class="name">DCDuotone</td><td>双色调映射</td><td class="size">25,088 B</td><td><span class="tag wip">待装测</span></td></tr>
+        <tr><td class="name">DCLineBoil</td><td>线条沸腾抖动（一拍二／逐帧）</td><td class="size">28,160 B</td><td><span class="tag wip">待装测</span></td></tr>
+        <tr><td class="name">DCInkBleed</td><td>墨迹渗透 · 线稿湿边</td><td class="size">30,720 B</td><td><span class="tag wip">待装测</span></td></tr>
       </tbody>
     </table>
-  </div>
-  <div class="card" style="margin-top:14px">
-    <h3><span class="dot" style="background:var(--mint)"></span>三件都走同一条已验证管线</h3>
-    <p>建项目 → 编译 Release x64 → 产物落 <span class="path">E:\AEDev\BuildOut\</span>。编译 error 0（4 条 C4819 为 SDK 936 代码页常态警告）。
-    每件都带 README：参数说明、算法、同域差异声明、部署一句 copy + 重启 AE、以及「装好后该看到什么」对照现象。</p>
-    <p style="margin-top:8px">📌 部署这一步需要管理员权限 + 重启 AE，<b>由你执行</b>，我们只交产物和说明。</p>
+    <p>三件都走同一条已验证管线：建项目 → 编译 Release x64 → 产物落 <span class="mono">E:\AEDev\BuildOut\</span>。编译 error 0（4 条 C4819 为 SDK 936 代码页常态警告）。每件都带 README：参数说明、算法、同域差异声明、部署一句 copy 加重启 AE，以及「装好后该看到什么」对照现象。</p>
+    <p class="dim">部署需要管理员权限并重启 AE，由你执行；我们只交产物与说明。</p>
   </div>
 
-  <!-- 3 -->
-  <div class="shead"><div class="num">📚</div><h2>三、情报与清单：24 份成稿</h2><span class="hint">检索 + 过筛 + 诚实标注</span></div>
-  <div class="divider"></div>
-  <div class="grid g2">
-    <div class="card">
-      <h3><span class="dot" style="background:var(--sky)"></span>核心情报</h3>
-      <ul>
-        <li><b>免费插件榜</b>：全球榜 / 中文圈 / B站 / 动画特效 / 工具MG 五路</li>
-        <li><b>收费件评估</b>：paid-list（32KB）+ 复刻可行性</li>
-        <li><b>价值清单</b>：value-picks（31KB）按 PV/手书/剪辑/效率四工作流分档</li>
-        <li><b>黑五心愿单</b>：11/16 大促 25% off，条款已核（Flashback Japan 公告）</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3><span class="dot" style="background:var(--butter)"></span>方法与诚实标注</h3>
-      <ul>
-        <li>三层盘点：<span class="path">local-env-layers.md</span>（.aex 790 / CEP 4 / 脚本三层）</li>
-        <li>检索三路实测：B站可用最有用 · YouTube 通道故障 · X 需登录态</li>
-        <li>外部 25 项逐条过筛：已装剔除 5 项、可推 15 项、外部程序不可核 5 项</li>
-        <li>拿不准一律标「未核实」，不猜（按你的筛选规则死锁）</li>
-      </ul>
+  <!-- 三 -->
+  <div class="chapter">
+    <div class="ch-no">Chapter Three</div>
+    <h2>三、情报与清单：24 份成稿<span class="en">RESEARCH</span></h2>
+
+    <h3>核心情报</h3>
+    <ul class="plain">
+      <li>免费插件榜：全球榜、中文圈、B站、动画特效、工具MG 五路</li>
+      <li>收费件评估：paid-list（32KB）与复刻可行性</li>
+      <li>价值清单：value-picks（31KB）按 PV／手书／剪辑／效率四工作流分档</li>
+      <li>黑五心愿单：11/16 大促约 25% off，条款已核（Flashback Japan 公告）</li>
+    </ul>
+
+    <h3>方法与诚实标注</h3>
+    <ul class="plain">
+      <li>三层盘点：<span class="mono">local-env-layers.md</span>（.aex 790／CEP 4／脚本三层）</li>
+      <li>检索三路实测：B站可用且最有用；YouTube 通道故障；X 需登录态</li>
+      <li>外部 25 项逐条过筛：已装剔除 5 项、可推 15 项、外部程序不可核 5 项</li>
+      <li>拿不准一律标「未核实」，不猜（按筛选规则死锁）</li>
+    </ul>
+  </div>
+
+  <!-- 四 -->
+  <div class="chapter">
+    <div class="ch-no">Chapter Four</div>
+    <h2>四、任务九条：进度一览<span class="en">CHECKLIST</span></h2>
+
+    <div class="item"><div class="no">01</div><div class="tx"><div class="t">免费 AE 插件按使用量／播放量排序</div><div class="d">B站播放与收藏、GitHub star、榜单热度四路交叉；无公开下载量已如实说明。</div></div><div class="st"><span class="tag ok">完成</span></div></div>
+    <div class="item"><div class="no">02</div><div class="tx"><div class="t">收费功能插件复刻，路径入网页</div><div class="d">31 件 clean-room 复刻落地，index.html 内嵌路径卡。</div></div><div class="st"><span class="tag ok">完成</span></div></div>
+    <div class="item"><div class="no">03</div><div class="tx"><div class="t">列出对我最有价值的东西</div><div class="d">value-picks.md 按四工作流分档，每条带来源与「为什么对你有用」。</div></div><div class="st"><span class="tag ok">完成</span></div></div>
+    <div class="item"><div class="no">07</div><div class="tx"><div class="t">评估不可行项并给替代方案</div><div class="d">feasible-assessment.md／value-and-feasible.md。</div></div><div class="st"><span class="tag ok">完成</span></div></div>
+    <div class="item"><div class="no">08</div><div class="tx"><div class="t">不浪费 token 的消耗方法</div><div class="d">token-saving.md。</div></div><div class="st"><span class="tag ok">完成</span></div></div>
+    <div class="item"><div class="no">09</div><div class="tx"><div class="t">把 glm 试用额度用光</div><div class="d">子 agent 全 402 才算真死；当前是 ApiKey 401（非 402），属可恢复停摆，非额度耗尽。</div></div><div class="st"><span class="tag wip">进行中</span></div></div>
+    <div class="item"><div class="no">＋</div><div class="tx"><div class="t">授权原生 aex／CEP 开发</div><div class="d">3 件 aex 编译完成待装测；CEP-Flow 面板因停摆仍冻结。</div></div><div class="st"><span class="tag wip">进行中</span></div></div>
+  </div>
+
+  <!-- 五 -->
+  <div class="chapter">
+    <div class="ch-no">Chapter Five</div>
+    <h2>五、当前状况<span class="en">STATUS</span></h2>
+    <div class="notebox">
+      <div class="r"><b>Chief 在线</b>：观察员通道正常，已按「指挥挂则 Chief 代理执行」预案接管调度。</div>
+      <div class="r"><b>指挥／原生工停摆</b>：模型调用 AUTH 失败，是 ApiKey 401（凭证失效），不是 402 真死，属可恢复；恢复需在桌面端换一批有效模型 key。</div>
+      <div class="r"><b>已接管续活</b>：原生工停摆前写好的 DCInkBleed 算法，已由 Chief 直接驱动管线编译验收完成（30,720 B／error 0／README 已补）。</div>
+      <div class="r"><b>仍冻结</b>：CEP-Flow 面板、线上 HTML 报告推送（守发布红线）、Chief 总结（等额度口径）。</div>
     </div>
   </div>
 
-  <!-- 4 -->
-  <div class="shead"><div class="num">✅</div><h2>四、任务九条：进度一览</h2><span class="hint">用户原始需求逐条对账</span></div>
-  <div class="divider"></div>
-  <div class="tasks">
-    <div class="task"><div class="ico">①</div><div class="body"><div class="t">免费 AE 插件按使用量/播放量排序 <span class="pill ok">完成</span></div><div class="d">B站播放/收藏 + GitHub star + 榜单热度四路交叉，无公开下载量已如实说明。</div></div></div>
-    <div class="task"><div class="ico">②</div><div class="body"><div class="t">收费功能插件复刻，路径入网页 <span class="pill ok">完成</span></div><div class="d">31 件 clean-room 复刻落地，index.html 内嵌路径卡。</div></div></div>
-    <div class="task"><div class="ico">③</div><div class="body"><div class="t">列出对我最有价值的东西 <span class="pill ok">完成</span></div><div class="d">value-picks.md 按四工作流分档，每条带来源 + 「为什么对你有用」。</div></div></div>
-    <div class="task"><div class="ico">⑦</div><div class="body"><div class="t">评估不可行项 + 给替代方案 <span class="pill ok">完成</span></div><div class="d">feasible-assessment.md / value-and-feasible.md。</div></div></div>
-    <div class="task"><div class="ico">⑧</div><div class="body"><div class="t">不浪费 token 的消耗方法 <span class="pill ok">完成</span></div><div class="d">token-saving.md。</div></div></div>
-    <div class="task"><div class="ico">⑨</div><div class="body"><div class="t">把 glm 试用额度用光 <span class="pill wip">进行中</span></div><div class="d">子 agent 全 402 才算真死；当前是 ApiKey 401（非 402），属可恢复停摆，非额度耗尽。</div></div></div>
-    <div class="task"><div class="ico">➕</div><div class="body"><div class="t">授权原生 aex / CEP 开发 <span class="pill wip">进行中</span></div><div class="d">3 件 aex 编译完成待装测；CEP-Flow 面板因停摆仍冻结。</div></div></div>
-  </div>
-
-  <!-- 5 -->
-  <div class="shead"><div class="num">🚦</div><h2>五、当前状况</h2><span class="hint">停摆与接管</span></div>
-  <div class="divider"></div>
-  <div class="banner">
-    <div class="row"><div class="ic">🩷</div><div><b>Chief 在线</b>：观察员通道正常，已按「指挥挂则 Chief 代理执行」预案接管调度。</div></div>
-    <div class="row"><div class="ic">😵</div><div><b>指挥 / 原生工 停摆</b>：模型调用 <b>AUTH 失败</b>——是 ApiKey 401（凭证失效），<b>不是 402 真死</b>，属可恢复。恢复需在桌面端换一批有效模型 key。</div></div>
-    <div class="row"><div class="ic">🔧</div><div><b>已接管续活</b>：原生工停摆前写好的 DCInkBleed 算法，已由 Chief 直接驱动管线编译验收完成（30,720 B / error 0 / README 已补）。</div></div>
-    <div class="row"><div class="ic">🧊</div><div><b>仍冻结</b>：CEP-Flow 面板 · 线上 HTML 报告推送（守发布红线）· Chief 总结（等额度口径）。</div></div>
-  </div>
-
-  <!-- 6 -->
-  <div class="shead"><div class="num">🎯</div><h2>六、下一步：等你拍板</h2><span class="hint">两件事</span></div>
-  <div class="divider"></div>
-  <div class="grid g2">
-    <div class="card">
-      <h3><span class="dot"></span>A · 恢复模型 key</h3>
-      <p>你在桌面端换一批有效模型 key → 指挥 / 原生工 / 子 agent 立刻复活，按原队列继续（CEP 面板、黑五心愿单、报告推送）。</p>
-      <div class="bar"><i style="width:45%"></i></div>
-    </div>
-    <div class="card">
-      <h3><span class="dot" style="background:var(--lav)"></span>B · 我继续代理推进</h3>
-      <p>key 先不齐，由 Chief 代理把冻结队列推进；但<b>报告发布上线仍守红线</b>——没你发话不推。</p>
-      <div class="bar"><i style="width:70%;background:linear-gradient(90deg,var(--lav),var(--mint))"></i></div>
-    </div>
+  <!-- 六 -->
+  <div class="chapter">
+    <div class="ch-no">Chapter Six</div>
+    <h2>六、下一步：待拍板<span class="en">DECISIONS</span></h2>
+    <h3>甲 · 恢复模型 key</h3>
+    <p class="dim">在桌面端换一批有效模型 key，指挥／原生工／子 agent 立刻复活，按原队列继续（CEP 面板、黑五心愿单、报告推送）。</p>
+    <h3>乙 · 由 Chief 继续代理推进</h3>
+    <p class="dim">key 先不齐，由 Chief 代理推进冻结队列；但报告发布上线仍守红线——没发话不推。</p>
   </div>
 
   <div class="foot">
-    <div class="heart">🌸 🎀 🌸</div>
-    数据来源：clones/ 磁盘实测 · intel/ 24 份 · docs/ 4 份 · E:\AEDev\BuildOut\ 3 件 aex<br>
-    本地页面：<span class="path">C:\Users\19894\ae-mission\web\summary.html</span> ｜ 已发布站：<a href="https://lylnpc.github.io/dsh-intel/ae-report/" target="_blank">lylnpc.github.io/dsh-intel/ae-report</a><br>
-    <span style="color:var(--ink3)">按你定的红线：index.html 不覆盖 · 没你发话不发布上线 · 原生件部署由你执行</span>
+    数据来源：clones／磁盘实测 · intel／24 份 · docs／4 份 · E:\AEDev\BuildOut／3 件 aex<br>
+    本地页面 <span class="mono">C:\Users\19894\ae-mission\web\summary.html</span>
+    <span class="sep">|</span>
+    已发布站 <a href="https://lylnpc.github.io/dsh-intel/ae-report/" target="_blank">lylnpc.github.io/dsh-intel/ae-report</a><br>
+    按既定红线：index.html 不覆盖 · 没发话不发布上线 · 原生件部署由你执行
   </div>
 
 </div>
