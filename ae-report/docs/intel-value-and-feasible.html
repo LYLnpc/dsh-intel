@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>value-and-feasible</title><style>
+body{background:#fffaf7;color:#2b2723;font-family:'PingFang SC','Microsoft YaHei',system-ui,sans-serif;max-width:900px;margin:0 auto;padding:30px 22px 80px;line-height:1.85;font-size:14.5px}
+h1.doc{font-size:20px;margin:0 0 18px;padding-bottom:12px;border-bottom:2px solid #ffd9e3;color:#f2799a}
+h1,h2,h3,h4{color:#5b4a54;line-height:1.4;margin:20px 0 8px}h1{font-size:20px}h2{font-size:17px;border-left:4px solid #ff9eb5;padding-left:10px}h3{font-size:15px}
+p{margin:9px 0}ul,ol{margin:9px 0 9px 22px}li{margin:4px 0}
+code{background:#fff0f4;color:#d94a72;padding:1px 6px;border-radius:6px;font-family:ui-monospace,Consolas,monospace;font-size:12.5px}
+pre.code{background:#fff;border:1.5px solid #f3e3e8;border-radius:12px;padding:16px;overflow-x:auto}
+pre.code code{background:none;color:#5b4a54;padding:0}
+blockquote{margin:12px 0;padding:8px 16px;border-left:3px solid #b89ee8;background:#f8f4ff;border-radius:0 8px 8px 0}
+hr{border:none;border-top:1.5px dashed #ffd9e3;margin:20px 0}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid #f3e3e8;border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{background:#fff6f9;color:#f2799a;text-align:left;padding:8px 12px;border-bottom:1.5px solid #f3e3e8;white-space:nowrap}
+td{padding:8px 12px;border-bottom:1px solid #f8eef1;vertical-align:top}
+a{color:#f2799a;text-decoration:none;border-bottom:1.5px dotted #ffd9e3}
+</style></head><body><h1 class="doc">value-and-feasible</h1><p>generated_at: 2026-11-14T11:12:00+08:00 task: 高价值清单 + 可行性评估 + 省token法（Chief 主线程保底稿，待子agent报告合并）</p>
+<h1>③ 我觉得对你最有价值的东西（保底稿）</h1>
+<ol><li><strong>Duik Bassel</strong> — 免费开源的角色绑定/反向动力学，AE 里做人物动画的标杆，省下买 RubberHose/Character Tool 的钱。</li><li><strong>Animation Composer / Motion Bro</strong> — 预设动画库 + 管理器，免费版够日常 80% 的转场/入场需求。</li><li><strong>FX Console（Video Copilot）</strong> — 免费，特效快速应用+搜索，效率插件里性价比最高。</li><li><strong>GitHub 开源 AE 脚本库</strong>（ivg-design/AE ⭐22、Syria-Scripts ⭐12、Label-Me ⭐13）— 白嫖 35+ 脚本，MIT 可商用。</li><li><strong>表达式（Expressions）+ 脚本化</strong> — 学会写 .jsx 后，大量收费"一键XXX"功能你都能自己实现，长期最值钱的能力。</li></ol>
+<h1>④ 可行性评估 + 替代方案（一次性，保底稿）</h1>
+<ul><li><strong>.jsx（JS 脚本）</strong>：✅ 高可行。ExtendScript 公开文档齐全，clean-room 重写收费脚本的逻辑即可，法律与安全都稳。替代=自己写/开源平替。</li><li><strong>.aep（工程预设）</strong>：✅ 可行。本质是工程文件，拆开看结构、用 Essential Graphics 自己做预设版即可。</li><li><strong>.jsxbin（加密脚本）</strong>：⚠️ 中。可反编译查看逻辑（社区有 jsxbin 反编译器），但重写需 clean-room 重实现，不能照搬代码。替代=找同名免费开源实现。</li><li><strong>.aex（C++ 插件）</strong>：❌ 低。需 AE SDK + C++ 编译，逆向闭源 .aex 法律与工程成本都高。替代=找开源同类插件或 FX 脚本平替。</li></ul>
+<h1>⑤ 你没想到的「耗额度但不浪费」的方法</h1>
+<ol><li><strong>让子 agent 把检索结果直接落盘为结构化 MD/JSON</strong>，主线程只做合并渲染——一次研究产出可被网页、记忆、后续任务复用，额度不白烧。</li><li><strong>多子 agent 并行分主题检索</strong>，用并发把 1 小时的串行时间切成几路同时跑，相同时间内吞掉更多额度且更快出活。</li><li><strong>把"复刻可行性评估"也交给子 agent 产出长报告</strong>，这本身就是高质量 token 消耗，且直接是网页第②④节内容。</li><li><strong>缓存检索结果到本地 intel/，断点续传</strong>——之前指挥中断白烧一轮，落盘后即使会话挂了也不重跑。</li><li><strong>用 craft-anything 真去复刻 1-2 个 .jsx 脚本</strong>，产物（含路径）既是交付也是额度消耗证据，比纯聊更实在。</li></ol></body></html>
