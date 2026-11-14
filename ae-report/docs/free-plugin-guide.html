@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>免费插件指南 free-plugin-guide</title><style>
+  body{background:#fffaf7;color:#2b2723;font-family:'PingFang SC','Microsoft YaHei',system-ui,sans-serif;max-width:920px;margin:0 auto;padding:34px 24px 80px;line-height:1.8}
+  a.back{display:inline-block;margin-bottom:20px;color:#f2799a;text-decoration:none;border-bottom:1.5px dotted #ffd9e3;font-weight:700}
+  h1.doc{font-size:22px;margin:0 0 18px;padding-bottom:12px;border-bottom:2px solid #ffd9e3;color:#f2799a}
+  pre{white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,'Cascadia Mono',Consolas,monospace;font-size:13px;line-height:1.75;background:#fff;border:1.5px solid #f3e3e8;border-radius:14px;padding:22px;box-shadow:0 8px 30px rgba(242,121,154,.08)}
+  </style></head><body><a class="back" href="../summary.html">&larr; 返回总结</a><h1 class="doc">免费插件指南 free-plugin-guide</h1><pre>---
+generated_at: 2026-11-14T07:47:37+08:00
+task: ae-mission 免费插件快速上手指南（15 个，按两榜实际热度排序），产出 docs/free-plugin-guide.md
+data_sources: intel/free-global.md（39 项全球榜，GitHub stars 2026-11-13 实测）、intel/free-bilibili.md（30 项 B站榜，播放量 2026-11-14 实测）、intel/paid-list.md（渠道价格核对）、intel/free-alternatives.md（替代方案核对）
+---
+
+# 免费插件快速上手指南（PV / 手书 / 剪辑向）
+
+&gt; **排序口径**：有 B站实测播放量的按播放量降序（free-bilibili.md，2026-11-14 API 实测）；仅在全球榜的按 Reddit 13 帖聚合提及数 + 编辑部榜单 + GitHub stars 综合插入。全部条目为免费/开源/NYOP（可 $0 结账）或"收费插件的免费替代"。
+&gt; **事实边界**：所有链接、价格、注册要求、热度数字均照 intel 文件原文引用；榜单未给链接的不补造；渠道存在矛盾的如实标注（见 §7、§9 与文末附注）。
+
+## 安装前置知识：三类插件的存放位置（先读这段）
+
+AE 第三方扩展分三种形态，装错位置是新手最常见问题：
+
+| 形态 | 典型文件 | 放哪里 | 生效方式 |
+|---|---|---|---|
+| **aex 原生插件** | .aex | `C:\Program Files\Adobe\Adobe After Effects &lt;版本&gt;\Support Files\Plug-ins\` 或通用目录 `C:\Program Files\Adobe\Common\Plug-ins\7.0\Media Core\` | **重启 AE**，效果菜单里出现 |
+| **jsx 脚本/面板** | .jsx / .jsxbin | 可停靠面板：`...\Support Files\Scripts\ScriptUI Panels\`（Window 菜单出现）；普通脚本：`...\Support Files\Scripts\`（File &gt; Scripts 菜单出现） | 重启 AE 或 File &gt; Scripts &gt; Run Script File 直接跑 |
+| **CEP 扩展** | .zxp / 扩展文件夹 | 经 ZXP 安装器装到 `C:\Users\&lt;用户&gt;\AppData\Roaming\Adobe\CEP\extensions\` | 重启 AE，Window &gt; Extensions 菜单出现 |
+
+另：用到脚本读写/联网功能的，先勾选 `Edit &gt; Preferences &gt; Scripting &amp; Expressions &gt; Allow Scripts to Write Files and Access Network`。本文每个插件标注了形态。
+
+---
+
+## 1. Duik Ángela —— 角色绑定/IK 骨骼套件（全榜免费热度第一）
+
+1. **定位与价值**：行业级 2D 角色绑定/IK/自动动画工具，完全免费开源。对手书作者是"让人物真的动起来"的核心（先绑 IK/骨骼再摆姿势，免逐帧重画）；也是 AutoSway 等摆动类收费脚本的社区公认免费平替（见文末附注一）。
+2. **获取路径**：官网 https://rxlaboratory.org/tools/duik/ （开源，可自愿捐赠，无需邮箱）；GitHub 仓库 https://github.com/RxLaboratory/Duik （已验证可达）。注：intel 核实记录显示 rainboxprod.coop 与 duik.rxlaboratory.com 在当时网络环境无法连通，**一律优先走 GitHub 仓库**。
+3. **安装要点**：jsx 脚本套件（带安装器的面板脚本）。下载 Release 后按官方安装器走 ScriptUI Panels 方式装，重启 AE 从 Window 菜单打开；手动装则把 jsx 放 `Scripts\ScriptUI Panels\`。
+4. **第一个动作**：新建合成 → 画一个两段式"大腿+小腿"形状层 → 用 Duik 的骨骼工具给关节打骨 → 拖末端骨骼看 IK 自动弯折。有手书人物的直接进 auto-rig 走一遍。
+5. **社区热度**：B站播放量 1,042,181（B站榜第 1，31 个关联视频）；GitHub 408★（2026-11 实测，仍在更新）；Reddit r/AfterEffects 13 帖聚合中 4 帖 9 提及。
+
+## 2. Saber —— 能量光剑/描边光效插件（Video Copilot）
+
+1. **定位与价值**：100% 免费的能量光剑/激光/霓虹描边特效插件。手书打斗光效、MV 音 bomb 段落、Logo 点火，套上再改颜色即可，不用手搓光效。
+2. **获取路径**：官方发布博文 https://www.videocopilot.net/blog/2016/03/new-plug-in-saber-now-available-100-free （免邮箱直下）。注：intel 核实 `videocopilot.net/products/saber/` 已 404，**有效入口就是上面这个博文页**。
+3. **安装要点**：aex 原生插件 → 放 `Plug-ins\` 或 `Common\Plug-ins\7.0\Media Core\`，重启 AE，在 效果 &gt; Video Copilot &gt; Saber 找到。
+4. **第一个动作**：对文字层（或遮罩层）加 Saber → Core Type 选 Text/Layer Paths → 拖 Glow Intensity 和 Distortion 看能量描边实时变化。
+5. **社区热度**：B站播放量 708,884（B站榜第 2）；Magic Mark 2025 免费榜第 9；YouTube 盘点常客；VC 官方免费主打。
+
+## 3. Motion Tools 2 —— 锚点/缓动/对齐效率面板
+
+1. **定位与价值**：锚点、缓动、对齐、变换多功能效率面板。MG 动画日常工作流加速器，对 PV/剪辑作者是"少进菜单"的省时工具。
+2. **获取路径**：B站榜口径为"免费（作者发布）"，经 B站分发——**榜单未提供站外直链，从作者 B站视频简介领取**（B站榜第 8 名关联视频可顺藤摸瓜）。
+3. **安装要点**：jsx 面板 → `Scripts\ScriptUI Panels\`，重启 AE 从 Window 菜单停靠。
+4. **第一个动作**：选中一个图层 → 用面板的锚点工具把锚点快速放到图层中心/角点 → 再给两个关键帧套一次缓动，感受一遍工作流。
+5. **社区热度**：B站播放量 230,717（B站榜第 8，11 个关联视频；代表视频《免费的你要不要？中文汉化 Motion Tools 2》13.8 万播放）。
+
+## 4. FX Console —— 效果/预设秒搜控制台（Video Copilot）
+
+1. **定位与价值**：一键搜索/套用效果与预设的效果控制台。工作流类第一神器：效果全部按名字秒搜秒套，替代翻菜单，对每天要翻几十次效果菜单的 PV/剪辑作者是刚需。
+2. **获取路径**：https://www.videocopilot.net 站内 Downloads（FX Console v1.0.7），免邮箱直下。
+3. **安装要点**：aex + 面板混合形态，装完重启 AE，默认快捷键 Ctrl+Space（可在键盘编辑器里改）。
+4. **第一个动作**：装完**先绑定一个快捷键** → 选中图层按快捷键 → 输入中文/英文名（如"Glow"）回车，效果直接挂上——第一次命中就有获得感。
+5. **社区热度**：Reddit r/AfterEffects 多帖公认"第一必装"（pusdsi、1flmaip 等帖）；Magic Mark 2025 榜收录；B站播放量 197,528（B站榜第 9）。
+
+## 5. True Comp Duplicator —— 预合成树完整复制脚本
+
+1. **定位与价值**：完整复制选中合成及其全部子合成层级树（AE 自带只是浅复制）。接单作者的客户改稿刚需：换个颜色/角色再出一版，用它复制整条链再改，不手动另存。
+2. **获取路径**：https://aescripts.com/true-comp-duplicator/ ，**NYOP（Name Your Own Price，建议价 $24.99，结账可填 $0），需注册 aescripts 账号**。
+3. **安装要点**：jsx 脚本 → `Scripts\` 或 `ScriptUI Panels\`；NYOP 下载前先注册 aescripts 免费账号（EaseCopy 等同）。
+4. **第一个动作**：随手做个"主合成 + 2 层嵌套子合成"小工程 → 跑一次 TCD → 看到 3 个合成被完整复制且引用关系保留，就理解了它和 AE 自带复制的区别。
+5. **社区热度**：Reddit 13 帖聚合中 **7 帖推荐、23 次提及，脚本类第一**；B站播放量 136,673（B站榜第 11）。
+
+## 6. SpeedX —— 抽帧/补帧/变速工具（B站 UP 主自制开源）
+
+1. **定位与价值**：保留视频长度的抽帧+补帧工具，二创/AMV 变速卡点的免费辅助（B站 UP 主自制，社区开源）。
+2. **获取路径**：B站榜口径"免费开源（UP 主自制）"，**榜单未提供站外直链**，从 B站代表视频《【自制/开源】AE脚本 - 保留视频长度的抽帧+补帧工具（需安装SpeedX）》（31,743 播放）简介获取。
+3. **安装要点**：jsx 脚本 → `Scripts\`；注意其工作流需要按视频简介的说明配置（原文标题即标注"需安装 SpeedX"依赖）。
+4. **第一个动作**：拿一段 24fps 素材做一次抽帧 + 补帧往返，对照原片确认时长无变化（这是它名字里"保留视频长度"的核心卖点）。
+5. **社区热度**：B站播放量 91,779（B站榜第 14，5 个关联视频）。
+
+## 7. Ease and Wizz —— Penner 缓动预设脚本（渠道矛盾标注）
+
+1. **定位与价值**：给选中关键帧套 Back/Bounce/Elastic/Expo 等数学缓动预设的脚本，MG 弹性动画一键化。
+2. **获取路径**：aescripts.com 站内搜索 "Ease and Wizz"。**渠道矛盾如实标注**：B站榜获取渠道写"免费（aescripts）"；但 intel/paid-list.md #4 记录 EaseAndWizz 为 **$29.99 收费商品（常打折）**。**以 aescripts 官方商品页标价为准**，本指南不建议默认它是免费品。
+3. **安装要点**：jsx 脚本 → `Scripts\ScriptUI Panels\`。
+4. **第一个动作**：给位置属性打两个关键帧 → 选中后应用 Back/Ease Out → 看过冲回弹效果。
+5. **社区热度**：B站播放量 84,254（B站榜第 15，5 个关联视频）。
+
+## 8. AEUX —— Figma/Sketch/Illustrator 图层导入 AE
+
+1. **定位与价值**：把 Figma/Sketch/Ai 图层转成 AE 形状图层。UI 动效/PV 里平面素材进 AE 免手动重描。
+2. **获取路径**：http://aeux.io （B站榜口径"免费开源"，照原文引用）。
+3. **安装要点**：双端形态（设计端扩展 + AE 端面板），AE 端 jsx 放 `ScriptUI Panels\`，设计端按官网指引装对应扩展。
+4. **第一个动作**：在 Figma 里画 3 个图层 → 经 AEUX 推到 AE → 看到 3 个形状层逐一对应。
+5. **社区热度**：B站播放量 81,420（B站榜第 16；代表视频《Figma 导入 AE 教程（AEUX 插件）》3.5 万播放）。
+
+## 9. Flow 1.x（GitHub 免费版）—— 缓动曲线编辑器（新版收费，标注）
+
+1. **定位与价值**：归一化缓动曲线编辑器 + 预设库，动效手感的标配工具。**注意**：B站流传的是 GitHub 上的 Flow 1.x 免费版；新版 Flow（aescripts）为 $35 收费商品（paid-list #1）。本节指免费版。
+2. **获取路径**：B站榜口径"免费（GitHub 1.x）"；免费版从 GitHub 获取（B站榜未给具体仓库名，**下载前自行确认仓库许可证**，本项为榜单口径引用）。
+3. **安装要点**：jsx 面板 → `ScriptUI Panels\`，重启 AE 停靠。
+4. **第一个动作**：两个关键帧 → 面板里选一条内置曲线点应用 → 打开图表编辑器（F9 附近）看 influence/speed 被写入。
+5. **社区热度**：B站播放量 74,233（B站榜第 17；代表视频《这可能是目前全网最全的 flow 衔接教程》3.7 万播放）。若预算允许，收费版与免费替代（Kease / Rebound）对照见 intel/free-alternatives.md #7。
+
+## 10. Animation Composer —— 拖拽预设动画库（Mister Horse 免费版）
+
+1. **定位与价值**：入场/转场/弹跳预设库，拖拽即用，新手最友好。赶工时先套库再手 K，PV/剪辑的保命效率件。
+2. **获取路径**：https://misterhorse.net/animationcomposer ，免费版直装（**免邮箱**；扩展包另付费）。
+3. **安装要点**：官方安装器形态（含 aex/面板混合），装完重启 AE，Window &gt; Extensions 打开面板。
+4. **第一个动作**：选中一个图层 → 在面板里挑一个 In Motion 入场双击 → 直接看到动画生成，再拖时间线调时机。
+5. **社区热度**：Reddit 4 帖 14 提及；School of Motion 称"新手第一推荐"；约 41 万播放的 YouTube 盘点（ShootaTime TOP 5）必提。
+
+## 11. Color Vibrance —— 高饱和上色/发光色分离（Video Copilot）
+
+1. **定位与价值**：快速高饱和上色/发光色分离的经典调色插件，做霓虹描边、流光字、能量特效的上色层。
+2. **获取路径**：https://www.videocopilot.net （站内 Downloads），免邮箱直下；2022.1 版已适配新 AE。
+3. **安装要点**：aex → `Plug-ins\` 或 `Media Core\`，重启 AE。
+4. **第一个动作**：对一个纯白文字层加 Color Vibrance → 改主色并拉 Intensity → 配合 Saber/发光做出霓虹感。
+5. **社区热度**：Video Copilot 免费三件套之一（Saber/FX Console/Color Vibrance）；PremiumBeat 40+ 免费清单收录。
+
+## 12. EaseCopy —— 缓动复制粘贴脚本（原版 NYOP）
+
+1. **定位与价值**：复制/粘贴关键帧**缓动**而不动数值。PV 动画手感统一的神器：调好一段缓动，全片粘贴。
+2. **获取路径**：https://aescripts.com/easecopy/ ，**NYOP（$15 标价，个人可少付/可 $0），需注册 aescripts 账号**。
+3. **安装要点**：jsx 面板 + 3 个独立快捷键脚本 + KBAR 包；把独立 Copy/Paste 脚本绑 AE 键盘快捷键最好用。
+4. **第一个动作**：调好一段弹性缓动 → Copy → 选另一图层的目标关键帧 → Paste Eases → 打开图表编辑器确认"曲线过来了、数值没动"。
+5. **社区热度**：Reddit 6 帖 31 次提及、热评 220 赞，甚至有"内置进 AE"的社区请愿（脚本类热度第二）；B站播放量 19,658。
+
+## 13. AEJuice Pack Manager + Starter Pack（含 GifGun 免费替代 Export GIF）
+
+1. **定位与价值**：免费素材管理器，内置 100+ 免费拖拽动画/转场/音效起步包；其产品线下的 **Export GIF**（免费、从渲染队列一键导出 GIF）是收费插件 GifGun 的"全替代"（intel/free-alternatives.md #10 已核实）。
+2. **获取路径**：https://aejuice.com/free-plugins/ ；**需要注册免费账号才能下载包**（榜单明确标注）。Export GIF 单品页 https://aejuice.com/product/export-gif/ 。
+3. **安装要点**：CEP 扩展形态（Pack Manager 面板）——zxp 安装后从 Window &gt; Extensions 打开；首次要在面板里登录账号同步免费包。
+4. **第一个动作**：打开 Pack Manager → 把 Starter Pack 里一个转场拖到两段素材之间 → 再试 Export GIF 对当前合成出一张 GIF。
+5. **社区热度**：B站播放量 16,646（B站榜第 23）；官方免费区 + PremiumBeat 清单收录；YouTube 盘点常客。
+
+## 14. TheAnimeScripter —— AI 放大 + RIFE 补帧 + 画质修复
+
+1. **定位与价值**：AI 放大 + RIFE 补帧 + 画质修复一条龙的独立工具（AE 集成），动漫二创圈爆火。二创素材先在 AE 外跑干净再进工程。
+2. **获取路径**：https://github.com/NevermindNilas/TheAnimeScripter ，开源直下（无需邮箱）。
+3. **安装要点**：独立工具/GitHub Release（非 aex/jsx），按仓库 README 下载对应平台构建；命令行/GUI 按 README 使用。
+4. **第一个动作**：拿一段低帧率二创素材跑一次 补帧+超分 默认参数 → 对照原素材看清晰度与帧率提升。
+5. **社区热度**：GitHub 347★（2026-11-13 实测），全球榜原话"动漫二创圈爆火"。
+
+## 15. Adobe Media Encoder —— AfterCodecs 的免费替代（随 AE 附带）
+
+1. **定位与价值**：AE/PR 官方渲染输出编解码扩展 AfterCodecs（~$105，paid-list #45 标 C 类不可复刻）的免费替代就是随 AE 安装的 AME：ProRes/H.264/H.265 全支持，后台队列渲染不锁 AE。B站榜第 5（AfterCodecs 播放量 672,174）说明"渲染输出"是最大刚需之一——这个需求可以零成本满足。
+2. **获取路径**：无需获取——随 After Effects 安装自带（Creative Cloud 桌面端可确认已装）。
+3. **安装要点**：AE 里 `File &gt; Export &gt; Add to Adobe Media Encoder Queue`（或渲染队列输出模块"AME"按钮）；首次打开 AME 确认导出预设里 ProRes/H.265 可用。
+4. **第一个动作**：把当前合成推到 AME 队列 → 选 H.264 匹配源高比特率 → 渲染 → 对照 AE 内直接输出，感受"不锁 AE"的工作流差异。
+5. **社区热度**：paid-list 结论原文："替代：Adobe Media Encoder（免费随装）"；B站 AfterCodecs 相关视频 672,174 播放（B站榜第 5），免费侧需求热度最高的一类。
+
+---
+
+## 附注一：AutoSway 的免费方案（不单列入榜）
+
+B站榜第 3 名 AutoSway（播放量 694,173）在 intel/paid-list.md #6 中为 **$39.99 收费脚本**，B站热度多由汉化流传驱动。其免费替代（intel/free-alternatives.md #11，覆盖度"仅近似"）为：**Duik Ángela 骨骼/表达式自动化 + wiggle/Puppet Pin 表达式方案**——即用本指南 §1 的 Duik 搭配表达式实现头发/布料/绳子的滞后摆动，不必为此购买。
+
+## 附注二：渠道矛盾与未核实项汇总（照实标注）
+
+| 条目 | 矛盾/未核实点 | 处理 |
+|---|---|---|
+| Ease and Wizz（§7） | B站榜标"免费"，paid-list #4 记 $29.99 收费 | 以 aescripts 官方页为准，指南内已警示 |
+| Flow 1.x（§9） | B站流传 GitHub 免费版；新版 $35 | 指南明确"本节指免费版"，且榜单未给仓库名、不补造 |
+| Motion Tools 2（§3）/ SpeedX（§6） | 榜单未提供站外直链 | 照原文写"B站视频简介领取"，不编造 URL |
+| AEUX（§8） | aeux.io 为 B站榜口径，全球榜未收录 | 照 B站榜原文引用 |
+| B站榜 KeTools / 懒人工具箱 | KeTools 未命中 AE 语境视频；懒人工具箱数据偏低 | 未入选本指南（与 intel 原文一致） |
+
+## 数据口径
+
+- B站播放量：Bilibili API 2026-11-14 实测（intel/free-bilibili.md）。
+- GitHub stars：GitHub API 2026-11-13/14 实测（intel/free-global.md、free-alternatives.md）。
+- Reddit 提及数：r/AfterEffects 13 帖聚合（mouzeclick，2024–2026）。
+- 价格/注册要求：intel/paid-list.md 与 free-global.md 原文；aescripts 长期打折，NYOP 结账可填 $0 但需注册。
+</pre></body></html>
