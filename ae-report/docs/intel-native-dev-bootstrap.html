@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>native-dev-bootstrap</title><style>
+body{background:#fffaf7;color:#2b2723;font-family:'PingFang SC','Microsoft YaHei',system-ui,sans-serif;max-width:900px;margin:0 auto;padding:30px 22px 80px;line-height:1.85;font-size:14.5px}
+h1.doc{font-size:20px;margin:0 0 18px;padding-bottom:12px;border-bottom:2px solid #ffd9e3;color:#f2799a}
+h1,h2,h3,h4{color:#5b4a54;line-height:1.4;margin:20px 0 8px}h1{font-size:20px}h2{font-size:17px;border-left:4px solid #ff9eb5;padding-left:10px}h3{font-size:15px}
+p{margin:9px 0}ul,ol{margin:9px 0 9px 22px}li{margin:4px 0}
+code{background:#fff0f4;color:#d94a72;padding:1px 6px;border-radius:6px;font-family:ui-monospace,Consolas,monospace;font-size:12.5px}
+pre.code{background:#fff;border:1.5px solid #f3e3e8;border-radius:12px;padding:16px;overflow-x:auto}
+pre.code code{background:none;color:#5b4a54;padding:0}
+blockquote{margin:12px 0;padding:8px 16px;border-left:3px solid #b89ee8;background:#f8f4ff;border-radius:0 8px 8px 0}
+hr{border:none;border-top:1.5px dashed #ffd9e3;margin:20px 0}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid #f3e3e8;border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{background:#fff6f9;color:#f2799a;text-align:left;padding:8px 12px;border-bottom:1.5px solid #f3e3e8;white-space:nowrap}
+td{padding:8px 12px;border-bottom:1px solid #f8eef1;vertical-align:top}
+a{color:#f2799a;text-decoration:none;border-bottom:1.5px dotted #ffd9e3}
+</style></head><body><h1 class="doc">native-dev-bootstrap</h1><h1>「原生工」启动包（aex / CEP）</h1>
+<h2>1. 管线地图（全部实测读出，非推测）</h2>
+<div class="tw"><table><thead><tr><th>环节</th><th>命令</th><th>真实参数</th></tr></thead><tbody><tr><td>建项目</td><td><code>E:\AEDev\new_plugin.bat</code> → 调 <code>new_plugin.ps1</code></td><td>从 <code>E:\AEDev\AfterEffectsSDK\Examples\Template\Skeleton</code> 复制；必须传 <code>-Name &lt;名&gt; -Sdk &lt;SDK&gt; -Out E:\AEDev\Projects</code></td></tr><tr><td>编译</td><td><code>E:\AEDev\build_plugin.bat &lt;Name&gt;</code></td><td><code>VsDevCmd.bat -arch=amd64</code> → <code>MSBuild &lt;项目&gt;\Win\&lt;Name&gt;.vcxproj /p:Configuration=Release /p:Platform=x64</code>；日志写 <code>E:\AEDev\build_log.txt</code>（覆盖式）</td></tr><tr><td>产物</td><td>—</td><td><code>E:\AEDev\BuildOut\&lt;Name&gt;.aex</code></td></tr><tr><td>部署</td><td><code>E:\AEDev\deploy.bat</code>（需管理员）</td><td>拷到 <code>C:\Program Files\Adobe\Common\Plug-ins\7.0\MediaCore</code>，然后<strong>重启 AE</strong></td></tr><tr><td>工具链</td><td>—</td><td><code>E:\AEDev\VS2022</code>（MSVC 14.44，<code>cl.exe</code> 在位）、SDK 在 <code>E:\AEDev\AfterEffectsSDK</code></td></tr></tbody></table></div>
+<p>已验证跑通：<code>build_log.txt</code> 末尾是 <code>DCStroke.vcxproj -&gt; E:\AEDev\BuildOut\DCStroke.aex</code>（Release x64 成功）。</p>
+<h2>2. 红线（违反即回滚）</h2>
+<ol><li><strong>不修改</strong> <code>new_plugin.ps1</code> / <code>new_plugin.bat</code> / <code>build_plugin.bat</code> / <code>deploy.bat</code> 本身。要加参数就在新件目录里复制一份改副本。</li><li><strong>不碰 <code>DCStroke</code></strong>（<code>Projects\DCStroke</code>、<code>DC_stroke_Package</code>、<code>BuildOut\DCStroke.aex</code>、已装进 MediaCore 的那份），它只是可供参照的既有实现，不是修改对象。</li><li><strong>不改动本机已安装的任何插件</strong>；部署 <code>deploy.bat</code> 需要管理员 + 重启 AE，<strong>这一步由用户执行</strong>，bot 只交 <code>.aex</code> 产物与部署说明。</li><li>只在 <code>E:\AEDev\Projects\</code> 下新建目录；不复制 3 大厂算法内核、不反编译任何现有 aex。</li></ol>
+<h2>3. 已知坑（今天读脚本发现的，能省几轮试错）</h2>
+<ol><li><strong><code>deploy.bat</code> 硬编码了 <code>DCStroke.aex</code></strong>：脚本里 <code>if not exist "%SRC%\DCStroke.aex"</code>、<code>copy /Y "%SRC%\DCStroke.aex"</code>。新件不能直接跑它——要么复制一份改文件名，要么手写一条 copy，<strong>别直接执行原脚本</strong>（它会因为找不到 DCStroke.aex 直接退出，或误拷旧件）。</li><li><strong><code>new_plugin.ps1</code> 拒绝已存在的目标目录</strong>：同名件要重建必须先自己处理旧目录（建议改名归档，不要直接删）。</li><li><strong>vcxproj 需要 retarget</strong>：脚本改完 SDK 相对路径后，首次打开 <code>.vcxproj</code> 可能提示重定向到 <code>v143</code>/x64，按提示确认即可；命令行编译走 <code>build_plugin.bat</code> 不受这个对话框影响。</li><li><strong><code>C4819</code> 警告是常态</strong>：SDK 头文件含非 936 代码页字符，<code>build_log.txt</code> 里大量出现，<strong>不是错误</strong>，只要最后一行是 <code>xxx.vcxproj -&gt; ...aex</code> 就算成功。</li><li><strong><code>build_log.txt</code> 是覆盖写的</strong>：每次编译都会冲掉上一次结果，要保留证据就先复制一份。</li><li><strong>PiPL 资源依赖 Skeleton 的自定义生成步骤</strong>：官方要求"永远从 Skeleton 复制、不要新建空项目"，<code>new_plugin.ps1</code> 已按这条做，别绕开它手搓工程。</li></ol>
+<h2>4. 第一个件建议（原创、小而完整）</h2>
+<p>选<strong>不依赖 GPU、不依赖多帧缓存</strong>的单帧像素/几何效果最稳，例如：</p>
+<ul><li>色彩类：自定义曲线/色阶/单色映射（单帧、无历史帧依赖）</li><li>几何类：极简描边/轮廓偏移（用 <code>PF_EffectWorld</code> 直接读像素）</li><li>噪声类：可粒子化种子的程序噪声叠加（<code>PF_InData.total_time</code> 取时间，不用缓存）</li></ul>
+<p><strong>避免</strong>第一件就做：多帧缓存、时间重映射、需要 GPU 加速（Metal/CUDA）、需要自定义 UI 面板（那是 CEP 的活）。先把「编译→加载→出效果→撤下」这条闭环走通，再上复杂度。</p>
+<h2>5. 验收口径（照群规则第 5 条）</h2>
+<ul><li>交件必须给：<code>.aex</code> 精确路径 + 字节数 + SHA256 + <code>build_log.txt</code> 最后一行 + 一句「装进 AE 后应看到什么」。</li><li>没装进 AE 之前<strong>一律算进行中</strong>，不算完成。</li><li>部署说明写给用户，由用户执行（管理员权限 + 重启 AE）。</li></ul>
+<h2>6. CEP 侧要点（与 aex 不同，几乎没有试错成本）</h2>
+<ul><li>CEP 面板 = <code>CSXS/manifest.xml</code> + HTML/JS 外壳 + 一个 <code>jsx</code> 桥接文件（ExtendScript 与现有 jsx 完全同一套语法与 API）。</li><li>关键坑只在 manifest：<code>ExtensionManifest Version</code> 与 <code>RequiredRuntime</code> 的 CSXS 版本号要与目标 AE 版本匹配，<code>CEP</code> 需开启 <code>PlayerDebugMode</code> 才能在未签名时加载。</li><li>建议顺序：先让面板能开、能调通一个 <code>evalScript</code>，再往上堆 UI；不要一开始就写完整交互。</li></ul></body></html>
