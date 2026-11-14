@@ -152,10 +152,34 @@ a.stat:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
 .collapsewrap{text-align:center;padding:6px 0 16px}
 .collapsebtn{font-family:var(--mono);font-size:12px;padding:6px 22px;border-radius:999px;border:1.5px solid var(--pink-soft);background:#fff6f9;color:var(--pink-deep);cursor:pointer;font-weight:700}
 .collapsebtn:hover{background:#ffe9f0}
+.sidenav{position:fixed;right:16px;top:50%;transform:translateY(-50%);z-index:200;background:rgba(255,255,255,.94);border:1.5px solid var(--pink-soft);border-radius:16px;padding:11px 9px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:1px;min-width:104px}
+.sidenav-h{font-size:11px;font-weight:800;color:var(--pink-deep);text-align:center;padding-bottom:6px;margin-bottom:3px;border-bottom:1px solid var(--line);letter-spacing:.1em}
+.sidenav a{font-size:12px;color:var(--ink2);text-decoration:none;border:none;padding:5px 9px;border-radius:8px;white-space:nowrap}
+.sidenav a:hover{background:#fff0f4;color:var(--pink-deep)}
+@media(max-width:1280px){.sidenav{display:none}}
+.docmodal{display:none;position:fixed;inset:0;background:rgba(60,40,50,.55);z-index:1000;padding:20px}
+.docmodal.show{display:flex}
+.docmodal-box{position:relative;max-width:1000px;margin:auto;width:100%;height:88vh;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.docmodal-box iframe{width:100%;height:100%;border:0;background:#fffaf7}
+.docmodal-close{position:absolute;top:10px;right:12px;z-index:2;background:var(--pink-deep);color:#fff;border:none;border-radius:999px;padding:5px 14px;font-size:12px;font-weight:700;cursor:pointer}
+.docmodal-close:hover{background:#d94a72}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap" id="top">
+<aside class="sidenav">
+  <div class="sidenav-h">导航</div>
+  <a href="#top">返回顶部</a>
+  <a href="#sec-replica">复刻件</a>
+  <a href="#sec-native">原创 aex</a>
+  <a href="#sec-intel">情报与清单</a>
+  <a href="#sec-external">外部精选</a>
+  <a href="#sec-docs">配套文档</a>
+  <a href="#sec-tasks">任务九条</a>
+  <a href="#sec-status">当前状况</a>
+  <a href="#bottom">到底部</a>
+</aside>
+
 
   <div class="hero">
     <h1>AE 复刻任务 · 进度总结</h1>
@@ -217,7 +241,7 @@ a.stat:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
         </table>
       </div>
     </div>
-    <div class="collapsewrap"><button class="collapsebtn" onclick="this.closest('details').open=false">收起 ▲</button></div>
+    <div class="collapsewrap"><button class="collapsebtn" onclick="var d=this.closest('details');var y=d.getBoundingClientRect().top+window.scrollY-12;d.open=false;window.scrollTo({top:y,behavior:'smooth'})">收起 ▲</button></div>
   </details>
 
   <details class="card" style="margin-top:16px">
@@ -239,7 +263,7 @@ a.stat:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
         </table>
       </div>
     </div>
-    <div class="collapsewrap"><button class="collapsebtn" onclick="this.closest('details').open=false">收起 ▲</button></div>
+    <div class="collapsewrap"><button class="collapsebtn" onclick="var d=this.closest('details');var y=d.getBoundingClientRect().top+window.scrollY-12;d.open=false;window.scrollTo({top:y,behavior:'smooth'})">收起 ▲</button></div>
   </details>
 
   <!-- 二 -->
@@ -290,34 +314,34 @@ a.stat:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
       <div class="tblwrap"><table>
         <thead><tr><th>文件</th><th>大小</th><th>打开</th></tr></thead>
         <tbody>
-<tr><td class="name">audit-dcinkbleed-samefield</td><td class="size">3.9 KB</td><td><span class="faint">本机 intel/</span></td></tr>
-<tr><td class="name">baseline</td><td class="size">0.9 KB</td><td><span class="faint">本机 intel/</span></td></tr>
-<tr><td class="name">bf-watchlist</td><td class="size">15.2 KB</td><td><span class="faint">本机 intel/</span></td></tr>
-<tr><td class="name">china-resources</td><td class="size">17.3 KB</td><td><span class="faint">本机 intel/</span></td></tr>
-<tr><td class="name">feasible-assessment</td><td class="size">7.4 KB</td><td><span class="faint">本机 intel/</span></td></tr>
-<tr><td class="name">feed-2026-11-14-round2</td><td class="size">4.9 KB</td><td><span class="faint">本机 intel/</span></td></tr>
-<tr><td class="name">feed-2026-11-14-round3</td><td class="size">5.8 KB</td><td><span class="faint">本机 intel/</span></td></tr>
-<tr><td class="name">feed-2026-11-14-round4</td><td class="size">4.6 KB</td><td><span class="faint">本机 intel/</span></td></tr>
-<tr><td class="name">feed-2026-11-14</td><td class="size">6.7 KB</td><td><span class="faint">本机 intel/</span></td></tr>
-<tr><td class="name">free-alternatives</td><td class="size">12.7 KB</td><td><span class="faint">本机 intel/</span></td></tr>
-<tr><td class="name">free-anim-fx</td><td class="size">5.8 KB</td><td><span class="faint">本机 intel/</span></td></tr>
-<tr><td class="name">free-bilibili</td><td class="size">10.1 KB</td><td><span class="faint">本机 intel/</span></td></tr>
-<tr><td class="name">free-global</td><td class="size">17.6 KB</td><td><span class="faint">本机 intel/</span></td></tr>
-<tr><td class="name">free-tools-mg</td><td class="size">3.9 KB</td><td><span class="faint">本机 intel/</span></td></tr>
-<tr><td class="name">local-env-layers</td><td class="size">3.4 KB</td><td><span class="faint">本机 intel/</span></td></tr>
-<tr><td class="name">local-env</td><td class="size">1.4 KB</td><td><span class="faint">本机 intel/</span></td></tr>
-<tr><td class="name">native-candidates</td><td class="size">5.0 KB</td><td><span class="faint">本机 intel/</span></td></tr>
-<tr><td class="name">native-dev-bootstrap</td><td class="size">4.8 KB</td><td><span class="faint">本机 intel/</span></td></tr>
-<tr><td class="name">paid-list</td><td class="size">31.6 KB</td><td><a href="docs/paid-list.html" target="_blank" rel="noopener">打开 ↗</a></td></tr>
-<tr><td class="name">replicas-boundary</td><td class="size">16.1 KB</td><td><span class="faint">本机 intel/</span></td></tr>
-<tr><td class="name">search-sources</td><td class="size">4.8 KB</td><td><span class="faint">本机 intel/</span></td></tr>
-<tr><td class="name">token-saving</td><td class="size">5.5 KB</td><td><span class="faint">本机 intel/</span></td></tr>
-<tr><td class="name">value-and-feasible</td><td class="size">2.4 KB</td><td><span class="faint">本机 intel/</span></td></tr>
-<tr><td class="name">value-picks</td><td class="size">30.7 KB</td><td><a href="docs/value-picks.html" target="_blank" rel="noopener">打开 ↗</a></td></tr>
+<tr><td class="name">audit-dcinkbleed-samefield</td><td class="size">3.9 KB</td><td><a class="doc-open" href="javascript:void(0)" data-src="docs/intel-audit-dcinkbleed-samefield.html">打开</a></td></tr>
+<tr><td class="name">baseline</td><td class="size">0.9 KB</td><td><a class="doc-open" href="javascript:void(0)" data-src="docs/intel-baseline.html">打开</a></td></tr>
+<tr><td class="name">bf-watchlist</td><td class="size">15.2 KB</td><td><a class="doc-open" href="javascript:void(0)" data-src="docs/intel-bf-watchlist.html">打开</a></td></tr>
+<tr><td class="name">china-resources</td><td class="size">17.3 KB</td><td><a class="doc-open" href="javascript:void(0)" data-src="docs/intel-china-resources.html">打开</a></td></tr>
+<tr><td class="name">feasible-assessment</td><td class="size">7.4 KB</td><td><a class="doc-open" href="javascript:void(0)" data-src="docs/intel-feasible-assessment.html">打开</a></td></tr>
+<tr><td class="name">feed-2026-11-14-round2</td><td class="size">4.9 KB</td><td><a class="doc-open" href="javascript:void(0)" data-src="docs/intel-feed-2026-11-14-round2.html">打开</a></td></tr>
+<tr><td class="name">feed-2026-11-14-round3</td><td class="size">5.8 KB</td><td><a class="doc-open" href="javascript:void(0)" data-src="docs/intel-feed-2026-11-14-round3.html">打开</a></td></tr>
+<tr><td class="name">feed-2026-11-14-round4</td><td class="size">4.6 KB</td><td><a class="doc-open" href="javascript:void(0)" data-src="docs/intel-feed-2026-11-14-round4.html">打开</a></td></tr>
+<tr><td class="name">feed-2026-11-14</td><td class="size">6.7 KB</td><td><a class="doc-open" href="javascript:void(0)" data-src="docs/intel-feed-2026-11-14.html">打开</a></td></tr>
+<tr><td class="name">free-alternatives</td><td class="size">12.7 KB</td><td><a class="doc-open" href="javascript:void(0)" data-src="docs/intel-free-alternatives.html">打开</a></td></tr>
+<tr><td class="name">free-anim-fx</td><td class="size">5.8 KB</td><td><a class="doc-open" href="javascript:void(0)" data-src="docs/intel-free-anim-fx.html">打开</a></td></tr>
+<tr><td class="name">free-bilibili</td><td class="size">10.1 KB</td><td><a class="doc-open" href="javascript:void(0)" data-src="docs/intel-free-bilibili.html">打开</a></td></tr>
+<tr><td class="name">free-global</td><td class="size">17.6 KB</td><td><a class="doc-open" href="javascript:void(0)" data-src="docs/intel-free-global.html">打开</a></td></tr>
+<tr><td class="name">free-tools-mg</td><td class="size">3.9 KB</td><td><a class="doc-open" href="javascript:void(0)" data-src="docs/intel-free-tools-mg.html">打开</a></td></tr>
+<tr><td class="name">local-env-layers</td><td class="size">3.4 KB</td><td><a class="doc-open" href="javascript:void(0)" data-src="docs/intel-local-env-layers.html">打开</a></td></tr>
+<tr><td class="name">local-env</td><td class="size">1.4 KB</td><td><a class="doc-open" href="javascript:void(0)" data-src="docs/intel-local-env.html">打开</a></td></tr>
+<tr><td class="name">native-candidates</td><td class="size">5.0 KB</td><td><a class="doc-open" href="javascript:void(0)" data-src="docs/intel-native-candidates.html">打开</a></td></tr>
+<tr><td class="name">native-dev-bootstrap</td><td class="size">4.8 KB</td><td><a class="doc-open" href="javascript:void(0)" data-src="docs/intel-native-dev-bootstrap.html">打开</a></td></tr>
+<tr><td class="name">paid-list</td><td class="size">31.6 KB</td><td><a class="doc-open" href="javascript:void(0)" data-src="docs/intel-paid-list.html">打开</a></td></tr>
+<tr><td class="name">replicas-boundary</td><td class="size">16.1 KB</td><td><a class="doc-open" href="javascript:void(0)" data-src="docs/intel-replicas-boundary.html">打开</a></td></tr>
+<tr><td class="name">search-sources</td><td class="size">4.8 KB</td><td><a class="doc-open" href="javascript:void(0)" data-src="docs/intel-search-sources.html">打开</a></td></tr>
+<tr><td class="name">token-saving</td><td class="size">5.5 KB</td><td><a class="doc-open" href="javascript:void(0)" data-src="docs/intel-token-saving.html">打开</a></td></tr>
+<tr><td class="name">value-and-feasible</td><td class="size">2.4 KB</td><td><a class="doc-open" href="javascript:void(0)" data-src="docs/intel-value-and-feasible.html">打开</a></td></tr>
+<tr><td class="name">value-picks</td><td class="size">30.7 KB</td><td><a class="doc-open" href="javascript:void(0)" data-src="docs/intel-value-picks.html">打开</a></td></tr>
         </tbody>
       </table></div>
     </div>
-    <div class="collapsewrap"><button class="collapsebtn" onclick="this.closest('details').open=false">收起 ▲</button></div>
+    <div class="collapsewrap"><button class="collapsebtn" onclick="var d=this.closest('details');var y=d.getBoundingClientRect().top+window.scrollY-12;d.open=false;window.scrollTo({top:y,behavior:'smooth'})">收起 ▲</button></div>
   </details>
 
   <details class="card" id="sec-external" style="margin-top:16px">
@@ -355,21 +379,21 @@ a.stat:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
         </tbody>
       </table></div>
     </div>
-    <div class="collapsewrap"><button class="collapsebtn" onclick="this.closest('details').open=false">收起 ▲</button></div>
+    <div class="collapsewrap"><button class="collapsebtn" onclick="var d=this.closest('details');var y=d.getBoundingClientRect().top+window.scrollY-12;d.open=false;window.scrollTo({top:y,behavior:'smooth'})">收起 ▲</button></div>
   </details>
 
   <h3 id="sec-docs" style="margin:20px 0 4px;font-size:15px;color:var(--pink-deep)">配套文档（点击打开）</h3>
   <div class="doclist">
-    <a class="doclink" href="docs/usage-guide.html" target="_blank" rel="noopener"><span class="ico">MD</span><span class="tx"><b>使用指南</b><span>usage-guide · 全量中文指南</span></span></a>
-    <a class="doclink" href="docs/free-plugin-guide.html" target="_blank" rel="noopener"><span class="ico">MD</span><span class="tx"><b>免费插件指南</b><span>free-plugin-guide</span></span></a>
-    <a class="doclink" href="docs/api-cheatsheet.html" target="_blank" rel="noopener"><span class="ico">MD</span><span class="tx"><b>API 速查</b><span>api-cheatsheet · 官方白名单</span></span></a>
-    <a class="doclink" href="docs/smoke-test.html" target="_blank" rel="noopener"><span class="ico">MD</span><span class="tx"><b>实机冒烟清单</b><span>smoke-test</span></span></a>
-    <a class="doclink" href="docs/paid-list.html" target="_blank" rel="noopener"><span class="ico">MD</span><span class="tx"><b>收费件清单</b><span>paid-list · 检索来源依据</span></span></a>
-    <a class="doclink" href="docs/value-picks.html" target="_blank" rel="noopener"><span class="ico">MD</span><span class="tx"><b>价值清单</b><span>value-picks · 四工作流分档</span></span></a>
+    <a class="doclink doc-open" href="javascript:void(0)" data-src="docs/usage-guide.html"><span class="ico">MD</span><span class="tx"><b>使用指南</b><span>usage-guide · 全量中文指南</span></span></a>
+    <a class="doclink doc-open" href="javascript:void(0)" data-src="docs/free-plugin-guide.html"><span class="ico">MD</span><span class="tx"><b>免费插件指南</b><span>free-plugin-guide</span></span></a>
+    <a class="doclink doc-open" href="javascript:void(0)" data-src="docs/api-cheatsheet.html"><span class="ico">MD</span><span class="tx"><b>API 速查</b><span>api-cheatsheet · 官方白名单</span></span></a>
+    <a class="doclink doc-open" href="javascript:void(0)" data-src="docs/smoke-test.html"><span class="ico">MD</span><span class="tx"><b>实机冒烟清单</b><span>smoke-test</span></span></a>
+    <a class="doclink doc-open" href="javascript:void(0)" data-src="docs/paid-list.html"><span class="ico">MD</span><span class="tx"><b>收费件清单</b><span>paid-list · 检索来源依据</span></span></a>
+    <a class="doclink doc-open" href="javascript:void(0)" data-src="docs/value-picks.html"><span class="ico">MD</span><span class="tx"><b>价值清单</b><span>value-picks · 四工作流分档</span></span></a>
   </div>
 
   <!-- 四 -->
-  <div class="shead"><h2>四、任务九条：进度一览</h2><span class="hint">用户原始需求逐条对账</span></div>
+  <div class="shead" id="sec-tasks"><h2>四、任务九条：进度一览</h2><span class="hint">用户原始需求逐条对账</span></div>
   <div class="divider"></div>
   <div class="tasks">
     <div class="task"><div class="no">01</div><div class="body"><div class="t">免费 AE 插件按使用量／播放量排序</div><div class="d">B站播放/收藏 + GitHub star + 榜单热度四路交叉，无公开下载量已如实说明。</div></div><div class="st"><span class="pill ok">完成</span></div></div>
@@ -382,7 +406,7 @@ a.stat:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
   </div>
 
   <!-- 五 -->
-  <div class="shead"><h2>五、当前状况</h2><span class="hint">停摆与接管</span></div>
+  <div class="shead" id="sec-status"><h2>五、当前状况</h2><span class="hint">停摆与接管</span></div>
   <div class="divider"></div>
   <div class="banner">
     <div class="row"><b>Chief 在线</b>：观察员通道正常，已按「指挥挂则 Chief 代理执行」预案接管调度。</div>
@@ -407,7 +431,7 @@ a.stat:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
     </div>
   </div>
 
-  <div class="foot">
+  <div class="foot" id="bottom">
     数据来源：clones/ 磁盘实测 · intel/ 24 份 · docs/ 4 份 · E:\AEDev\BuildOut/ 3 件 aex<br>
     本地页面：<span class="path">C:\Users\19894\ae-mission\web\summary.html</span> ｜ 已发布站：<a href="https://lylnpc.github.io/dsh-intel/ae-report/" target="_blank" rel="noopener">lylnpc.github.io/dsh-intel/ae-report</a><br>
     按既定红线：index.html 不覆盖 · 没发话不发布上线 · 原生件部署由你执行
@@ -416,6 +440,13 @@ a.stat:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
 </div>
 <script>
 document.addEventListener('click',function(e){var b=e.target.closest('.copybtn');if(!b)return;var t=b.getAttribute('data-path');function done(){b.textContent='已复制 ✓';b.classList.add('copied');setTimeout(function(){b.textContent='复制';b.classList.remove('copied')},1200);}function fb(){var ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(x){}ta.remove();done();}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done).catch(fb);}else{fb();}});
+</script>
+<div id="docmodal" class="docmodal"><div class="docmodal-box"><button class="docmodal-close" onclick="closeDoc()">✕ 关闭</button><iframe id="docframe" src="about:blank"></iframe></div></div>
+<script>
+function openDoc(src){var m=document.getElementById('docmodal');document.getElementById('docframe').src=src;m.classList.add('show');document.body.style.overflow='hidden';}
+function closeDoc(){var m=document.getElementById('docmodal');m.classList.remove('show');document.getElementById('docframe').src='about:blank';document.body.style.overflow='';}
+document.addEventListener('click',function(e){var a=e.target.closest('.doc-open');if(a){e.preventDefault();var s=a.getAttribute('data-src');if(s)openDoc(s);}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDoc();});
 </script>
 </body>
 </html>
