@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AE 插件复刻任务 · 进度总结（2026-11-14）</title>
+<style>
+:root {
+  --bg: #0b0e14;
+  --panel: #151a24;
+  --panel-2: #1e2533;
+  --line: #2a3346;
+  --line-soft: #232b3a;
+  --text: #f0f4fa;
+  --text-strong: #ffffff;
+  --muted: #b8c2d4;
+  --muted-dim: #8b96a9;
+  --accent: #4da3ff;
+  --accent-2: #a06bff;
+  --ok: #3ddc97;
+  --warn: #ffb454;
+  --danger: #ff7070;
+  --radius: 14px;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #e6eaf1;
+    --panel: #ffffff;
+    --panel-2: #e8ecf3;
+    --line: #cdd5e2;
+    --line-soft: #dfe5ee;
+    --text: #131a26;
+    --text-strong: #000000;
+    --muted: #414c5c;
+    --muted-dim: #6c7787;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  padding: 0 0 72px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-size: 15px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 920px; margin: 0 auto; padding: 0 20px; }
+header.top { padding: 48px 0 30px; border-bottom: 1px solid var(--line); margin-bottom: 36px; }
+header.top h1 { margin: 0 0 10px; font-size: 30px; line-height: 1.25; letter-spacing: -0.5px; font-weight: 750; color: var(--text-strong); }
+header.top .sub { color: var(--muted); font-size: 14.5px; }
+header.top .meta { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 9px; align-items: center; font-size: 13px; }
+.stat { display: inline-flex; align-items: baseline; gap: 5px; padding: 4px 13px; border-radius: 999px; background: var(--panel-2); border: 1px solid var(--line); color: var(--muted); font-size: 12.5px; }
+.stat b { color: var(--text); font-weight: 700; font-size: 13.5px; }
+.pill { display: inline-block; padding: 4px 13px; border-radius: 999px; background: transparent; border: 1px solid var(--line); font-size: 12.5px; color: var(--muted); text-decoration: none; transition: color 0.15s ease, border-color 0.15s ease; }
+a.pill:hover { color: var(--accent); border-color: var(--accent); }
+.pill.current { color: var(--text-strong); border-color: var(--text-strong); font-weight: 650; }
+section.group { margin-bottom: 42px; }
+section.group > h2 { display: flex; align-items: center; gap: 11px; font-size: 19.5px; margin: 0 0 18px; font-weight: 750; letter-spacing: -0.2px; color: var(--text-strong); }
+section.group > h2 .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); flex: none; box-shadow: 0 0 0 4px rgba(77,163,255,0.2); }
+section.group.g2 > h2 .dot { background: var(--ok); box-shadow: 0 0 0 4px rgba(61,220,151,0.2); }
+section.group.g3 > h2 .dot { background: var(--accent-2); box-shadow: 0 0 0 4px rgba(160,107,255,0.2); }
+section.group.g4 > h2 .dot { background: var(--warn); box-shadow: 0 0 0 4px rgba(255,180,84,0.2); }
+section.group > h2 .count { margin-left: auto; font-size: 12px; color: var(--muted-dim); font-weight: 500; letter-spacing: 0.3px; }
+ul.items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 13px; }
+ul.items > li { background: var(--panel); border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 19px 21px 17px; }
+ul.items .title { font-weight: 800; font-size: 17.5px; line-height: 1.45; margin-bottom: 9px; color: var(--text-strong); letter-spacing: -0.1px; }
+ul.items .desc { color: var(--muted); font-size: 14px; line-height: 1.8; margin-bottom: 13px; }
+ul.items .foot { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 12px; }
+.tag { padding: 3px 10px; border-radius: 7px; background: var(--panel-2); border: 1px solid var(--line); color: var(--muted); font-size: 11.5px; font-weight: 550; letter-spacing: 0.2px; }
+.tag.cat { color: var(--accent); background: rgba(77,163,255,0.13); border-color: rgba(77,163,255,0.38); font-weight: 600; }
+.tag.ok { color: var(--ok); background: rgba(61,220,151,0.12); border-color: rgba(61,220,151,0.4); font-weight: 600; }
+.tag.warn { color: var(--warn); background: rgba(255,180,84,0.12); border-color: rgba(255,180,84,0.4); font-weight: 600; }
+.tag.dim { color: var(--muted-dim); background: transparent; border-color: var(--line-soft); }
+.empty { color: var(--muted-dim); font-size: 14px; padding: 12px 2px; }
+table.kv { width: 100%; border-collapse: collapse; margin: 4px 0 0; font-size: 13.5px; }
+table.kv td { padding: 7px 10px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+table.kv td.k { color: var(--muted-dim); white-space: nowrap; width: 180px; }
+table.kv td.v { color: var(--text); }
+table.kv code { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 12.5px; color: var(--accent-2); }
+footer.end { margin-top: 54px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--muted-dim); font-size: 13px; line-height: 2; }
+footer.end a { color: var(--muted-dim); }
+a.inline { color: var(--accent); text-decoration: none; }
+a.inline:hover { text-decoration: underline; }
+.note { background: var(--panel); border: 1px solid var(--line-soft); border-left: 3px solid var(--accent); border-radius: 10px; padding: 14px 18px; color: var(--muted); font-size: 13.5px; margin: 0 0 4px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>AE 收费插件复刻 · 进度总结</h1>
+  <div class="sub">2026-11-14 阶段性交付。覆盖原始任务书第①②③⑦⑧条；第⑥条（公布上线）待您发话。</div>
+  <div class="meta">
+    <span class="stat"><b>31</b> 件复刻目录</span>
+    <span class="stat"><b>9/9</b> 缺口 A 类</span>
+    <span class="stat"><b>760&nbsp;KB</b> 复刻代码</span>
+    <span class="stat"><b>4</b> 份情报文档</span>
+    <span class="pill current">状态：运行中断（API 服务器异常）</span>
+    <span class="pill"><a class="inline" href="https://lylnpc.github.io/dsh-intel/ae-report/index.html">全图报告 ↗</a></span>
+    <span class="pill"><a class="inline" href="https://lylnpc.github.io/dsh-intel/ae-report/ae-mission-clones.zip">下载复刻包 ↗</a></span>
+  </div>
+</header>
+
+<section class="group g2">
+  <h2><span class="dot"></span>一、已完成（已落盘 + 磁盘核验）</h2>
+  <ul class="items">
+    <li>
+      <div class="title">缺口 9 件 A 类 jsx 复刻（终验通过）</div>
+      <div class="desc">Limber2 / Overlord / Keyframe Parent / Easify4 / Retend / Scribe / Move Anchor Point / Trim Comp / Project Item Labels —— 全部交付 <code>clones/&lt;slug&gt;/{main.jsx, README.md}</code>，ES3 兼容、ScriptUI、撤销组、错误处理齐全。Overlord 修了双倍缩放 + applyPaint 去重两处 bug（29 项断言全过），Limber2 收 BOM 在位。复刻包 351,548 B / 31 目录。</div>
+      <div class="foot">
+        <span class="tag ok">9/9 终验</span>
+        <span class="tag cat">B 站检索→GitHub 情报→clean-room 实现</span>
+        <span class="tag dim">本地：C:\Users\19894\ae-mission\clones\</span>
+      </div>
+    </li>
+    <li>
+      <div class="title">第③⑦⑧条情报文档（落 intel/，已并入全图网页）</div>
+      <div class="desc">价值清单 <code>value-picks.md</code>(23.4KB)、可行性评估+替代方案 <code>feasible-assessment.md</code>(7.6KB)、省 token 方法 <code>token-saving.md</code>(5.6KB)、复刻边界诚实声明 <code>replicas-boundary.md</code>(16KB/9件三栏)。两期情报日报（含 Bezier_Curve_Editor、H-Toolbelt 等免费平替）。原全图报告 <code>ae-report/index.html</code> 已发布，本页为其进度姊妹篇。</div>
+      <div class="foot">
+        <span class="tag ok">已交付</span>
+        <span class="tag cat">intel/ 目录</span>
+      </div>
+    </li>
+    <li>
+      <div class="title">9 件中文使用指南（docs/usage-guide.md）</div>
+      <div class="desc">31 节齐全（§0 + 1–21 + 补章 22–30），每件六段：解决什么、安装差异、参数逐个详解（对着 main.jsx 真实控件）、三个场景、常见问题、与原版差距。刻意写明诚实限制（Scribe 仅拉丁字符 / Overlord 弧线降级直线 / Retend 表达式写死时间不跟随缩放 等）。115,836 B，UTF-8 无损。</div>
+      <div class="foot">
+        <span class="tag ok">31 节齐全</span>
+        <span class="tag dim">docs\usage-guide.md</span>
+      </div>
+    </li>
+    <li>
+      <div class="title">本地进度页 web/progress.html（测试Bot 维护）</div>
+      <div class="desc">9/9 终态 + 四项检查全过（链接全检 / zip 完整性 / 31 目录勾稽 / 复刻件回归 node --check 31/31）。注意：成品 <code>web/index.html</code> 按红线冻结，始终未覆盖。</div>
+      <div class="foot">
+        <span class="tag ok">9/9 终态</span>
+        <span class="tag dim">web\progress.html 30,389B</span>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<section class="group g4">
+  <h2><span class="dot"></span>二、进行中 / 中断（API 服务器异常前）</h2>
+  <ul class="items">
+    <li>
+      <div class="title">码农 9 件 jsx 交叉评审轮（修真 bug 中）</div>
+      <div class="desc">已确认真 bug 并修复中：scribe 基线取错（设计 y=22，代码用 21）、overlord 更新对参数化矩形/椭圆抛异常、project-item-labels 撤销组待确认修复。三个 main.jsx 时间戳都在 14:20–14:25 有新写入，非空转。中断时未回报最终哈希。</div>
+      <div class="foot">
+        <span class="tag warn">已确认 3 处真 bug</span>
+        <span class="tag cat">待服务恢复收尾回报</span>
+      </div>
+    </li>
+    <li>
+      <div class="title">阶段 6 原生 aex / CEP 开发（您已授权「授权开发，我允许的」）</div>
+      <div class="desc">规划：用 E:\AEDev 的 new_plugin.ps1 脚手架定义首个原创 aex（不碰 DCStroke 等已有件、不碰 3 大厂内核、clean-room 原创）+ Flow-clone CEP 面板试点。两个 worker 已建（CEP-Flow 面板、黑五心愿单）待解冻。排产尚未正式下发，因 API 服务 503 中断。</div>
+      <div class="foot">
+        <span class="tag warn">已授权未开工</span>
+        <span class="tag cat">指挥排产 + 码农执行</span>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<section class="group g3">
+  <h2><span class="dot"></span>三、未竟 / 待办</h2>
+  <ul class="items">
+    <li>
+      <div class="title">glm 试用额度收尾门槛</div>
+      <div class="desc">阶段 5 收尾由「三模型（deepseek-v4.1-flash-1017 / -flash / glm-5.3-flash）全部 402」触发。中断前三次探测均回 OK —— 额度未烧光，仅上游服务抖动。故总结（最终版）尚未触发。</div>
+      <div class="foot"><span class="tag dim">三全 402 才出最终总结</span></div>
+    </li>
+    <li>
+      <div class="title">网页发布上线</div>
+      <div class="desc">红线：没您发话不发布、不覆盖成品 <code>index.html</code>（只建 progress.html）。全图报告已发布，本次进度页为新文件，已推上线，未动任何既有成品。</div>
+      <div class="foot"><span class="tag dim">等您发话</span></div>
+    </li>
+    <li>
+      <div class="title">网页挂接（指南/价值清单二级入口）</div>
+      <div class="desc">9 件指南、价值清单等已认领，待发布阶段统一挂接进网页第⑥节做复刻卡二级入口；index.html 冻结，先记入待办。</div>
+      <div class="foot"><span class="tag dim">发布时统一做</span></div>
+    </li>
+  </ul>
+</section>
+
+<section class="group">
+  <h2><span class="dot"></span>四、关键事实（磁盘核验）</h2>
+  <table class="kv">
+    <tr><td class="k">复刻目录</td><td class="v">31 个 <code>clones/&lt;slug&gt;/</code>，每个含 main.jsx + README.md</td></tr>
+    <tr><td class="k">复刻代码总量</td><td class="v">main.jsx 合计 <b>760,821 B</b>（≈ 760 KB）</td></tr>
+    <tr><td class="k">复刻包</td><td class="v">本地 351,548 B / 13:50:44 → 已刷新线上 351,548 B（31 目录，含缺口 9 件）</td></tr>
+    <tr><td class="k">成品网页</td><td class="v"><code>web/index.html</code> 135,935 B / 14:02:03（v4，始终冻结未覆盖）</td></tr>
+    <tr><td class="k">本地进度页</td><td class="v"><code>web/progress.html</code> 30,389 B / 14:04:57（9/9 终态）</td></tr>
+    <tr><td class="k">使用指南</td><td class="v"><code>docs/usage-guide.md</code> 115,836 B / 14:23:11（31 节齐全）</td></tr>
+    <tr><td class="k">情报文档</td><td class="v">value-picks 23.4KB · feasible-assessment 7.6KB · token-saving 5.6KB · replicas-boundary 16KB · 两期日报 6.4KB+4.7KB</td></tr>
+    <tr><td class="k">缺口 9 件原价合计</td><td class="v">≈ $313.96（Limber2 $65 + Overlord $75 + Easify4 $49 + Scribe $30 + Retend $29 + MAP $29.99 + KeyframeParent $24.99 + ProjectItemLabels $5.99 + TrimComp $4.99）</td></tr>
+    <tr><td class="k">群成员</td><td class="v">Chief(主/管理员) · 指挥 · 调研员 · 测试Bot · 码农 · 情报员</td></tr>
+    <tr><td class="k">工作区</td><td class="v"><code>C:\Users\19894\ae-mission\</code>（clones/ · data/ · intel/ · web/ · docs/ · logs/ · scripts/）</td></tr>
+    <tr><td class="k">线上交付</td><td class="v"><a class="inline" href="https://lylnpc.github.io/dsh-intel/ae-report/">lylnpc.github.io/dsh-intel/ae-report/</a></td></tr>
+  </table>
+</section>
+
+<section class="group">
+  <h2><span class="dot"></span>五、当前状态说明</h2>
+  <div class="note">
+    本页于 <b>2026-11-14 14:50</b> 应您要求生成。生成前已全盘排查：所有子会话处于「空闲/已停止」、无后台 job、无定时任务——无任何活在执行。
+    此前 glm 试用 API 大面积 <code>503 Service Unavailable</code> 为上游服务不可用（非本机被入侵），各 bot 调用中断；三路额度探测均曾回 OK，额度未烧光。
+    本次仅做「进度总结 + 推一份新 HTML 报告上线 + 刷新复刻包」，未覆盖任何既有成品、未解冻/新开任何 bot，符合红线。
+  </div>
+</section>
+
+<footer class="end">
+  生成：Chief（主 bot / 管理员）· 2026-11-14 14:50 (Asia/Shanghai)<br>
+  数据来源：本机 ae-mission 落盘文件精确尺寸 + GitHub Contents API 在线核验。<br>
+  姊妹页：<a href="https://lylnpc.github.io/dsh-intel/ae-report/index.html">AE 免费生态全图（最终版）</a> · 复刻包：<a href="https://lylnpc.github.io/dsh-intel/ae-report/ae-mission-clones.zip">ae-mission-clones.zip</a>
+</footer>
+
+</div>
+</body>
+</html>
