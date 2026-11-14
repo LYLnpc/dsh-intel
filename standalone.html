@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>今日情报 · 情报日报</title>
+<style>
+:root {
+  --bg: #0b0e14;
+  --panel: #151a24;
+  --panel-2: #1e2533;
+  --line: #2a3346;
+  --line-soft: #232b3a;
+  --text: #f0f4fa;
+  --text-strong: #ffffff;
+  --muted: #b8c2d4;
+  --muted-dim: #8b96a9;
+  --accent: #4da3ff;
+  --accent-2: #a06bff;
+  --ok: #3ddc97;
+  --warn: #ffb454;
+  --danger: #ff7070;
+  --radius: 14px;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #e6eaf1;
+    --panel: #ffffff;
+    --panel-2: #e8ecf3;
+    --line: #cdd5e2;
+    --line-soft: #dfe5ee;
+    --text: #131a26;
+    --text-strong: #000000;
+    --muted: #414c5c;
+    --muted-dim: #6c7787;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  padding: 0 0 72px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-size: 15px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* header */
+
+header.top {
+  padding: 48px 0 30px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 36px;
+}
+
+header.top h1 {
+  margin: 0 0 10px;
+  font-size: 30px;
+  line-height: 1.25;
+  letter-spacing: -0.5px;
+  font-weight: 750;
+  color: var(--text-strong);
+}
+
+header.top .sub {
+  color: var(--muted);
+  font-size: 14.5px;
+}
+
+header.top .meta {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  align-items: center;
+  font-size: 13px;
+}
+
+.stat {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  padding: 4px 13px;
+  border-radius: 999px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12.5px;
+}
+
+.stat b {
+  color: var(--text);
+  font-weight: 700;
+  font-size: 13.5px;
+}
+
+.pill {
+  display: inline-block;
+  padding: 4px 13px;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid var(--line);
+  font-size: 12.5px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+a.pill:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.pill.current {
+  color: var(--text-strong);
+  border-color: var(--text-strong);
+  font-weight: 650;
+}
+
+/* groups */
+
+section.group {
+  margin-bottom: 42px;
+}
+
+section.group > h2 {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 19.5px;
+  margin: 0 0 18px;
+  font-weight: 750;
+  letter-spacing: -0.2px;
+  color: var(--text-strong);
+}
+
+section.group > h2 .dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex: none;
+  box-shadow: 0 0 0 4px rgba(77, 163, 255, 0.2);
+}
+
+section.group.g2 > h2 .dot {
+  background: var(--ok);
+  box-shadow: 0 0 0 4px rgba(61, 220, 151, 0.2);
+}
+
+section.group.g3 > h2 .dot {
+  background: var(--accent-2);
+  box-shadow: 0 0 0 4px rgba(160, 107, 255, 0.2);
+}
+
+section.group.g4 > h2 .dot {
+  background: var(--warn);
+  box-shadow: 0 0 0 4px rgba(255, 180, 84, 0.2);
+}
+
+section.group > h2 .count {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--muted-dim);
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+/* items */
+
+ul.items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+ul.items > li {
+  background: var(--panel);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  padding: 19px 21px 17px;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+ul.items > li:hover {
+  border-color: var(--accent);
+  box-shadow: 0 5px 20px -10px rgba(0, 0, 0, 0.5);
+}
+
+ul.items .title {
+  font-weight: 800;
+  font-size: 17.5px;
+  line-height: 1.45;
+  margin-bottom: 9px;
+  color: var(--text-strong);
+  letter-spacing: -0.1px;
+}
+
+ul.items .title a {
+  color: var(--text-strong);
+  text-decoration: none;
+}
+
+ul.items .title a:hover {
+  color: var(--accent);
+}
+
+ul.items .desc {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+  margin-bottom: 13px;
+}
+
+ul.items .desc:last-child { margin-bottom: 0; }
+
+ul.items .foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+}
+
+.tag {
+  padding: 3px 10px;
+  border-radius: 7px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11.5px;
+  font-weight: 550;
+  letter-spacing: 0.2px;
+}
+
+.tag.deadline {
+  color: #ffffff;
+  background: #c8393f;
+  border-color: #e0555b;
+  font-weight: 700;
+}
+
+@media (prefers-color-scheme: light) {
+  .tag.deadline {
+    color: #ffffff;
+    background: #d0343a;
+    border-color: #b3242a;
+  }
+}
+
+.tag.cat {
+  color: var(--accent);
+  background: rgba(77, 163, 255, 0.13);
+  border-color: rgba(77, 163, 255, 0.38);
+  font-weight: 600;
+}
+
+.tag.src {
+  color: var(--muted-dim);
+  background: transparent;
+  border-color: var(--line-soft);
+}
+
+.empty {
+  color: var(--muted-dim);
+  font-size: 14px;
+  padding: 12px 2px;
+}
+
+/* footer */
+
+footer.end {
+  margin-top: 54px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  color: var(--muted-dim);
+  font-size: 13px;
+  line-height: 2;
+}
+
+footer.end a { color: var(--muted-dim); }
+
+nav.archive {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+@media (max-width: 520px) {
+  body { font-size: 14.5px; }
+  header.top { padding: 34px 0 22px; }
+  header.top h1 { font-size: 24px; }
+  ul.items > li { padding: 15px 16px; }
+  ul.items .title { font-size: 16px; }
+  ul.items .desc { font-size: 13.5px; }
+  section.group > h2 { font-size: 18px; }
+}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>今日情报</h1>
+    <div class="sub">PV / 手书 / 剪辑 —— 机会、工具与动态</div>
+    <div class="meta">
+      <span class="stat"><b>18</b> 条</span>
+      <a class="pill" href="archive/index.html">历史归档</a>
+    </div>
+    <nav class="archive"><span class="pill current">2026-11-14</span><a class="pill" href="archive/2026-11-13.html">2026-11-13</a><a class="pill" href="archive/2026-11-12.html">2026-11-12</a></nav>
+  </header>
+  <main>
+  <section class="group g1">
+    <h2><span class="dot"></span>接单与机会<span class="count">2 条</span></h2>
+    <ul class="items">
+      <li>
+        <div class="title"><a href="https://www.bilibili.com/opus/1270443840082280469" target="_blank" rel="noopener noreferrer">EXC#4「继续」MAD/手书创作赛（2027-04-01 截止）</a></div>
+        <div class="desc">B站二次元现充俱乐部主办的匿名评审短片赛，单人投稿≥30秒，只收叙事型/分镜设计型作品，入围发周边。评审不看流量只看片子，是攒作品集的现成场子。</div>
+        <div class="foot"><span class="tag deadline">截止 2027-04-01</span><span class="tag cat">MAD/手书</span><span class="tag src">B站</span></div>
+      </li>
+      <li>
+        <div class="title"><a href="https://gp.qq.com/gicp/news/684/18952284.html" target="_blank" rel="noopener noreferrer">和平精英「精英战场」主题视频征稿（12/30 截止）</a></div>
+        <div class="desc">腾讯官方征稿，30 秒以上长视频，围绕蜘蛛侠主套/营地密钥玩法/趣味二创，明确鼓励 AI 辅助脚本与封面，按投稿量+播放量评奖，评论区投票能进推荐池。</div>
+        <div class="foot"><span class="tag deadline">截止 2026-12-30</span><span class="tag cat">游戏二创</span><span class="tag src">腾讯</span></div>
+      </li>
+    </ul>
+  </section>
+  <section class="group g2">
+    <h2><span class="dot"></span>剪辑与创作<span class="count">2 条</span></h2>
+    <ul class="items">
+      <li>
+        <div class="title"><a href="https://www.redsharknews.com/adobe-max-2026-top-video-sessions" target="_blank" rel="noopener noreferrer">Adobe MAX 2026 剪辑/调色场次点播上线（13 场）</a></div>
+        <div class="desc">RedShark 从 MAX 回放里挑出的视频类场次：Vinnie Hobbs 讲剪辑节奏与视觉层级、Premiere 新 Color Mode 校色与可复用 look、AI 标记采访问题、stem separation 清人声、时间线直接生成 B-roll。等于一套免费的官方方法论课。</div>
+        <div class="foot"><span class="tag cat">方法论</span><span class="tag src">RedShark</span></div>
+      </li>
+      <li>
+        <div class="title"><a href="https://www.aihub.cn/news/seedance-2-5-4k-release/" target="_blank" rel="noopener noreferrer">Seedance 2.5 支持 4K 出片，flash 档低到 ¥0.08/秒</a></div>
+        <div class="desc">即梦支持 480P 低成本试创意、4K 出片。限时 Seedance 2.5 flash ¥0.08/秒、Seedance 2.5 ¥0.15/秒。可以先 480P 排镜头再 4K 出，试错成本再降一档。</div>
+        <div class="foot"><span class="tag cat">AI 视频</span><span class="tag src">即梦</span></div>
+      </li>
+    </ul>
+  </section>
+  <section class="group g3">
+    <h2><span class="dot"></span>工具与效率<span class="count">3 条</span></h2>
+    <ul class="items">
+      <li>
+        <div class="title"><a href="https://www.olm.co.jp/rd/categories/opentools" target="_blank" rel="noopener noreferrer">OLM Open Tools 免费放出 2 个 AE 插件（Apache 2.0）</a></div>
+        <div class="desc">日本 OLM Digital 开源：OLM Anti Anti Alias（去抗锯齿+二值化两色涂分）、OLM UV Map（在 AE 里给 3D 模型贴换 UV，不用回 3D 软件重渲），另有 Smoother v2 等 4 个旧插件更新。做动画 PV 的返工时间能直接砍掉。</div>
+        <div class="foot"><span class="tag cat">AE 插件</span><span class="tag src">OLM Digital</span></div>
+      </li>
+      <li>
+        <div class="title"><a href="https://www.produ.com/television/noticias/cinetica-studio-en-capcut-world-la-la-app-anuncio-un-plugin-para-chatgpt-y-seedance-2-5-en-4k/" target="_blank" rel="noopener noreferrer">CapCut 支持 Seedance 2.5 4K 镜头 + ChatGPT 插件</a></div>
+        <div class="desc">CapCut World LA 宣布：Video Studio 支持最长 30 秒 4K 镜头、新增 2.5 Draft 快速试稿，并推出 ChatGPT 插件。剪映/CapCut 用户能直接在时间线里出 30 秒 AI 镜头。</div>
+        <div class="foot"><span class="tag cat">剪映/CapCut</span><span class="tag src">PRODU</span></div>
+      </li>
+      <li>
+        <div class="title"><a href="https://www.airadar.tv/ai-radar/oss/zz-oss-2026-11-14-4" target="_blank" rel="noopener noreferrer">ComfyUI 接入 MiniMax H3 Image，最高 1600 万像素</a></div>
+        <div class="desc">支持最多 16 张参考图编辑，开源权重与 API 版本都已支持。分镜/关键帧/曲绘的可控出图又多一个高分辨率选项。</div>
+        <div class="foot"><span class="tag cat">ComfyUI</span><span class="tag src">AI Radar</span></div>
+      </li>
+    </ul>
+  </section>
+  <section class="group g4">
+    <h2><span class="dot"></span>行业与流量<span class="count">2 条</span></h2>
+    <ul class="items">
+      <li>
+        <div class="title"><a href="https://www.dianyingjie.com.cn/2026/1113/412650.shtml" target="_blank" rel="noopener noreferrer">AI 微短剧专项治理落地：AI 和算法首次同时被列为靶点</a></div>
+        <div class="desc">广电总局专项治理 11/1–12 月底，点名 AI「盗脸」「偷声」，AI 微短剧按 30 万/80 万两条线分三类监管，办法 9/1 起施行。接 AI 短片/漫剧单子前先确认备案档位与声音肖像授权。</div>
+        <div class="foot"><span class="tag cat">监管</span><span class="tag src">电影界</span></div>
+      </li>
+      <li>
+        <div class="title"><a href="https://www.yamaha.com/ja/news_release/2026/26111303/" target="_blank" rel="noopener noreferrer">Yamaha 收购虚拟制作公司 Disguise</a></div>
+        <div class="desc">11/13 官宣通过收购 Butterfly Topco 全部股份把 Disguise 变为全资子公司，金额未披露，保留品牌与客户关系。虚拟制作赛道被硬件巨头接手，长期会拉动实时合成工作流与外包需求。</div>
+        <div class="foot"><span class="tag cat">虚拟制作</span><span class="tag src">Yamaha</span></div>
+      </li>
+    </ul>
+  </section>
+  <section class="group g2">
+    <h2><span class="dot"></span>今日刷到的视频<span class="count">9 条</span></h2>
+    <ul class="items">
+      <li>
+        <div class="title"><a href="https://www.bilibili.com/video/BV1VuxE6gE23" target="_blank" rel="noopener noreferrer">【ae教程】ae制作冲击帧</a></div>
+        <div class="desc">UP：AE胡老师 · 1.2万 播放</div>
+        <div class="foot"><span class="tag cat">值得看</span><span class="tag src">B站</span></div>
+      </li>
+      <li>
+        <div class="title"><a href="https://www.bilibili.com/video/BV1a3W76wEJW" target="_blank" rel="noopener noreferrer">有全国近一半的流量，字节不算垄断，那算什么？</a></div>
+        <div class="desc">UP：数据库kira · 47万 播放</div>
+        <div class="foot"><span class="tag cat">值得看</span><span class="tag src">B站</span></div>
+      </li>
+      <li>
+        <div class="title"><a href="https://www.bilibili.com/video/BV1sfWV6CEBH" target="_blank" rel="noopener noreferrer">AE 虚化神器 Falloff｜可变半径模糊，模拟真实镜头景深 使用教程</a></div>
+        <div class="desc">UP：动效库 · 1206 播放</div>
+        <div class="foot"><span class="tag cat">可以看</span><span class="tag src">B站</span></div>
+      </li>
+      <li>
+        <div class="title"><a href="https://www.bilibili.com/video/BV1R5xs6FEVD" target="_blank" rel="noopener noreferrer">自制免费的 AE 冲击帧插件，一键出黑白闪/方向/爆点/灰阶四种效果，作者自己讲了安装和参数调整。做剪辑的可以直接拿来用。</a></div>
+        
+        <div class="foot"><span class="tag src">B站</span></div>
+      </li>
+      <li>
+        <div class="title"><a href="https://www.bilibili.com/video/BV1hV4P6PEDc" target="_blank" rel="noopener noreferrer">把原版植物大战僵尸的逻辑从 100Hz 拉到 197Hz、帧率翻四倍的重写实录，行索引、活动位图、完美哈希、相位求位移这些优化讲得是真细。做程序化/性能方向的看着过瘾。</a></div>
+        
+        <div class="foot"><span class="tag src">B站</span></div>
+      </li>
+      <li>
+        <div class="title"><a href="https://www.bilibili.com/video/BV1u9WS6XE6N" target="_blank" rel="noopener noreferrer">开源动捕软件更新：PMX 模型导入、骨骼逐项调节、IK/FK 切换、多种导出格式（VMD/FBX/虚幻）。做动画/二创的能省一步。</a></div>
+        
+        <div class="foot"><span class="tag src">B站</span></div>
+      </li>
+      <li>
+        <div class="title"><a href="https://www.bilibili.com/video/BV19Rn26CExe" target="_blank" rel="noopener noreferrer">大肥鱼全自动剪辑时代的来临！【dsh插件EAC design world】</a></div>
+        <div class="desc">UP：Nefert-zx · 15.3万 播放</div>
+        <div class="foot"><span class="tag src">B站</span></div>
+      </li>
+      <li>
+        <div class="title"><a href="https://www.bilibili.com/video/BV1r8WB6zEsQ" target="_blank" rel="noopener noreferrer">Adobe 2027 大版本来了！28项新功能全解析</a></div>
+        <div class="desc">UP：影视后期系统教学 · 6018 播放</div>
+        <div class="foot"><span class="tag src">B站</span></div>
+      </li>
+      <li>
+        <div class="title"><a href="https://www.bilibili.com/video/BV1mFWt6JEjB" target="_blank" rel="noopener noreferrer">【静止系MAD/DROP_PROJECT】我家老婆来自一千年以前</a></div>
+        <div class="desc">UP：N1no_WUWA · 1078 播放</div>
+        <div class="foot"><span class="tag src">B站</span></div>
+      </li>
+    </ul>
+  </section>
+  </main>
+  <footer class="end">
+    <div>由本地 DSH 会话自动搜集与生成，仅作个人参考。</div>
+    <div>内容来自公开搜索结果，链接指向原始出处。</div>
+  </footer>
+</div>
+</body>
+</html>

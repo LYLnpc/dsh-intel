@@ -1,0 +1,102 @@
+{
+  "date": "2026-11-14",
+  "generated": "2026-11-14T16:05:55.361Z",
+  "groups": [
+    {
+      "key": "opportunity",
+      "title": "接单与机会",
+      "items": [
+        {
+          "title": "EXC#4「继续」MAD/手书创作赛（2027-04-01 截止）",
+          "url": "https://www.bilibili.com/opus/1270443840082280469",
+          "desc": "B站二次元现充俱乐部主办的匿名评审短片赛，单人投稿≥30秒，只收叙事型/分镜设计型作品，入围发周边。评审不看流量只看片子，是攒作品集的现成场子。",
+          "deadline": "2027-04-01",
+          "source": "B站",
+          "tag": "MAD/手书"
+        },
+        {
+          "title": "和平精英「精英战场」主题视频征稿（12/30 截止）",
+          "url": "https://gp.qq.com/gicp/news/684/18952284.html",
+          "desc": "腾讯官方征稿，30 秒以上长视频，围绕蜘蛛侠主套/营地密钥玩法/趣味二创，明确鼓励 AI 辅助脚本与封面，按投稿量+播放量评奖，评论区投票能进推荐池。",
+          "deadline": "2026-12-30",
+          "source": "腾讯",
+          "tag": "游戏二创"
+        }
+      ]
+    },
+    {
+      "key": "creation",
+      "title": "剪辑与创作",
+      "items": [
+        {
+          "title": "Adobe MAX 2026 剪辑/调色场次点播上线（13 场）",
+          "url": "https://www.redsharknews.com/adobe-max-2026-top-video-sessions",
+          "desc": "RedShark 从 MAX 回放里挑出的视频类场次：Vinnie Hobbs 讲剪辑节奏与视觉层级、Premiere 新 Color Mode 校色与可复用 look、AI 标记采访问题、stem separation 清人声、时间线直接生成 B-roll。等于一套免费的官方方法论课。",
+          "deadline": "",
+          "source": "RedShark",
+          "tag": "方法论"
+        },
+        {
+          "title": "Seedance 2.5 支持 4K 出片，flash 档低到 ¥0.08/秒",
+          "url": "https://www.aihub.cn/news/seedance-2-5-4k-release/",
+          "desc": "即梦支持 480P 低成本试创意、4K 出片。限时 Seedance 2.5 flash ¥0.08/秒、Seedance 2.5 ¥0.15/秒。可以先 480P 排镜头再 4K 出，试错成本再降一档。",
+          "deadline": "",
+          "source": "即梦",
+          "tag": "AI 视频"
+        }
+      ]
+    },
+    {
+      "key": "tools",
+      "title": "工具与效率",
+      "items": [
+        {
+          "title": "OLM Open Tools 免费放出 2 个 AE 插件（Apache 2.0）",
+          "url": "https://www.olm.co.jp/rd/categories/opentools",
+          "desc": "日本 OLM Digital 开源：OLM Anti Anti Alias（去抗锯齿+二值化两色涂分）、OLM UV Map（在 AE 里给 3D 模型贴换 UV，不用回 3D 软件重渲），另有 Smoother v2 等 4 个旧插件更新。做动画 PV 的返工时间能直接砍掉。",
+          "deadline": "",
+          "source": "OLM Digital",
+          "tag": "AE 插件"
+        },
+        {
+          "title": "CapCut 支持 Seedance 2.5 4K 镜头 + ChatGPT 插件",
+          "url": "https://www.produ.com/television/noticias/cinetica-studio-en-capcut-world-la-la-app-anuncio-un-plugin-para-chatgpt-y-seedance-2-5-en-4k/",
+          "desc": "CapCut World LA 宣布：Video Studio 支持最长 30 秒 4K 镜头、新增 2.5 Draft 快速试稿，并推出 ChatGPT 插件。剪映/CapCut 用户能直接在时间线里出 30 秒 AI 镜头。",
+          "deadline": "",
+          "source": "PRODU",
+          "tag": "剪映/CapCut"
+        },
+        {
+          "title": "ComfyUI 接入 MiniMax H3 Image，最高 1600 万像素",
+          "url": "https://www.airadar.tv/ai-radar/oss/zz-oss-2026-11-14-4",
+          "desc": "支持最多 16 张参考图编辑，开源权重与 API 版本都已支持。分镜/关键帧/曲绘的可控出图又多一个高分辨率选项。",
+          "deadline": "",
+          "source": "AI Radar",
+          "tag": "ComfyUI"
+        }
+      ]
+    },
+    {
+      "key": "industry",
+      "title": "行业与流量",
+      "items": [
+        {
+          "title": "AI 微短剧专项治理落地：AI 和算法首次同时被列为靶点",
+          "url": "https://www.dianyingjie.com.cn/2026/1113/412650.shtml",
+          "desc": "广电总局专项治理 11/1–12 月底，点名 AI「盗脸」「偷声」，AI 微短剧按 30 万/80 万两条线分三类监管，办法 9/1 起施行。接 AI 短片/漫剧单子前先确认备案档位与声音肖像授权。",
+          "deadline": "",
+          "source": "电影界",
+          "tag": "监管"
+        },
+        {
+          "title": "Yamaha 收购虚拟制作公司 Disguise",
+          "url": "https://www.yamaha.com/ja/news_release/2026/26111303/",
+          "desc": "11/13 官宣通过收购 Butterfly Topco 全部股份把 Disguise 变为全资子公司，金额未披露，保留品牌与客户关系。虚拟制作赛道被硬件巨头接手，长期会拉动实时合成工作流与外包需求。",
+          "deadline": "",
+          "source": "Yamaha",
+          "tag": "虚拟制作"
+        }
+      ]
+    }
+  ]
+}

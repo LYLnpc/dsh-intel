@@ -1,0 +1,139 @@
+{
+  "date": "2026-11-12",
+  "generated": "2026-11-12T17:10:00+08:00",
+  "groups": [
+    {
+      "key": "opportunity",
+      "title": "接单与机会",
+      "items": [
+        {
+          "title": "B站 AI 创造公开赛 S2（一等奖 100 万）",
+          "url": "https://www.bilibili.com/opus/1262431200618741810",
+          "desc": "10/24 开赛，投稿长期开放，截止时间会提前 30 天公告。一等奖 100 万、二等奖 3 名各 30 万、三等奖 6 名各 5 万。要求：AI 造物方向，以 AI 为核心做出可运行可交互的产品（软件/硬件原型），纯 AIGC 作品不算；视频需 ≥1 分钟横屏，加话题 #B站AI创造公开赛#。评审是「模型筛前 30 + 42 人评审团终审」。",
+          "deadline": "待官方公告",
+          "source": "B站",
+          "tag": "百万元级"
+        },
+        {
+          "title": "2026 第七届 风华回战 × bilibili MAD 创作大赛",
+          "url": "https://www.bilibili.com/opus/1247882918042271744",
+          "desc": "征稿 9/16 至 12/31。MAD 类均可（静止系、AMV、特摄、国创），不接受纯原创 OC 动画、MG PV、同人动画。金奖 5000，银奖 2000，铜奖 1000，单项奖 500。加话题 #MAD大赛2026# 可同时参评 B站 MAD 大赛。",
+          "deadline": "2026-12-31",
+          "source": "B站",
+          "tag": "MAD/AMV"
+        },
+        {
+          "title": "HiShorts! × updream：AiShorts AI 短片大赛",
+          "url": "https://www.bilibili.com/opus/1248700439276290085",
+          "desc": "AI 短片方向的专项赛事，规则已公开。做 AI 影像或 MV 的话是个正规赛道，比野鸡赛靠谱。",
+          "source": "B站",
+          "tag": "AI 短片"
+        },
+        {
+          "title": "一起来看 LIVE · KPOP 年末季",
+          "url": "https://www.sina.cn/weibo/detail/5364166631887492.html",
+          "desc": "B站音乐区投稿，≥60s，带话题 #一起来看live# / #KPOP年末大赏# / #直拍星计划#。明确把「舞台混剪二创、一键换装」列为征稿方向，混剪正好对口。",
+          "deadline": "2027-01-15",
+          "source": "B站音乐",
+          "tag": "混剪"
+        }
+      ]
+    },
+    {
+      "key": "creation",
+      "title": "剪辑与创作",
+      "items": [
+        {
+          "title": "达芬奇 DaVinci Resolve 21.2（免费更新）",
+          "url": "https://www.mgeeker.com/news/2026-11-07-davinci-resolve-21-2-ai-assistant-touch-gen6/",
+          "desc": "11 月 6 日发布，免费版和 Studio 都更新。Studio 版 AI 助手（通过 MCP 接入）现在能导出画面帧、把缩略图排成网格 —— 对比调色版本、挑封面图时省掉手动截图。新增第 6 代色彩科学 LUT、支持触屏新 MacBook Pro、多机位可在源时间线里作为源片段打开。升级前务必备份工程库：21.2 的工程无法再用 20.3.2 打开。",
+          "source": "极客AI导航 / CineD",
+          "tag": "达芬奇"
+        },
+        {
+          "title": "Premiere Pro 大更新：Color Mode 正式版 + Creative Agent",
+          "url": "https://www.mgeeker.com/news/2026-11-11-premiere-pro-color-mode-creative-agent-generative-media/",
+          "desc": "11 月 11 日推送。Color Mode 转正取代 Lumetri 面板；Creative Agent 进桌面版，可用自然语言批量加效果、跟踪蒙版、统一调色；Generative Media Tool 能在时间线里直接补生成 B-roll、音效和配乐（可选 Firefly / Google / Kling / Runway / Luma）；音频可分轨并拆开重叠人声。",
+          "source": "极客AI导航",
+          "tag": "PR"
+        },
+        {
+          "title": "后期资源吧 · 每日更新",
+          "url": "https://www.vfx123.com/daily",
+          "desc": "近期：Clip Exploder（时间线片段批量导出，11/09）、Doza Cuts（AI 多机位自动切换，FCPX+达芬奇，11/08）、Iruzen SFX Pack（120 多款动漫战斗冲击转场音效，AMV 向）。",
+          "source": "vfx123",
+          "tag": "资源站"
+        },
+        {
+          "title": "FlowCut 免费包：75+ 预设 / 130+ LUT / 100+ 音效 / 35+ 光漏转场",
+          "url": "https://flowcutstore.com/free-pack",
+          "desc": "PR 向，一整个 zip 打包，原价 $30 现在免费。不用注册、不用绑卡，留个邮箱就发下载链接。可以用于自己视频和给客户剪的活，但不能转卖文件。",
+          "source": "FlowCut",
+          "tag": "免费素材"
+        },
+        {
+          "title": "NexSub：本地 AI 实时翻译字幕（终身版免费）",
+          "url": "https://www.hu6.cc/2655.html",
+          "desc": "原价 $19，本地跑不用联网、不用订阅。看外语素材、做外语视频时省事，截止 11/15。",
+          "deadline": "2026-11-15",
+          "source": "极客雷达",
+          "tag": "限免"
+        }
+      ]
+    },
+    {
+      "key": "tools",
+      "title": "工具与效率",
+      "items": [
+        {
+          "title": "OpusClip 4.0：原始素材直接出成片",
+          "url": "https://www.mgeeker.com/news/2026-11-05-opusclip-4-auto-edit-raw-footage-ai-producer/",
+          "desc": "11 月 2 日发布。从「长视频切片」扩展到「原始口播素材自动剪成片」：上传后自动语音清理、字幕、铺 B-roll。一次剪辑可导出 60-90 秒高光、3-5 分钟加长版等多种格式。新增可复用剪辑配方、开头钩子模板，还有能在 ChatGPT/Claude 里对话改片的插件。",
+          "source": "极客AI导航",
+          "tag": "AI 剪辑"
+        },
+        {
+          "title": "Avid Media Composer × Google Gemini/Veo",
+          "url": "https://www.mgeeker.com/news/2026-11-11-avid-ready-to-play-media-composer-gemini-veo/",
+          "desc": "11 月 10 日发布 Ready to Play 扩展。文字或静帧生成临时 B-roll 和预演镜头；用文字修改已有画面（比如去掉入镜的挑杆麦克风）；自动分析素材写可检索元数据。生成和修改都输出新文件、不动原素材。Ultimate/Enterprise 用户不额外收费，模型用量走自己的 Google Cloud。",
+          "source": "极客AI导航",
+          "tag": "Avid"
+        },
+        {
+          "title": "OpenShot 4.1：开源剪辑，带 AI 智能体可操控的命令行",
+          "url": "https://www.mgeeker.com/news/2026-11-01-openshot-4-1-cli-ai-agent-text-editing/",
+          "desc": "11 月 1 日发布。可在预览画面里直接加字排版，4K 素材自动生成低清代理加速，新增实验性 openshot-cli —— 脚本或 Claude Code、Codex 这类智能体能直接导入素材、剪切、加字、导出。想做批量自动化流水线可以看看。",
+          "source": "极客AI导航",
+          "tag": "开源"
+        }
+      ]
+    },
+    {
+      "key": "industry",
+      "title": "行业与流量",
+      "items": [
+        {
+          "title": "多平台广告分成转向质量激励",
+          "url": "https://www.cocotoolset.cn/5158.html",
+          "desc": "有报道称多平台调整分成口径：成片偏「特效堆砌」的类别分成下调约 30%。信号是平台在为「内容质量」而不是「视觉堆料」付钱 —— 做 PV/MAD 的话，光靠转场特效堆时长这条路在变窄。",
+          "source": "自媒体经验分享",
+          "tag": "分成规则"
+        },
+        {
+          "title": "B站创作激励调整与 UP 主应对分析",
+          "url": "https://tsight.io/articles/7440808",
+          "desc": "梳理 B站激励政策的实际变化：激励金额下调、门槛提高、专栏激励取消。对依赖激励的中小 UP 主冲击明显。文中按 UP 主类型给了不同的应对路径，值得对照自己的情况看一眼。",
+          "source": "TrueSight",
+          "tag": "激励政策"
+        },
+        {
+          "title": "B站视频创作激励年度计划 Q&A",
+          "url": "https://www.bilibili.com/blackboard/activity-N13czQtWTg.html",
+          "desc": "官方口径：每月 1 日 12 点后在「创作激励 - 前日新增 - 收入趋势」查看本月是否享有基础激励。判断自己有没有补贴就看这里，别信传言。",
+          "source": "B站官方",
+          "tag": "官方说明"
+        }
+      ]
+    }
+  ]
+}
