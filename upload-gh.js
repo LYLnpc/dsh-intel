@@ -19,7 +19,9 @@ function readToken() {
 
 const TOKEN = readToken();
 const REPO = process.env.GH_REPO || 'LYLnpc/dsh-intel';
-const BRANCH = process.env.GH_BRANCH || 'main';
+// 2026-11-14：Pages 发布源已切到 gh-pages 分支（main 上杂物太多会让老构建器失败），
+// 所以推送到 gh-pages 才真正更新线上页面。
+const BRANCH = process.env.GH_BRANCH || 'gh-pages';
 const API = `https://api.github.com/repos/${REPO}/contents/`;
 
 if (!TOKEN) {
