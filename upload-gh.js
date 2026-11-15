@@ -1,8 +1,14 @@
 /**
- * 把 dsh-intel 目录推送到 GitHub（Contents API，不依赖 git 本地凭证）。
+ * 把 dsh-intel 目录推送到 GitHub（Git Data API，一次提交，不依赖 git 本地凭证）。
+ *
+ * 2026-11-14 改动：
+ *  - 发布分支改成 gh-pages（Pages 源已切过去，main 上杂物太多会让老构建器失败）
+ *  - 改成「一次提交」：先传 blob，再建 tree，再建一个 commit，最后 update ref。
+ *    以前每个文件一个 commit，1 秒内连开十几个提交，每个都触发一次 Pages 构建，
+ *    结果大部分构建被标记 failed，最后一个还要卡几分钟。一次提交只触发一次构建。
  *
  * 用法：token 读同目录 .gh-token，或环境变量 GH_TOKEN
- * 上传范围：index.html、archive/**、www/**、data/**、build.js、standalone.html
+ * 上传范围：index.html、archive/**、www/**、data/**、build.js 等站点文件
  */
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, relative, dirname } from 'node:path';
@@ -19,10 +25,8 @@ function readToken() {
 
 const TOKEN = readToken();
 const REPO = process.env.GH_REPO || 'LYLnpc/dsh-intel';
-// 2026-11-14：Pages 发布源已切到 gh-pages 分支（main 上杂物太多会让老构建器失败），
-// 所以推送到 gh-pages 才真正更新线上页面。
 const BRANCH = process.env.GH_BRANCH || 'gh-pages';
-const API = `https://api.github.com/repos/${REPO}/contents/`;
+const API = 'https://api.github.com';
 
 if (!TOKEN) {
   console.error('缺少 token：环境变量 GH_TOKEN 或 .gh-token 文件');
@@ -55,8 +59,6 @@ function walk(dir, out = []) {
   return out;
 }
 
-const encodePath = (rel) => rel.split('/').map(encodeURIComponent).join('/');
-
 const HEADERS = {
   Authorization: 'token ' + TOKEN,
   'User-Agent': 'dsh-intel',
@@ -64,71 +66,78 @@ const HEADERS = {
   'Content-Type': 'application/json',
 };
 
-async function getSha(rel) {
-  const url = `${API}${encodePath(rel)}?ref=${BRANCH}`;
-  const r = await fetch(url, { headers: HEADERS, signal: AbortSignal.timeout(30000) });
-  if (r.status === 404) return null;
-  if (!r.ok) throw new Error(`GET ${rel} -> ${r.status}`);
-  const j = await r.json();
-  return j.sha || null;
-}
-
-async function putFile(rel, contentBase64, sha) {
-  const body = {
-    message: `update ${rel}`,
-    content: contentBase64,
-    branch: BRANCH,
-  };
-  if (sha) body.sha = sha;
-
-  const r = await fetch(API + encodePath(rel), {
-    method: 'PUT',
-    headers: HEADERS,
-    body: JSON.stringify(body),
-    signal: AbortSignal.timeout(60000),
-  });
-  if (!r.ok) {
-    const t = await r.text();
-    throw new Error(`PUT ${rel} -> ${r.status} ${t.slice(0, 180)}`);
+async function api(path, options = {}) {
+  const res = await fetch(API + path, { ...options, headers: { ...HEADERS, ...(options.headers || {}) } });
+  const text = await res.text();
+  let json = null;
+  try {
+    json = JSON.parse(text);
+  } catch {
+    /* 非 JSON */
   }
-  return true;
+  if (!res.ok) throw new Error(`${res.status} ${path} :: ${text.slice(0, 300)}`);
+  return json;
 }
 
 async function main() {
-  if (!existsSync(join(ROOT, 'index.html'))) {
-    console.error('index.html 不存在，先跑 node build.js');
-    process.exit(1);
-  }
+  const files = walk(ROOT);
+  console.log(`本地待上传 ${files.length} 个文件 → ${REPO}@${BRANCH}`);
 
-  const files = walk(ROOT).sort((a, b) => a.rel.localeCompare(b.rel));
-  if (!files.length) {
-    console.error('没有可上传文件');
-    process.exit(1);
-  }
-
-  let ok = 0;
-  let fail = 0;
-
+  // 1. 每个文件建 blob
+  const entries = [];
   for (const f of files) {
-    try {
-      const b64 = readFileSync(f.abs).toString('base64');
-      const sha = await getSha(f.rel);
-      await putFile(f.rel, b64, sha);
-      console.log(`ok   ${f.rel}`);
-      ok++;
-    } catch (e) {
-      console.error(`FAIL ${f.rel}: ${e.message}`);
-      fail++;
-    }
+    const content = readFileSync(f.abs);
+    const blob = await api(`/repos/${REPO}/git/blobs`, {
+      method: 'POST',
+      body: JSON.stringify({ content: content.toString('base64'), encoding: 'base64' }),
+    });
+    entries.push({ path: f.rel, mode: '100644', type: 'blob', sha: blob.sha });
   }
 
-  console.log(`\n完成：成功 ${ok}，失败 ${fail}`);
+  // 2. 建 tree（不带 base_tree，等于只保留这次上传的文件）
+  const tree = await api(`/repos/${REPO}/git/trees`, {
+    method: 'POST',
+    body: JSON.stringify({ tree: entries }),
+  });
+
+  // 3. 找当前分支头作为父提交（分支不存在就建孤儿提交）
+  let parentSha = null;
+  try {
+    const ref = await api(`/repos/${REPO}/git/ref/heads/${BRANCH}`);
+    parentSha = ref.object.sha;
+  } catch {
+    /* 分支还不存在 */
+  }
+
+  const stamp = new Date().toISOString().replace('T', ' ').slice(0, 19);
+  const commit = await api(`/repos/${REPO}/git/commits`, {
+    method: 'POST',
+    body: JSON.stringify({
+      message: `site update ${stamp} (${files.length} files)`,
+      tree: tree.sha,
+      parents: parentSha ? [parentSha] : [],
+    }),
+  });
+
+  // 4. 更新分支
+  if (parentSha) {
+    await api(`/repos/${REPO}/git/refs/heads/${BRANCH}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ sha: commit.sha, force: true }),
+    });
+  } else {
+    await api(`/repos/${REPO}/git/refs`, {
+      method: 'POST',
+      body: JSON.stringify({ ref: `refs/heads/${BRANCH}`, sha: commit.sha }),
+    });
+  }
+
+  console.log(`完成：一次提交 ${commit.sha.slice(0, 7)}，${files.length} 个文件`);
   console.log(`仓库：https://github.com/${REPO}`);
-  console.log(`页面：https://${REPO.split('/')[0].toLowerCase()}.github.io/${REPO.split('/')[1]}/`);
-  if (fail > 0) process.exit(1);
+  console.log('页面：https://lylnpc.github.io/dsh-intel/');
 }
 
-main().catch((e) => {
-  console.error('异常：', e.message);
+main().catch((error) => {
+  console.error('上传失败：' + (error?.message ?? error));
   process.exit(1);
 });
