@@ -1,0 +1,94 @@
+{
+  "date": "2026-11-15",
+  "generated": "2026-11-15T13:58:59.138Z",
+  "groups": [
+    {
+      "key": "opportunity",
+      "title": "接单与机会",
+      "items": [
+        {
+          "title": "Higgsfield Talent Contest：总奖金 100 万美元（11/27 03:00 北京时间截止）",
+          "url": "https://higgsfield.ai/contests/talent-contest?tab=rules",
+          "desc": "AI 短片大赛，20 个名额瓜分 100 万美元。作品 3–7 分钟，单人/团队均可，免费账号能投。要求全部内容由 AI 生成、禁真人出镜。",
+          "deadline": "2026-11-27",
+          "source": "Higgsfield",
+          "tag": "AI 短片"
+        },
+        {
+          "title": "2026 第三届风华回战 × bilibili MAD 创作大赛（12/31 截稿）",
+          "url": "https://www.bilibili.com/opus/1247882918042271744",
+          "desc": "MAD/AMV/静止系/特摄稿均可投（不含纯原创 OC 动画、MG PV、同人动画）。金奖 5000、银奖 2000、铜奖 1000、单项奖 500。带 #MAD大赛2026# 可同时参评 B站 MAD 大赛；注意不可与 B站 only 扶持计划等同投。",
+          "deadline": "2026-12-31",
+          "source": "B站",
+          "tag": "MAD/AMV"
+        }
+      ]
+    },
+    {
+      "key": "creation",
+      "title": "剪辑与创作",
+      "items": [
+        {
+          "title": "HyperFlow H3 Flash 开源：14B 模型 4–8 步直出音画同步视频",
+          "url": "https://hub.baai.ac.cn/view/59638",
+          "desc": "11/13–14 开源，从 33B 瘦到 14B，消费级显卡能跑，5 天下载超 24 万。分镜和 B-roll 素材成本再降一档。",
+          "deadline": "",
+          "source": "智源社区",
+          "tag": "开源模型"
+        },
+        {
+          "title": "Premiere Pro 27.0：Color Mode 转正，Creative Agent 进桌面版",
+          "url": "https://community.adobe.com/announcements-727/welcome-to-adobe-premiere-27-0-1655028",
+          "desc": "11/10 发布。Color Mode 取代 Lumetri；Creative Agent 可用自然语言批量加效果、跟踪蒙版、统一调色；Generative Media 在时间线补 B-roll/音效/配乐。注意 AI 助手消耗 Firefly credits 且不再先报成本；不再支持 Intel Mac。",
+          "deadline": "",
+          "source": "Adobe",
+          "tag": "PR"
+        }
+      ]
+    },
+    {
+      "key": "tools",
+      "title": "工具与效率",
+      "items": [
+        {
+          "title": "ComfyUI v0.45.1：原生支持 MiniMax-H3-Image 等一批新模型",
+          "url": "https://github.com/Comfy-Org/ComfyUI/releases",
+          "desc": "11/14 发布。v0.45.0 起原生支持 MiniMax-H3-Image 文生图/编辑、WeVisOne-VL、UltraTex 贴图重烘焙、RelayVSR 视频超分。AI 素材进剪辑管线的首选前端。",
+          "deadline": "",
+          "source": "GitHub",
+          "tag": "ComfyUI"
+        },
+        {
+          "title": "OLM Open Tools 免费开源两款 AE 插件（11/13）",
+          "url": "https://www.olm.co.jp/rd/categories/opentools",
+          "desc": "日本 OLM 免费放出 AE 用 Anti Anti Alias（去抗锯齿后二值化）等两款，并更新 OLM Smoother v2。线条和描线处理是手书、静止系的高频痛点。",
+          "deadline": "",
+          "source": "OLM Digital",
+          "tag": "AE 插件"
+        }
+      ]
+    },
+    {
+      "key": "industry",
+      "title": "行业与流量",
+      "items": [
+        {
+          "title": "红果 AI 剧编剧与剧本合作政策 11 月版：评级砍到 S/A 两档",
+          "url": "https://duan.cn/items/u187si23jy3w4qylks7owmfgu",
+          "desc": "11/13 生效。S 级保底 1.5 万元/部 + 全渠道净收益 20% 超保底分成；A 级无保底纯分成；著作权归平台。AI 内容接单的报价与风险结构变了。",
+          "deadline": "",
+          "source": "短剧自习室",
+          "tag": "AI 剧"
+        },
+        {
+          "title": "抖音话题阅读量口径改版：事后补话题不再回溯计入",
+          "url": "https://www.sina.cn/weibo/detail/5364867187873284.html",
+          "desc": "11/13 前后生效。话题播放/阅读量只算发布当时带上的标签，事后补加不计入。剪完再补 #话题 的老习惯会白丢数据，发布前就得挂上。",
+          "deadline": "",
+          "source": "微博",
+          "tag": "抖音"
+        }
+      ]
+    }
+  ]
+}
