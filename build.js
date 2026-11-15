@@ -45,37 +45,73 @@ function readBiliVideos(date) {
   }
   const lines = text.split(/\r?\n/);
   const rank = (g) => (g === '值得看' ? 2 : g === '可以看' ? 1 : 0);
+  const GRADE_WORDS = ['值得看', '可以看', '一般', '跳过', '不值得'];
+  const isGradeWord = (s) => GRADE_WORDS.includes(String(s).replace(/^档位[：:]\s*/, '').trim());
+  const isBareUrl = (s) => /^https?:\/\/\S+$/.test(s);
+  const isGradeOnly = (s) => /^\*\*档位/.test(s) || /^档位[：:]/.test(s);
   const byBv = new Map();
   for (let i = 0; i < lines.length; i += 1) {
     const m = lines[i].match(/^###\s+(BV[0-9A-Za-z]{10})\s*$/);
     if (!m) continue;
     const bv = m[1];
-    // 日报有两种写法：单行「标题 · UP · 链接 · 播放 · **档位：X**」，
-    // 或者子弹列表（标题 / UP / 时长 / 播放 一行，**档位**：X 另一行，链接再一行）。
+    // 日报有三种写法，都要认：
+    //  A 单行：标题 · UP · 链接 · N播放 · **档位：值得看** · 这段是留言
+    //  B 三段：标题 · UP · 时长 · 值得看 ／ 链接单独一行 ／ 留言单独一行
+    //  C 子弹列表：标题 / UP / 时长 / 播放 一行，**档位**：X 另一行，链接再一行
     const cand = [];
-    for (let j = i + 1; j < Math.min(i + 9, lines.length); j += 1) {
-      const t = lines[j].trim();
-      if (t === '' || t.startsWith('#')) continue;
-      if (/^###\s/.test(t)) break;
-      cand.push(t.replace(/^[-*]\s*/, ''));
+    for (let j = i + 1; j < Math.min(i + 12, lines.length); j += 1) {
+      const raw = lines[j].trim();
+      if (/^#{1,6}\s/.test(raw)) break; // 下一个条目开始了
+      if (raw === '') {
+        if (cand.length > 0) break; // 空行 = 本条目结束
+        continue;
+      }
+      if (/^>/.test(raw)) break; // 引用块属于段落外
+      cand.push(raw.replace(/^[-*]\s*/, ''));
     }
-    const isBareUrl = (s) => /^https?:\/\/\S+$/.test(s);
-    const descLine = cand.find((t) => !isBareUrl(t) && !/^\*\*档位/.test(t)) || '';
-    const gradeLine = cand.find((t) => /\*\*档位/.test(t)) || '';
-    const urlLine = cand.find((t) => /https?:\/\//.test(t)) || '';
+    if (cand.length === 0) continue;
+
+    const urlLine = cand.find(isBareUrl) || cand.find((t) => /https?:\/\//.test(t)) || '';
     const urlMatch = urlLine.match(/https?:\/\/www\.bilibili\.com\/video\/BV[0-9A-Za-z]{10}/);
     const url = urlMatch ? urlMatch[0] : `https://www.bilibili.com/video/${bv}`;
-    const grade = ((gradeLine.match(/\*\*档位：(.+?)\*\*/) || gradeLine.match(/\*\*档位\*\*：\s*(.+)$/) || [])[1] || '').trim();
-    const plays = ((descLine.match(/([\d.]+\s*万?)\s*播放/) || [])[1] || '').trim();
+
+    // 主信息行 = 第一行既不是纯链接、也不是纯档位行的
+    const descLine = cand.find((t) => !isBareUrl(t) && !isGradeOnly(t)) || '';
+    const gradeLine = cand.find(isGradeOnly) || '';
+
+    // 留言 = 其余那些既不是链接也不是档位的散文行
+    const noteLines = cand.filter((t) => t !== descLine && !isBareUrl(t) && !isGradeOnly(t));
+
+    let grade = ((gradeLine.match(/\*\*档位：(.+?)\*\*/) || gradeLine.match(/\*\*档位\*\*[：:]\s*(.+)$/) || [])[1] || '').trim();
+
     const parts = descLine.split(/\s+[·/]\s+/).map((s) => s.trim()).filter(Boolean);
-    const title = parts[0] || bv;
-    const upRaw = parts[1] || '';
-    const up = upRaw && !/^https?:/.test(upRaw) && !/播放/.test(upRaw) && !/^\d+:\d+$/.test(upRaw)
-      ? upRaw.replace(/^UP[：:]\s*/, '')
-      : '';
+    const isUrlPart = (s) => /^https?:/.test(s);
+    const playPart = parts.find((s) => /播放/.test(s)) || '';
+    const plays = ((playPart.match(/([\d.]+\s*万?)/) || [])[1] || '').trim();
+    // 有的写法把档位直接放在行尾（纯文字，没有 **档位**）
+    const tail = parts[parts.length - 1] || '';
+    if (!grade && isGradeWord(tail)) grade = tail.replace(/^档位[：:]\s*/, '').trim();
+    const isDuration = (s) => /^\d{1,2}:\d{2}(:\d{2})?$/.test(s);
+    const rest = parts.filter(
+      (s) => !isUrlPart(s) && !/播放/.test(s) && !/^\*\*档位/.test(s) && !isGradeWord(s) && !isDuration(s) && s !== tail,
+    );
+    const title = rest[0] || parts[0] || bv;
+    const upRaw = rest[1] || '';
+    const up = upRaw && !isUrlPart(upRaw) ? upRaw.replace(/^UP[：:]\s*/, '') : '';
+
+    // 留言：优先取单独成行的；否则从单行写法里档位之后截
+    let note = noteLines.join(' ').trim();
+    if (!note) {
+      const gradeAt = descLine.search(/\*\*档位/);
+      if (gradeAt >= 0) note = descLine.slice(gradeAt).replace(/^\*\*档位[^*]*\*\*[：:]?\s*[·/]?\s*/, '').trim();
+    }
+    // 2026-11-15 起 duty.md 要求留言行以「留言：」开头，显示时去掉这个前缀
+    note = note.replace(/^\**留言\**\s*[：:]\s*/, '').trim();
+    if (note === title) note = '';
+
     const prev = byBv.get(bv);
     if (!prev || rank(grade) > rank(prev.grade)) {
-      byBv.set(bv, { bv, title, up, url, plays, grade: grade || (prev ? prev.grade : '') });
+      byBv.set(bv, { bv, title, up, url, plays, note, grade: grade || (prev ? prev.grade : '') });
     }
   }
   return [...byBv.values()];
@@ -99,13 +135,20 @@ function biliGroup(date) {
   return {
     key: 'bili',
     title: '今日刷到的视频',
-    items: kept.map((v) => ({
-      title: v.title || v.bv,
-      url: v.url,
-      desc: [v.up ? 'UP：' + v.up : '', v.plays ? v.plays + ' 播放' : ''].filter(Boolean).join(' · '),
-      tag: v.grade || '',
-      source: 'B站',
-    })),
+    items: kept.map((v) => {
+      // 2026-11-15: 把「看点」放最前面，光看标题不知道值不值得点。
+      // 标题本身已经是一整句留言的情况（早先日报的写法）就不重复了。
+      const note = v.note && v.note !== v.title && !v.title.includes(v.note) ? v.note : '';
+      const meta = [v.up ? 'UP：' + v.up : '', v.plays ? v.plays + ' 播放' : ''].filter(Boolean).join(' · ');
+      const desc = [note, meta].filter(Boolean).join(' — ');
+      return {
+        title: v.title || v.bv,
+        url: v.url,
+        desc,
+        tag: v.grade || '',
+        source: 'B站',
+      };
+    }),
   };
 }
 
