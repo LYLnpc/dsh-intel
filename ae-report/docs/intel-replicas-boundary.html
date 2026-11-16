@@ -1,0 +1,95 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>replicas-boundary</title><style>
+body{background:#fffaf7;color:#2b2723;font-family:'PingFang SC','Microsoft YaHei',system-ui,sans-serif;max-width:900px;margin:0 auto;padding:30px 22px 80px;line-height:1.85;font-size:14.5px}
+h1.doc{font-size:20px;margin:0 0 18px;padding-bottom:12px;border-bottom:2px solid #ffd9e3;color:#f2799a}
+h1,h2,h3,h4{color:#5b4a54;line-height:1.4;margin:20px 0 8px}h1{font-size:20px}h2{font-size:17px;border-left:4px solid #ff9eb5;padding-left:10px}h3{font-size:15px}
+p{margin:9px 0}ul,ol{margin:9px 0 9px 22px}li{margin:4px 0}
+code{background:#fff0f4;color:#d94a72;padding:1px 6px;border-radius:6px;font-family:ui-monospace,Consolas,monospace;font-size:12.5px}
+pre.code{background:#fff;border:1.5px solid #f3e3e8;border-radius:12px;padding:16px;overflow-x:auto}
+pre.code code{background:none;color:#5b4a54;padding:0}
+blockquote{margin:12px 0;padding:8px 16px;border-left:3px solid #b89ee8;background:#f8f4ff;border-radius:0 8px 8px 0}
+hr{border:none;border-top:1.5px dashed #ffd9e3;margin:20px 0}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid #f3e3e8;border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{background:#fff6f9;color:#f2799a;text-align:left;padding:8px 12px;border-bottom:1.5px solid #f3e3e8;white-space:nowrap}
+td{padding:8px 12px;border-bottom:1px solid #f8eef1;vertical-align:top}
+a{color:#f2799a;text-decoration:none;border-bottom:1.5px dotted #ffd9e3}
+</style></head><body><h1 class="doc">replicas-boundary</h1><h1>9 件复刻的真实边界</h1>
+<blockquote>先说结论：9 件都能跑、都覆盖了各自商品页宣传的<strong>主路径</strong>，但没有任何一件等于原版。差异集中在三类：<strong>依赖外部资产的做不到</strong>（字形库、伪效果）、<strong>需要原生渲染/另一宿主的功能做不到</strong>（aex 内核、Ai 端扩展、PR 端）、<strong>体验层的都没做</strong>（实时预览、indicators、库管理）。</blockquote>
+<div class="tw"><table><thead><tr><th>#</th><th>复刻件</th><th>对应原商品</th><th>主路径</th><th>与原版最大差距</th></tr></thead><tbody><tr><td>1</td><td>trim-comp-clone</td><td>Trim Comp to Contents</td><td>合成时长贴合内容</td><td>不认表达式/像素层面的"内容"</td></tr><tr><td>2</td><td>project-item-labels-clone</td><td>Project Item Labels</td><td>按类型批量上标签色</td><td>读不到颜色值，只能写索引</td></tr><tr><td>3</td><td>move-anchor-point-clone</td><td>Move Anchor Point 4</td><td>锚点吸附 9 位 + 补偿位置</td><td>无"视觉重心"，只在播放头取样</td></tr><tr><td>4</td><td>scribe-clone</td><td>Scribe</td><td>单线字逐笔写出</td><td>字形是公版 Hershey，不含原版 6 套字</td></tr><tr><td>5</td><td>easify4-clone</td><td>Easify 4</td><td>缓动预设 + 跨属性同步</td><td>无 Speed Graph 画布、无 PR 端</td></tr><tr><td>6</td><td>overlord-clone</td><td>Overlord</td><td>SVG → AE 形状层</td><td>单向，无 Ai 端实时联动</td></tr><tr><td>7</td><td>limber2-clone</td><td>Limber 2</td><td>双骨 IK 肢体 + 样式库</td><td>只有 Path 型 2-bone，无 Puppet/Precomp/3-bone</td></tr><tr><td>8</td><td>keyframe-parent-clone</td><td>Keyframe Parent</td><td>关键帧组整体变换</td><td>重建式写入，roving/选中态丢失</td></tr><tr><td>9</td><td>retend-clone</td><td>Retend</td><td>整棵 precomp 树重定时</td><td>行为模型自行设计，表达式内时间不缩放</td></tr></tbody></table></div>
+<hr>
+<h2>1. trim-comp-clone（Trim Comp to Contents）</h2>
+<p><strong>已覆盖</strong></p>
+<ul><li>内容范围 = 全层 <code>inPoint</code>/<code>outPoint</code> 并集；预合成层 outPoint 被过短合成夹掉时，用 <code>startTime + source.duration × stretch</code> 反推真实尾端。</li><li>执行序：先平移图层 → 需要变长就先加长 → 最后才缩短（加长永不丢键，缩短才是 trim 的语义）。</li><li>帧对齐（<code>frameDuration</code> 四舍五入）、工作区同步为 <code>0 ~ duration</code>。</li><li>选项：忽略参考层 / 忽略关闭层 / 跟随嵌套预合成 / 内容归零 / 仅选中层 / 尾部留白帧数。</li></ul>
+<p><strong>明确没做</strong></p>
+<ul><li>不认表达式造成的视觉延伸（2 秒层 + <code>loopOut()</code> 画面能一直延伸，脚本只看到 2 秒）。</li><li>预合成只递归一层，不跟着进它内部的预合成。</li><li>"内容"口径是时间跨度，不是"画面上有非透明像素"——10 秒全黑素材仍算 10 秒。</li><li>不裁图层自身的 in/out，只改合成时长与工作区。</li></ul>
+<p><strong>参数级取舍</strong></p>
+<ul><li>缩短后 AE 不可逆（除撤销）：脚本没有"预览差异"步骤，靠面板 <code>Refresh</code> 先看目标时长。</li><li>平移模式会跳过锁定层（失败不报是哪一层）。</li></ul>
+<hr>
+<h2>2. project-item-labels-clone（Project Item Labels）</h2>
+<p><strong>已覆盖</strong></p>
+<ul><li>9 类规则（丢失 / 占位 / 纯色 / 合成 / 文件夹 / 图片 / 视频 / 音频 / 其他）× 标签索引 1–16。</li><li>判定优先级把 <code>footageMissing</code> 放最前——否则丢失素材会因为还留着扩展名被错标成图片。</li><li>范围：整项目递归 / 仅选中项；可"跳过已符合项"。</li></ul>
+<p><strong>明确没做</strong></p>
+<ul><li>读不到实际 RGB，只能写索引（索引对应什么颜色由用户 AE 首选项决定）。</li><li>不改图层标签（<code>layer.label</code> 是另一套面板）。</li><li>不做文件名关键字智能（<code>_final</code>、<code>_v2</code> 之类）。</li><li>无预设保存（关面板即丢）、无预览。</li></ul>
+<p><strong>参数级取舍</strong></p>
+<ul><li>下拉里的颜色名按 AE 出厂预设写，用户改过首选项后名称会不准，实际以索引为准。</li><li>不提供索引 0（部分版本上会报错/恢复默认）。</li></ul>
+<hr>
+<h2>3. move-anchor-point-clone（Move Anchor Point jsx 版）</h2>
+<p><strong>已覆盖</strong></p>
+<ul><li>9 个位置（四角/四边中点/中心）+ 自定义 0–1 百分比。</li><li>用「设新锚点 → <code>toComp</code> 差分反算 position」补偿，缩放/旋转/父级链/3D 全交给 AE 自己的矩阵，不自己推旋转顺序。</li><li>分离维度的 position/anchor 会检测出来跳过并报明原因。</li></ul>
+<p><strong>明确没做</strong></p>
+<ul><li>没有"视觉重心"模式：对齐的是 <code>sourceRectAtTime</code> 的包围盒，不看像素透明度。</li><li>只在播放头取样一次；内容随动画变化（打字机、形状变形）时锚点不跟着走。</li><li>摄像机/灯光层没有内容框，直接拒绝；3D 图层的锚点 Z 不动。</li><li>不支持"吸附到蒙版/形状单个顶点"。</li></ul>
+<p><strong>参数级取舍</strong></p>
+<ul><li>有 keyframe 的层会 <code>setValueAtTime</code> 在当前时间<strong>写新键</strong>（<code>setValue</code> 会抛异常），状态栏会提示。</li><li>Auto-Orient 层的朝向由运动决定，改 position 理论上存在极小残余偏差。</li></ul>
+<hr>
+<h2>4. scribe-clone（Scribe）</h2>
+<p><strong>已覆盖</strong></p>
+<ul><li>5 款公有领域 Hershey 单线字<strong>内联</strong>（21KB 紧凑串、9743 个点），零外部文件依赖。</li><li>文本 → 逐字符一个形状层，层内 <code>&lt;多 path → Trim → Stroke&gt;</code>（顺序必须这样，Trim 排在 Stroke 之后肉眼完全看不出书写）。</li><li><code>Trim End</code> 两键 0→100 + BEZIER/<code>KeyframeEase(0, 66.67)</code>，逐字按层序 × delay 错开；write off 反向 100→0；on-then-off 再补 <code>Trim Start</code> 0→100。</li><li>参数：5 字型 / 字号 / 字距% / 行距% / 描边宽 / hex 颜色 / 每字延迟帧 / 单字时长帧。</li><li>层序 = 书写顺序，拖动层即可重排。</li></ul>
+<p><strong>明确没做</strong></p>
+<ul><li><strong>中日韩全不支持</strong>（Hershey 只有拉丁；CJK 走"跳过 + 列出被跳过字符"，全不可写时直接报错，绝不静默出空层）。</li><li>生成后不能改字（形状层，只能重生成，原层描边/关键帧不会迁移）。</li><li>没有 Effect 滑杆实时拖进度（用关键帧驱动，理由见取舍）。</li><li>没有 kerning 微调、没有笔画粗细随速度变化、没有闭合字形的接缝处理。</li></ul>
+<p><strong>参数级取舍</strong></p>
+<ul><li>字形是 Hershey 工程单线字，不是原版那 6 套手写美术字——<strong>行为等价、字形不同</strong>，观感明显更"硬"。原版字型是版权资产，不能碰。</li><li>长文本限 60 字符（每字符一层 + 每笔一条路径，再多会堆层）。</li><li>垂直对齐：Hershey 设计数据的基线在 y=22（字冠在 y=1），字号缩放用字冠高 21、基线归零用 22 分开算——评审轮修过一次（原先两者混用 21，会让整行字上移约一个字号的 4.8%）。</li><li>用关键帧而非滑杆：滑杆版要给每个 group 写引用滑杆的表达式，长文本上表达式开销随组数线性涨。</li></ul>
+<hr>
+<h2>5. easify4-clone（Easify 4 · AE 端）</h2>
+<p><strong>已覆盖</strong></p>
+<ul><li>9 个预设：AE 默认 33/33、Ease In Out、Ease Out、Ease In、Maximum 100、Linear，加 Back / Bounce / Elastic（采样烘焙）。</li><li>多属性批量：遍历 <code>comp.selectedProperties</code>，逐属性逐段 try/catch，失败计数不中断。</li><li><strong>跨属性归一化同步</strong>：记源的 <code>u=(t−t₀)/(t₁−t₀)</code> 与 in/out influence，套到目标自己的时间跨度；每个 u 先用 <code>valueAtTime</code> 取目标自身值再建键——<strong>保住目标数值曲线，只搬缓动形状</strong>。</li><li>循环 pingpong（每轮镜像时间，转折点无跳变）/ repeat；整键偏移帧数；首末固定中间等距。</li></ul>
+<p><strong>明确没做</strong></p>
+<ul><li><strong>Premiere Pro 端不做</strong>（PR 无公开的关键帧缓动脚本 API）。</li><li>没有可拖拽的 Speed Graph 画布（ScriptUI 命中测试成本过高）。</li><li>多点曲线是<strong>采样近似</strong>（逐帧烘焙后转 LINEAR），不是真多点手柄。</li><li>复合曲线叠加（官方语义无公开定义）、路径缓动、Wiggle/Impact、预设库保存。</li></ul>
+<p><strong>参数级取舍</strong></p>
+<ul><li>贝塞尔预设<strong>只改 influence，speed 按该段实际斜率逐维算</strong>（<code>(v₂−v₁)/(t₂−t₁)</code>）；另给 <code>Flat handles</code> 开关退回 speed=0 的 AE 经典行为。</li><li>烘焙遇到段内已有键直接跳过该段（返回 −1），不强行覆盖；键数会涨且之后不能再调曲线。</li><li>偏移/均分走"读全键 → <code>removeKey</code> 全部删掉 → 按新时间重建"，<strong>重建后缓动回到默认值</strong>。</li><li>同步后 speed 归零（形状优先、幅度不变），目标段很长时观感偏"顿"。</li></ul>
+<hr>
+<h2>6. overlord-clone（Overlord · 单向 SVG → AE）</h2>
+<p><strong>已覆盖</strong></p>
+<ul><li>自写 SVG 解析器（ExtendScript 没有 DOMParser）：剥注释/<code>&lt;?xml?&gt;</code>/<code>&lt;!DOCTYPE&gt;</code> → 标签正则 + 栈建树 → 属性正则，保留 <code>inkscape:label</code>。</li><li><code>&lt;path d&gt;</code> 支持 <code>M L H V C S Q T Z</code> 绝对+相对；<code>Q/T</code> 按 2/3 规则转三次，<code>S/T</code> 用反射控制点；切线存成相对顶点的偏移。</li><li><code>transform</code>：translate / scale / rotate（含中心）/ matrix 矩阵累乘。</li><li><code>&lt;rect&gt;</code> <code>&lt;circle&gt;</code> <code>&lt;ellipse&gt;</code> → <strong>参数化形状</strong>（Rect/Ellipse 的 Position/Size/Roundness），不是死点。</li><li><code>&lt;g&gt;</code> → <code>ADBE Vector Group</code>，名字取 <code>inkscape:label</code> → <code>id</code> → <code>Group</code>；fill/stroke 属性继承。</li><li>缩放映射（Fit to comp 等比 / 原尺寸），<code>layer.comment</code> 记来源，<code>Update</code> 按 comment 找回原文件重推、不新建层、可打关键帧。</li></ul>
+<p><strong>明确没做</strong></p>
+<ul><li><strong>AE → Ai 回推</strong>（需要 Illustrator 端 CEP 扩展）、<strong>Ai 实时联动</strong>（无剪贴板 API，要存 SVG 或粘贴代码）。</li><li>弧线命令 <code>A</code> <strong>降级成直线段</strong>（并告警）。</li><li>渐变<strong>降级为无填充</strong>（并告警）；<code>&lt;text&gt;</code>（要先 outline）、<code>&lt;image&gt;</code>、<code>&lt;use&gt;</code> 跳过并告警。</li><li><code>clip-path</code> / <code>mask</code> / <code>filter</code> / <code>&lt;pattern&gt;</code> 静默忽略；不做色彩管理。</li><li><code>Update</code> 只更新每层的<strong>第一条路径</strong>，不按选中的具体 group/path 定位；也不新建样式（连颜色都不改）；<strong>且只支持 bezier 路径</strong>——若第一个形状是参数化矩形/椭圆（没有 <code>ADBE Vector Shape</code> 属性），直接报错要求先在 AE 里 <code>Convert to Bezier Path</code>，不会抛出原始异常。</li></ul>
+<p><strong>参数级取舍</strong></p>
+<ul><li>每个图形元素包一层自己的子 Group（样式隔离）——否则一个 <code>&lt;g&gt;</code> 里两条不同颜色的 path 会互相叠色、组上堆重复 Fill/Stroke。</li><li>缩放只乘一次：<code>viewM</code> 已含 viewBox 缩放，几何与线宽一律取矩阵缩放因子，不再乘全局 scale。</li><li><code>&lt;g transform&gt;</code> 在生成时<strong>烘进坐标</strong>，AE 里那个 Group 的变换是单位矩阵（想整体移动要手动加变换）。</li><li>带旋转的 <code>&lt;rect&gt;</code> 降级为 4 点路径（参数化形状表达不了旋转）。</li></ul>
+<hr>
+<h2>7. limber2-clone（Limber 2 · 双骨 IK）</h2>
+<p><strong>已覆盖</strong></p>
+<ul><li>一键生成 6 个控制 null + 1 个形状层；双骨 IK 用余弦定理，含可达域钳制（拉到 L1+L2、折到 |L1−L2|）与零除/NaN 保护。</li><li>轮廓：中心线采样 → 法向偏移闭合环（含两端圆帽）→ Catmull-Rom 切线，全部在<strong>表达式里逐帧算</strong>（jsx 只建层、挂 Slider、写表达式串）。</li><li><code>Style</code> 1–4（圆润/尖锐/弹性/直管）+ <code>Smooth</code> 微调；squash &amp; stretch 按"当前根末距离/骨总长"与 rest 比值做体积感缩放。</li><li>Body + Highlight 两组分层配色（提亮 45%）；<code>Hi %</code> / <code>Hi Off</code> 控制高光带宽与偏向。</li><li>手/脚：绑定选中层到 <code>TipBone</code>（位置补偿回原位，可选是否跟随旋转）；一键生成圆手/脚。</li><li>打帧：当前姿势打键 / 生成 4 姿势椭圆循环（带贝塞尔缓动）；7 个内置样式预设 + 存自定义到 AE 首选项。</li><li><code>Upper / Lower / TipBone</code> 三个骨轴 null 可父化自绘 artwork；多肢体并存（<code>LC1…LCn</code> 编号）。</li></ul>
+<p><strong>明确没做</strong></p>
+<ul><li><strong>Puppet 型</strong>（木偶钉位置无公开脚本 API）、<strong>Precomp 型</strong>、<strong>Taper/Circles/Shape 型</strong>（只做 Path 型）。</li><li><strong>3-bone</strong>（双关节 + 两个 FreeK + 5 个 Weight）。</li><li>Indicators / Limb Library / Auto-flop / Matching / 整条肢体复制粘贴。</li><li><strong>伪效果</strong>（jsx 建不出伪效果）→ 参数改成多个 <code>ADBE Slider Control</code> / <code>Checkbox Control</code>。</li><li><strong>真正的弹簧时间积分</strong>：弹性弯是"压缩程度驱动的静态外凸 + 正弦鼓起"，没有历史速度。</li></ul>
+<p><strong>参数级取舍</strong></p>
+<ul><li>骨段固定为 2（双骨 IK 的定义），没有"每条骨再细分数段"。</li><li>参数全挂在 <code>Joint</code> 层上（表达式读自己的效果）。</li><li>形状层变换恒等（position[0,0]/anchor[0,0]）→ <strong>整层不能随便位移/旋转</strong>，要动请拖 <code>Root</code>。</li><li>重命名 <code>LC*</code> 图层会断开表达式引用（表达式按层名引用）。</li><li>3D 图层只取 XY 平面。</li></ul>
+<hr>
+<h2>8. keyframe-parent-clone（Keyframe Parent）</h2>
+<blockquote>按该件 README「诚实限制」如实转录。</blockquote>
+<p><strong>已覆盖</strong></p>
+<ul><li>关键帧组当对象整体变换：父化/平移/拉伸（Capture 快照 → 拖拽 → 写回）。</li><li>支持数值与颜色属性：<code>OneD / TwoD / ThreeD / TwoD_SPATIAL / ThreeD_SPATIAL / COLOR</code>。</li><li>构建校验会先挡掉绝大多数可预见失败；整步一个撤销组。</li></ul>
+<p><strong>明确没做</strong></p>
+<ul><li><code>roving</code>（漫游）标记不恢复；空间切线按原值回填但<strong>幅度不随缩放换算</strong>；关键帧标签与"选中状态"不保留（重建后键不再处于选中态）。</li><li><code>SHAPE</code>（蒙版路径）/ <code>TEXT_DOCUMENT</code> / <code>MARKER</code> / <code>CUSTOM_VALUE</code> 直接跳过并计数。</li><li><strong>不做静默避让</strong>：新时间与组外键冲突（&lt; 0.0005s）→ 该属性整体放弃并报错，不偷偷 +1 tick。</li><li>不改表达式（有表达式的属性写入会被表达式覆盖，看起来"没反应"）。</li></ul>
+<p><strong>参数级取舍</strong></p>
+<ul><li>跨属性缩放<strong>没有统一物理意义</strong>：值缩放逐分量作用在各自原生单位上（Scale 是 %、Position 是 px、Opacity 是 %），父键只对它所属属性做值支点。</li><li>拖动滑杆期间不写 AE，松手才写；"实时预览"不是逐帧拖动预览。</li><li><strong>预览也是真写入</strong>：Preview/松手都会产生撤销步。</li><li>刻意未用 <code>comp.time</code>（不在白名单）→"对齐播放头"改为手填目标秒数。</li></ul>
+<hr>
+<h2>9. retend-clone（Retend）</h2>
+<blockquote>按该件 README 的限制章如实转录。</blockquote>
+<p><strong>已覆盖</strong></p>
+<ul><li>整棵嵌套 precomp 树的 Extend（延长）/ Retime（重定时）。</li><li>关键帧时间缩放时，<strong>值与时间同步缩放</strong>（remap 的值本身是源时间，必须同乘比例）——这是这类工具最深的坑。</li><li>可选的"素材层同步变速"（写入时间重映射）；层标记时间缩放。</li><li>对象同一性防二次缩放；先收集后删除再重建的管线；逐层 try/catch 警告汇总。</li></ul>
+<p><strong>明确没做</strong></p>
+<ul><li>表达式内写死的时间/帧号<strong>不随比例缩放</strong>（表达式原样保留）。</li><li>音频不变速（时间重映射不作用于音频；含音频层时给警告）。</li><li>Extend 只延长"出点 ≈ 旧 comp 时长（容差半帧）或更靠后"的层，中途结束的层不动；不截断已 ≥ 目标时长的 comp。</li><li>Retime 不缩放图层 <code>startTime</code> / <code>stretch</code>（素材层默认保持 1:1 推进）。</li><li>跨树共享子 comp 先到先得（多选根时只按先遇到的参数处理一次）。</li></ul>
+<p><strong>参数级取舍</strong></p>
+<ul><li>行为模型为<strong>自行设计</strong>：原品无公开技术细节，Extend/Retime 的边界语义与原品的取舍可能不同。</li><li>关键帧缩放 = <strong>删除重建</strong>：落在同一帧的键合并（可能丢键）；极端情况下属性可能半删状态——整步一个撤销组，Ctrl+Z 可整体回滚。</li><li><code>ADBE Time Remapping</code> 定位失败时降级为普通属性（只缩放键时间、不缩放键值）并警告。</li></ul>
+<hr>
+<h2>汇总：9 件的共同短板</h2>
+<ol><li><strong>全部未在 AE 实机跑过</strong>（本机无 AE）：语法/ES3/API 名/数学都做了离线验证（node --check、ES3 扫描、IK 与 SVG 解析器的纯函数测试），但"在 AE 里第一次点下去是什么效果"仍需实测。</li><li><strong>体验层一律从简</strong>：没有一件做了原版的实时预览、指示器、库管理器、拖拽面板。</li><li><strong>依赖外部资产的功能一律用公版替换</strong>：Scribe 的字形（Hershey）、Limber 的外观素材（参数化预设而非美术素材库）。</li><li><strong>跨宿主的一律砍掉</strong>：Overlord 的 Ai 端、Easify 的 PR 端。</li><li><strong>原生内核的一件没碰</strong>：9 件全是 jsx，没有任何 aex 逆向或渲染内核复刻——这也是 A 类筛选的意义。</li></ol></body></html>

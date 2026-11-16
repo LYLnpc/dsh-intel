@@ -1,0 +1,50 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>native-candidates</title><style>
+body{background:#fffaf7;color:#2b2723;font-family:'PingFang SC','Microsoft YaHei',system-ui,sans-serif;max-width:900px;margin:0 auto;padding:30px 22px 80px;line-height:1.85;font-size:14.5px}
+h1.doc{font-size:20px;margin:0 0 18px;padding-bottom:12px;border-bottom:2px solid #ffd9e3;color:#f2799a}
+h1,h2,h3,h4{color:#5b4a54;line-height:1.4;margin:20px 0 8px}h1{font-size:20px}h2{font-size:17px;border-left:4px solid #ff9eb5;padding-left:10px}h3{font-size:15px}
+p{margin:9px 0}ul,ol{margin:9px 0 9px 22px}li{margin:4px 0}
+code{background:#fff0f4;color:#d94a72;padding:1px 6px;border-radius:6px;font-family:ui-monospace,Consolas,monospace;font-size:12.5px}
+pre.code{background:#fff;border:1.5px solid #f3e3e8;border-radius:12px;padding:16px;overflow-x:auto}
+pre.code code{background:none;color:#5b4a54;padding:0}
+blockquote{margin:12px 0;padding:8px 16px;border-left:3px solid #b89ee8;background:#f8f4ff;border-radius:0 8px 8px 0}
+hr{border:none;border-top:1.5px dashed #ffd9e3;margin:20px 0}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid #f3e3e8;border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{background:#fff6f9;color:#f2799a;text-align:left;padding:8px 12px;border-bottom:1.5px solid #f3e3e8;white-space:nowrap}
+td{padding:8px 12px;border-bottom:1px solid #f8eef1;vertical-align:top}
+a{color:#f2799a;text-decoration:none;border-bottom:1.5px dotted #ffd9e3}
+</style></head><body><h1 class="doc">native-candidates</h1><h1>原生 aex 候选提案（自荐制，2026-11-14）</h1>
+<p>提案人：原生工。依据层：<strong>.aex 层（MediaCore 790 个，实测枚举）+ CEP 层（4 个）+ 脚本层（46+72+1 全列）</strong>， 原始清单 <code>C:\Users\19894\ae-mission\intel\local-env-layers.md</code>。所有"未装"结论都是对着文件名逐个正则点名扫出来的，命令附在第 4 节。</p>
+<hr>
+<h2>0. 先自曝一条：DCDuotone 与已装的 Sapphire 同域</h2>
+<p>扫 aex 名时发现 <strong><code>S_DuoTone.aex</code> 在装</strong>（Sapphire 285 件内）。所以 DCDuotone 在"本机空白"这条上<strong>不成立</strong>—— 它是同一件事（亮度→双色渐变）的另一个实现。</p>
+<p>不代表 v1 白做：它的价值是管线打通 + 原创算法 + 16bpc 深度感知（Sapphire 那件的行为未实测）， 但如果按调研员那套「同域不推」的尺子衡量，<strong>DCDuotone 属于"练手件"，不是"补空白件"</strong>。 这条我主动交出来，别等调研员捞到再翻。下一件必须避开这个坑。</p>
+<h2>1. 候选一（建议先批）：DCLineBoil — 线条沸腾 / 手绘抖动</h2>
+<p><strong>一句话</strong>：让干净的矢量线条每帧轻微形变，出"手绘逐帧画"的沸腾感（2D 手书/动画的 line boil）。</p>
+<p><strong>为什么用户用得上</strong>：用户本职是 PV/手书/剪辑。手书最怕线条"太干净"——整齐划一的线条像矢量图，不像手画。 现在唯一办法是给每条线加 wiggle 表达式，几十个图层就是灾难；或者逐帧手画。</p>
+<p><strong>未装证据</strong>（.aex 层 790 件）</p>
+<ul><li><code>boil</code> 命中 <strong>0</strong></li><li><code>jitter</code> 命中 3 件，全是整体位移/跳帧：<code>BCCJitter</code>、<code>BCCJitterBasic</code>（整体位移抖动）、<code>S_JitterFrames</code>（随机跳帧），<strong>没有一件沿画面边缘做几何抖动</strong></li><li>脚本层 118 个 jsx 里最近的是「一键shake2.1」（整体镜头抖）、「Yan-K Glitch」（转场），都不是线条沸腾</li><li>AE 内置也没有（内置只有 Wiggle 表达式，是手写表达式不是效果件）</li></ul>
+<p><strong>原创算法</strong>：单帧内用相邻像素亮度差近似局部梯度方向 → 用「帧号×坐标」哈希出的 value noise 生成位移向量 → 沿梯度方向做亚像素偏移采样（双线性）。纯 CPU、无历史帧、无 GPU。 参数：强度 / 速率（每几帧换一次种子）/ 尺度 / 边缘保护。</p>
+<p><strong>工作量</strong>：1 轮编译能到可用，v1 不需要 UI。</p>
+<h2>2. 候选二：DCInkBleed — 墨迹渗透 / 线稿湿边</h2>
+<p><strong>一句话</strong>：把笔画边缘向外做不均匀"洇开"，用纸纤维噪声调制渗透强度，让线稿、字幕、标题字有沾水纸感。</p>
+<p><strong>为什么用户用得上</strong>：手书封面、PV 标题字、纸质风格片头。现在只能靠叠加贴图或用遮罩手糊。</p>
+<p><strong>未装证据</strong></p>
+<ul><li><code>bleed</code> 命中 <strong>0</strong>；<code>ink</code> 命中 1 件 = <code>Color Link</code>（颜色关联，无关）</li><li><code>watercolor</code> 命中 1 件 = <code>BCCWaterColor</code>（整幅水彩渲染风格，不是沿线条边缘的渗透）</li><li>脚本层无同类</li></ul>
+<p><strong>原创算法</strong>：小半径局部极值扩散（形态学 spread 的整数近似）得到"洇开半径场" → 坐标哈希噪声扰动半径 → 按原图 alpha/亮度做门限，只在笔画附近生效，避免整片糊。 参数：渗透量 / 半径 / 纤维噪声尺度 / 门限。</p>
+<p><strong>风险</strong>：与 BCCWaterColor 视觉上可能被认作同域，<strong>建议批复前请调研员过一眼</strong>。</p>
+<h2>3. 候选三：DCFocusLines — 漫画集中线</h2>
+<p><strong>一句话</strong>：程序化生成放射状集中线（长短不一、中心留白、外缘收细），做冲击/紧张/爆炸感的叠加层。</p>
+<p><strong>为什么用户用得上</strong>：手书和 PV 的高潮镜头，集中线是标准语言；现在只能找素材叠或者手画。</p>
+<p><strong>未装证据</strong></p>
+<ul><li><code>manga</code> 0、<code>speedline</code> 0</li><li><code>streak</code> 2 件：<code>BCCStreakyLight</code>、<code>S_Streaks</code> —— 都是<strong>光效/光条</strong>，不是线条生成</li><li><code>radial</code> 10 件全是模糊/聚光/擦除转场（<code>BCCRadialBlur</code>、<code>BCCRadialWipe</code>…）</li><li><code>focus</code> 6 件全是景深/虚焦（<code>S_RackDefocus</code>、<code>S_SoftFocus</code>…）</li><li>脚本层无同类</li></ul>
+<p><strong>原创算法</strong>：逐像素转极坐标 → 角度按 N 等分量化成"线槽" → 每个槽用哈希决定起始半径与长度 → 沿线槽做宽度衰减，边缘加抖动。纯生成器，不读源图也可用（可选读源图做遮罩）。 参数：线数 / 长度 / 宽度 / 中心半径 / 随机种子 / 边缘羽化。</p>
+<h2>4. 核盘命令（可复现）</h2>
+<pre class="code"><code>$mc='C:\Program Files\Adobe\Common\Plug-ins\7.0\MediaCore'
+$all=Get-ChildItem $mc -Recurse -File -Filter *.aex
+foreach($kw in 'boil','bleed','ink','manga','streak','jitter','watercolor','focus'){
+  '{0,-10} {1}' -f $kw, ($all | Where-Object { $_.BaseName -match $kw }).Count
+}</code></pre>
+<p>实测输出：<code>boil 0 / bleed 0 / ink 1 / manga 0 / streak 2 / jitter 3 / watercolor 1 / focus 6</code>； 目录实测：Sapphire 285 件、BorisFX 478 件，合计 790 与盘点一致。</p>
+<h2>5. 建议</h2>
+<p>批 <strong>候选一 DCLineBoil</strong>：与已装件零重叠、对用户本职最直接、单帧无历史帧依赖、一轮能出可用版本。 候选二、三排队；候选二批复前请调研员按三层规则复核（可能被判与 BCCWaterColor 同域）。</p></body></html>

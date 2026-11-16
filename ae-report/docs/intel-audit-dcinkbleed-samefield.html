@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>audit-dcinkbleed-samefield</title><style>
+body{background:#fffaf7;color:#2b2723;font-family:'PingFang SC','Microsoft YaHei',system-ui,sans-serif;max-width:900px;margin:0 auto;padding:30px 22px 80px;line-height:1.85;font-size:14.5px}
+h1.doc{font-size:20px;margin:0 0 18px;padding-bottom:12px;border-bottom:2px solid #ffd9e3;color:#f2799a}
+h1,h2,h3,h4{color:#5b4a54;line-height:1.4;margin:20px 0 8px}h1{font-size:20px}h2{font-size:17px;border-left:4px solid #ff9eb5;padding-left:10px}h3{font-size:15px}
+p{margin:9px 0}ul,ol{margin:9px 0 9px 22px}li{margin:4px 0}
+code{background:#fff0f4;color:#d94a72;padding:1px 6px;border-radius:6px;font-family:ui-monospace,Consolas,monospace;font-size:12.5px}
+pre.code{background:#fff;border:1.5px solid #f3e3e8;border-radius:12px;padding:16px;overflow-x:auto}
+pre.code code{background:none;color:#5b4a54;padding:0}
+blockquote{margin:12px 0;padding:8px 16px;border-left:3px solid #b89ee8;background:#f8f4ff;border-radius:0 8px 8px 0}
+hr{border:none;border-top:1.5px dashed #ffd9e3;margin:20px 0}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid #f3e3e8;border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{background:#fff6f9;color:#f2799a;text-align:left;padding:8px 12px;border-bottom:1.5px solid #f3e3e8;white-space:nowrap}
+td{padding:8px 12px;border-bottom:1px solid #f8eef1;vertical-align:top}
+a{color:#f2799a;text-decoration:none;border-bottom:1.5px dotted #ffd9e3}
+</style></head><body><h1 class="doc">audit-dcinkbleed-samefield</h1><h1>同域审查：DCInkBleed（墨迹渗透 / 线稿湿边）</h1>
+<p>审查人：调研员 · 2026-11-14 16:22 触发：指挥裁定「候选二转调研员同域审查」，原生工自提 BCCWaterColor 风险 依据层：<strong>.aex 层</strong>（实测文件名，非仅厂商目录名）——只读扫描，未改动任何已装件</p>
+<h2>一、扫描口径（可复现）</h2>
+<pre class="code"><code>Get-ChildItem "C:\Program Files\Adobe\Common\Plug-ins\7.0\MediaCore" -Recurse -Filter *.aex   → 790 件
+Get-ChildItem "E:\Adobe-Aafter-Effects2024\...\Plug-ins" -Recurse -Filter *.aex              → 353 件
+关键词：ink|bleed|water|wet|paper|fiber|fibre|sponge|paint|brush|stroke|smear|blot|stain|soak|damp|grunge|distress|torn|worn|pulp|drain
+命中 24 件（去重后）</code></pre>
+<h2>二、命中清单与本域判定</h2>
+<div class="tw"><table><thead><tr><th>装件</th><th>干什么</th><th>与 InkBleed 的关系</th></tr></thead><tbody><tr><td><strong>BCCWaterColor</strong></td><td>整幅图渲染成水彩</td><td><strong>不同域</strong>。它是"整张图变水彩"，InkBleed 是"只在线稿边缘向外洇"，作用范围与判据都不同</td></tr><tr><td><strong>BCCEdgeGrunge</strong></td><td>对<strong>边缘</strong>做旧/破碎纹理</td><td><strong>最接近的同域件</strong>。同为"支棱边缘"，但 grunge 是叠加做旧纹理、不分笔画内外；InkBleed 的核心是「alpha/亮度门限 + 沿法线渗出」</td></tr><tr><td><strong>S_Grunge / BCCGrunge</strong></td><td>全幅做旧纹理</td><td>相邻。整幅叠加，不作边缘方向扩散</td></tr><tr><td><strong>S_TextureNoisePaint</strong></td><td>噪声纹理绘画</td><td>相邻。噪声是"纹理"不是"渗透半径场"</td></tr><tr><td><strong>BCCSprayPaintNoise</strong></td><td>喷涂噪声</td><td>相邻。喷溅形态，非湿边</td></tr><tr><td><strong>Smear / Smear_New / Smear Blur</strong></td><td>沿运动方向涂抹</td><td><strong>不同域</strong>。涂抹有方向拖尾、不贴边缘法线</td></tr><tr><td><strong>S_AutoPaint / S_CartoonPaint / S_DissolveAutoPaint / PaintBucket</strong></td><td>自动上色 / 卡通化 / 填充</td><td>不同域（上色，不是边缘形变）</td></tr><tr><td><strong>3DStroke / Stroke / VectorPaint / DCStroke</strong></td><td>描边与矢量绘制</td><td>不同域（生成线条，不改造已有线条边缘）</td></tr><tr><td>BCCWaterWaveDissolve / BCCWaterWavesDissolvePrTr</td><td>水波溶解转场</td><td>无关（转场类）</td></tr><tr><td>Color Link / ColorLink</td><td>颜色关联</td><td>无关（原生工已正确排除）</td></tr></tbody></table></div>
+<p><strong><code>bleed</code> / <code>ink</code> / <code>fiber</code> / <code>paper</code> 独立关键词：0 命中</strong>（<code>ink</code> 唯一命中是 Color Link，无关）。</p>
+<h2>三、结论</h2>
+<p><strong>判定：可以做，但必须收窄范围，且 README 写清与 BCCEdgeGrunge 的差异。</strong></p>
+<ol><li><strong>不撞 BCCWaterColor</strong>（原生工自己担心的那件）。两者虽都属"水彩/湿"语汇，但一个是整幅风格化，一个是局部边缘形变，用户拿它们做的是两件事。</li><li><strong>真正的同域件是 BCCEdgeGrunge</strong>——这是本审查的新发现，原生工和指挥都没点到。它同样"支棱边缘"。差异在<strong>判据</strong>：grunge 是向边缘叠加噪声纹理（改的是质感），InkBleed 是按笔画 alpha 门限向外扩散半径（改的是轮廓形状）。这个差异是真的，但<strong>边界不算宽</strong>。</li><li><strong>残留不确定</strong>：只看文件名无法确证 BCCEdgeGrunge 的具体行为（参数是否含"向外扩散量"）。此点标 <strong>未核实细节</strong>，需要看它的效果控件才知道。<strong>建议不为此安装测试</strong>——按"不改动本机已装件"的红线，不追加操作。</li><li><strong>3 大厂内核不碰</strong>：BCC / Sapphire 的行为比对只作为"是否重复"的判断依据，不读取、不复制任何算法。</li></ol>
+<h2>四、给原生工的收窄建议（若指挥批）</h2>
+<ul><li>v1 <strong>只做一件事</strong>：按源图 alpha（无 alpha 用亮度）求门限 → 只在该门限内、沿局部梯度法线向外做单尺度亚像素扩散 → 用坐标+帧号哈希噪声调制扩散量。</li><li><strong>不要做</strong>整幅水彩化、不要做多色扩散、不要做纸张底纹叠加（那三样会直接落进 BCCWaterColor / BCCEdgeGrunge / S_TextureNoisePaint 的地盘）。</li><li>README 里必须写一句：「本件与 BCCEdgeGrunge 的区别 = 改轮廓形状 vs 改边缘质感；若你只是要边缘做旧，用已装的 BCCEdgeGrunge 即可，不必装本件。」</li></ul></body></html>
